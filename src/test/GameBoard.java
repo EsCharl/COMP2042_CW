@@ -22,7 +22,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
-
+/**
+ *  this is a class that handles the gaming part of the program. which includes the pause
+ */
 
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
@@ -56,7 +58,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private DebugConsole debugConsole;
 
-
+    /**
+     * this method prepares the game
+     *
+     * @param owner this takes in a frame
+     */
     public GameBoard(JFrame owner){
         super();
 
@@ -107,7 +113,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     }
 
-
+    /**
+     * this method sets the variables and prepares the game. (game window size, track inputs, etc
+     */
 
     private void initialize(){
         this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
@@ -118,7 +126,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.addMouseMotionListener(this);
     }
 
-
+    /**
+     *
+     * @param g this takes in
+     */
     public void paint(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;

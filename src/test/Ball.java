@@ -8,6 +8,10 @@ import java.awt.geom.RectangularShape;
  * Created by filippo on 04/09/16.
  *
  */
+
+/**
+ * this is an abstract class which is used for implementation. (RubberBall)
+ */
 abstract public class Ball {
 
     private Shape ballFace;

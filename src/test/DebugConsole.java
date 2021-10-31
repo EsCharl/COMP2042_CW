@@ -22,6 +22,9 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * Objective of this class is to create the console
+ */
 public class DebugConsole extends JDialog implements WindowListener{
 
     private static final String TITLE = "Debug Console";
@@ -32,7 +35,13 @@ public class DebugConsole extends JDialog implements WindowListener{
     private GameBoard gameBoard;
     private Wall wall;
 
-
+    /**
+     * this method is used for showing a console in the middle of the game window.
+     *
+     * @param owner a graphical frame that is going to be used.
+     * @param wall the game level that is generated, the status of the game.
+     * @param gameBoard the status of the game board.
+     */
     public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
 
         this.wall = wall;
@@ -47,6 +56,9 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.pack();
     }
 
+    /**
+     * This method is used for creating the console in the middle of the game window.
+     */
     private void initialize(){
         this.setModal(true);
         this.setTitle(TITLE);
@@ -56,39 +68,70 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.setFocusable(true);
     }
 
-
+    /**
+     * This method is used for get the size of the window and setting it in the middle of the window.
+     */
     private void setLocation(){
         int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
         int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
         this.setLocation(x,y);
     }
 
-
+    /**
+     * this is initially a JDialog abstract class method, and it is being implemented. Its uses create to make a window.
+     *
+     * @param windowEvent the action that is done on the window
+     */
     @Override
     public void windowOpened(WindowEvent windowEvent) {
 
     }
 
+    /**
+     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are for removing a window.
+     *
+     * @param windowEvent the action that is done on the window
+     */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
         gameBoard.repaint();
     }
 
+    /**
+     * this is initially a JDialog abstract class method, and it is being implemented. Its uses if to remove/dispose a window.
+     *
+     * @param windowEvent the action that is done on the window
+     */
     @Override
     public void windowClosed(WindowEvent windowEvent) {
 
     }
 
+    /**
+     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are for removing a window.
+     *
+     * @param windowEvent the action that is done on the window
+     */
     @Override
     public void windowIconified(WindowEvent windowEvent) {
 
     }
 
+    /**
+     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are for minimizing a window.
+     *
+     * @param windowEvent the action that is done on the window
+     */
     @Override
     public void windowDeiconified(WindowEvent windowEvent) {
 
     }
 
+    /**
+     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are to set the window in an active state.
+     *
+     * @param windowEvent the action that is done on the window
+     */
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
@@ -96,6 +139,11 @@ public class DebugConsole extends JDialog implements WindowListener{
         debugPanel.setValues(b.getSpeedX(),b.getSpeedY());
     }
 
+    /**
+     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are to make a window to an inactive state.
+     *
+     * @param windowEvent the action that is done on the window
+     */
     @Override
     public void windowDeactivated(WindowEvent windowEvent) {
 

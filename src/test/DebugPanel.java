@@ -22,7 +22,9 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Objective of this class is to deal with the contents in the console
+ */
 
 public class DebugPanel extends JPanel {
 
@@ -36,6 +38,13 @@ public class DebugPanel extends JPanel {
     private JSlider ballYSpeed;
 
     private Wall wall;
+
+    /**
+     * This method contains the code needed for the console in the game.
+     *
+     * @param   wall A wall class that is created, and it uses nextLevel, resetBallCount, setBallXSpeed,
+     *               and setBallYSpeed method that is available in wall class.
+     */
 
     public DebugPanel(Wall wall){
 
@@ -57,17 +66,36 @@ public class DebugPanel extends JPanel {
 
     }
 
+    /**
+     * this method creates a square which will specify the number of inputs allowed.
+     */
+
     private void initialize(){
         this.setBackground(DEF_BKG);
         this.setLayout(new GridLayout(2,2));
     }
 
+    /**
+     *  This method is used to create a button for the console which is used to change the level or the speed of the ball.
+     *
+     * @param title the title is the name listen inside the button.
+     * @param e this allows that when the button is clicked it will be a true.
+     * @return a button for the game console
+     */
     private JButton makeButton(String title, ActionListener e){
         JButton out = new JButton(title);
         out.addActionListener(e);
         return  out;
     }
 
+    /**
+     * this method is used to create a slider for the intent of changing the value.
+     *
+     * @param min   the lowest possible value that it can go for the slider
+     * @param max   the highest possible value that it can go for the slider
+     * @param e     this detects if there is a change of value
+     * @return      this returns a slider for the console
+     */
     private JSlider makeSlider(int min, int max, ChangeListener e){
         JSlider out = new JSlider(min,max);
         out.setMajorTickSpacing(1);
@@ -77,6 +105,12 @@ public class DebugPanel extends JPanel {
         return out;
     }
 
+    /**
+     * This method used for changing the value of the ball speed.
+     *
+     * @param x this takes in the value that the ball supposed to go in the x-axis and set it for the ball
+     * @param y this takes in the value that the ball supposed to go in the y-axis and set it for the ball
+     */
     public void setValues(int x,int y){
         ballXSpeed.setValue(x);
         ballYSpeed.setValue(y);

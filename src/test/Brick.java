@@ -10,6 +10,10 @@ import java.util.Random;
  * Created by filippo on 04/09/16.
  *
  */
+
+/**
+ * This class is an abstract class which is going to be used for implementation. (CementBrick, ClayBrick, SteelBrick)
+ */
 abstract public class Brick  {
 
     public static final int MIN_CRACK = 1;
