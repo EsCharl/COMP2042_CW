@@ -42,7 +42,7 @@ public class DebugPanel extends JPanel {
     /**
      * This method contains the code needed for the console in the game.
      *
-     * @param   wall A wall class that is created, and it uses nextLevel, resetBallCount, setBallXSpeed,
+     * @param   wall A wall class that is created, and it is used for nextLevel, resetBallCount, setBallXSpeed,
      *               and setBallYSpeed method that is available in wall class.
      */
 

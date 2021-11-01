@@ -78,7 +78,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is initially a JDialog abstract class method, and it is being implemented. Its uses create to make a window.
+     * this is initially a WindowListener Interface class method, and it is being implemented. Its uses create to make a window.
      *
      * @param windowEvent the action that is done on the window
      */
@@ -88,7 +88,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are for removing a window.
+     * this is initially a WindowListener Interface class method, and it is being implemented. Its uses are for removing a window.
      *
      * @param windowEvent the action that is done on the window
      */
@@ -98,7 +98,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is initially a JDialog abstract class method, and it is being implemented. Its uses if to remove/dispose a window.
+     * this is initially a WindowListener Interface class method, and it is being implemented. Its uses if to remove/dispose a window.
      *
      * @param windowEvent the action that is done on the window
      */
@@ -108,7 +108,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are for removing a window.
+     * this is initially a WindowListener Interface class method, and it is being implemented. Its uses are for removing a window.
      *
      * @param windowEvent the action that is done on the window
      */
@@ -118,7 +118,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are for minimizing a window.
+     * this is initially a WindowListener Interface class method, and it is being implemented. Its uses are for minimizing a window.
      *
      * @param windowEvent the action that is done on the window
      */
@@ -128,7 +128,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are to set the window in an active state.
+     * this is initially a WindowListener Interface class method, and it is being implemented. Its uses are to set the window in an active state.
      *
      * @param windowEvent the action that is done on the window
      */
@@ -140,7 +140,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is initially a JDialog abstract class method, and it is being implemented. Its uses are to make a window to an inactive state.
+     * this is initially a WindowListener Interface class method, and it is being implemented. Its uses are to make a window to an inactive state.
      *
      * @param windowEvent the action that is done on the window
      */
