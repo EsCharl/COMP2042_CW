@@ -17,13 +17,19 @@
  */
 package test;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
 
 
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
@@ -129,7 +135,16 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
-        g2d.setColor(BG_COLOR);
+        BufferedImage image = null;
+        try{
+            image = ImageIO.read(new File("mainimage.png"));
+            System.out.println("test");
+        }catch(IOException e){
+            g2d.setColor(BG_COLOR);
+        }
+
+
+        g2d.drawImage(image,0,0,this);
         g2d.fill(menuFace);
 
         Stroke tmp = g2d.getStroke();
