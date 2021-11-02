@@ -39,6 +39,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private static final String CREDITS = "Version 0.1";
     private static final String START_TEXT = "Start";
     private static final String MENU_TEXT = "Exit";
+    private static final String INFO_TEXT = "Info";
 
     private static final Color BG_COLOR = Color.GREEN.darker();
     private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
@@ -53,6 +54,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle startButton;
     private Rectangle menuButton;
 
+    // for the info button
+    private Rectangle infoButton;
 
     private BasicStroke borderStoke;
     private BasicStroke borderStoke_noDashes;
@@ -86,6 +89,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
+
+        //for the info button
+
 
         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
@@ -135,17 +141,16 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
+        //code for an image in the startgame menu.
         BufferedImage image = null;
         try{
-            image = ImageIO.read(new File("mainimage.png"));
-            System.out.println("test");
+            image = ImageIO.read(new File("test/Resources/mainimage.png"));
         }catch(IOException e){
             g2d.setColor(BG_COLOR);
         }
 
-
-        g2d.drawImage(image,0,0,this);
         g2d.fill(menuFace);
+        g2d.drawImage(image,0,0,this);
 
         Stroke tmp = g2d.getStroke();
 
@@ -201,6 +206,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT,frc);
         Rectangle2D mTxtRect = buttonFont.getStringBounds(MENU_TEXT,frc);
+
+        // addional line of code for the info button
+        Rectangle2D m2TxtRect = buttonFont.getStringBounds(INFO_TEXT,frc);
 
         g2d.setFont(buttonFont);
 
