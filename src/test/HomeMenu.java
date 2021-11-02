@@ -31,7 +31,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
 
-
+/**
+ * this class is used for creating the home menu which is also known as the start page.
+ */
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final String GREETINGS = "Welcome to:";
@@ -54,9 +56,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle startButton;
     private Rectangle menuButton;
 
-    // for the info button
-    private Rectangle infoButton;
-
     private BasicStroke borderStoke;
     private BasicStroke borderStoke_noDashes;
 
@@ -70,7 +69,21 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean startClicked;
     private boolean menuClicked;
 
+    // for the images
+    private static final String MAIN_IMAGE_PATH = "test/Resources/mainimage.png";
+    private static final String INFO_IMAGE_PATH = "test/Resources/Console.png";
 
+    // for the info button
+    private Rectangle infoButton;
+    private boolean infoClicked;
+
+
+    /**
+     * this method creates a window to show the game.
+     *
+     * @param owner this takes in the game frame which is also a frame that is shown on the start page when the game is started
+     * @param area is the information that is used to create the window in terms of the dimensions.
+     */
     public HomeMenu(GameFrame owner,Dimension area){
 
         this.setFocusable(true);
@@ -91,7 +104,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         menuButton = new Rectangle(btnDim);
 
         //for the info button
-
+        infoButton = new Rectangle(btnDim);
 
         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
@@ -144,7 +157,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         //code for an image in the startgame menu.
         BufferedImage image = null;
         try{
-            image = ImageIO.read(new File("test/Resources/mainimage.png"));
+            image = ImageIO.read(new File(MAIN_IMAGE_PATH));
         }catch(IOException e){
             g2d.setColor(BG_COLOR);
         }
@@ -212,8 +225,34 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         g2d.setFont(buttonFont);
 
-        int x = (menuFace.width - startButton.width) / 2;
-        int y =(int) ((menuFace.height - startButton.height) * 0.8);
+        int x = (menuFace.width - infoButton.width) / 2;
+        int y = (int) ((menuFace.height - infoButton.height) * 0.65);
+
+        // these codes are for the implementation of the info button
+        infoButton.setLocation(x,y);
+
+        x = (int)(infoButton.getWidth() - m2TxtRect.getWidth()) / 2;
+        y = (int)(infoButton.getHeight() - m2TxtRect.getHeight()) / 2;
+
+        x += infoButton.x;
+        y += infoButton.y + (infoButton.height * 0.9);
+
+        if(infoClicked){
+            Color tmp = g2d.getColor();
+            g2d.setColor(CLICKED_BUTTON_COLOR);
+            g2d.draw(infoButton);
+            g2d.setColor(CLICKED_TEXT);
+            g2d.drawString(INFO_TEXT,x,y);
+            g2d.setColor(tmp);
+        }
+        else{
+            g2d.draw(infoButton);
+            g2d.drawString(INFO_TEXT,x,y);
+        }
+
+
+        x = (menuFace.width - startButton.width) / 2;
+        y =(int) ((menuFace.height - startButton.height) * 0.8);
 
         startButton.setLocation(x,y);
 
@@ -282,6 +321,13 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
         }
+        else if(infoButton.contains(p)){
+            try {
+                this.DisplayInfo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -296,6 +342,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             menuClicked = true;
             repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
         }
+        else if(infoButton.contains(p)){
+            infoClicked = true;
+            repaint(infoButton.x, infoButton.y, infoButton.width+1,infoButton.height+1);
+        }
     }
 
     @Override
@@ -307,6 +357,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         else if(menuClicked){
             menuClicked = false;
             repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
+        }
+        else if(infoClicked){
+            infoClicked = false;
+            repaint(infoButton.x, infoButton.y, infoButton.width+1,infoButton.height+1);
         }
     }
 
@@ -329,10 +383,22 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p) || menuButton.contains(p))
+        if(startButton.contains(p) || menuButton.contains(p) || infoButton.contains(p))
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
+    }
 
+    public void DisplayInfo() throws IOException{
+        BufferedImage display = ImageIO.read(new File(INFO_IMAGE_PATH));
+        ImageIcon icon = new ImageIcon(display);
+        JFrame frame=new JFrame();
+        frame.setTitle(INFO_TEXT);
+        frame.setLayout(new FlowLayout());
+        frame.setSize(500,400);
+        JLabel lbl=new JLabel();
+        lbl.setIcon(icon);
+        frame.add(lbl);
+        frame.setVisible(true);
     }
 }
