@@ -71,7 +71,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     // for the images
     private static final String MAIN_IMAGE_PATH = "test/Resources/mainimage.png";
-    private static final String INFO_IMAGE_PATH = "test/Resources/Console.png";
+    private static final String INFO_IMAGE_PATH = "test/Resources/Info.png";
 
     // for the info button
     private Rectangle infoButton;

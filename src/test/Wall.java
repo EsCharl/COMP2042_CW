@@ -206,7 +206,7 @@ public class Wall {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.down, Brick.Crack.UP);
+                    return b.setImpact(ball.down,Brick.Crack.UP);
                 case Brick.DOWN_IMPACT:
                     ball.reverseY();
                     return b.setImpact(ball.up,Brick.Crack.DOWN);
