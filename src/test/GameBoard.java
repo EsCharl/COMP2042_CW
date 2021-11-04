@@ -17,10 +17,17 @@
  */
 package test;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause
@@ -58,6 +65,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private DebugConsole debugConsole;
 
+    //for the timer
+    private long timer = 0;
+    private long totalTime = 0;
+    private long pauseTime = 0;
+
+    //background image
+    private static String BACKGROUND_IMAGE_PATH = "test/Resources/BackGround.png";
+
     /**
      * this method prepares the game
      *
@@ -93,6 +108,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 }
                 wall.ballReset();
                 gameTimer.stop();
+                pauseTimer();
             }
             else if(wall.isDone()){
                 if(wall.hasLevel()){
@@ -106,6 +122,23 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     message = "ALL WALLS DESTROYED";
                     gameTimer.stop();
                 }
+
+                // for the highscore pop up
+//                try {
+//                    drawHighScore(wall.getWallLevel());
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+
+                //for save file saving
+                try {
+                    updateSaveFile(wall.getWallLevel(), getHighScore(wall.getWallLevel()));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                System.out.println("finish: " + getTimer());
+                restartTimer();
             }
 
             repaint();
@@ -339,17 +372,24 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 showPauseMenu = !showPauseMenu;
                 repaint();
                 gameTimer.stop();
+                pauseTimer();
                 break;
             case KeyEvent.VK_SPACE:
                 if(!showPauseMenu)
-                    if(gameTimer.isRunning())
+                    if(gameTimer.isRunning()){
                         gameTimer.stop();
-                    else
+                        pauseTimer();
+                      System.out.println(getTimer());
+                    }else{
                         gameTimer.start();
+                        startTimer();
+                    }
                 break;
             case KeyEvent.VK_F1:
-                if(keyEvent.isAltDown() && keyEvent.isShiftDown())
+                if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
                     debugConsole.setVisible(true);
+                    pauseTimer();
+                }
             default:
                 wall.player.stop();
         }
@@ -378,6 +418,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         if(continueButtonRect.contains(p)){
             showPauseMenu = false;
             repaint();
+
+
+            startTimer();
         }
         else if(restartButtonRect.contains(p)){
             message = "Restarting Game...";
@@ -385,6 +428,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             wall.wallReset();
             showPauseMenu = false;
             repaint();
+
+
+            restartTimer();
         }
         else if(exitButtonRect.contains(p)){
             System.exit(0);
@@ -470,4 +516,90 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         repaint();
     }
 
+    //needs edits
+    private void drawHighScore(int level) throws IOException {
+        JFrame frame=new JFrame("LEVEL "+ (level+1) + " HIGH SCORE");
+        frame.setLayout(new FlowLayout());
+        frame.setSize(500,400);
+        JLabel lbl;
+        String[] sorted = getHighScore(level);
+        for (int i = 0 ; i < 10; i++){
+            lbl=new JLabel(sorted[i]);
+            frame.add(lbl);
+        }
+
+        frame.setVisible(true);
+    }
+
+    private String[] getHighScore(int level) throws FileNotFoundException {
+        int i = 0;
+        String[] Completed = new String[10];
+        Scanner scan = new Scanner(new File("test/scores/Level"+level+".txt"));
+        Boolean placed = false;
+        while (scan.hasNextLine() && i < 10){
+            // to split the name and time to include inside the highscore.
+            String[] line = scan.nextLine().split(",",2);
+            String name = line[0];
+            String time = line[1];
+
+            // for conversion of the time to seconds.
+            String[] pretime = time.split(":",2);
+            int minute = Integer.parseInt(pretime[0]);
+            int second = Integer.parseInt(pretime[1]);
+
+            int total_millisecond = (minute * 60 + second) * 1000;
+            if (totalTime < total_millisecond && !placed){
+                Completed[i] = System.getProperty("user.name") + ',' + getTimer();
+                placed = true;
+                i++;
+                if (i != 10)
+                    Completed[i] = name + ',' + time;
+            }else{
+                Completed[i] = name + ',' + time;
+            }
+            i++;
+        }
+        return Completed;
+    }
+
+    private String getTimer(){
+        pauseTimer();
+        long elapsedSeconds = totalTime / 1000;
+        long secondsDisplay = elapsedSeconds % 60;
+        long elapsedMinutes = elapsedSeconds / 60;
+        if (secondsDisplay <= 9){
+            return elapsedMinutes + ":0" + secondsDisplay;
+        }
+        return elapsedMinutes + ":" + secondsDisplay;
+    }
+
+    private void startTimer(){
+        timer = System.currentTimeMillis();
+    }
+
+    private void pauseTimer(){
+        pauseTime = System.currentTimeMillis();
+
+        totalTime += (pauseTime - timer);
+    }
+
+    private void restartTimer(){
+        totalTime = 0;
+    }
+
+    private void updateSaveFile(int level, String[] sorted) throws IOException {
+        File file = new File("test/scores/level"+level+".txt");
+        file.delete();
+        file = new File("test/scores/level"+level+".txt");
+        FileWriter overwrite = new FileWriter(file,false);
+        overwrite.write(sorted[0]);
+        overwrite = new FileWriter(file,true);
+        for (int i = 1; i < 10; i++){
+            if (sorted[i] != null){
+                overwrite.write(sorted[i]);
+            }else
+                break;
+        }
+        overwrite.close();
+    }
 }

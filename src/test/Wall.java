@@ -309,4 +309,7 @@ public class Wall {
         return  out;
     }
 
+    public int getWallLevel(){
+        return level;
+    }
 }
