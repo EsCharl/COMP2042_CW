@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -125,14 +126,16 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
                 // for the highscore pop up
 //                try {
-//                    drawHighScore(wall.getWallLevel());
+//                    drawHighScore(wall.getWallLevel()-1);
 //                } catch (IOException ex) {
 //                    ex.printStackTrace();
 //                }
 
                 //for save file saving
                 try {
-                    updateSaveFile(wall.getWallLevel(), getHighScore(wall.getWallLevel()));
+                    ArrayList<String> sorted = getHighScore(wall.getWallLevel()-1);
+                    updateSaveFile(wall.getWallLevel()-1, sorted);
+                    drawHighScore(wall.getWallLevel()-1,sorted);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -517,26 +520,24 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     //needs edits
-    private void drawHighScore(int level) throws IOException {
-        JFrame frame=new JFrame("LEVEL "+ (level+1) + " HIGH SCORE");
+    private void drawHighScore(int level, ArrayList<String> sorted) throws IOException {
+        JFrame frame=new JFrame("LEVEL "+ level + " HIGH SCORE");
         frame.setLayout(new FlowLayout());
         frame.setSize(500,400);
         JLabel lbl;
-        String[] sorted = getHighScore(level);
         for (int i = 0 ; i < 10; i++){
-            lbl=new JLabel(sorted[i]);
+            lbl=new JLabel(sorted.get(i));
             frame.add(lbl);
         }
 
         frame.setVisible(true);
     }
 
-    private String[] getHighScore(int level) throws FileNotFoundException {
-        int i = 0;
-        String[] Completed = new String[10];
+    private ArrayList<String> getHighScore(int level) throws FileNotFoundException {
+        ArrayList<String> Completed = new ArrayList<String>();
         Scanner scan = new Scanner(new File("test/scores/Level"+level+".txt"));
         Boolean placed = false;
-        while (scan.hasNextLine() && i < 10){
+        while (scan.hasNextLine()){
             // to split the name and time to include inside the highscore.
             String[] line = scan.nextLine().split(",",2);
             String name = line[0];
@@ -549,15 +550,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
             int total_millisecond = (minute * 60 + second) * 1000;
             if (totalTime < total_millisecond && !placed){
-                Completed[i] = System.getProperty("user.name") + ',' + getTimer();
+                Completed.add(System.getProperty("user.name") + ',' + getTimer());
                 placed = true;
-                i++;
-                if (i != 10)
-                    Completed[i] = name + ',' + time;
+                Completed.add(name + ',' + time);
             }else{
-                Completed[i] = name + ',' + time;
+                Completed.add(name + ',' + time);
             }
-            i++;
         }
         return Completed;
     }
@@ -587,19 +585,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         totalTime = 0;
     }
 
-    private void updateSaveFile(int level, String[] sorted) throws IOException {
-        File file = new File("test/scores/level"+level+".txt");
-        file.delete();
-        file = new File("test/scores/level"+level+".txt");
+    private void updateSaveFile(int level, ArrayList<String> sorted) throws IOException {
+        File file = new File("test/scores/Level"+level+".txt");
         FileWriter overwrite = new FileWriter(file,false);
-        overwrite.write(sorted[0]);
-        overwrite = new FileWriter(file,true);
-        for (int i = 1; i < 10; i++){
-            if (sorted[i] != null){
-                overwrite.write(sorted[i]);
-            }else
-                break;
-        }
+        for (int i = 0; i < sorted.size()-1; i++)
+            overwrite.write(sorted.get(i)+"\n");
+        overwrite.write(sorted.get(sorted.size()-1));
         overwrite.close();
     }
 }
