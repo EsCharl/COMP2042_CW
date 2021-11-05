@@ -19,6 +19,10 @@ package test;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
@@ -124,23 +128,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     gameTimer.stop();
                 }
 
-                // for the highscore pop up
-//                try {
-//                    drawHighScore(wall.getWallLevel()-1);
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
-
-                //for save file saving
+                //for save file saving and highscore pop up
                 try {
                     ArrayList<String> sorted = getHighScore(wall.getWallLevel()-1);
                     updateSaveFile(wall.getWallLevel()-1, sorted);
                     drawHighScore(wall.getWallLevel()-1,sorted);
-                } catch (IOException ex) {
+                } catch (IOException | BadLocationException ex) {
                     ex.printStackTrace();
                 }
-
-                System.out.println("finish: " + getTimer());
                 restartTimer();
             }
 
@@ -519,16 +514,34 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         repaint();
     }
 
-    //needs edits
-    private void drawHighScore(int level, ArrayList<String> sorted) throws IOException {
+    //needs testing
+    private void drawHighScore(int level, ArrayList<String> sorted) throws IOException, BadLocationException {
         JFrame frame=new JFrame("LEVEL "+ level + " HIGH SCORE");
         frame.setLayout(new FlowLayout());
         frame.setSize(500,400);
-        JLabel lbl;
-        for (int i = 0 ; i < 10; i++){
-            lbl=new JLabel(sorted.get(i));
-            frame.add(lbl);
+
+        Container cp = frame.getContentPane();
+        JTextPane pane = new JTextPane();
+        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
+        StyleConstants.setBold(attributeSet, true);
+
+        // Set the attributes before adding text
+        pane.setCharacterAttributes(attributeSet, true);
+        pane.setText(String.format("%-20s %s\n\n", "Name", "Time"));
+
+        attributeSet = new SimpleAttributeSet();
+        StyleConstants.setForeground(attributeSet, Color.RED);
+        StyleConstants.setBackground(attributeSet, Color.GREEN);
+
+        Document doc = pane.getStyledDocument();
+        for (int i = 0 ; i < sorted.size(); i++){
+            String[] list = sorted.get(i).split(",",2);
+            String name = list[0];
+            String time = list[1];
+            doc.insertString(doc.getLength(),String.format("%-20s %s\n",name, time), attributeSet);
         }
+        JScrollPane scrollPane = new JScrollPane(pane);
+        cp.add(scrollPane, BorderLayout.CENTER);
 
         frame.setVisible(true);
     }
