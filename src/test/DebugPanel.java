@@ -37,7 +37,11 @@ public class DebugPanel extends JPanel {
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
+    private JLabel xText;
+    private JLabel yText;
+
     private Wall wall;
+    private GameBoard board;
 
     /**
      * This method contains the code needed for the console in the game.
@@ -46,13 +50,14 @@ public class DebugPanel extends JPanel {
      *               and setBallYSpeed method that is available in wall class.
      */
 
-    public DebugPanel(Wall wall){
+    public DebugPanel(Wall wall, GameBoard board){
 
         this.wall = wall;
+        this.board = board;
 
         initialize();
 
-        skipLevel = makeButton("Skip Level",e -> wall.nextLevel());
+        skipLevel = makeButton("Skip Level",e -> board.skipLevel());
         resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
 
         ballXSpeed = makeSlider(-4,4,e -> wall.setBallXSpeed(ballXSpeed.getValue()));
@@ -64,6 +69,20 @@ public class DebugPanel extends JPanel {
         this.add(ballXSpeed);
         this.add(ballYSpeed);
 
+        // newly added
+        ballXSpeed.setPaintTicks(true);
+        ballXSpeed.setPaintTrack(true);
+        ballXSpeed.setPaintLabels(true);
+
+        ballYSpeed.setPaintTicks(true);
+        ballYSpeed.setPaintTrack(true);
+        ballYSpeed.setPaintLabels(true);
+
+        xText = new JLabel("Ball x-axis speed", SwingConstants.CENTER);
+        yText = new JLabel("Ball y-axis speed", SwingConstants.CENTER);
+
+        this.add(xText);
+        this.add(yText);
     }
 
     /**
@@ -72,7 +91,7 @@ public class DebugPanel extends JPanel {
 
     private void initialize(){
         this.setBackground(DEF_BKG);
-        this.setLayout(new GridLayout(2,2));
+        this.setLayout(new GridLayout(3,2));
     }
 
     /**

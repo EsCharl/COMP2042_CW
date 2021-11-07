@@ -16,7 +16,6 @@ import java.util.Random;
  */
 abstract public class Brick  {
 
-    public static final int MIN_CRACK = 1;
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
 
@@ -27,7 +26,9 @@ abstract public class Brick  {
     public static final int RIGHT_IMPACT = 400;
 
 
-
+    /**
+     * This class is used for the bricks on the level to display the crack if they are not destroyed.
+     */
     public class Crack{
 
         private static final int CRACK_SECTIONS = 3;
@@ -67,6 +68,12 @@ abstract public class Brick  {
             crack.reset();
         }
 
+        /**
+         * This method is used to calculate and determine where to draw the crack.
+         *
+         * @param point the point where the ball comes in contact with.
+         * @param direction the direction where the ball touch the brick.
+         */
         protected void makeCrack(Point2D point, int direction){
             Rectangle bounds = Brick.this.brickFace.getBounds();
 
@@ -80,34 +87,41 @@ abstract public class Brick  {
                     start.setLocation(bounds.x + bounds.width, bounds.y);
                     end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
                     Point tmp = makeRandomPoint(start,end,VERTICAL);
-                    makeCrack(impact,tmp);
+                    drawCrack(impact,tmp);
 
                     break;
                 case RIGHT:
                     start.setLocation(bounds.getLocation());
                     end.setLocation(bounds.x, bounds.y + bounds.height);
                     tmp = makeRandomPoint(start,end,VERTICAL);
-                    makeCrack(impact,tmp);
+                    drawCrack(impact,tmp);
 
                     break;
                 case UP:
                     start.setLocation(bounds.x, bounds.y + bounds.height);
                     end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
                     tmp = makeRandomPoint(start,end,HORIZONTAL);
-                    makeCrack(impact,tmp);
+                    drawCrack(impact,tmp);
                     break;
                 case DOWN:
                     start.setLocation(bounds.getLocation());
                     end.setLocation(bounds.x + bounds.width, bounds.y);
                     tmp = makeRandomPoint(start,end,HORIZONTAL);
-                    makeCrack(impact,tmp);
+                    drawCrack(impact,tmp);
 
                     break;
 
             }
         }
 
-        protected void makeCrack(Point start, Point end){
+        /**
+         * this method is used to draw the crack.
+         *
+         * @param start
+         * @param end
+         */
+        //method name change
+        protected void drawCrack(Point start, Point end){
 
             GeneralPath path = new GeneralPath();
 
@@ -137,6 +151,7 @@ abstract public class Brick  {
             path.lineTo(end.x,end.y);
             crack.append(path,true);
         }
+
 
         private int randomInBounds(int bound){
             int n = (bound * 2) + 1;

@@ -369,15 +369,17 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
                 repaint();
-                gameTimer.stop();
-                pauseTimer();
+                if (gameTimer.isRunning()){
+                    gameTimer.stop();
+                    pauseTimer();
+                }
                 break;
             case KeyEvent.VK_SPACE:
                 if(!showPauseMenu)
                     if(gameTimer.isRunning()){
                         gameTimer.stop();
                         pauseTimer();
-                      System.out.println(getTimer());
+                        System.out.println(getTimer());
                     }else{
                         gameTimer.start();
                         startTimer();
@@ -385,8 +387,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 break;
             case KeyEvent.VK_F1:
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
-                    debugConsole.setVisible(true);
+                    showPauseMenu = true;
                     pauseTimer();
+                    gameTimer.stop();
+                    debugConsole.setVisible(true);
                 }
             default:
                 wall.player.stop();
@@ -416,9 +420,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         if(continueButtonRect.contains(p)){
             showPauseMenu = false;
             repaint();
-
-
-            startTimer();
         }
         else if(restartButtonRect.contains(p)){
             message = "Restarting Game...";
@@ -621,7 +622,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * This method is used when a new level or a restart of the level is selected.
+     * This method is used when a new level or a restart of the level is selected to restart the total time variable which is used to complete the level.
      */
     private void restartTimer(){
         totalTime = 0;
@@ -641,5 +642,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             overwrite.write(sorted.get(i)+"\n");
         overwrite.write(sorted.get(sorted.size()-1));
         overwrite.close();
+    }
+
+    /**
+     * this is used by the DebugPanel class to skip the level which will restart the timer and generate the next level.
+     */
+    void skipLevel(){
+        restartTimer();
+        wall.nextLevel();
+        wall.wallReset();
+        wall.ballReset();
     }
 }
