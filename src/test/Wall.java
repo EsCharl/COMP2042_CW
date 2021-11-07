@@ -21,7 +21,9 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-
+/**
+ * this class is used to generate the level and maintain some game condition.
+ */
 public class Wall {
 
     private static final int LEVELS_COUNT = 4;
@@ -45,6 +47,15 @@ public class Wall {
     private int ballCount;
     private boolean ballLost;
 
+    /**
+     * this is used to generate an object which is the wall used for the levels.
+     *
+     * @param drawArea this is the area of the game will be held.
+     * @param brickCount this is the amount of brick for the wall.
+     * @param lineCount this is for how many lines (rows) of bricks are in the level.
+     * @param brickDimensionRatio this is for the ratio for the brick dimension.
+     * @param ballPos this is the ball position.
+     */
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
         this.startPoint = new Point(ballPos);
@@ -75,6 +86,16 @@ public class Wall {
 
     }
 
+    /**
+     * this is one of the template for one of the wall (level).
+     *
+     * @param drawArea this is the area which the bricks could be placed
+     * @param brickCnt this is the amount of bricks which will be in for the level.
+     * @param lineCnt this is the number of rows of bricks for the level.
+     * @param brickSizeRatio this is the size ratio of the brick.
+     * @param type this is the type of brick used for this level.
+     * @return it returns a wall (level) in the form of a brick array.
+     */
     private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
@@ -115,6 +136,17 @@ public class Wall {
 
     }
 
+    /**
+     * this is one of the template for one of the wall (level).
+     *
+     * @param drawArea this is the area which the bricks could be placed
+     * @param brickCnt this is the amount of bricks which will be in for the level.
+     * @param lineCnt this is the number of rows of bricks for the level.
+     * @param brickSizeRatio this is the size ratio of the brick.
+     * @param typeA this is one of the type of brick used for this level.
+     * @param typeB this is one of the type of brick used for this level.
+     * @return it returns a wall (level) in the form of a brick array.
+     */
     private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
@@ -160,10 +192,24 @@ public class Wall {
         return tmp;
     }
 
+    /**
+     * this method is used to generate a ball object.
+     *
+     * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
+     */
     private void makeBall(Point2D ballPos){
         ball = new RubberBall(ballPos);
     }
 
+    /**
+     * this is used to generate the levels.
+     *
+     * @param drawArea this is the area where the bricks will be drawn.
+     * @param brickCount this is the amount bricks that will be generated in the level.
+     * @param lineCount this is the total amount of rows of bricks that is allowed.
+     * @param brickDimensionRatio this is the ratio for the bricks.
+     * @return the levels that are generated in the form of 2 dimension brick array.
+     */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
         tmp[0] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY);
@@ -173,11 +219,17 @@ public class Wall {
         return tmp;
     }
 
+    /**
+     * This method is used for the movement of the player (paddle) and the ball.
+     */
     public void move(){
         player.move();
         ball.move();
     }
 
+    /**
+     * this method is used to check if there is an impact for the ball with any entity, and the sides of the screen. which will cause a reaction to the game.
+     */
     public void findImpacts(){
         if(player.impact(ball)){
             ball.reverseY();
@@ -200,6 +252,11 @@ public class Wall {
         }
     }
 
+    /**
+     * this is to check if the ball comes in contact with any side of the entity(bricks)
+     *
+     * @return returns a boolean value if or if it doesn't touch any entity.
+     */
     private boolean impactWall(){
         for(Brick b : bricks){
             switch(b.findImpact(ball)) {
@@ -223,23 +280,46 @@ public class Wall {
         return false;
     }
 
+    /**
+     * this method is used to check if the ball have come in contact with the sides of the game window.
+     *
+     * @return this returns a boolean value if it touches or doesn't touch the side of the game window
+     */
     private boolean impactBorder(){
         Point2D p = ball.getPosition();
         return ((p.getX() < area.getX()) ||(p.getX() > (area.getX() + area.getWidth())));
     }
 
+    /**
+     * this is used to get the total amount of bricks still in the level
+     *
+     * @return this returns a int value of the amount of bricks still in the level.
+     */
     public int getBrickCount(){
         return brickCount;
     }
 
+    /**
+     * this is used to get the amount of balls (tries) for the level.
+     *
+     * @return this returns the amount of balls (tries) in integer.
+     */
     public int getBallCount(){
         return ballCount;
     }
 
+    /**
+     * this is used to get if the ball is lost.
+     *
+     * @return this returns a boolean value if the ball is or isn't lost.
+     */
     public boolean isBallLost(){
         return ballLost;
     }
 
+    /**
+     * this is used to reset the ball to the starting position.
+     */
     public void ballReset(){
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
@@ -255,6 +335,9 @@ public class Wall {
         ballLost = false;
     }
 
+    /**
+     * this is used to reset the wall (level).
+     */
     public void wallReset(){
         for(Brick b : bricks)
             b.repair();
@@ -262,35 +345,74 @@ public class Wall {
         ballCount = 3;
     }
 
+    /**
+     * this method checks if the there isn't any more tries for the player.
+     *
+     * @return returns a boolean value if there is or isn't any more tries allowed for the player.
+     */
     public boolean ballEnd(){
         return ballCount == 0;
     }
 
+    /**
+     * this method checks if the level is completed.
+     *
+     * @return returns a boolean value if the level is completed or isn't completed.
+     */
     public boolean isDone(){
         return brickCount == 0;
     }
 
+    /**
+     * this method is used to progress to the next level.
+     */
     public void nextLevel(){
         bricks = levels[level++];
         this.brickCount = bricks.length;
     }
 
+    /**
+     * this method is used to check if there is any more levels available for the player to play.
+     *
+     * @return returns a boolean value if there is or isn't any more levels for the player to play.
+     */
     public boolean hasLevel(){
         return level < levels.length;
     }
 
+    /**
+     * this method is used to set the ball speed in x-axis.
+     *
+     * @param s this is the parameter (in integer) used to set the ball speed in x-axis.
+     */
     public void setBallXSpeed(int s){
         ball.setXSpeed(s);
     }
 
+    /**
+     * this method os used to set the ball speed in the y-axis.
+     *
+     * @param s this is the parameter (in integer) used to set the ball speed in y-axis.
+     */
     public void setBallYSpeed(int s){
         ball.setYSpeed(s);
     }
 
+    /**
+     * this method is used to reset the ball count (tries count) to 3.
+     */
     public void resetBallCount(){
         ballCount = 3;
     }
 
+    /**
+     * this method is used to generate the brick needed for the level.
+     *
+     * @param point this is used get the position where the brick is supposed to be.
+     * @param size this is for the size of the brick
+     * @param type this is the type of brick to be used.
+     * @return this returns the brick that is created.
+     */
     private Brick makeBrick(Point point, Dimension size, int type){
         Brick out;
         switch(type){
@@ -309,6 +431,11 @@ public class Wall {
         return  out;
     }
 
+    /**
+     * this is used to get the wall level.
+     *
+     * @return this returns an integer value of the level which the player is currently in.
+     */
     public int getWallLevel(){
         return level;
     }
