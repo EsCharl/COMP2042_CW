@@ -17,7 +17,6 @@
  */
 package test;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -26,7 +25,6 @@ import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -40,10 +38,6 @@ import java.util.Scanner;
 
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
-    private static final String CONTINUE = "Continue";
-    private static final String RESTART = "Restart";
-    private static final String EXIT = "Exit";
-    private static final String PAUSE = "Pause Menu";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0,255,0);
 
@@ -299,13 +293,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         if(strLen == 0){
             FontRenderContext frc = g2d.getFontRenderContext();
-            strLen = menuFont.getStringBounds(PAUSE,frc).getBounds().width;
+            strLen = menuFont.getStringBounds("Pause Menu",frc).getBounds().width;
         }
 
         int x = (this.getWidth() - strLen) / 2;
         int y = this.getHeight() / 10;
 
-        g2d.drawString(PAUSE,x,y);
+        g2d.drawString("Pause Menu",x,y);
 
         x = this.getWidth() / 8;
         y = this.getHeight() / 4;
@@ -313,11 +307,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         if(continueButtonRect == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            continueButtonRect = menuFont.getStringBounds(CONTINUE,frc).getBounds();
+            continueButtonRect = menuFont.getStringBounds("CONTINUE",frc).getBounds();
             continueButtonRect.setLocation(x,y-continueButtonRect.height);
         }
 
-        g2d.drawString(CONTINUE,x,y);
+        g2d.drawString("CONTINUE",x,y);
 
         y *= 2;
 
@@ -326,7 +320,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             restartButtonRect.setLocation(x,y-restartButtonRect.height);
         }
 
-        g2d.drawString(RESTART,x,y);
+        g2d.drawString("RESTART",x,y);
 
         y *= 3.0/2;
 
@@ -335,7 +329,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             exitButtonRect.setLocation(x,y-exitButtonRect.height);
         }
 
-        g2d.drawString(EXIT,x,y);
+        g2d.drawString("EXIT",x,y);
 
 
 
@@ -596,7 +590,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      */
     private String getTimer(){
         pauseTimer();
-        long elapsedSeconds = totalTime / 1000;
+        long elapsedSeconds = totalTime / 2000;
         long secondsDisplay = elapsedSeconds % 60;
         long elapsedMinutes = elapsedSeconds / 60;
         if (secondsDisplay <= 9){
