@@ -10,7 +10,7 @@ import java.awt.geom.RectangularShape;
  */
 
 /**
- * this is an abstract class which is used for implementation. (RubberBall)
+ * this is an abstract class which is used for the rubber ball implementation.
  */
 abstract public class Ball {
 

@@ -104,6 +104,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if(wall.ballEnd()){
                     wall.wallReset();
                     message = "Game over";
+                    restartTimer();
                 }
                 wall.ballReset();
                 gameTimer.stop();
