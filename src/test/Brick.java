@@ -262,7 +262,16 @@ abstract public class Brick  {
 
     }
 
-    protected abstract Shape makeBrickFace(Point pos,Dimension size);
+    /**
+     * this method is used to set the shape of the brick.
+     *
+     * @param pos the position where the shape of the brick is formulated.
+     * @param size the size of the brick shape.
+     * @return the shape of the brick and on that position.
+     */
+    protected Shape makeBrickFace(Point pos,Dimension size){
+        return new Rectangle(pos,size);
+    }
 
     /**
      * this method is used to determine if the brick is broken.
@@ -278,8 +287,14 @@ abstract public class Brick  {
         return  broken;
     }
 
-
-    public abstract Shape getBrick();
+    /**
+     * this method is used to get the shape of the brick.
+     *
+     * @return it returns the shape of the brick.
+     */
+    public Shape getBrick(){
+        return brickFace;
+    }
 
 
     /**

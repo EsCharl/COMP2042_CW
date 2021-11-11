@@ -18,10 +18,11 @@
 package test;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.Random;
 
-
+/**
+ * this class is for the steel brick.
+ */
 public class SteelBrick extends Brick {
 
     private static final String NAME = "Steel Brick";
@@ -33,30 +34,41 @@ public class SteelBrick extends Brick {
     private Random rnd;
     private Shape brickFace;
 
+    /**
+     * this method is used to create a steel brick object.
+     *
+     * @param point this is the point where the steel brick is created.
+     * @param size this is for the size of the brick
+     */
     public SteelBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
         rnd = new Random();
         brickFace = super.brickFace;
     }
 
+//    @Override
+//    protected Shape makeBrickFace(Point pos, Dimension size) {
+//        return new Rectangle(pos,size);
+//    }
 
+    // this method can be removed since the brick is destroyed instantly based on probability.
+//    @Override
+//    public Shape getBrick() {
+//        return brickFace;
+//    }
+
+//    @Override
+//    public  boolean setImpact(Point2D point , int dir){
+//        if(super.isBroken())
+//            return false;
+//        impact();
+//        return  super.isBroken();
+//    }
+
+    /**
+     * this method is used to determine if the brick can be broken based on a probability.
+     */
     @Override
-    protected Shape makeBrickFace(Point pos, Dimension size) {
-        return new Rectangle(pos,size);
-    }
-
-    @Override
-    public Shape getBrick() {
-        return brickFace;
-    }
-
-    public  boolean setImpact(Point2D point , int dir){
-        if(super.isBroken())
-            return false;
-        impact();
-        return  super.isBroken();
-    }
-
     public void impact(){
         if(rnd.nextDouble() < STEEL_PROBABILITY){
             super.impact();
