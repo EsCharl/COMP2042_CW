@@ -34,6 +34,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private boolean gaming;
 
+    /**
+     * this method is used to create the game frame.
+     */
     public GameFrame(){
         super();
 
@@ -63,6 +66,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setVisible(true);
     }
 
+    /**
+     * this method is used to show the game board on the screen.
+     */
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
@@ -74,6 +80,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     }
 
+    /**
+     *this method is used to set the location of the game frame in the middle of the screen.
+     */
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - this.getWidth()) / 2;
@@ -81,7 +90,11 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setLocation(x,y);
     }
 
-
+    /**
+     * this is used to gain the focus of the game window and set the gaming to be true, this will also ensure all keyboard events are being registered to the game.
+     *
+     * @param windowEvent this returns the status of the window.
+     */
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         /*
@@ -95,6 +108,11 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         gaming = true;
     }
 
+    /**
+     * this method is used to ensure that the focus is not on the game when the gaming is set to false, this will also ensure the keyboard events will not be registered to the game.
+     *
+     * @param windowEvent this returns the status of the window.
+     */
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
         if(gaming)

@@ -19,7 +19,9 @@ package test;
 
 import java.awt.*;
 
-
+/**
+ * this class is used for the user to move the player.
+ */
 public class Player {
 
 
@@ -34,7 +36,14 @@ public class Player {
     private int min;
     private int max;
 
-
+    /**
+     * this method is used to create a player object.
+     *
+     * @param ballPoint this is the position of the ball.
+     * @param width this is the width of the paddle which the user will be controlling.
+     * @param height this will the height of the paddle which the user will be controlling.
+     * @param container this is the information of the rectangle which will be used to be created.
+     */
     public Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
@@ -44,15 +53,31 @@ public class Player {
 
     }
 
+    /**
+     * this is used to create a rectangle shape which the user will use.
+     *
+     * @param width this is the width of the paddle.
+     * @param height this is the height of the paddle.
+     * @return it will return a rectangle shape.
+     */
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
         return  new Rectangle(p,new Dimension(width,height));
     }
 
+    /**
+     * this is used to check if there is an impact between the paddle and the ball.
+     *
+     * @param b the ball
+     * @return returns true if the ball comes in contact with the paddle, false if it doesn't
+     */
     public boolean impact(Ball b){
         return playerFace.contains(b.getPosition()) && playerFace.contains(b.down) ;
     }
 
+    /**
+     * this method is used to move the paddle (player)
+     */
     public void move(){
         double x = ballPoint.getX() + moveAmount;
         if(x < min || x > max)
@@ -61,22 +86,41 @@ public class Player {
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 
+    /**
+     * this method is used to set the move amount to the left direction which will be used to move the paddle.
+     */
     public void moveLeft(){
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * this method is used to set the move amount to the right direction which will be used to mve the paddle.
+     */
     public void movRight(){
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * this method is used to stop the movement of the paddle by setting the move amount to 0.
+     */
     public void stop(){
         moveAmount = 0;
     }
 
+    /**
+     * this method is used to get the shape of the paddle.
+     *
+     * @return it returns the shape of the paddle.
+     */
     public Shape getPlayerFace(){
         return  playerFace;
     }
 
+    /**
+     * this method is used to set the paddle (player) and the ball point (center) to the starting position.
+     *
+     * @param p this is the Point position where the ball is to be set.
+     */
     public void moveTo(Point p){
         ballPoint.setLocation(p);
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);

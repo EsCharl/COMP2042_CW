@@ -152,7 +152,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
-        //code for an image in the startgame menu.
+        //code for an image in the start game menu.
         BufferedImage image = null;
         try{
             image = ImageIO.read(new File(MAIN_IMAGE_PATH));
