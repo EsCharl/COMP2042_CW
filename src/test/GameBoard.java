@@ -69,9 +69,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private long totalTime = 0;
     private long pauseTime = 0;
 
-    //background image
-    private static String BACKGROUND_IMAGE_PATH = "test/Resources/BackGround.png";
-
     /**
      * this method prepares the game
      *
@@ -555,10 +552,20 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
      * @throws FileNotFoundException just incase if the save file is missing.
      */
-    private ArrayList<String> getHighScore(int level) throws FileNotFoundException {
-        ArrayList<String> Completed = new ArrayList<String>();
-        Scanner scan = new Scanner(new File("test/scores/Level"+level+".txt"));
+    private ArrayList<String> getHighScore(int level) throws IOException {
+
         Boolean placed = false;
+
+        ArrayList<String> Completed = new ArrayList<String>();
+        Scanner scan = null;
+
+        try {
+            scan = new Scanner(new File("test/scores/Level" + level + ".txt"));
+        }catch (FileNotFoundException e) {
+            File myObj = new File("test/scores/Level" + level + ".txt");
+            myObj.createNewFile();
+            scan = new Scanner(new File("test/scores/Level" + level + ".txt"));
+        }
         while (scan.hasNextLine()){
             // to split the name and time to include inside the highscore.
             String[] line = scan.nextLine().split(",",2);
