@@ -25,9 +25,6 @@ abstract public class Brick  {
     public static final int LEFT_IMPACT = 300;
     public static final int RIGHT_IMPACT = 400;
 
-    private int ploy = 0;
-
-
     /**
      * This class is used for the bricks on the level to display the crack if they are not destroyed.
      */
@@ -146,7 +143,6 @@ abstract public class Brick  {
                 // inMiddle(i,CRACK_SECTIONS,steps) should be inMiddle(i,steps,CRACK_SECTIONS)
                 if(inMiddle(i,steps,CRACK_SECTIONS)){
                     y += jumps(jump,JUMP_PROBABILITY);
-                    System.out.println(ploy++);
                 }
 
                 path.lineTo(x,y);
