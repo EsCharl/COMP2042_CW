@@ -23,6 +23,10 @@ A pause menu is activated when the user enters debug console.
 
 ![image](https://user-images.githubusercontent.com/63916811/141623835-33633092-678f-4702-b01f-2b537044d13b.png)
 
+An additional level is also added. this level will see an introduction of a new brick called "Reinforced Steel Brick" this brick have a 50% chance of getting damaged and it have a strength of 2.
+
+![image](https://user-images.githubusercontent.com/63916811/141646176-f35d03c8-e490-4851-b3e9-e5ddf477b819.png)
+
 And a highscore system based on time. 
 
 ![image](https://user-images.githubusercontent.com/63916811/141625728-c051a5a6-25ba-495e-97b7-4e655fd034a8.png)
