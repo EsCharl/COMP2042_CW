@@ -75,7 +75,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean infoClicked;
 
     /**
-     * this method creates the home menu object.
+     * this constructor creates the home menu object.
      *
      * @param owner this takes in the game frame which is also a frame that is shown on the start page when the game is started
      * @param area is the information that is used to create the window in terms of the dimensions.

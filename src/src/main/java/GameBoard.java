@@ -34,7 +34,6 @@ import java.util.Scanner;
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause
  */
-
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
     private static final int TEXT_SIZE = 30;
@@ -72,7 +71,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private String Levelname;
 
     /**
-     * this method prepares the game
+     * this constructor is used to create a game board object.
      *
      * @param owner this takes in a frame
      */
@@ -151,7 +150,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * This method is used for drawing the objects, namely the bricks, the ball, and the paddle which is controlled by the user
+     * This method is used for drawing the objects, namely the pause menu, the bricks, the ball, and the paddle which is controlled by the user
      *
      * @param g this is an object where it will be drawn upon.
      */
@@ -191,7 +190,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * This method is used for drawing/inputting the bricks for the level.
+     * This method is used for drawing the bricks for the level.
      *
      * @param brick this is the information of the brick that is going to be used for the drawing of the brick.
      * @param g2d this takes in the object that is being used for the brick generation for the level.
@@ -212,8 +211,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     /**
      * this method is used for drawing the ball used for the game.
      *
-     * @param ball the information of the ball that is going to be drawn
-     * @param g2d the object that is beiung used to draw the ball.
+     * @param ball the object of the ball that is going to be drawn
+     * @param g2d the information that is being used to draw the ball.
      */
     private void drawBall(Ball ball,Graphics2D g2d){
         Color tmp = g2d.getColor();
@@ -296,6 +295,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             strLen = menuFont.getStringBounds("Pause Menu",frc).getBounds().width;
         }
 
+        // get the position of top center.
         int x = (this.getWidth() - strLen) / 2;
         int y = this.getHeight() / 10;
 
@@ -347,7 +347,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * this is initially a KeyListener Interface class method, and it is being implemented. It is activated when a key is pressed from the keyboard.
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is activated when a key is pressed from the keyboard. This is used to control the user experience for the game.
      *
      * @param keyEvent this records the input from the keyboard.
      */
@@ -392,7 +392,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * this is initially a KeyListener Interface class method, and it is being implemented. It is called when a key is released from the keyboard.
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is called when a key is released from the keyboard. this is used to stop the paddle from moving.
      *
      * @param keyEvent this records the input from the keyboard.
      */
@@ -402,7 +402,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is clicked.
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is clicked. this is used to select the options that are shown during the pause menu is shown.
      *
      * @param mouseEvent this records the input from the mouse.
      */
@@ -421,7 +421,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             wall.wallReset();
             showPauseMenu = false;
             repaint();
-
 
             restartTimer();
         }
@@ -512,7 +511,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * This method creates a high score panel to show
+     * This method creates a high score panel to show the scores after each game.
      *
      * @param level for the pop up screen level title.
      * @param sorted takes in the arraylist of string from getHighScore method to display on the panel.
@@ -554,7 +553,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      *
      * @param level this is used determine which file to take.
      * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
-     * @throws FileNotFoundException just incase if the save file is missing.
+     * @throws FileNotFoundException just in case if the save file is missing.
      */
     private ArrayList<String> getHighScore(int level) throws IOException {
 
@@ -597,7 +596,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * this method is used to get the time taken for the level.
+     * this method is used to get the time passed.
      *
      * @return A time in String format.
      */
@@ -620,7 +619,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * This method is used to pause the timer when there is a pause of the game or the game lost focus.
+     * This method is used to pause the timer.
      */
     private void pauseTimer(){
         pauseTime = System.currentTimeMillis();
@@ -636,7 +635,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * This method is used to save the user record in a save file.
+     * This method is used to save the user record in a .txt save file.
      *
      * @param sorted this is the arraylist of string to store inside the save file.
      * @throws IOException This is incase if there is a problem writing the file.

@@ -48,7 +48,7 @@ public class Wall {
     private boolean ballLost;
 
     /**
-     * this is used to generate an object which is the wall used for the levels.
+     * this constructor is used to generate an object which is the wall used for the levels.
      *
      * @param drawArea this is the area of the game will be held.
      * @param brickCount this is the amount of brick for the wall.
@@ -69,10 +69,13 @@ public class Wall {
         rnd = new Random();
 
         makeBall(ballPos);
+
         int speedX,speedY;
+
         do{
             speedX = rnd.nextInt(5) - 2;
         }while(speedX == 0);
+
         do{
             speedY = -rnd.nextInt(3);
         }while(speedY == 0);
@@ -82,12 +85,10 @@ public class Wall {
         player = new Player((Point) ballPos.clone(),150,10, drawArea);
 
         area = drawArea;
-
-
     }
 
     /**
-     * this is one of the template for one of the wall (level).
+     * this method is one of the template used for the wall (level).
      *
      * @param drawArea this is the area which the bricks could be placed
      * @param brickCnt this is the amount of bricks which will be in for the level.
@@ -137,7 +138,7 @@ public class Wall {
     }
 
     /**
-     * this is one of the template for one of the wall (level).
+     * this method is one of the template used for the wall (level).
      *
      * @param drawArea this is the area which the bricks could be placed
      * @param brickCnt this is the amount of bricks which will be in for the level.
@@ -193,7 +194,7 @@ public class Wall {
     }
 
     /**
-     * this is one of the template for one of the wall (level).
+     * this method is one of the template used for the wall (level).
      *
      * @param drawArea this is the area which the bricks could be placed
      * @param brickCnt this is the amount of bricks which will be in for the level.
@@ -250,7 +251,7 @@ public class Wall {
     }
 
     /**
-     * this method is used to generate a ball object.
+     * this method is used to create a ball object.
      *
      * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
      */
@@ -259,7 +260,7 @@ public class Wall {
     }
 
     /**
-     * this is used to generate the levels.
+     * this is used to generate the levels to be placed in a brick array.
      *
      * @param drawArea this is the area where the bricks will be drawn.
      * @param brickCount this is the amount bricks that will be generated in the level.
@@ -286,7 +287,7 @@ public class Wall {
     }
 
     /**
-     * this method is used to check if there is an impact for the ball with any entity, and the sides of the screen. which will cause a reaction to the game.
+     * this method is used to check if there is an impact for the ball with any entity, the sides of the screen. which will cause a reaction to the game.
      */
     public void findImpacts(){
         if(player.impact(ball)){
@@ -298,10 +299,12 @@ public class Wall {
             */
             brickCount--;
         }
-        else if(impactBorder()) {
+
+        if(impactBorder()) {
             ball.reverseX();
         }
-        else if(ball.getPosition().getY() < area.getY()){
+
+        if(ball.getPosition().getY() < area.getY()){
             ball.reverseY();
         }
         else if(ball.getPosition().getY() > area.getY() + area.getHeight()){
@@ -311,7 +314,7 @@ public class Wall {
     }
 
     /**
-     * this is to check if the ball comes in contact with any side of the entity(bricks)
+     * this is to check if the ball comes in contact with any side of the brick.
      *
      * @return returns a boolean value if or if it doesn't touch any entity.
      */
@@ -339,7 +342,7 @@ public class Wall {
     }
 
     /**
-     * this method is used to check if the ball have come in contact with the sides of the game window.
+     * this method is used to check if the ball have come in contact with the vertical sides of the game window.
      *
      * @return this returns a boolean value if it touches or doesn't touch the side of the game window
      */
@@ -367,7 +370,7 @@ public class Wall {
     }
 
     /**
-     * this is used to get if the ball is lost.
+     * this is used to check if the ball is lost.
      *
      * @return this returns a boolean value if the ball is or isn't lost.
      */
@@ -376,7 +379,7 @@ public class Wall {
     }
 
     /**
-     * this is used to reset the ball to the starting position.
+     * this is used to reset the ball to the starting position and giving it a random speed for the ball.
      */
     public void ballReset(){
         player.moveTo(startPoint);
@@ -394,7 +397,7 @@ public class Wall {
     }
 
     /**
-     * this is used to reset the wall (level).
+     * this is used to reset the wall (bricks) and the ball count (tries).
      */
     public void wallReset(){
         for(Brick b : bricks)
@@ -404,7 +407,7 @@ public class Wall {
     }
 
     /**
-     * this method checks if the there isn't any more tries for the player.
+     * this method checks if there is or isn't any more tries for the player.
      *
      * @return returns a boolean value if there is or isn't any more tries allowed for the player.
      */
@@ -464,7 +467,7 @@ public class Wall {
     }
 
     /**
-     * this method is used to generate the brick needed for the level.
+     * this method is used to generate the brick object needed for the level.
      *
      * @param point this is used get the position where the brick is supposed to be.
      * @param size this is for the size of the brick

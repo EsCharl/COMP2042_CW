@@ -34,7 +34,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private boolean gaming;
 
     /**
-     * this method is used to create a game frame object.
+     * this constructor is used to create a game frame object.
      */
     public GameFrame(){
         super();
@@ -55,7 +55,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     }
 
     /**
-     * this method is used to create the game window.
+     * this method is used to show the game window.
      */
     public void initialize(){
         this.setTitle(DEF_TITLE);
@@ -66,7 +66,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     }
 
     /**
-     * this method is used to show the game board on the screen.
+     * this method is used to dispose the home menu and create the game board on the screen.
      */
     public void enableGameBoard(){
         this.dispose();
@@ -90,7 +90,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     }
 
     /**
-     * this is used to gain the focus of the game window and set the gaming to be true, this will also ensure all keyboard events are being registered to the game.
+     * this is used to gain the focus of the game window and set the gaming to be true, this will also ensure all keyboard events are being registered to the game. and set the gaming variable to true.
      *
      * @param windowEvent this returns the status of the window.
      */
