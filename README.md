@@ -37,4 +37,10 @@ The game source code have also undergo some changes.
 
 ![image](https://user-images.githubusercontent.com/63916811/142233279-ad0bc61b-8448-4157-90f6-b5bc971239e5.png)
 
-some of the if-else statements have been changed to if statements as if the ball have reached the top corners it might be going out of the screen.
+some of the if-else statements have been changed to if statements as if the ball have reached the top corners it might be going out of the screen. (Changes in Wall.java)
+
+![image](https://user-images.githubusercontent.com/63916811/142235289-a32f3446-5813-464e-bd6b-7b670ffc0b4e.png)
+
+there is also an issue for this line of code in the Brick.java class as the method "inMiddle" have the parameters in the order of int i, int steps, int divisions.
+
+![image](https://user-images.githubusercontent.com/63916811/142235868-d7f14275-f953-424d-a6ec-70916421b370.png)
