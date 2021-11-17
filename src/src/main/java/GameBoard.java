@@ -507,6 +507,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         gameTimer.stop();
         message = "Focus Lost";
         repaint();
+
+        pauseTimer();
     }
 
     /**
