@@ -68,6 +68,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private long totalTime = 0;
     private long pauseTime = 0;
 
+    //for the level saving
+    private String Levelname;
+
     /**
      * this method prepares the game
      *
@@ -122,7 +125,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 //for save file saving and highscore pop up
                 try {
                     ArrayList<String> sorted = getHighScore(wall.getWallLevel()-1);
-                    updateSaveFile(wall.getWallLevel()-1, sorted);
+                    updateSaveFile(sorted);
                     highScorePanel(wall.getWallLevel()-1,sorted);
                 } catch (IOException | BadLocationException ex) {
                     ex.printStackTrace();
@@ -554,16 +557,17 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private ArrayList<String> getHighScore(int level) throws IOException {
 
         Boolean placed = false;
+        Levelname = "src/main/resources/scores/Level"+level+".txt";
 
         ArrayList<String> Completed = new ArrayList<String>();
         Scanner scan = null;
 
         try {
-            scan = new Scanner(new File("test/scores/Level" + level + ".txt"));
+            scan = new Scanner(new File(Levelname));
         }catch (FileNotFoundException e) {
-            File myObj = new File("test/scores/Level" + level + ".txt");
+            File myObj = new File(Levelname);
             myObj.createNewFile();
-            scan = new Scanner(new File("test/scores/Level" + level + ".txt"));
+            scan = new Scanner(new File(Levelname));
         }
         while (scan.hasNextLine()){
             // to split the name and time to include inside the highscore.
@@ -632,12 +636,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     /**
      * This method is used to save the user record in a save file.
      *
-     * @param level this is used to select which file to save it in.
      * @param sorted this is the arraylist of string to store inside the save file.
      * @throws IOException This is incase if there is a problem writing the file.
      */
-    private void updateSaveFile(int level, ArrayList<String> sorted) throws IOException {
-        File file = new File("test/scores/Level"+level+".txt");
+    private void updateSaveFile(ArrayList<String> sorted) throws IOException {
+        File file = new File(Levelname);
         FileWriter overwrite = new FileWriter(file,false);
         for (int i = 0; i < sorted.size()-1; i++)
             overwrite.write(sorted.get(i)+"\n");
