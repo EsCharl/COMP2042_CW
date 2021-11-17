@@ -33,4 +33,8 @@ And a highscore system based on time.
 
 The scores will be stored in a .txt file.
 
-The game have also gotten some refactoring especially the 
+The game source code have also undergo some changes.
+
+![image](https://user-images.githubusercontent.com/63916811/142233279-ad0bc61b-8448-4157-90f6-b5bc971239e5.png)
+
+some of the if-else statements have been changed to if statements as if the ball have reached the top corners it might be going out of the screen.
