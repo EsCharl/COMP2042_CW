@@ -77,7 +77,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
 
     /**
-     * this method creates a window to show the game.
+     * this method creates the home menu object.
      *
      * @param owner this takes in the game frame which is also a frame that is shown on the start page when the game is started
      * @param area is the information that is used to create the window in terms of the dimensions.
@@ -116,12 +116,21 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     }
 
-
+    /**
+     * this method is used to draw call the drawMenu method and pass the Graphics g to Graphics2D.
+     *
+     * @param g this the Graphics information that is going to be used to be converted to Graphics2D and passing through to drawMenu method.
+     */
     public void paint(Graphics g){
         drawMenu((Graphics2D)g);
     }
 
 
+    /**
+     * this method is used to call the drawButton method. and also needs to set the dimension for g2d that is going to be used for drawText and drawButton method.
+     *
+     * @param g2d this is the Graphics2D that is being used to store information to be used for drawing methods.
+     */
     public void drawMenu(Graphics2D g2d){
 
         drawContainer(g2d);
@@ -149,6 +158,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         g2d.setColor(prevColor);
     }
 
+    /**
+     * this method is used to draw the background of the home menu.
+     *
+     * @param g2d the graphics2d that is used to draw on.
+     */
     private void drawContainer(Graphics2D g2d){
         Color prev = g2d.getColor();
 
@@ -178,6 +192,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         g2d.setColor(prev);
     }
 
+    /**
+     * this method is used to draw the text to the home menu.
+     *
+     * @param g2d this is Graphics2D that have the information on how to style the texts
+     */
     private void drawText(Graphics2D g2d){
 
         g2d.setColor(TEXT_COLOR);
@@ -211,6 +230,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     }
 
+    /**
+     * this is used to draw the button on the home menu.
+     *
+     * @param g2d this is used to get the information on how to style it.
+     */
     private void drawButton(Graphics2D g2d){
 
         FontRenderContext frc = g2d.getFontRenderContext();
@@ -308,6 +332,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     }
 
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is clicked. In this case, it will act accordingly if the button is being clicked.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -328,13 +357,17 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         }
     }
 
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is pressed. In this case it will repaint the button once it is being pressed and set the variable to be true which will be used in mouseRelease method.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if(startButton.contains(p)){
             startClicked = true;
             repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
-
         }
         else if(menuButton.contains(p)){
             menuClicked = true;
@@ -346,9 +379,14 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         }
     }
 
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is released. this will repaint the button once it is being released and set the variable to be false..
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-        if(startClicked ){
+        if(startClicked){
             startClicked = false;
             repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
         }
@@ -362,22 +400,41 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         }
     }
 
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse enters a component.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse exits a component.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
 
-
+    /**
+     * this is initially a MouseMotionListener Interface class method, and it is being implemented. It is called when a mouse pressed on a component and dragged.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
 
     }
 
+    /**
+     * this is initially a MouseMotionListener Interface class method, and it is being implemented. It is called when a mouse moved onto a component but no buttons are pushed. In this case it will change the cursor when the mouse is on the button.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -387,6 +444,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             this.setCursor(Cursor.getDefaultCursor());
     }
 
+    /**
+     * this method is used to create another window which contains the image to show the instruction on how to play this game.
+     *
+     * @throws IOException this is used if the image could not be loaded.
+     */
     public void DisplayInfo() throws IOException{
         BufferedImage display = ImageIO.read(new File(INFO_IMAGE_PATH));
         ImageIcon icon = new ImageIcon(display);

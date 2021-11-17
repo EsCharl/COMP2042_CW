@@ -35,7 +35,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private boolean gaming;
 
     /**
-     * this method is used to create the game frame.
+     * this method is used to create a game frame object.
      */
     public GameFrame(){
         super();

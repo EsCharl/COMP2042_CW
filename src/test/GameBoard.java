@@ -480,7 +480,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * this is initially a MouseMotionListener Interface class method, and it is being implemented. It is called when a mouse moved onto a component but no buttons are pushed.
+     * this is initially a MouseMotionListener Interface class method, and it is being implemented. It is called when a mouse moved onto a component but no buttons are pushed. In this case it will change the cursor when the mouse is on the button.
      *
      * @param mouseEvent this records the input from the mouse.
      */
