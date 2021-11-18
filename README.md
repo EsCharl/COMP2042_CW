@@ -44,3 +44,10 @@ some of the if-else statements have been changed to if statements as if the ball
 there is also an issue for this line of code in the Brick.java class as the method "inMiddle" have the parameters in the order of int i, int steps, int divisions.
 
 ![image](https://user-images.githubusercontent.com/63916811/142235868-d7f14275-f953-424d-a6ec-70916421b370.png)
+
+I've also changed the variable name of radius to diameter to more suit the naming and functionn of the parameters.
+
+![image](https://user-images.githubusercontent.com/63916811/142373987-f446429c-53e2-4ad6-9039-0521889a7519.png)
+![image](https://user-images.githubusercontent.com/63916811/142374051-27e66722-b1d9-4a47-a6c4-764f57689456.png)
+
+
