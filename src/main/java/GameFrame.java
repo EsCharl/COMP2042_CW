@@ -51,7 +51,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         this.setUndecorated(true);
 
-
+        this.setResizable(false);
     }
 
     /**
