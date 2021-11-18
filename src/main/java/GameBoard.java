@@ -558,7 +558,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private ArrayList<String> getHighScore(int level) throws IOException {
 
         Boolean placed = false;
-        Levelname = "src/main/resources/scores/Level"+level+".txt";
+        Levelname = "main/resources/scores/Level"+level+".txt";
 
         ArrayList<String> Completed = new ArrayList<String>();
         Scanner scan = null;
