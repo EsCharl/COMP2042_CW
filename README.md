@@ -37,6 +37,11 @@ The game source code have also undergo some changes.
 
 ![image](https://user-images.githubusercontent.com/63916811/142233279-ad0bc61b-8448-4157-90f6-b5bc971239e5.png)
 
+Prevents the user from expanding the screen, the reason is mainly because it will enable the user to be focus on a smaller screen window instead of a big window.
+
+![image](https://user-images.githubusercontent.com/63916811/142454723-a96282d8-9119-4717-be47-43032a5a6c59.png)
+
+
 some of the if-else statements have been changed to if statements as if the ball have reached the top corners it might be going out of the screen. (Changes in Wall.java)
 
 ![image](https://user-images.githubusercontent.com/63916811/142235289-a32f3446-5813-464e-bd6b-7b670ffc0b4e.png)
