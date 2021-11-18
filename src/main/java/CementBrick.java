@@ -29,11 +29,6 @@ public class CementBrick extends Brick {
         brickFace = super.brickFace;
     }
 
-//    @Override
-//    protected Shape makeBrickFace(Point pos, Dimension size) {
-//        return new Rectangle(pos,size);
-//    }
-
     /**
      * this method is used to determine whether the brick should be broken or draw a crack on the brick.
      *

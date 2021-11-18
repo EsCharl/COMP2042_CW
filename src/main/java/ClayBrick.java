@@ -28,9 +28,4 @@ public class ClayBrick extends Brick {
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
     }
 
-//    @Override
-//    protected Shape makeBrickFace(Point pos, Dimension size) {
-//        return new Rectangle(pos,size);
-//    }
-
 }

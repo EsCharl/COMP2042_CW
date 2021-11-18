@@ -44,25 +44,6 @@ public class SteelBrick extends Brick {
         brickFace = super.brickFace;
     }
 
-//    @Override
-//    protected Shape makeBrickFace(Point pos, Dimension size) {
-//        return new Rectangle(pos,size);
-//    }
-
-    // this method can be removed since the brick is destroyed instantly based on probability.
-//    @Override
-//    public Shape getBrick() {
-//        return brickFace;
-//    }
-
-//    @Override
-//    public  boolean setImpact(Point2D point , int dir){
-//        if(super.isBroken())
-//            return false;
-//        impact();
-//        return  super.isBroken();
-//    }
-
     /**
      * this method is used to determine if the brick can be broken based on a probability.
      */
