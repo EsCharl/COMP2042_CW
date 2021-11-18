@@ -15,7 +15,7 @@ The changes made on this software is an addition the the Info on how to play the
 
 ![image](https://user-images.githubusercontent.com/63916811/141622130-778e708b-da2e-4ad8-85d4-e9876ba01cf7.png)
 
-An addition of Integer Values and what are the values for.
+An addition of Integer values on the slider and what are the values for.
 
 ![image](https://user-images.githubusercontent.com/63916811/141623211-44a92320-45b0-445a-b380-50ced00b74cb.png)
 
