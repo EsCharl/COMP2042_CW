@@ -68,7 +68,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private long pauseTime = 0;
 
     //for the level saving
-    private String Levelname;
+    private String levelName;
 
     /**
      * this constructor is used to create a game board object.
@@ -121,9 +121,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     gameTimer.stop();
                 }
 
-                //for save file saving and highscore pop up
+                //for save file saving and high score pop up
+                setLevelPathName(wall.getWallLevel()-1);
                 try {
-                    ArrayList<String> sorted = getHighScore(wall.getWallLevel()-1);
+                    ArrayList<String> sorted = getHighScore();
                     updateSaveFile(sorted);
                     highScorePanel(wall.getWallLevel()-1,sorted);
                 } catch (IOException | BadLocationException ex) {
@@ -549,26 +550,42 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
+     * this is used to set the levelPath file.
+     *
+     * @param level the level to determine which level file.
+     */
+    private void setLevelPathName(int level){
+        levelName = "src/main/resources/scores/Level"+level+".txt";
+    }
+
+    /**
+     * this method is used to get the LevelPath file in String form.
+     *
+     * @return returns the LevelPath file in String.
+     */
+    private String getLevelPathName(){
+        return levelName;
+    }
+
+    /**
      * this method is used to get the scores from the save file and the player score (in terms of time) and rank them.
      *
-     * @param level this is used determine which file to take.
      * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
      * @throws FileNotFoundException just in case if the save file is missing.
      */
-    private ArrayList<String> getHighScore(int level) throws IOException {
+    private ArrayList<String> getHighScore() throws IOException {
 
         Boolean placed = false;
-        Levelname = "main/resources/scores/Level"+level+".txt";
 
         ArrayList<String> Completed = new ArrayList<String>();
         Scanner scan = null;
 
         try {
-            scan = new Scanner(new File(Levelname));
+            scan = new Scanner(new File(getLevelPathName()));
         }catch (FileNotFoundException e) {
-            File myObj = new File(Levelname);
+            File myObj = new File(getLevelPathName());
             myObj.createNewFile();
-            scan = new Scanner(new File(Levelname));
+            scan = new Scanner(new File(getLevelPathName()));
         }
         while (scan.hasNextLine()){
             // to split the name and time to include inside the highscore.
@@ -582,7 +599,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             int second = Integer.parseInt(preTime[1]);
 
             int total_millisecond = (minute * 60 + second) * 1000;
-            if (totalTime < total_millisecond && !placed){
+            if (getTotalTime() < total_millisecond && !placed){
                 Completed.add(System.getProperty("user.name") + ',' + getTimer());
                 placed = true;
                 Completed.add(name + ',' + time);
@@ -602,7 +619,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      */
     private String getTimer(){
         pauseTimer();
-        long elapsedSeconds = totalTime / 2000;
+        long elapsedSeconds = getTotalTime() / 2000;
         long secondsDisplay = elapsedSeconds % 60;
         long elapsedMinutes = elapsedSeconds / 60;
         if (secondsDisplay <= 9){
@@ -630,6 +647,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
+     * this method is used to get the total time value variable.
+     *
+     * @return returns a long datatype of the total time variable.
+     */
+    private long getTotalTime(){
+        return totalTime;
+    }
+
+    /**
      * This method is used when a new level or a restart of the level is selected to restart the total time variable which is used to complete the level.
      */
     private void restartTimer(){
@@ -643,7 +669,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @throws IOException This is incase if there is a problem writing the file.
      */
     private void updateSaveFile(ArrayList<String> sorted) throws IOException {
-        File file = new File(Levelname);
+        File file = new File(getLevelPathName());
         FileWriter overwrite = new FileWriter(file,false);
         for (int i = 0; i < sorted.size()-1; i++)
             overwrite.write(sorted.get(i)+"\n");
