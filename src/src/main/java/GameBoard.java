@@ -622,9 +622,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * This method is used to pause the timer.
      */
     private void pauseTimer(){
-        pauseTime = System.currentTimeMillis();
+        if (timer != 0){
+            pauseTime = System.currentTimeMillis();
 
-        totalTime += (pauseTime - timer);
+            totalTime += (pauseTime - timer);
+        }
     }
 
     /**

@@ -138,8 +138,8 @@ abstract public class Brick  {
                 x = (i * w) + start.x;
                 y = (i * h) + start.y + randomInBounds(bound);
 
-                // inMiddle(i,CRACK_SECTIONS,steps) should be inMiddle(i,steps,CRACK_SECTIONS)
-                if(inMiddle(i,steps,CRACK_SECTIONS)){
+                // inMiddle(i,CRACK_SECTIONS,steps) should be inMiddle(i,steps,CRACK_SECTIONS) THIS NEEDS FURTHER CHECKING.
+                if(inMiddle(i,CRACK_SECTIONS,steps)){
                     y += jumps(jump,JUMP_PROBABILITY);
                 }
 
@@ -170,7 +170,8 @@ abstract public class Brick  {
          * @param divisions
          * @return
          */
-        // this is useless since the divisions is 35 and steps is 3. possibly the values are reversed (steps is divisions and divisions are steps)
+        // this is useless since the divisions is 35 and steps is 3. possibly the values are reversed (steps is divisions
+        // and divisions are steps during usage)
         private boolean inMiddle(int i,int steps,int divisions){
             int low = (steps / divisions);
             int up = low * (divisions - 1);
