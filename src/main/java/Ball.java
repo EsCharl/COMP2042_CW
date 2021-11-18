@@ -3,11 +3,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
 
 /**
- * Created by filippo on 04/09/16.
- *
- */
-
-/**
  * this is an abstract class which is used for the rubber ball implementation.
  */
 abstract public class Ball {
@@ -140,7 +135,7 @@ abstract public class Ball {
     /**
      * this is used to get the position of the ball.
      *
-     * @returnit returns a Point2D format of the position of the ball.
+     * @return it returns a Point2D format of the position of the ball.
      */
     public Point2D getPosition(){
         return center;

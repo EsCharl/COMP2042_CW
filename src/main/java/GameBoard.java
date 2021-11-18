@@ -73,7 +73,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     /**
      * this constructor is used to create a game board object.
      *
-     * @param owner this takes in a frame
+     * @param owner this takes in the JFrame for the game board object.
      */
     public GameBoard(JFrame owner){
         super();

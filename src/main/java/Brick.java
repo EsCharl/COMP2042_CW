@@ -5,11 +5,6 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 /**
- * Created by filippo on 04/09/16.
- *
- */
-
-/**
  * This class is an abstract class which is going to be used for implementation. (CementBrick, ClayBrick, SteelBrick, ReinforcedSteelBrick)
  */
 abstract public class Brick  {
@@ -48,8 +43,8 @@ abstract public class Brick  {
         /**
          * this is the constructor used to create the crack object.
          *
-         * @param crackDepth
-         * @param steps
+         * @param crackDepth this is the depth of crack which is going to be initialized.
+         * @param steps this is the step variable which is going to be initialized.
          */
         public Crack(int crackDepth, int steps){
 
@@ -125,8 +120,8 @@ abstract public class Brick  {
         /**
          * this method is used to draw the crack.
          *
-         * @param start
-         * @param end
+         * @param start this is the start point where the crack is going to start.
+         * @param end this is the end point where the crack is going to end.
          */
         //method name change
         protected void drawCrack(Point start, Point end){
@@ -179,7 +174,7 @@ abstract public class Brick  {
          * @param i
          * @param steps
          * @param divisions
-         * @return
+         * @return it returns a boolean value depending if
          */
         // this is useless since the divisions is 35 and steps is 3. possibly the values are reversed (steps is divisions
         // and divisions are steps during usage)
@@ -193,9 +188,9 @@ abstract public class Brick  {
         /**
          * this method is used to return a random number within the negative and positive bound based on a probability provided.
          *
-         * @param bound
-         * @param probability
-         * @return
+         * @param bound the value which is used to pass into randomInBounds method.
+         * @param probability the probability that it will occur.
+         * @return returns a random value from randomInBounds based on a probability.
          */
         private int jumps(int bound,double probability){
 
@@ -208,9 +203,9 @@ abstract public class Brick  {
         /**
          * this method is used to create a random point based on the direction provided.
          *
-         * @param from
-         * @param to
-         * @param direction
+         * @param from this is the position where it begins.
+         * @param to this is the position where it ends.
+         * @param direction the direction in integer constant.
          * @return
          */
         private Point makeRandomPoint(Point from,Point to, int direction){
@@ -345,7 +340,7 @@ abstract public class Brick  {
     /**
      * this method is used to return the brick if it is broken or not.
      *
-     * @return
+     * @return returns a boolean value if the brick is broken or not.
      */
     public final boolean isBroken(){
         return broken;

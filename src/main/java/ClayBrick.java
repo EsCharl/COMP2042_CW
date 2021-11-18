@@ -1,12 +1,6 @@
 import java.awt.*;
 import java.awt.Point;
 
-
-/**
- * Created by filippo on 04/09/16.
- *
- */
-
 /**
  * this class is for the clay brick for the wall.
  */
