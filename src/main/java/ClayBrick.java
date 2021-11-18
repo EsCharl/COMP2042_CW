@@ -19,7 +19,7 @@ public class ClayBrick extends Brick {
 
 
     /**
-     * this method is used to create a clay brick object.
+     * this constructor is used to create a clay brick object.
      *
      * @param point the position where the brick is going to be formed.
      * @param size the size of the brick.

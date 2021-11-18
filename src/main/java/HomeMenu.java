@@ -240,7 +240,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT,frc);
         Rectangle2D mTxtRect = buttonFont.getStringBounds(MENU_TEXT,frc);
 
-        // addional line of code for the info button
+        // additional lines of code for the info button
         Rectangle2D m2TxtRect = buttonFont.getStringBounds(INFO_TEXT,frc);
 
         g2d.setFont(buttonFont);
@@ -270,7 +270,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             g2d.drawString(INFO_TEXT,x,y);
         }
 
-
         x = (menuFace.width - startButton.width) / 2;
         y =(int) ((menuFace.height - startButton.height) * 0.8);
 
@@ -281,9 +280,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         x += startButton.x;
         y += startButton.y + (startButton.height * 0.9);
-
-
-
 
         if(startClicked){
             Color tmp = g2d.getColor();
@@ -304,9 +300,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         y *= 1.2;
 
         menuButton.setLocation(x,y);
-
-
-
 
         x = (int)(menuButton.getWidth() - mTxtRect.getWidth()) / 2;
         y = (int)(menuButton.getHeight() - mTxtRect.getHeight()) / 2;

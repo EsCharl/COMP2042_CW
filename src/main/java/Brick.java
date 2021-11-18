@@ -10,7 +10,7 @@ import java.util.Random;
  */
 
 /**
- * This class is an abstract class which is going to be used for implementation. (CementBrick, ClayBrick, SteelBrick)
+ * This class is an abstract class which is going to be used for implementation. (CementBrick, ClayBrick, SteelBrick, ReinforcedSteelBrick)
  */
 abstract public class Brick  {
 
@@ -45,7 +45,12 @@ abstract public class Brick  {
         private int crackDepth;
         private int steps;
 
-
+        /**
+         * this is the constructor used to create the crack object.
+         *
+         * @param crackDepth
+         * @param steps
+         */
         public Crack(int crackDepth, int steps){
 
             crack = new GeneralPath();
@@ -54,13 +59,19 @@ abstract public class Brick  {
 
         }
 
-
-
-        public GeneralPath draw(){
+        /**
+         * this method is used to get the CrackPath.
+         *
+         * @return a GeneralPath that is the path
+         */
+        public GeneralPath getCrackPath(){
 
             return crack;
         }
 
+        /**
+         * this method is used to reset the crack path.
+         */
         public void reset(){
             crack.reset();
         }

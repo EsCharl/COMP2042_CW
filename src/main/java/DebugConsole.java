@@ -35,7 +35,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     private Wall wall;
 
     /**
-     * this method is used for showing a console in the middle of the game window.
+     * this constructor is used for showing a console in the middle of the game window.
      *
      * @param owner a graphical frame that is going to be used.
      * @param wall the game level that is generated, the status of the game.

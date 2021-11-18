@@ -18,7 +18,7 @@ public class CementBrick extends Brick {
 
 
     /**
-     * this method is used to create a cement brick object.
+     * this constructor is used to create a cement brick object.
      *
      * @param point
      * @param size
@@ -69,7 +69,7 @@ public class CementBrick extends Brick {
      */
     private void updateBrick(){
         if(!super.isBroken()){
-            GeneralPath gp = crack.draw();
+            GeneralPath gp = crack.getCrackPath();
             gp.append(super.brickFace,false);
             brickFace = gp;
         }

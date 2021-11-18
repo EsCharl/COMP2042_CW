@@ -43,12 +43,11 @@ public class DebugPanel extends JPanel {
     private GameBoard board;
 
     /**
-     * This method contains the code needed for the console in the game.
+     * This constructor contains the code needed for the console in the game.
      *
      * @param   wall A wall class that is created, and it is used for nextLevel, resetBallCount, setBallXSpeed,
      *               and setBallYSpeed method that is available in wall class.
      */
-
     public DebugPanel(Wall wall, GameBoard board){
 
         this.wall = wall;
@@ -56,6 +55,12 @@ public class DebugPanel extends JPanel {
 
         initialize();
 
+        functions();
+
+
+    }
+
+    private void functions() {
         skipLevel = makeButton("Skip Level",e -> board.skipLevel());
         resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
 
