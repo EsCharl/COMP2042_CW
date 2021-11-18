@@ -1,6 +1,6 @@
 # COMP2042_CW_hcycl3
  
-##Table of Contents 
+Table of Contents 
 
 1. [Introduction](#introduction)
 2. [Changes Made](#changes-made)
