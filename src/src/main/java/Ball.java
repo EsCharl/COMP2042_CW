@@ -28,15 +28,15 @@ abstract public class Ball {
     private int speedY;
 
     /**
-     * this is the method required to create a ball object.
+     * this is the constructor used to create a ball object.
      *
      * @param center this is the position where the ball is to be formed.
-     * @param radiusA this is the diameter of the ball based on x-axis
-     * @param radiusB this is the diameter of the ball based on y-axis.
+     * @param diameterA this is the diameter of the ball based on x-axis
+     * @param diameterB this is the diameter of the ball based on y-axis.
      * @param inner this is the Color for the inside of the ball.
      * @param border this is the Color for the border of the ball.
      */
-    public Ball(Point2D center,int radiusA,int radiusB,Color inner,Color border){
+    public Ball(Point2D center,int diameterA,int diameterB,Color inner,Color border){
         this.center = center;
 
         up = new Point2D.Double();
@@ -44,21 +44,21 @@ abstract public class Ball {
         left = new Point2D.Double();
         right = new Point2D.Double();
 
-        up.setLocation(center.getX(),center.getY()-(radiusB / 2));
-        down.setLocation(center.getX(),center.getY()+(radiusB / 2));
+        up.setLocation(center.getX(),center.getY()-(diameterB / 2));
+        down.setLocation(center.getX(),center.getY()+(diameterB / 2));
 
-        left.setLocation(center.getX()-(radiusA /2),center.getY());
-        right.setLocation(center.getX()+(radiusA /2),center.getY());
+        left.setLocation(center.getX()-(diameterA /2),center.getY());
+        right.setLocation(center.getX()+(diameterA /2),center.getY());
 
 
-        ballFace = makeBall(center,radiusA,radiusB);
+        ballFace = makeBall(center,diameterA,diameterB);
         this.border = border;
         this.inner  = inner;
         speedX = 0;
         speedY = 0;
     }
 
-    protected abstract Shape makeBall(Point2D center,int radiusA,int radiusB);
+    protected abstract Shape makeBall(Point2D center,int diameterA,int diameterB);
 
     /**
      * this method is used to move the ball.

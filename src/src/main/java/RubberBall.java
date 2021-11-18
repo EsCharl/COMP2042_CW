@@ -26,33 +26,33 @@ import java.awt.geom.Point2D;
 public class RubberBall extends Ball {
 
 
-    private static final int DEF_RADIUS = 10;
+    private static final int DEF_DIAMETER = 10;
     private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
     /**
-     * this method is used to create a rubber ball.
+     * this constructor is used to create a rubber ball.
      *
      * @param center this is the position where the ball is created.
      */
     public RubberBall(Point2D center){
-        super(center,DEF_RADIUS,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
+        super(center,DEF_DIAMETER,DEF_DIAMETER,DEF_INNER_COLOR,DEF_BORDER_COLOR);
     }
 
     /**
      * this method is used to create a shape of the ball.
      *
      * @param center this is the position where the ball is formed
-     * @param radiusA this is the diameter of the ball based on x-axis
-     * @param radiusB this is the diameter of the ball based on y-axis.
+     * @param diameterA this is the diameter of the ball based on x-axis
+     * @param diameterB this is the diameter of the ball based on y-axis.
      * @return it returns a shape of the ball on a position specified in center.
      */
     @Override
-    protected Shape makeBall(Point2D center, int radiusA, int radiusB) {
+    protected Shape makeBall(Point2D center, int diameterA, int diameterB) {
 
-        double x = center.getX() - (radiusA / 2);
-        double y = center.getY() - (radiusB / 2);
+        double x = center.getX() - (diameterA / 2);
+        double y = center.getY() - (diameterB / 2);
 
-        return new Ellipse2D.Double(x,y,radiusA,radiusB);
+        return new Ellipse2D.Double(x,y,diameterA,diameterB);
     }
 }
