@@ -50,4 +50,10 @@ I've also changed the variable name of radius to diameter to more suit the namin
 ![image](https://user-images.githubusercontent.com/63916811/142373987-f446429c-53e2-4ad6-9039-0521889a7519.png)
 ![image](https://user-images.githubusercontent.com/63916811/142374051-27e66722-b1d9-4a47-a6c4-764f57689456.png)
 
+these methods could be removed from Steel Brick class as it is redundant.
 
+![image](https://user-images.githubusercontent.com/63916811/142449884-fa66fadf-0f36-45b2-ac0c-b4b1438e3948.png)
+
+This method which is present in the Clay Brick, Steel Brick and Cement Brick is redundant as the super class (Brick) already have the method and serves the same purpose. thus, redundant.
+
+![image](https://user-images.githubusercontent.com/63916811/142450152-347cb7ab-79ed-4665-8037-7e16e43aafb0.png)
