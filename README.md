@@ -61,3 +61,27 @@ these methods could be removed from Steel Brick class as it is redundant.
 This method which is present in the Clay Brick, Steel Brick and Cement Brick is redundant as the super class (Brick) already have the method and serves the same purpose. thus, redundant.
 
 ![image](https://user-images.githubusercontent.com/63916811/142450152-347cb7ab-79ed-4665-8037-7e16e43aafb0.png)
+
+I've changed the requirements to be on another method for ease of changing/addition of new buttons in the future.
+
+![image](https://user-images.githubusercontent.com/63916811/142560183-6ff4ec2f-4b6e-4338-8c8e-3bd36d6f0b05.png)
+
+changing of direct assignment to method calling. (Ball)
+
+![image](https://user-images.githubusercontent.com/63916811/142561952-0558522d-7ad5-4866-b43a-2a361e9e47bf.png)
+
+this is used to set the variables
+
+![image](https://user-images.githubusercontent.com/63916811/142562488-dacc1a46-f015-4614-b744-ab64733ec913.png)
+
+this it to create the direction points of the ball. this can be expanded in the future to include more directions.
+
+![image](https://user-images.githubusercontent.com/63916811/142565180-8b9e8c9c-3de6-40ce-843a-ea047736e47f.png)
+
+A refactoring in Ball class. (removal of some code because there is a method that serves the same function)
+
+![image](https://user-images.githubusercontent.com/63916811/142565932-ea46b5e3-f64b-4b3f-a4c3-380e351bd213.png)
+
+change of method name (SetPoints -> setDirectionalPoint) to make it more precise.
+
+![image](https://user-images.githubusercontent.com/63916811/142566472-f3f0f2f2-347c-4b94-926c-87ebb8234fbc.png)
