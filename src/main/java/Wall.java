@@ -274,7 +274,7 @@ public class Wall {
         tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
-        tmp[4] = makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,REINFORCED_STEEL);
+        tmp[4] = makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio,REINFORCED_STEEL,STEEL);
         return tmp;
     }
 

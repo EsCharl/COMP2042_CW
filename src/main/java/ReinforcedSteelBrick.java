@@ -8,11 +8,13 @@ public class ReinforcedSteelBrick extends Brick{
     private static final Color DEF_INNER = Color.GRAY;
     private static final Color DEF_BORDER = new Color(203, 203, 201);
     private static final int REINFORCED_STEEL_STRENGTH = 2;
-    private static final double STEEL_PROBABILITY = 0.5;
+    private static final double STEEL_PROBABILITY = 0.3;
 
     private Crack crack;
     private Random rnd = new Random();
     private Shape brickFace;
+
+    private boolean hit;
     /**
      * this method is used to create a reinforced steel brick object.
      *
@@ -30,7 +32,7 @@ public class ReinforcedSteelBrick extends Brick{
      */
     @Override
     public void impact(){
-        if(rnd.nextDouble() < STEEL_PROBABILITY){
+        if(hit){
             super.impact();
         }
     }
@@ -67,8 +69,9 @@ public class ReinforcedSteelBrick extends Brick{
     public boolean setImpact(Point2D point, int dir) {
         if(super.isBroken())
             return false;
-        super.impact();
-        if(!super.isBroken()){
+        hit = probabilityHit(STEEL_PROBABILITY);
+        impact();
+        if(hit){
             crack.makeCrack(point,dir);
             updateBrick();
             return false;
@@ -84,5 +87,9 @@ public class ReinforcedSteelBrick extends Brick{
     @Override
     public Shape getBrick() {
         return brickFace;
+    }
+
+    private boolean probabilityHit(double probability){
+        return rnd.nextDouble() < probability;
     }
 }
