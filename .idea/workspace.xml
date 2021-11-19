@@ -6,10 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/COMP2042_CW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMP2042_CW.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Brick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ClayBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ClayBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HomeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick$Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick$Crack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/ClayBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ClayBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +41,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
     <configuration name="GraphicsMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">

@@ -34,23 +34,34 @@ abstract public class Ball {
     public Ball(Point2D center,int diameterA,int diameterB,Color inner,Color border){
         this.center = center;
 
+        createDirectionalPoint2D();
+
+        setDirectionalPoints(diameterA, diameterB);
+
+        ballFace = makeBall(center,diameterA,diameterB);
+        setColorOfBall(inner, border);
+        setSpeed(0,0);
+    }
+
+    /**
+     * This method is used to set the color of the ball.
+     *
+     * @param inner the inner color of the ball that is used to be set for the ball inner color.
+     * @param border the border color of the ball that is used to be set for the ball border color.
+     */
+    private void setColorOfBall(Color inner,Color border){
+        this.border = border;
+        this.inner  = inner;
+    }
+
+    /**
+     * this method is used to create the direction pointer2D objects.
+     */
+    private void createDirectionalPoint2D(){
         up = new Point2D.Double();
         down = new Point2D.Double();
         left = new Point2D.Double();
         right = new Point2D.Double();
-
-        up.setLocation(center.getX(),center.getY()-(diameterB / 2));
-        down.setLocation(center.getX(),center.getY()+(diameterB / 2));
-
-        left.setLocation(center.getX()-(diameterA /2),center.getY());
-        right.setLocation(center.getX()+(diameterA /2),center.getY());
-
-
-        ballFace = makeBall(center,diameterA,diameterB);
-        this.border = border;
-        this.inner  = inner;
-        speedX = 0;
-        speedY = 0;
     }
 
     protected abstract Shape makeBall(Point2D center,int diameterA,int diameterB);
@@ -65,8 +76,7 @@ abstract public class Ball {
         double h = tmp.getHeight();
 
         tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        setPoints(w,h);
-
+        setDirectionalPoints(w,h);
 
         ballFace = tmp;
     }
@@ -78,8 +88,8 @@ abstract public class Ball {
      * @param y the speed on the y-axis.
      */
     public void setSpeed(int x,int y){
-        speedX = x;
-        speedY = y;
+        setXSpeed(x);
+        setYSpeed(y);
     }
 
     /**
@@ -104,14 +114,14 @@ abstract public class Ball {
      * this method is used to reverse the direction where the ball is going on the x-axis.
      */
     public void reverseX(){
-        speedX *= -1;
+        setXSpeed(-speedX);
     }
 
     /**
      * this method is used to reverse the direction where the ball is going on the y-axis.
      */
     public void reverseY(){
-        speedY *= -1;
+        setYSpeed(-speedY);
     }
 
     /**
@@ -120,7 +130,7 @@ abstract public class Ball {
      * @return it returns a color that is the color of the border of the ball.
      */
     public Color getBorderColor(){
-        return border;
+        return this.border;
     }
 
     /**
@@ -129,7 +139,7 @@ abstract public class Ball {
      * @return it returns a color that is the color of the in side of the ball.
      */
     public Color getInnerColor(){
-        return inner;
+        return this.inner;
     }
 
     /**
@@ -138,7 +148,7 @@ abstract public class Ball {
      * @return it returns a Point2D format of the position of the ball.
      */
     public Point2D getPosition(){
-        return center;
+        return this.center;
     }
 
     /**
@@ -147,7 +157,7 @@ abstract public class Ball {
      * @return it returns the shape of the ball
      */
     public Shape getBallFace(){
-        return ballFace;
+        return this.ballFace;
     }
 
     /**
@@ -167,12 +177,12 @@ abstract public class Ball {
     }
 
     /**
-     * this method is used to set the ball location.
+     * this method is used to set the ball direction point location.
      *
      * @param width the width of the ball.
      * @param height the height of the ball.
      */
-    private void setPoints(double width,double height){
+    private void setDirectionalPoints(double width,double height){
         up.setLocation(center.getX(),center.getY()-(height / 2));
         down.setLocation(center.getX(),center.getY()+(height / 2));
 
@@ -186,7 +196,7 @@ abstract public class Ball {
      * @return an integer of the speed of the ball on the x-axis.
      */
     public int getSpeedX(){
-        return speedX;
+        return this.speedX;
     }
 
     /**
@@ -195,7 +205,7 @@ abstract public class Ball {
      * @return an integer of the speed of the ball on the y-axis.
      */
     public int getSpeedY(){
-        return speedY;
+        return this.speedY;
     }
 
 

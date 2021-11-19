@@ -90,18 +90,33 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         this.owner = owner;
 
-
-
         menuFace = new Rectangle(new Point(0,0),area);
+
         this.setPreferredSize(area);
 
+        createButtonObjects(area);
+
+        createStylingObjects();
+    }
+
+    /**
+     * this is used to create the button objects that is used in the home menu.
+     *
+     * @param area this is the area dimension where the button could add the buttons.
+     */
+    private void createButtonObjects(Dimension area){
         Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
 
         //for the info button
         infoButton = new Rectangle(btnDim);
+    }
 
+    /**
+     * this is the method used to create and instantiate the styling variables.
+     */
+    private void createStylingObjects(){
         borderStoke = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0);
         borderStoke_noDashes = new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 
@@ -109,9 +124,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         gameTitleFont = new Font("Noto Mono",Font.BOLD,40);
         creditsFont = new Font("Monospaced",Font.PLAIN,10);
         buttonFont = new Font("Monospaced",Font.PLAIN,startButton.height-2);
-
-
-
     }
 
     /**
@@ -257,7 +269,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         x += infoButton.x;
         y += infoButton.y + (infoButton.height * 0.9);
 
-        if(infoClicked){
+        if(getInfoClicked()){
             Color tmp = g2d.getColor();
             g2d.setColor(CLICKED_BUTTON_COLOR);
             g2d.draw(infoButton);
@@ -281,7 +293,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         x += startButton.x;
         y += startButton.y + (startButton.height * 0.9);
 
-        if(startClicked){
+        if(getStartClicked()){
             Color tmp = g2d.getColor();
             g2d.setColor(CLICKED_BUTTON_COLOR);
             g2d.draw(startButton);
@@ -307,7 +319,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         x += menuButton.x;
         y += menuButton.y + (startButton.height * 0.9);
 
-        if(menuClicked){
+        if(getMenuClicked()){
             Color tmp = g2d.getColor();
 
             g2d.setColor(CLICKED_BUTTON_COLOR);
@@ -333,7 +345,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         Point p = mouseEvent.getPoint();
         if(startButton.contains(p)){
            owner.enableGameBoard();
-
         }
         else if(menuButton.contains(p)){
             System.out.println("Goodbye " + System.getProperty("user.name"));
@@ -357,17 +368,44 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if(startButton.contains(p)){
-            startClicked = true;
+            setStartClicked(true);
             repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
         }
         else if(menuButton.contains(p)){
-            menuClicked = true;
+            setMenuClicked(true);
             repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
         }
         else if(infoButton.contains(p)){
-            infoClicked = true;
+            setInfoClicked(true);
             repaint(infoButton.x, infoButton.y, infoButton.width+1,infoButton.height+1);
         }
+    }
+
+    /**
+     * this is used to set the start clicked variable.
+     *
+     * @param startClicked the boolean value that is used to set the start click variable
+     */
+    public void setStartClicked(boolean startClicked) {
+        this.startClicked = startClicked;
+    }
+
+    /**
+     * this is used to set the menu clicked variable.
+     *
+     * @param menuClicked the boolean value that is used to set the menu click variable
+     */
+    public void setMenuClicked(boolean menuClicked) {
+        this.menuClicked = menuClicked;
+    }
+
+    /**
+     * this is used to set info clicked variable.
+     *
+     * @param infoClicked the boolean value that is used to set the info click variable
+     */
+    public void setInfoClicked(boolean infoClicked) {
+        this.infoClicked = infoClicked;
     }
 
     /**
@@ -377,18 +415,45 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-        if(startClicked){
-            startClicked = false;
+        if(getStartClicked()){
+            setStartClicked(false);
             repaint(startButton.x,startButton.y,startButton.width+1,startButton.height+1);
         }
-        else if(menuClicked){
-            menuClicked = false;
+        else if(getMenuClicked()){
+            setMenuClicked(false);
             repaint(menuButton.x,menuButton.y,menuButton.width+1,menuButton.height+1);
         }
-        else if(infoClicked){
-            infoClicked = false;
+        else if(getInfoClicked()){
+            setInfoClicked(false);
             repaint(infoButton.x, infoButton.y, infoButton.width+1,infoButton.height+1);
         }
+    }
+
+    /**
+     * this method is used to get the start clicked variable
+     *
+     * @return returns the boolean value of start clicked variable.
+     */
+    public boolean getStartClicked(){
+        return this.startClicked;
+    }
+
+    /**
+     * this method is used to get the menu clicked variable.
+     *
+     * @return returns the boolean value of the menu clicked variable.
+     */
+    public boolean getMenuClicked(){
+        return this.menuClicked;
+    }
+
+    /**
+     * this method is used to get the info clicked variable.
+     *
+     * @return returns the boolean value of info clicked variable.
+     */
+    public boolean getInfoClicked(){
+        return this.infoClicked;
     }
 
     /**
@@ -429,10 +494,20 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        if(startButton.contains(p) || menuButton.contains(p) || infoButton.contains(p))
+        if (checkIfMouseMovedToButton(p))
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
+    }
+
+    /**
+     * this method is used to check if the mouse is on the button.
+     *
+     * @param p this takes the event generated by the mouse.
+     * @return returns true if the mouse is on the button.
+     */
+    private boolean checkIfMouseMovedToButton(Point p){
+        return (startButton.contains(p) || menuButton.contains(p) || infoButton.contains(p));
     }
 
     /**
