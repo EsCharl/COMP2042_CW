@@ -77,6 +77,6 @@ public class CementBrick extends Brick {
     public void repair(){
         super.repair();
         crack.reset();
-        brickFace = getBrick();
+        brickFace = super.getBrick();
     }
 }
