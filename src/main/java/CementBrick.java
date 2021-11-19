@@ -50,7 +50,7 @@ public class CementBrick extends Brick {
     }
 
     /**
-     * this method is used to get the graphic of the brick.
+     * this method is used to get the shape information of the brick.
      *
      * @return the graphic of the brick
      */

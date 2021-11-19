@@ -71,7 +71,7 @@ public class ReinforcedSteelBrick extends Brick{
             return false;
         hit = probabilityHit(STEEL_PROBABILITY);
         impact();
-        if(hit){
+        if(!super.isBroken()){
             crack.makeCrack(point,dir);
             updateBrick();
             return false;
