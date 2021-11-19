@@ -81,10 +81,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         strLen = 0;
         showPauseMenu = false;
 
-
-
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
-
 
         this.initialize();
         message = "";
@@ -139,7 +136,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * this method sets the variables and prepares the game. (game window size, track inputs, etc
+     * this method sets the variables and prepares the game window based on awt. (game window size, track inputs, etc.)
      */
     private void initialize(){
         this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
@@ -151,7 +148,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
-     * This method is used for drawing the objects, namely the pause menu, the bricks, the ball, and the paddle which is controlled by the user
+     * This method is used for apply the objects, namely the pause menu, the bricks, the ball, and the paddle which is controlled by the user on the screen.
      *
      * @param g this is an object where it will be drawn upon.
      */

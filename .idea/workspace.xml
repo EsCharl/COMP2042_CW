@@ -6,21 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/COMP2042_CW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMP2042_CW.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HomeMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick$Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick$Crack.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/ClayBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ClayBrick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

@@ -98,7 +98,7 @@ abstract public class Ball {
      * @param s speed on the x-axis.
      */
     public void setXSpeed(int s){
-        speedX = s;
+        this.speedX = s;
     }
 
     /**
@@ -107,21 +107,21 @@ abstract public class Ball {
      * @param s speed on the y-axis.
      */
     public void setYSpeed(int s){
-        speedY = s;
+        this.speedY = s;
     }
 
     /**
      * this method is used to reverse the direction where the ball is going on the x-axis.
      */
     public void reverseX(){
-        setXSpeed(-speedX);
+        setXSpeed(-this.speedX);
     }
 
     /**
      * this method is used to reverse the direction where the ball is going on the y-axis.
      */
     public void reverseY(){
-        setYSpeed(-speedY);
+        setYSpeed(-this.speedY);
     }
 
     /**
