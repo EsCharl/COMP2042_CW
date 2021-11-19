@@ -53,7 +53,7 @@ public class ReinforcedSteelBrick extends Brick{
     public void repair(){
         super.repair();
         crack.reset();
-        brickFace = super.brickFace;
+        brickFace = getBrick();
     }
 
     /**

@@ -33,8 +33,6 @@ abstract public class Brick  {
         public static final int VERTICAL = 100;
         public static final int HORIZONTAL = 200;
 
-
-
         private GeneralPath crack;
 
         private int crackDepth;
@@ -55,7 +53,7 @@ abstract public class Brick  {
         }
 
         /**
-         * this method is used to get the CrackPath.
+         * this method is used to get the Crack Path properties.
          *
          * @return a GeneralPath that is the path
          */
@@ -206,7 +204,7 @@ abstract public class Brick  {
          * @param from this is the position where it begins.
          * @param to this is the position where it ends.
          * @param direction the direction in integer constant.
-         * @return
+         * @return it returns a random point (coordinates) on the brick.
          */
         private Point makeRandomPoint(Point from,Point to, int direction){
 
