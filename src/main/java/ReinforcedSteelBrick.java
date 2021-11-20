@@ -64,7 +64,7 @@ public class ReinforcedSteelBrick extends Brick{
             impact();
         if(!super.isBroken()){
             if(hit){ // remove this if statement for more fun inducing excitement. :D
-                crack.makeCrack(point,dir);
+                crack.makeCrack(point,dir, this);
                 updateBrick();
             }
             return false;
