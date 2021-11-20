@@ -67,8 +67,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean menuClicked;
 
     // for the images
-    private static final String MAIN_IMAGE_PATH = "src/main/resources/mainimage.png";
-    private static final String INFO_IMAGE_PATH = "src/main/resources/Info.png";
+    private static final String MAIN_IMAGE_FILE_NAME = "mainimage.png";
+    private static final String INFO_IMAGE_FILE_NAME = "Info.png";
 
     // for the info button
     private Rectangle infoButton;
@@ -179,7 +179,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         //code for an image in the start game menu.
         BufferedImage image = null;
         try{
-            image = ImageIO.read(new File(MAIN_IMAGE_PATH));
+            image = ImageIO.read(HomeMenu.class.getResource(MAIN_IMAGE_FILE_NAME));
         }catch(IOException e){
             g2d.setColor(BG_COLOR);
         }
@@ -538,7 +538,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      * @throws IOException this is used if the image could not be loaded.
      */
     public void DisplayInfo() throws IOException{
-        BufferedImage display = ImageIO.read(new File(INFO_IMAGE_PATH));
+        BufferedImage display = ImageIO.read(HomeMenu.class.getResource(INFO_IMAGE_FILE_NAME));
         ImageIcon icon = new ImageIcon(display);
         JFrame frame=new JFrame();
         frame.setTitle(INFO_TEXT);

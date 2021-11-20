@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -95,6 +96,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
+        setLevelFileName(wall.getWallLevel());
 
         gameTimer = new Timer(10,e ->{
             wall.move();
@@ -124,16 +126,16 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 }
 
                 //for save file saving and high score pop up
-                setLevelPathName(wall.getWallLevel()-1);
                 try {
                     ArrayList<String> sorted = getHighScore();
                     updateSaveFile(sorted);
-                    highScorePanel(wall.getWallLevel()-1,sorted);
-                } catch (IOException | BadLocationException ex) {
+                    highScorePanel(sorted);
+                } catch (IOException | BadLocationException | URISyntaxException ex) {
                     ex.printStackTrace();
                 }
                 restartTimer();
             }
+            setLevelFileName(wall.getWallLevel());
 
             repaint();
         });
@@ -526,12 +528,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     /**
      * This method creates a high score panel to show the scores after each game.
      *
-     * @param level for the pop up screen level title.
      * @param sorted takes in the arraylist of string from getHighScore method to display on the panel.
      * @throws BadLocationException just incase if the insertion of the string into the pop up is an error.
      */
-    private void highScorePanel(int level, ArrayList<String> sorted) throws BadLocationException {
-        JFrame frame=new JFrame("LEVEL "+ level + " HIGH SCORE");
+    private void highScorePanel(ArrayList<String> sorted) throws BadLocationException {
+        JFrame frame=new JFrame("HIGH SCORE");
         frame.setLayout(new FlowLayout());
         frame.setSize(500,400);
 
@@ -566,8 +567,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      *
      * @param level the level to determine which level file.
      */
-    private void setLevelPathName(int level){
-        levelName = "src/main/resources/scores/Level"+level+".txt";
+    private void setLevelFileName(int level){
+        levelName = "/scores/Level"+level+".txt";
     }
 
     /**
@@ -585,20 +586,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
      * @throws FileNotFoundException just in case if the save file is missing.
      */
-    private ArrayList<String> getHighScore() throws IOException {
+    private ArrayList<String> getHighScore() throws IOException, URISyntaxException {
 
         Boolean placed = false;
 
         ArrayList<String> Completed = new ArrayList<String>();
-        Scanner scan = null;
 
-        try {
-            scan = new Scanner(new File(getLevelPathName()));
-        }catch (FileNotFoundException e) {
-            File myObj = new File(getLevelPathName());
-            myObj.createNewFile();
-            scan = new Scanner(new File(getLevelPathName()));
-        }
+        Scanner scan = new Scanner(new File(GameBoard.class.getResource(getLevelPathName()).toURI()));
+
         while (scan.hasNextLine()){
             // to split the name and time to include inside the highscore.
             String[] line = scan.nextLine().split(",",2);
@@ -680,8 +675,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @param sorted this is the arraylist of string to store inside the save file.
      * @throws IOException This is in case if there is a problem writing the file.
      */
-    private void updateSaveFile(ArrayList<String> sorted) throws IOException {
-        File file = new File(getLevelPathName());
+    private void updateSaveFile(ArrayList<String> sorted) throws IOException, URISyntaxException {
+        File file = new File(GameBoard.class.getResource(getLevelPathName()).toURI());
         FileWriter overwrite = new FileWriter(file,false);
         for (int i = 0; i < sorted.size()-1; i++)
             overwrite.write(sorted.get(i)+"\n");
