@@ -70,6 +70,17 @@ public class Wall {
 
         makeBall(ballPos);
 
+        setRandomBallSpeed();
+
+        player = new Player((Point) ballPos.clone(),150,10, drawArea);
+
+        area = drawArea;
+    }
+
+    /**
+     * this method is used to set the random speed on both x-axis and y-axis for the ball.
+     */
+    private void setRandomBallSpeed(){
         int speedX,speedY;
 
         do{
@@ -81,10 +92,6 @@ public class Wall {
         }while(speedY == 0);
 
         ball.setSpeed(speedX,speedY);
-
-        player = new Player((Point) ballPos.clone(),150,10, drawArea);
-
-        area = drawArea;
     }
 
     /**
@@ -104,9 +111,7 @@ public class Wall {
          */
         brickCnt -= brickCnt % lineCnt;
 
-        int brickOnLine = brickCnt / lineCnt;
-
-        double brickLen = drawArea.getWidth() / brickOnLine;
+        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
         double brickHgt = brickLen / brickSizeRatio;
 
         brickCnt += lineCnt / 2;
@@ -118,18 +123,18 @@ public class Wall {
 
         int i;
         for(i = 0; i < tmp.length; i++){
-            int line = i / brickOnLine;
+            int line = i / getBrickOnLine(brickCnt,lineCnt);
             if(line == lineCnt)
                 break;
-            double x = (i % brickOnLine) * brickLen;
-            x =(line % 2 == 0) ? x : (x - (brickLen / 2));
+            double x = (i % getBrickOnLine(brickCnt,lineCnt)) * brickLen;
+            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x,y);
             tmp[i] = makeBrick(p,brickSize,type);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (brickOnLine * brickLen) - (brickLen / 2);
+            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
             tmp[i] = new ClayBrick(p,brickSize);
         }
@@ -155,12 +160,10 @@ public class Wall {
          */
         brickCnt -= brickCnt % lineCnt;
 
-        int brickOnLine = brickCnt / lineCnt;
+        int centerLeft = getBrickOnLine(brickCnt,lineCnt) / 2 - 1;
+        int centerRight = getBrickOnLine(brickCnt,lineCnt) / 2 + 1;
 
-        int centerLeft = brickOnLine / 2 - 1;
-        int centerRight = brickOnLine / 2 + 1;
-
-        double brickLen = drawArea.getWidth() / brickOnLine;
+        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
         double brickHgt = brickLen / brickSizeRatio;
 
         brickCnt += lineCnt / 2;
@@ -172,21 +175,21 @@ public class Wall {
 
         int i;
         for(i = 0; i < tmp.length; i++){
-            int line = i / brickOnLine;
+            int line = i / getBrickOnLine(brickCnt,lineCnt);
             if(line == lineCnt)
                 break;
-            int posX = i % brickOnLine;
+            int posX = i % getBrickOnLine(brickCnt,lineCnt);
             double x = posX * brickLen;
-            x =(line % 2 == 0) ? x : (x - (brickLen / 2));
+            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x,y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ?  makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
+            tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (brickOnLine * brickLen) - (brickLen / 2);
+            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
             tmp[i] = makeBrick(p,brickSize,typeA);
         }
@@ -211,12 +214,10 @@ public class Wall {
          */
         brickCnt -= brickCnt % lineCnt;
 
-        int brickOnLine = brickCnt / lineCnt;
+        int centerLeft = getBrickOnLine(brickCnt,lineCnt) / 2 - 1;
+        int centerRight = getBrickOnLine(brickCnt,lineCnt) / 2 + 1;
 
-        int centerLeft = brickOnLine / 2 - 1;
-        int centerRight = brickOnLine / 2 + 1;
-
-        double brickLen = drawArea.getWidth() / brickOnLine;
+        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
         double brickHgt = brickLen / brickSizeRatio;
 
         brickCnt += lineCnt / 2;
@@ -228,26 +229,37 @@ public class Wall {
 
         int i;
         for(i = 0; i < tmp.length; i++){
-            int line = i / brickOnLine;
+            int line = i / getBrickOnLine(brickCnt,lineCnt);
             if(line == lineCnt)
                 break;
-            int posX = i % brickOnLine;
+            int posX = i % getBrickOnLine(brickCnt,lineCnt);
             double x = posX * brickLen;
-            x =(line % 2 == 0) ? x : (x - (brickLen / 2));
+            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x,y);
 
             boolean b = ((i % 2 == 0) || (posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ?  makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
+            tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (brickOnLine * brickLen) - (brickLen / 2);
+            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
             tmp[i] = makeBrick(p,brickSize,typeA);
         }
 
         return tmp;
+    }
+
+    /**
+     * this method is used to get the total amount of brick on a line. (for full horizontal lines)
+     *
+     * @param brickCnt total amount of bricks.
+     * @param lineCnt total amount of lines.
+     * @return returns an amount of bricks for a single line.
+     */
+    private int getBrickOnLine(int brickCnt, int lineCnt){
+        return brickCnt/lineCnt;
     }
 
     /**
@@ -379,20 +391,14 @@ public class Wall {
     }
 
     /**
-     * this is used to reset the ball to the starting position and giving it a random speed for the ball.
+     * this is used to reset the ball and the player to the starting position and giving it a random speed for the ball.
      */
-    public void ballReset(){
-        player.moveTo(startPoint);
+    public void positionsReset(){
+        player.resetPosition(startPoint);
         ball.moveTo(startPoint);
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
 
-        ball.setSpeed(speedX,speedY);
+        setRandomBallSpeed();
+
         ballLost = false;
     }
 
@@ -467,7 +473,7 @@ public class Wall {
     }
 
     /**
-     * this method is used to generate the brick object needed for the level.
+     * this method is used to select and create the brick object needed for the level.
      *
      * @param point this is used get the position where the brick is supposed to be.
      * @param size this is for the size of the brick
@@ -475,24 +481,18 @@ public class Wall {
      * @return this returns the brick that is created.
      */
     private Brick makeBrick(Point point, Dimension size, int type){
-        Brick out;
         switch(type){
             case CLAY:
-                out = new ClayBrick(point,size);
-                break;
+                return new ClayBrick(point,size);
             case STEEL:
-                out = new SteelBrick(point,size);
-                break;
+                return new SteelBrick(point,size);
             case CEMENT:
-                out = new CementBrick(point, size);
-                break;
+                return new CementBrick(point, size);
             case REINFORCED_STEEL:
-                out = new ReinforcedSteelBrick(point, size);
-                break;
+                return new ReinforcedSteelBrick(point, size);
             default:
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
         }
-        return  out;
     }
 
     /**

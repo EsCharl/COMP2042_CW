@@ -50,9 +50,14 @@ public class RubberBall extends Ball {
     @Override
     protected Shape makeBall(Point2D center, int diameterA, int diameterB) {
 
-        double x = center.getX() - (diameterA / 2);
-        double y = center.getY() - (diameterB / 2);
+        return new Ellipse2D.Double(getXUpperLeftCorner(center, diameterA),getYUpperLeftCorner(center, diameterB),diameterA,diameterB);
+    }
 
-        return new Ellipse2D.Double(x,y,diameterA,diameterB);
+    private double getXUpperLeftCorner(Point2D center, int diameterA){
+        return center.getX() - (diameterA / 2);
+    }
+
+    private double getYUpperLeftCorner(Point2D center, int diameterB){
+        return center.getY() - (diameterB / 2);
     }
 }

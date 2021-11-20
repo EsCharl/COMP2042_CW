@@ -28,16 +28,6 @@ public class ReinforcedSteelBrick extends Brick{
     }
 
     /**
-     * this method is used to determine if the brick can be broken based on a probability.
-     */
-    @Override
-    public void impact(){
-        if(hit){
-            super.impact();
-        }
-    }
-
-    /**
      * this method is used to update the status of the brick on the screen.
      */
     private void updateBrick(){
@@ -69,11 +59,14 @@ public class ReinforcedSteelBrick extends Brick{
     public boolean setImpact(Point2D point, int dir) {
         if(super.isBroken())
             return false;
-        hit = probabilityHit(STEEL_PROBABILITY);
-        impact();
+        hit = rnd.nextDouble() < STEEL_PROBABILITY;
+        if(hit)
+            impact();
         if(!super.isBroken()){
-            crack.makeCrack(point,dir);
-            updateBrick();
+            if(hit){ // remove this if statement for more fun inducing excitement. :D
+                crack.makeCrack(point,dir);
+                updateBrick();
+            }
             return false;
         }
         return true;
@@ -87,9 +80,5 @@ public class ReinforcedSteelBrick extends Brick{
     @Override
     public Shape getBrick() {
         return brickFace;
-    }
-
-    private boolean probabilityHit(double probability){
-        return rnd.nextDouble() < probability;
     }
 }

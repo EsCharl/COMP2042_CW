@@ -70,15 +70,20 @@ abstract public class Ball {
      * this method is used to move the ball.
      */
     public void move(){
-        RectangularShape tmp = (RectangularShape) ballFace;
-        center.setLocation((center.getX() + speedX),(center.getY() + speedY));
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
+        center.setLocation((center.getX() + getSpeedX()),(center.getY() + getSpeedY()));
 
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        setDirectionalPoints(w,h);
+        setBallFace();
 
-        ballFace = tmp;
+        setDirectionalPoints(getRectangularShape().getWidth(),getRectangularShape().getHeight());
+    }
+
+    /**
+     * this method is used to change the ball face variable.
+     */
+    private void setBallFace(){
+        getRectangularShape().setFrame((center.getX() -(getRectangularShape().getWidth() / 2)),(center.getY() - (getRectangularShape().getHeight() / 2)),getRectangularShape().getWidth(),getRectangularShape().getHeight());
+
+        ballFace = getRectangularShape();
     }
 
     /**
@@ -168,12 +173,16 @@ abstract public class Ball {
     public void moveTo(Point p){
         center.setLocation(p);
 
-        RectangularShape tmp = (RectangularShape) ballFace;
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
+        setBallFace();
+    }
 
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
-        ballFace = tmp;
+    /**
+     * this gets the Rectangle with the shape of the ball.
+     *
+     * @return returns a rectangle with the shape of the ball.
+     */
+    private RectangularShape getRectangularShape(){
+        return (RectangularShape) getBallFace();
     }
 
     /**

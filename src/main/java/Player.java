@@ -49,7 +49,6 @@ public class Player {
         playerFace = makeRectangle(width, height);
         min = container.x + (width / 2);
         max = min + container.width - width;
-
     }
 
     /**
@@ -60,14 +59,23 @@ public class Player {
      * @return it will return a rectangle shape.
      */
     private Rectangle makeRectangle(int width,int height){
-        Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
-        return  new Rectangle(p,new Dimension(width,height));
+        return  new Rectangle(createRectanglePoint(width),new Dimension(width,height));
+    }
+
+    /**
+     * this method is used to create a point for the paddle.
+     *
+     * @param width this is the width of the paddle.
+     * @return it returns a point where the paddle is to be created.
+     */
+    private Point createRectanglePoint(int width){
+        return new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
     }
 
     /**
      * this is used to check if there is an impact between the paddle and the ball.
      *
-     * @param b the ball
+     * @param b the ball object which is used to detect if it collides with the paddle.
      * @return returns true if the ball comes in contact with the paddle, false if it doesn't
      */
     public boolean impact(Ball b){
@@ -75,14 +83,22 @@ public class Player {
     }
 
     /**
-     * this method is used to move the paddle (player)
+     * this method is used to move the paddle (player).
      */
     public void move(){
-        double x = ballPoint.getX() + moveAmount;
-        if(x < min || x > max)
+        if(moveToX() < min || moveToX() > max)
             return;
-        ballPoint.setLocation(x,ballPoint.getY());
+        ballPoint.setLocation(moveToX(),ballPoint.getY());
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+    }
+
+    /**
+     * this method is used to get the supposing final position in the X-axis.
+     *
+     * @return it returns the location where the paddle is supposed to go.
+     */
+    private double moveToX(){
+        return ballPoint.getX() + moveAmount;
     }
 
     /**
@@ -120,7 +136,7 @@ public class Player {
      *
      * @param p this is the Point position where the ball is to be set.
      */
-    public void moveTo(Point p){
+    public void resetPosition(Point p){
         ballPoint.setLocation(p);
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }

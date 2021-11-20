@@ -49,19 +49,9 @@ public class SteelBrick extends Brick {
      */
     @Override
     public void impact(){
-        if(probabilityHit(STEEL_PROBABILITY)){
+        if(rnd.nextDouble() < STEEL_PROBABILITY){
             super.impact();
         }
-    }
-
-    /**
-     * this method is used to get the probability if it is a hit or miss on the damage to the brick.
-     *
-     * @param probability a double datatype that is used get a probability if it is a hit or miss.
-     * @return return true if probability is greater than the random double generator.
-     */
-    private boolean probabilityHit(double probability){
-        return rnd.nextDouble() < probability;
     }
 
 }
