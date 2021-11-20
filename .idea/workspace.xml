@@ -11,37 +11,19 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2042_CW_jar/COMP2042_CW.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HomeMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scores/Level1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scores/Level4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scores/Level4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Ball.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick$Crack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/CementBrick.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/ClayBrick.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/DebugConsole.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/DebugPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GameFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Info.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/RubberBall.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/SteelBrick.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/mainimage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scores/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scores/Level5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level3.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level4.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/maven-archiver/pom.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,10 +61,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources\scores" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GraphicsMain">
+  <component name="RunManager" selected="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar">
     <configuration name="GraphicsMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GraphicsMain" />
       <module name="COMP2042_CW" />
@@ -105,9 +88,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar" />
         <item itemvalue="Application.GraphicsMain" />
         <item itemvalue="JAR Application.COMP2042_CW.jar" />
-        <item itemvalue="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar" />
       </list>
     </recent_temporary>
   </component>

@@ -96,7 +96,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
-        setLevelFileName(wall.getWallLevel());
+        setLevelFilePathName(wall.getWallLevel());
 
         gameTimer = new Timer(10,e ->{
             wall.move();
@@ -135,7 +135,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 }
                 restartTimer();
             }
-            setLevelFileName(wall.getWallLevel());
+            setLevelFilePathName(wall.getWallLevel());
 
             repaint();
         });
@@ -567,7 +567,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      *
      * @param level the level to determine which level file.
      */
-    private void setLevelFileName(int level){
+    private void setLevelFilePathName(int level){
         levelName = "/scores/Level"+level+".txt";
     }
 

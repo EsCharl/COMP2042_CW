@@ -25,14 +25,14 @@ import java.util.Random;
  */
 public class Wall {
 
-    private static final int LEVELS_COUNT = 5;
+    private static final int LEVELS_COUNT = 6;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
     private static final int REINFORCED_STEEL = 4;
 
-    private Random rnd;
+    private Random rnd = new Random();
     private Rectangle area;
 
     Brick[] bricks;
@@ -65,8 +65,6 @@ public class Wall {
 
         ballCount = 3;
         ballLost = false;
-
-        rnd = new Random();
 
         makeBall(ballPos);
 
@@ -252,6 +250,52 @@ public class Wall {
     }
 
     /**
+     * this method is one of the template used for the wall (level).
+     *
+     * @param drawArea this is the area which the bricks could be placed
+     * @param brickCnt this is the amount of bricks which will be in for the level.
+     * @param lineCnt this is the number of rows of bricks for the level.
+     * @param brickSizeRatio this is the size ratio of the brick.
+     * @return it returns a wall (level) in the form of a brick array.
+     */
+    private Brick[] makeRandomLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio){
+        /*
+          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
+          multiple of lineCount smaller then brickCount
+         */
+        brickCnt -= brickCnt % lineCnt;
+
+        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
+        double brickHgt = brickLen / brickSizeRatio;
+
+        brickCnt += lineCnt / 2;
+
+        Brick[] tmp  = new Brick[brickCnt];
+
+        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
+        Point p = new Point();
+
+        int i;
+        for(i = 0; i < tmp.length; i++){
+            int line = i / getBrickOnLine(brickCnt,lineCnt);
+            if(line == lineCnt)
+                break;
+            double x = (i % getBrickOnLine(brickCnt,lineCnt)) * brickLen;
+            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
+            double y = (line) * brickHgt;
+            p.setLocation(x,y);
+            tmp[i] = makeBrick(p,brickSize, rnd.nextInt(4)+1);
+        }
+
+        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
+            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
+            p.setLocation(x,y);
+            tmp[i] = new ClayBrick(p,brickSize);
+        }
+        return tmp;
+    }
+
+    /**
      * this method is used to get the total amount of brick on a line. (for full horizontal lines)
      *
      * @param brickCnt total amount of bricks.
@@ -287,6 +331,7 @@ public class Wall {
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
         tmp[4] = makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio,REINFORCED_STEEL,STEEL);
+        tmp[5] = makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
         return tmp;
     }
 
