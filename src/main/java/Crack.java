@@ -59,7 +59,6 @@ import java.util.Random;
          * @param direction the direction where the ball touch the brick.
          */
         protected void makeCrack(Point2D point, int direction, Brick brick){
-            Rectangle bounds = brick.getBrick().getBounds();
 
             Point impact = new Point((int)point.getX(),(int)point.getY());
             Point start = new Point();
@@ -67,33 +66,58 @@ import java.util.Random;
 
             switch(direction){
                 case LEFT:
-                    start.setLocation(bounds.x + bounds.width, bounds.y);
-                    end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
-                    Point tmp = makeRandomPoint(start,end,VERTICAL);
-                    drawCrack(impact,tmp);
-
+                    start.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
+                    end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
+                    drawCrack(impact,getRandomPointVertical(start,end));
                     break;
                 case RIGHT:
-                    start.setLocation(bounds.getLocation());
-                    end.setLocation(bounds.x, bounds.y + bounds.height);
-                    tmp = makeRandomPoint(start,end,VERTICAL);
-                    drawCrack(impact,tmp);
-
+                    start.setLocation(getBounds(brick).getLocation());
+                    end.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
+                    drawCrack(impact,getRandomPointVertical(start,end));
                     break;
                 case UP:
-                    start.setLocation(bounds.x, bounds.y + bounds.height);
-                    end.setLocation(bounds.x + bounds.width, bounds.y + bounds.height);
-                    tmp = makeRandomPoint(start,end,HORIZONTAL);
-                    drawCrack(impact,tmp);
+                    start.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
+                    end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
+                    drawCrack(impact,getRandomPointHorizontal(start,end));
                     break;
                 case DOWN:
-                    start.setLocation(bounds.getLocation());
-                    end.setLocation(bounds.x + bounds.width, bounds.y);
-                    tmp = makeRandomPoint(start,end,HORIZONTAL);
-                    drawCrack(impact,tmp);
-
+                    start.setLocation(getBounds(brick).getLocation());
+                    end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
+                    drawCrack(impact,getRandomPointHorizontal(start,end));
                     break;
             }
+        }
+
+        /**
+         * this method is used to get a random point from a start point to the end point based on the direction it was given (horizontal).
+         *
+         * @param start the start position where the crack starts.
+         * @param end
+         * @return
+         */
+        private Point getRandomPointHorizontal(Point start, Point end){
+            return makeRandomPoint(start,end,HORIZONTAL);
+        }
+
+        /**
+         * this method is used to get a random point from a start point to the end point based on the direction it was given (vertical).
+         *
+         * @param start
+         * @param end
+         * @return
+         */
+        private Point getRandomPointVertical(Point start, Point end){
+            return makeRandomPoint(start,end,VERTICAL);
+        }
+
+        /**
+         * this method is used to get the brick boundaries.
+         *
+         * @param brick the brick object.
+         * @return it returns a Rectangle object which is the boundary of the brick.
+         */
+        private Rectangle getBounds(Brick brick){
+            return brick.getBrick().getBounds();
         }
 
         /**
@@ -184,7 +208,7 @@ import java.util.Random;
          *
          * @param from this is the position where it begins.
          * @param to this is the position where it ends.
-         * @param direction the direction in integer constant.
+         * @param direction the direction using an integer constant.
          * @return it returns a random point (coordinates) on the brick.
          */
         private Point makeRandomPoint(Point from,Point to, int direction){

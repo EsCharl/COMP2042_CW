@@ -336,8 +336,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.drawString(EXIT_TEXT,x,y);
 
-
-
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);
     }
@@ -378,7 +376,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     if(gameTimer.isRunning()){
                         gameTimer.stop();
                         pauseTimer();
-                        System.out.println(getTimer());
+                        System.out.println(getTimerString());
                     }else{
                         gameTimer.start();
                         startTimer();
@@ -607,7 +605,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
             int total_millisecond = (minute * 60 + second) * 1000;
             if (getTotalTime() < total_millisecond && !placed){
-                Completed.add(System.getProperty("user.name") + ',' + getTimer());
+                Completed.add(System.getProperty("user.name") + ',' + getTimerString());
                 placed = true;
                 Completed.add(name + ',' + time);
             }else{
@@ -615,7 +613,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             }
         }
         if(!placed)
-            Completed.add(System.getProperty("user.name") + ',' + getTimer());
+            Completed.add(System.getProperty("user.name") + ',' + getTimerString());
         return Completed;
     }
 
@@ -624,7 +622,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      *
      * @return A time in String format.
      */
-    private String getTimer(){
+    private String getTimerString(){
         pauseTimer();
         long elapsedSeconds = getTotalTime() / 2000;
         long secondsDisplay = elapsedSeconds % 60;
@@ -654,6 +652,15 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     /**
+     * this method is used to set the total time variable.
+     *
+     * @param totalTime the total time which is used to set the total time variable.
+     */
+    public void setTotalTime(long totalTime) {
+        this.totalTime = totalTime;
+    }
+
+    /**
      * this method is used to get the total time value variable.
      *
      * @return returns a long datatype of the total time variable.
@@ -666,7 +673,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * This method is used when a new level or a restart of the level is selected to restart the total time variable which is used to complete the level.
      */
     private void restartTimer(){
-        totalTime = 0;
+        setTotalTime(0);
     }
 
     /**
