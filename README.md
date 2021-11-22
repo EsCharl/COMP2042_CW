@@ -23,7 +23,7 @@ A pause menu is activated when the user enters debug console.
 
 ![image](https://user-images.githubusercontent.com/63916811/141623835-33633092-678f-4702-b01f-2b537044d13b.png)
 
-An additional level template is also added. this level will see an introduction of a new brick called "Reinforced Steel Brick" this brick have a 30% chance of getting damaged and it have a strength of 2.
+Two additional level template is also added. both of the level will see an introduction of a new brick called "Reinforced Steel Brick" this brick have a 30% chance of getting damaged and it have a strength of 2. One of the new templates for the level is called the sonic level and another is a random level which will generate random bricks.
 
 ![image](https://user-images.githubusercontent.com/63916811/141646176-f35d03c8-e490-4851-b3e9-e5ddf477b819.png)
 
