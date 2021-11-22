@@ -42,13 +42,21 @@ public class DebugPanel extends JPanel {
     private Wall wall;
     private GameBoard board;
 
+    private static DebugPanel uniqueDebugPanel;
+
+    public static DebugPanel singletonDebugPanel(Wall wall, GameBoard board){
+        if(uniqueDebugPanel == null){
+            uniqueDebugPanel = new DebugPanel(wall, board);
+        }
+        return uniqueDebugPanel;
+    }
     /**
      * This constructor contains the code needed for the console in the game.
      *
      * @param   wall A wall class that is created, and it is used for nextLevel, resetBallCount, setBallXSpeed,
      *               and setBallYSpeed method that is available in wall class.
      */
-    public DebugPanel(Wall wall, GameBoard board){
+    private DebugPanel(Wall wall, GameBoard board){
 
         this.wall = wall;
         this.board = board;

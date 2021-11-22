@@ -47,6 +47,15 @@ public class Wall {
     private int ballCount;
     private boolean ballLost;
 
+    private static Wall uniqueWall;
+
+    public static Wall singletonWall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+        if(getUniqueWall() == null){
+            setUniqueWall(new Wall(drawArea, brickCount, lineCount, brickDimensionRatio, ballPos));
+        }
+        return getUniqueWall();
+    }
+
     /**
      * this constructor is used to generate an object which is the wall used for the levels.
      *
@@ -56,7 +65,7 @@ public class Wall {
      * @param brickDimensionRatio this is for the ratio for the brick dimension.
      * @param ballPos this is the ball position.
      */
-    public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+    private Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
         this.startPoint = new Point(ballPos);
 
@@ -90,54 +99,6 @@ public class Wall {
         }while(speedY == 0);
 
         ball.setSpeed(speedX,speedY);
-    }
-
-    /**
-     * this method is one of the template used for the wall (level).
-     *
-     * @param drawArea this is the area which the bricks could be placed
-     * @param brickCnt this is the amount of bricks which will be in for the level.
-     * @param lineCnt this is the number of rows of bricks for the level.
-     * @param brickSizeRatio this is the size ratio of the brick.
-     * @param type this is the type of brick used for this level.
-     * @return it returns a wall (level) in the form of a brick array.
-     */
-    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
-        brickCnt -= brickCnt % lineCnt;
-
-        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
-        double brickHgt = brickLen / brickSizeRatio;
-
-        brickCnt += lineCnt / 2;
-
-        Brick[] tmp  = new Brick[brickCnt];
-
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
-        Point p = new Point();
-
-        int i;
-        for(i = 0; i < tmp.length; i++){
-            int line = i / getBrickOnLine(brickCnt,lineCnt);
-            if(line == lineCnt)
-                break;
-            double x = (i % getBrickOnLine(brickCnt,lineCnt)) * brickLen;
-            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,type);
-        }
-
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
-            p.setLocation(x,y);
-            tmp[i] = new ClayBrick(p,brickSize);
-        }
-        return tmp;
-
     }
 
     /**
@@ -326,7 +287,7 @@ public class Wall {
      */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY);
+        tmp[0] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CLAY);
         tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
@@ -547,5 +508,13 @@ public class Wall {
      */
     public int getWallLevel(){
         return level;
+    }
+
+    public static Wall getUniqueWall() {
+        return uniqueWall;
+    }
+
+    public static void setUniqueWall(Wall uniqueWall) {
+        Wall.uniqueWall = uniqueWall;
     }
 }

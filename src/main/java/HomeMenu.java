@@ -74,13 +74,22 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle infoButton;
     private boolean infoClicked;
 
+    private static HomeMenu uniqueHomeMenu;
+
+    public static HomeMenu singletonHomeMenu(GameFrame owner, Dimension area){
+        if(getUniqueHomeMenu() == null){
+            setUniqueHomeMenu(new HomeMenu(owner,area));
+        }
+        return getUniqueHomeMenu();
+    }
+
     /**
      * this constructor creates the home menu object.
      *
      * @param owner this takes in the game frame which is also a frame that is shown on the start page when the game is started
      * @param area is the information that is used to create the window in terms of the dimensions.
      */
-    public HomeMenu(GameFrame owner,Dimension area){
+    private HomeMenu(GameFrame owner,Dimension area){
 
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -548,5 +557,13 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         lbl.setIcon(icon);
         frame.add(lbl);
         frame.setVisible(true);
+    }
+
+    public static HomeMenu getUniqueHomeMenu() {
+        return uniqueHomeMenu;
+    }
+
+    public static void setUniqueHomeMenu(HomeMenu uniqueHomeMenu) {
+        HomeMenu.uniqueHomeMenu = uniqueHomeMenu;
     }
 }

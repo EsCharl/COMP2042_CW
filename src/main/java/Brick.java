@@ -55,7 +55,6 @@ abstract public class Brick  {
         this.border = border;
         this.inner = inner;
         this.fullStrength = this.strength = strength;
-
     }
 
     /**

@@ -34,6 +34,15 @@ public class DebugConsole extends JDialog implements WindowListener{
     private GameBoard gameBoard;
     private Wall wall;
 
+    private static DebugConsole uniqueDebugConsole;
+
+    public static DebugConsole singletonDebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
+        if(getUniqueDebugConsole() == null){
+            setUniqueDebugConsole(new DebugConsole(owner,wall,gameBoard));
+        }
+        return getUniqueDebugConsole();
+    }
+
     /**
      * this constructor is used for showing a console in the middle of the game window.
      *
@@ -41,15 +50,15 @@ public class DebugConsole extends JDialog implements WindowListener{
      * @param wall the game level that is generated, the status of the game.
      * @param gameBoard the status of the game board.
      */
-    public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
+    private DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
 
-        this.wall = wall;
-        this.owner = owner;
-        this.gameBoard = gameBoard;
+        setWall(wall);
+        setOwner(owner);
+        setGameBoard(gameBoard);
         initialize();
 
-        debugPanel = new DebugPanel(wall,gameBoard);
-        this.add(debugPanel,BorderLayout.CENTER);
+        setDebugPanel(DebugPanel.singletonDebugPanel(wall,gameBoard));
+        this.add(getDebugPanel(),BorderLayout.CENTER);
 
 
         this.pack();
@@ -71,9 +80,25 @@ public class DebugConsole extends JDialog implements WindowListener{
      * This method is used for get the size of the window and setting it in the middle of the window.
      */
     private void setLocation(){
-        int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
-        int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
-        this.setLocation(x,y);
+        this.setLocation(getXDebugConsoleCoordinate(),getYDebugConsoleCoordinate());
+    }
+
+    /**
+     * this method is used to get the x coordinate on where the debug console is set based on the JFrame provided.
+     *
+     * @return returns an X coordinate on where the debug console is to be set.
+     */
+    private int getXDebugConsoleCoordinate(){
+        return ((getOwner().getWidth() - this.getWidth()) / 2) + getOwner().getX();
+    }
+
+    /**
+     * this method is used to get the y coordinate on where the debug console is set based on the JFrame provided.
+     *
+     * @return returns an X coordinate on where the debug console is to be set.
+     */
+    private int getYDebugConsoleCoordinate(){
+        return ((getOwner().getHeight() - this.getHeight()) / 2) + getOwner().getY();
     }
 
     /**
@@ -93,7 +118,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        gameBoard.repaint();
+        getGameBoard().repaint();
     }
 
     /**
@@ -134,8 +159,8 @@ public class DebugConsole extends JDialog implements WindowListener{
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball b = wall.ball;
-        debugPanel.setValues(b.getSpeedX(),b.getSpeedY());
+        Ball b = getWall().ball;
+        getDebugPanel().setValues(b.getSpeedX(),b.getSpeedY());
     }
 
     /**
@@ -146,5 +171,46 @@ public class DebugConsole extends JDialog implements WindowListener{
     @Override
     public void windowDeactivated(WindowEvent windowEvent) {
 
+    }
+
+    @Override
+    public JFrame getOwner() {
+        return owner;
+    }
+
+    public void setOwner(JFrame owner) {
+        this.owner = owner;
+    }
+
+    public DebugPanel getDebugPanel() {
+        return debugPanel;
+    }
+
+    public void setDebugPanel(DebugPanel debugPanel) {
+        this.debugPanel = debugPanel;
+    }
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
+    public Wall getWall() {
+        return wall;
+    }
+
+    public void setWall(Wall wall) {
+        this.wall = wall;
+    }
+
+    public static DebugConsole getUniqueDebugConsole() {
+        return uniqueDebugConsole;
+    }
+
+    public static void setUniqueDebugConsole(DebugConsole uniqueDebugConsole) {
+        DebugConsole.uniqueDebugConsole = uniqueDebugConsole;
     }
 }

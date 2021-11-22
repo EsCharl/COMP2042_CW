@@ -33,21 +33,28 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private boolean gaming;
 
+    private static GameFrame uniqueGameFrame;
+
+    public static GameFrame singletonGameFrame(){
+        if(getUniqueGameFrame() == null){
+            setUniqueGameFrame(new GameFrame());
+        }
+        return getUniqueGameFrame();
+    }
     /**
      * this constructor is used to create a game frame object.
      */
-    public GameFrame(){
+    private GameFrame(){
         super();
 
-        gaming = false;
+        setGaming(false);
 
         this.setLayout(new BorderLayout());
 
-        gameBoard = new GameBoard(this);
+        setGameBoard(GameBoard.singletonGameBoard(this));
+        setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(450,300)));
 
-        homeMenu = new HomeMenu(this,new Dimension(450,300));
-
-        this.add(homeMenu,BorderLayout.CENTER);
+        this.add(getHomeMenu(),BorderLayout.CENTER);
 
         this.setUndecorated(true);
 
@@ -70,8 +77,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
      */
     public void enableGameBoard(){
         this.dispose();
-        this.remove(homeMenu);
-        this.add(gameBoard,BorderLayout.CENTER);
+        this.remove(getHomeMenu());
+        this.add(getGameBoard(),BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
@@ -83,10 +90,30 @@ public class GameFrame extends JFrame implements WindowFocusListener {
      *this method is used to set the location of the game frame in the middle of the screen.
      */
     private void autoLocate(){
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (size.width - this.getWidth()) / 2;
-        int y = (size.height - this.getHeight()) / 2;
-        this.setLocation(x,y);
+        this.setLocation(getGameFrameXCoordinate(getDisplayScreenSize()),getGameFrameYCoordinate(getDisplayScreenSize()));
+    }
+
+    /**
+     * this method is used to get the screen size of the user device display.
+     *
+     * @return returns the dimension of the user screen size.
+     */
+    private Dimension getDisplayScreenSize(){
+        return Toolkit.getDefaultToolkit().getScreenSize();
+    }
+
+    /**
+     * this method is used to get the
+     *
+     * @param size
+     * @return
+     */
+    private int getGameFrameXCoordinate(Dimension size){
+        return (size.width - this.getWidth()) / 2;
+    }
+
+    private int getGameFrameYCoordinate(Dimension size){
+        return (size.height - this.getHeight()) / 2;
     }
 
     /**
@@ -104,7 +131,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
             is useful only if the GameBoard as been displayed
             at least once
          */
-        gaming = true;
+        setGaming(true);
     }
 
     /**
@@ -114,8 +141,40 @@ public class GameFrame extends JFrame implements WindowFocusListener {
      */
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
-        if(gaming)
+        if(isGaming())
             gameBoard.onLostFocus();
 
+    }
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
+    public HomeMenu getHomeMenu() {
+        return homeMenu;
+    }
+
+    public void setHomeMenu(HomeMenu homeMenu) {
+        this.homeMenu = homeMenu;
+    }
+
+    public boolean isGaming() {
+        return gaming;
+    }
+
+    public void setGaming(boolean gaming) {
+        this.gaming = gaming;
+    }
+
+    public static GameFrame getUniqueGameFrame() {
+        return uniqueGameFrame;
+    }
+
+    public static void setUniqueGameFrame(GameFrame uniqueGameFrame) {
+        GameFrame.uniqueGameFrame = uniqueGameFrame;
     }
 }
