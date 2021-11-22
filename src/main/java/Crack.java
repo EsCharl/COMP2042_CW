@@ -31,8 +31,8 @@ import java.util.Random;
         public Crack(int crackDepth, int steps){
 
             crack = new GeneralPath();
-            this.crackDepth = crackDepth;
-            this.steps = steps;
+            setCrackDepth(crackDepth);
+            setSteps(steps);
         }
 
         /**
@@ -60,7 +60,6 @@ import java.util.Random;
          */
         protected void makeCrack(Point2D point, int direction, Brick brick){
 
-            Point impact = new Point((int)point.getX(),(int)point.getY());
             Point start = new Point();
             Point end = new Point();
 
@@ -68,24 +67,28 @@ import java.util.Random;
                 case LEFT:
                     start.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
                     end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
-                    drawCrack(impact,getRandomPointVertical(start,end));
+                    drawCrack(getImpact(point),getRandomPointVertical(start,end));
                     break;
                 case RIGHT:
                     start.setLocation(getBounds(brick).getLocation());
                     end.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
-                    drawCrack(impact,getRandomPointVertical(start,end));
+                    drawCrack(getImpact(point),getRandomPointVertical(start,end));
                     break;
                 case UP:
                     start.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
                     end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
-                    drawCrack(impact,getRandomPointHorizontal(start,end));
+                    drawCrack(getImpact(point),getRandomPointHorizontal(start,end));
                     break;
                 case DOWN:
                     start.setLocation(getBounds(brick).getLocation());
                     end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
-                    drawCrack(impact,getRandomPointHorizontal(start,end));
+                    drawCrack(getImpact(point),getRandomPointHorizontal(start,end));
                     break;
             }
+        }
+
+        private Point getImpact(Point2D point) {
+            return new Point((int) point.getX(),(int) point.getY());
         }
 
         /**
@@ -134,21 +137,18 @@ import java.util.Random;
 
             path.moveTo(start.x,start.y);
 
-            double w = (end.x - start.x) / (double)steps;
-            double h = (end.y - start.y) / (double)steps;
-
-            int bound = crackDepth;
+            int bound = getCrackDepth();
             int jump  = bound * 5;
 
             double x,y;
 
-            for(int i = 1; i < steps;i++){
+            for(int i = 1; i < getSteps();i++){
 
-                x = (i * w) + start.x;
-                y = (i * h) + start.y + randomInBounds(bound);
-
+                x = (i * getBrickWidth(start, end)) + start.x;
+                y = (i * getBrickHeight(start, end)) + start.y + randomInBounds(bound);
+                
                 // inMiddle(i,CRACK_SECTIONS,steps) should be inMiddle(i,steps,CRACK_SECTIONS) THIS NEEDS FURTHER CHECKING.
-                if(inMiddle(i,CRACK_SECTIONS,steps)){
+                if(inMiddle(i,CRACK_SECTIONS,getSteps())){
                     y += jumps(jump,JUMP_PROBABILITY);
                 }
 
@@ -157,7 +157,15 @@ import java.util.Random;
             }
 
             path.lineTo(end.x,end.y);
-            crack.append(path,true);
+            getCrackPath().append(path,true);
+        }
+
+        private double getBrickHeight(Point start, Point end) {
+            return (end.y - start.y) / (double)getSteps();
+        }
+
+        private double getBrickWidth(Point start, Point end) {
+            return (end.x - start.x) / (double)getSteps();
         }
 
         /**
@@ -229,5 +237,20 @@ import java.util.Random;
             return out;
         }
 
+        public int getCrackDepth() {
+            return crackDepth;
+        }
+
+        public void setCrackDepth(int crackDepth) {
+            this.crackDepth = crackDepth;
+        }
+
+        public int getSteps() {
+            return steps;
+        }
+
+        public void setSteps(int steps) {
+            this.steps = steps;
+        }
     }
 

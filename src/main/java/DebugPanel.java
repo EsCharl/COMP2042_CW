@@ -100,7 +100,6 @@ public class DebugPanel extends JPanel {
     /**
      * this method creates a square which will specify the number of inputs allowed.
      */
-
     private void initialize(){
         this.setBackground(DEF_BKG);
         this.setLayout(new GridLayout(3,2));

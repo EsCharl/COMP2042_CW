@@ -10,24 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Brick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DebugConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Crack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DebugPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DebugPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GraphicsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GraphicsMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HomeMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/DebugConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/DebugConsole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scores/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scores/Level5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Crack.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/DebugPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/DebugPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level5.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +51,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/scores" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -64,9 +59,15 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources\scores" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources\scores" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Application.GraphicsMain">
