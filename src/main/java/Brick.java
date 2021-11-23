@@ -48,13 +48,14 @@ abstract public class Brick  {
      * @param strength the strength of the brick. (how many hits can it take before it break)
      */
     public Brick(String name, Point pos,Dimension size,Color border,Color inner,int strength){
-        rnd = new Random();
-        broken = false;
-        this.name = name;
-        brickFace = makeBrickFace(pos,size);
-        this.border = border;
-        this.inner = inner;
-        this.fullStrength = this.strength = strength;
+        setRnd(new Random());
+        setBroken(false);
+        setName(name);
+        setBrickFace(makeBrickFace(pos,size));
+        setBorderColor(border);
+        setInnerColor(inner);
+        setFullStrength(strength);
+        setStrength(strength);
     }
 
     /**
@@ -76,10 +77,10 @@ abstract public class Brick  {
      * @return returns a boolean value negative if the brick is broken, true if it is not.
      */
     public boolean setImpact(Point2D point , int dir){
-        if(broken)
+        if(isBroken())
             return false;
         impact();
-        return  broken;
+        return  isBroken();
     }
 
     /**
@@ -117,16 +118,16 @@ abstract public class Brick  {
      * @return an Integer where the impact direction is decided.
      */
     public final int findImpact(Ball b){
-        if(broken)
+        if(isBroken())
             return 0;
         int out  = 0;
-        if(brickFace.contains(b.right))
+        if(getBrickFace().contains(b.right))
             out = LEFT_IMPACT;
-        else if(brickFace.contains(b.left))
+        else if(getBrickFace().contains(b.left))
             out = RIGHT_IMPACT;
-        else if(brickFace.contains(b.up))
+        else if(getBrickFace().contains(b.up))
             out = DOWN_IMPACT;
-        else if(brickFace.contains(b.down))
+        else if(getBrickFace().contains(b.down))
             out = UP_IMPACT;
         return out;
     }
@@ -144,20 +145,69 @@ abstract public class Brick  {
      * this method is used to repair the brick to full strength.
      */
     public void repair() {
-        broken = false;
-        strength = fullStrength;
+        setBroken(false);
+        setStrength(getFullStrength());
     }
 
     /**
      * this method is used to decrement the strength of the brick and update the broken variable if it is broken or not.
      */
     public void impact(){
-        strength--;
-        broken = (strength == 0);
+        setStrength(getStrength()-1);
+        setBroken(getStrength() == 0);
     }
 
+    public static Random getRnd() {
+        return rnd;
+    }
 
+    public static void setRnd(Random rnd) {
+        Brick.rnd = rnd;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Shape getBrickFace() {
+        return brickFace;
+    }
+
+    public void setBrickFace(Shape brickFace) {
+        this.brickFace = brickFace;
+    }
+
+    public void setBorderColor(Color border) {
+        this.border = border;
+    }
+
+    public void setInnerColor(Color inner) {
+        this.inner = inner;
+    }
+
+    public int getFullStrength() {
+        return fullStrength;
+    }
+
+    public void setFullStrength(int fullStrength) {
+        this.fullStrength = fullStrength;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public void setBroken(boolean broken) {
+        this.broken = broken;
+    }
 }
 
 

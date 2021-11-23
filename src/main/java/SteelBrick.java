@@ -30,7 +30,6 @@ public class SteelBrick extends Brick {
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
-    private Random rnd = new Random();
     private Shape brickFace;
 
     /**
@@ -49,7 +48,7 @@ public class SteelBrick extends Brick {
      */
     @Override
     public void impact(){
-        if(rnd.nextDouble() < STEEL_PROBABILITY){
+        if(getRnd().nextDouble() < STEEL_PROBABILITY){
             super.impact();
         }
     }

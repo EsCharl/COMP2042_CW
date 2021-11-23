@@ -27,17 +27,15 @@ public class Wall {
 
     private static final int LEVELS_COUNT = 6;
 
-    private static final int CLAY = 1;
-    private static final int STEEL = 2;
-    private static final int CEMENT = 3;
-    private static final int REINFORCED_STEEL = 4;
-
     private Random rnd = new Random();
     private Rectangle area;
 
     Brick[] bricks;
     Ball ball;
     Player player;
+    WallLevelTemplates wallLevelTemplates = new WallLevelTemplates();
+
+    WallModel wallModel = WallModel.singletonWallModel();
 
     private Brick[][] levels;
     private int level;
@@ -102,172 +100,6 @@ public class Wall {
     }
 
     /**
-     * this method is one of the template used for the wall (level).
-     *
-     * @param drawArea this is the area which the bricks could be placed
-     * @param brickCnt this is the amount of bricks which will be in for the level.
-     * @param lineCnt this is the number of rows of bricks for the level.
-     * @param brickSizeRatio this is the size ratio of the brick.
-     * @param typeA this is one of the type of brick used for this level.
-     * @param typeB this is one of the type of brick used for this level.
-     * @return it returns a wall (level) in the form of a brick array.
-     */
-    private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
-        brickCnt -= brickCnt % lineCnt;
-
-        int centerLeft = getBrickOnLine(brickCnt,lineCnt) / 2 - 1;
-        int centerRight = getBrickOnLine(brickCnt,lineCnt) / 2 + 1;
-
-        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
-        double brickHgt = brickLen / brickSizeRatio;
-
-        brickCnt += lineCnt / 2;
-
-        Brick[] tmp  = new Brick[brickCnt];
-
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
-        Point p = new Point();
-
-        int i;
-        for(i = 0; i < tmp.length; i++){
-            int line = i / getBrickOnLine(brickCnt,lineCnt);
-            if(line == lineCnt)
-                break;
-            int posX = i % getBrickOnLine(brickCnt,lineCnt);
-            double x = posX * brickLen;
-            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x,y);
-
-            boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
-        }
-
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
-            p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,typeA);
-        }
-        return tmp;
-    }
-
-    /**
-     * this method is one of the template used for the wall (level).
-     *
-     * @param drawArea this is the area which the bricks could be placed
-     * @param brickCnt this is the amount of bricks which will be in for the level.
-     * @param lineCnt this is the number of rows of bricks for the level.
-     * @param brickSizeRatio this is the size ratio of the brick.
-     * @param typeA this is one of the type of brick used for this level.
-     * @param typeB this is one of the type of brick used for this level.
-     * @return it returns a wall (level) in the form of a brick array.
-     */
-    private Brick[] makeSonicLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
-        brickCnt -= brickCnt % lineCnt;
-
-        int centerLeft = getBrickOnLine(brickCnt,lineCnt) / 2 - 1;
-        int centerRight = getBrickOnLine(brickCnt,lineCnt) / 2 + 1;
-
-        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
-        double brickHgt = brickLen / brickSizeRatio;
-
-        brickCnt += lineCnt / 2;
-
-        Brick[] tmp  = new Brick[brickCnt];
-
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
-        Point p = new Point();
-
-        int i;
-        for(i = 0; i < tmp.length; i++){
-            int line = i / getBrickOnLine(brickCnt,lineCnt);
-            if(line == lineCnt)
-                break;
-            int posX = i % getBrickOnLine(brickCnt,lineCnt);
-            double x = posX * brickLen;
-            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x,y);
-
-            boolean b = ((i % 2 == 0) || (posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
-        }
-
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
-            p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,typeA);
-        }
-
-        return tmp;
-    }
-
-    /**
-     * this method is one of the template used for the wall (level).
-     *
-     * @param drawArea this is the area which the bricks could be placed
-     * @param brickCnt this is the amount of bricks which will be in for the level.
-     * @param lineCnt this is the number of rows of bricks for the level.
-     * @param brickSizeRatio this is the size ratio of the brick.
-     * @return it returns a wall (level) in the form of a brick array.
-     */
-    private Brick[] makeRandomLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
-        brickCnt -= brickCnt % lineCnt;
-
-        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCnt,lineCnt);
-        double brickHgt = brickLen / brickSizeRatio;
-
-        brickCnt += lineCnt / 2;
-
-        Brick[] tmp  = new Brick[brickCnt];
-
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
-        Point p = new Point();
-
-        int i;
-        for(i = 0; i < tmp.length; i++){
-            int line = i / getBrickOnLine(brickCnt,lineCnt);
-            if(line == lineCnt)
-                break;
-            double x = (i % getBrickOnLine(brickCnt,lineCnt)) * brickLen;
-            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize, rnd.nextInt(4)+1);
-        }
-
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (getBrickOnLine(brickCnt,lineCnt) * brickLen) - (brickLen / 2);
-            p.setLocation(x,y);
-            tmp[i] = new ClayBrick(p,brickSize);
-        }
-        return tmp;
-    }
-
-    /**
-     * this method is used to get the total amount of brick on a line. (for full horizontal lines)
-     *
-     * @param brickCnt total amount of bricks.
-     * @param lineCnt total amount of lines.
-     * @return returns an amount of bricks for a single line.
-     */
-    private int getBrickOnLine(int brickCnt, int lineCnt){
-        return brickCnt/lineCnt;
-    }
-
-    /**
      * this method is used to create a ball object.
      *
      * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
@@ -287,12 +119,12 @@ public class Wall {
      */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CLAY);
-        tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
-        tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
-        tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
-        tmp[4] = makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio,REINFORCED_STEEL,STEEL);
-        tmp[5] = makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
+        tmp[0] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getClayIntegerConstant(), wallModel.getClayIntegerConstant());
+        tmp[1] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getClayIntegerConstant(), wallModel.getCementIntegerConstant());
+        tmp[2] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getClayIntegerConstant(), wallModel.getSteelIntegerConstant());
+        tmp[3] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getSteelIntegerConstant(), wallModel.getCementIntegerConstant());
+        tmp[4] = wallLevelTemplates.makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getReinforcedSteelIntegerConstant(), wallModel.getSteelIntegerConstant());
+        tmp[5] = wallLevelTemplates.makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
         return tmp;
     }
 
@@ -476,29 +308,6 @@ public class Wall {
      */
     public void resetBallCount(){
         ballCount = 3;
-    }
-
-    /**
-     * this method is used to select and create the brick object needed for the level.
-     *
-     * @param point this is used get the position where the brick is supposed to be.
-     * @param size this is for the size of the brick
-     * @param type this is the type of brick to be used.
-     * @return this returns the brick that is created.
-     */
-    private Brick makeBrick(Point point, Dimension size, int type){
-        switch(type){
-            case CLAY:
-                return new ClayBrick(point,size);
-            case STEEL:
-                return new SteelBrick(point,size);
-            case CEMENT:
-                return new CementBrick(point, size);
-            case REINFORCED_STEEL:
-                return new ReinforcedSteelBrick(point, size);
-            default:
-                throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
-        }
     }
 
     /**

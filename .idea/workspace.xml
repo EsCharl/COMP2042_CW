@@ -11,8 +11,18 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Brick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SteelBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/SteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/SteelBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +54,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Design patterns examples/abstractFactory" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Design patterns examples/observerPattern" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -59,11 +69,16 @@
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources\scores" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main" />
     </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="WallModel" />
+      <recent name="Wall" />
+      <recent name="WallLevelTemplates" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar">
+  <component name="RunManager" selected="Application.GraphicsMain">
     <configuration name="GraphicsMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GraphicsMain" />
       <module name="COMP2042_CW" />
@@ -86,8 +101,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar" />
         <item itemvalue="Application.GraphicsMain" />
+        <item itemvalue="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar" />
         <item itemvalue="JAR Application.COMP2042_CW.jar" />
       </list>
     </recent_temporary>

@@ -110,6 +110,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         setDebugConsole(DebugConsole.singletonDebugConsole(owner,wall,this));
         //initialize the first level
         getWall().nextLevel();
+        System.out.println(getWall().getWallLevel());
         setLevelFilePathName("/scores/Level"+getWall().getWallLevel()+".txt");
 
         setGameTimer(new Timer(10,e ->{

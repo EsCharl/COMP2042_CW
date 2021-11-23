@@ -11,7 +11,6 @@ public class ReinforcedSteelBrick extends Brick{
     private static final double STEEL_PROBABILITY = 0.3;
 
     private Crack crack;
-    private Random rnd = new Random();
     private Shape brickFace;
 
     private boolean hit;
@@ -59,7 +58,7 @@ public class ReinforcedSteelBrick extends Brick{
     public boolean setImpact(Point2D point, int dir) {
         if(super.isBroken())
             return false;
-        hit = rnd.nextDouble() < STEEL_PROBABILITY;
+        hit = getRnd().nextDouble() < STEEL_PROBABILITY;
         if(hit)
             impact();
         if(!super.isBroken()){
