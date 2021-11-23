@@ -74,7 +74,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private long pauseTime;
 
     //for the level saving
-    private String levelPathName;
+    private String levelFilePathName;
 
     private static GameBoard uniqueGameBoard;
 
@@ -93,7 +93,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private GameBoard(JFrame owner){
         super();
 
-        strLen = 0;
+        setStrLen(0);
         setShowPauseMenu(false);
 
         setTimer(0);
@@ -138,6 +138,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     setMessage("ALL WALLS DESTROYED");
                     getGameTimer().stop();
                 }
+
+                pauseTimer();
 
                 //for save file saving and high score pop up
                 try {
@@ -381,18 +383,18 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 setShowPauseMenu(!isShowPauseMenu());
                 repaint();
                 if (getGameTimer().isRunning()){
-                    getGameTimer().stop();
                     pauseTimer();
+                    getGameTimer().stop();
                 }
                 break;
             case KeyEvent.VK_SPACE:
                 if(!isShowPauseMenu())
                     if(getGameTimer().isRunning()){
-                        getGameTimer().stop();
                         pauseTimer();
+                        getGameTimer().stop();
                     }else{
-                        getGameTimer().start();
                         startTimer();
+                        getGameTimer().start();
                     }
                 break;
             case KeyEvent.VK_F1:
@@ -581,7 +583,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @param levelPathName this is the file path which will be set into the variable.
      */
     public void setLevelFilePathName(String levelPathName){
-        this.levelPathName = levelPathName;
+        this.levelFilePathName = levelPathName;
     }
 
     /**
@@ -590,7 +592,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @return returns the LevelPath file in String.
      */
     public String getLevelFilePathName(){
-        return levelPathName;
+        return levelFilePathName;
     }
 
     /**
@@ -600,6 +602,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @throws FileNotFoundException just in case if the save file is missing.
      */
     private ArrayList<String> getHighScore() throws IOException, URISyntaxException {
+
+        System.out.println(getTotalTime());
+        System.out.println(getTimerString());
 
         Boolean placed = false;
 
@@ -619,16 +624,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             int second = Integer.parseInt(preTime[1]);
 
             int total_millisecond = (minute * 60 + second) * 1000;
-            if (getTotalTime() < total_millisecond && !placed){
+            if ((getTotalTime() < total_millisecond) && !placed){
                 Completed.add(System.getProperty("user.name") + ',' + getTimerString());
                 placed = true;
                 Completed.add(name + ',' + time);
+                System.out.println("dong");
             }else{
                 Completed.add(name + ',' + time);
             }
         }
-        if(!placed)
+        if(!placed){
             Completed.add(System.getProperty("user.name") + ',' + getTimerString());
+            System.out.println("ding");
+        }
         return Completed;
     }
 
@@ -638,8 +646,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @return A time in String format.
      */
     private String getTimerString(){
-        pauseTimer();
-        long elapsedSeconds = getTotalTime() / 2000;
+        long elapsedSeconds = getTotalTime() / 1000;
         long secondsDisplay = elapsedSeconds % 60;
         long elapsedMinutes = elapsedSeconds / 60;
         if (secondsDisplay <= 9){
@@ -688,7 +695,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * This method is used when a new level or a restart of the level is selected to restart the total time variable which is used to complete the level.
      */
     private void restartTimer(){
+        setPauseTime(0);
         setTotalTime(0);
+        setTimer(0);
     }
 
     /**
@@ -839,5 +848,4 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void setStrLen(int strLen) {
         this.strLen = strLen;
     }
-
 }

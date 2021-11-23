@@ -79,7 +79,7 @@ public class Wall {
 
         setRandomBallSpeed();
 
-        player = new Player((Point) ballPos.clone(),150,10, drawArea);
+        player = Player.singletonPlayer((Point) ballPos.clone(),150,10, drawArea);
 
         area = drawArea;
     }

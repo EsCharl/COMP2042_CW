@@ -35,6 +35,15 @@ public class Player {
     private int min;
     private int max;
 
+    private static Player uniquePlayer;
+
+    public static Player singletonPlayer(Point ballPoint,int width,int height,Rectangle container){
+        if(getUniquePlayer() == null){
+            setUniquePlayer(new Player(ballPoint, width, height, container));
+        }
+        return getUniquePlayer();
+    }
+
     /**
      * this method is used to create a player object.
      *
@@ -43,7 +52,7 @@ public class Player {
      * @param height this will the height of the paddle which the user will be controlling.
      * @param container this is the information of the rectangle which will be used to be created.
      */
-    public Player(Point ballPoint,int width,int height,Rectangle container) {
+    private Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
         playerFace = makeRectangle(width, height);
@@ -139,5 +148,13 @@ public class Player {
     public void resetPosition(Point p){
         ballPoint.setLocation(p);
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+    }
+
+    public static Player getUniquePlayer() {
+        return uniquePlayer;
+    }
+
+    public static void setUniquePlayer(Player uniquePlayer) {
+        Player.uniquePlayer = uniquePlayer;
     }
 }
