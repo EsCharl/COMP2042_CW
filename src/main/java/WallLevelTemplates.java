@@ -9,6 +9,11 @@ public class WallLevelTemplates {
 
     private static WallLevelTemplates uniqueWallLevelTemplates;
 
+    /**
+     * this method is for a design pattern specifically singleton.
+     *
+     * @return returns a WallLevelTemplate object.
+     */
     public static WallLevelTemplates singletonWallLevelTemplates(){
         if(getUniqueWallLevelTemplates() == null){
             setUniqueWallLevelTemplates(new WallLevelTemplates());
@@ -16,13 +21,17 @@ public class WallLevelTemplates {
         return getUniqueWallLevelTemplates();
     }
 
+    /**
+     * this method is used to create a brick array which is used to store the bricks for the level templates
+     *
+     * @param brickCount the amount of bricks that is going to be set for the array.
+     * @return it returns a new empty brick array.
+     */
     Brick[] createBrickArray(int brickCount){
         return new Brick[brickCount];
     }
 
-    private WallLevelTemplates(){
-
-    }
+    private WallLevelTemplates(){}
 
     /**
      * this method is one of the template used for the wall (level).
@@ -33,7 +42,7 @@ public class WallLevelTemplates {
      * @param brickSizeRatio this is the size ratio of the brick.
      * @param typeA this is one of the type of brick used for this level.
      * @param typeB this is one of the type of brick used for this level.
-     * @return it returns a wall (level) in the form of a brick array.
+     * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
     Brick[] makeChessboardLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
         /*
@@ -84,7 +93,7 @@ public class WallLevelTemplates {
      * @param brickSizeRatio this is the size ratio of the brick.
      * @param typeA this is one of the type of brick used for this level.
      * @param typeB this is one of the type of brick used for this level.
-     * @return it returns a wall (level) in the form of a brick array.
+     * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
     Brick[] makeSonicLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
         /*
@@ -134,7 +143,7 @@ public class WallLevelTemplates {
      * @param brickCount this is the amount of bricks which will be in for the level.
      * @param lineCount this is the number of rows of bricks for the level.
      * @param brickSizeRatio this is the size ratio of the brick.
-     * @return it returns a wall (level) in the form of a brick array.
+     * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
     Brick[] makeRandomLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio){
         /*
@@ -191,10 +200,27 @@ public class WallLevelTemplates {
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
     }
 
+    /**
+     * this method is used to get the length of each brick that is going to be shown on the level.
+     *
+     * @param drawArea this is the draw area for the window.
+     * @param lineCount this is the total amount of lines for the specific level.
+     * @param brickCount this is the amount of bricks for the level.
+     * @return it returns a double value for the length of the brick.
+     */
     private double getDrawBrickLength(Rectangle drawArea, int lineCount, int brickCount){
         return drawArea.getWidth() / getBrickOnLine(brickCount,lineCount);
     }
 
+    /**
+     * this is the method used to get the height of each brick that is going to be shown on the level.
+     *
+     * @param drawArea this is the draw area which the bricks are going to be drawn.
+     * @param brickCount this is the amount of bricks that is going to be on that level.
+     * @param lineCount this is the amount of lines that are going to be on that level.
+     * @param brickSizeRatio this is the brick size ratio used to determine the height of the brick.
+     * @return
+     */
     private double getDrawBrickHeight(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio){
         return getDrawBrickLength(drawArea, lineCount, brickCount) / brickSizeRatio;
     }

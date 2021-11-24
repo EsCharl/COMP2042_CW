@@ -217,6 +217,10 @@ abstract public class Ball {
         return this.speedY;
     }
 
+    /**
+     *
+     * @param ballFace
+     */
     public void setBallFace(Shape ballFace) {
         this.ballFace = ballFace;
     }

@@ -22,6 +22,19 @@ public class GameScore {
     //for the level saving
     private String levelFilePathName;
 
+    private static GameScore uniqueGameScore;
+
+    public static GameScore singletonGameScore(){
+        if(getUniqueGameScore() == null){
+            setUniqueGameScore(new GameScore());
+        }
+        return getUniqueGameScore();
+    }
+
+    private GameScore(){
+
+    }
+
     /**
      * This method creates a high score panel to show the scores after each game.
      *
@@ -85,9 +98,6 @@ public class GameScore {
      */
     ArrayList<String> getHighScore() throws IOException, URISyntaxException {
 
-        System.out.println(getTotalTime());
-        System.out.println(getTimerString());
-
         Boolean placed = false;
 
         ArrayList<String> Completed = new ArrayList<String>();
@@ -110,14 +120,12 @@ public class GameScore {
                 Completed.add(System.getProperty("user.name") + ',' + getTimerString());
                 placed = true;
                 Completed.add(name + ',' + time);
-                System.out.println("dong");
             }else{
                 Completed.add(name + ',' + time);
             }
         }
         if(!placed){
             Completed.add(System.getProperty("user.name") + ',' + getTimerString());
-            System.out.println("ding");
         }
         return Completed;
     }
@@ -127,7 +135,7 @@ public class GameScore {
      *
      * @return A time in String format.
      */
-    private String getTimerString(){
+    public String getTimerString(){
         long elapsedSeconds = getTotalTime() / 1000;
         long secondsDisplay = elapsedSeconds % 60;
         long elapsedMinutes = elapsedSeconds / 60;
@@ -140,7 +148,7 @@ public class GameScore {
     /**
      * This method is used to start the timer.
      */
-    void startTimer(GameBoard gameBoard){
+    void startTimer(){
         timer = System.currentTimeMillis();
     }
 
@@ -211,5 +219,13 @@ public class GameScore {
 
     public void setPauseTime(long pauseTime) {
         this.pauseTime = pauseTime;
+    }
+
+    public static GameScore getUniqueGameScore() {
+        return uniqueGameScore;
+    }
+
+    public static void setUniqueGameScore(GameScore uniqueGameScore) {
+        GameScore.uniqueGameScore = uniqueGameScore;
     }
 }

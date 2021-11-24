@@ -12,7 +12,7 @@ import java.util.Random;
         public final int VERTICAL = 100;
         public final int HORIZONTAL = 200;
 
-        private GeneralPath crack;
+        private GeneralPath crackPath;
 
         private int crackDepth;
         private int steps;
@@ -27,7 +27,7 @@ import java.util.Random;
          */
         public Crack(int crackDepth, int steps){
 
-            crack = new GeneralPath();
+            crackPath = new GeneralPath();
             setCrackDepth(crackDepth);
             setSteps(steps);
         }
@@ -39,14 +39,14 @@ import java.util.Random;
          */
         public GeneralPath getCrackPath(){
 
-            return crack;
+            return crackPath;
         }
 
         /**
          * this method is used to reset the crack path.
          */
         public void reset(){
-            crack.reset();
+            crackPath.reset();
         }
 
         /**
@@ -57,57 +57,63 @@ import java.util.Random;
          */
         protected void makeCrack(Point2D point, int direction, Brick brick){
 
-            Point start = new Point();
-            Point end = new Point();
+            Point oppositeSideOfCollisionCornerPoint1 = new Point();
+            Point oppositeSideOfCollisionCornerPoint2 = new Point();
 
             switch(direction){
                 case LEFT:
-                    start.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
-                    end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
-                    drawCrack(getImpact(point),getRandomPointVertical(start,end));
+                    oppositeSideOfCollisionCornerPoint1.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
+                    oppositeSideOfCollisionCornerPoint2.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
+                    drawCrack(makeImpactPoint(point),getEndRandomPointVertical(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2));
                     break;
                 case RIGHT:
-                    start.setLocation(getBounds(brick).getLocation());
-                    end.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
-                    drawCrack(getImpact(point),getRandomPointVertical(start,end));
+                    oppositeSideOfCollisionCornerPoint1.setLocation(getBounds(brick).getLocation());
+                    oppositeSideOfCollisionCornerPoint2.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
+                    drawCrack(makeImpactPoint(point),getEndRandomPointVertical(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2));
                     break;
                 case UP:
-                    start.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
-                    end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
-                    drawCrack(getImpact(point),getRandomPointHorizontal(start,end));
+                    oppositeSideOfCollisionCornerPoint1.setLocation(getBounds(brick).x, getBounds(brick).y + getBounds(brick).height);
+                    oppositeSideOfCollisionCornerPoint2.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y + getBounds(brick).height);
+                    drawCrack(makeImpactPoint(point),getEndRandomPointHorizontal(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2));
                     break;
                 case DOWN:
-                    start.setLocation(getBounds(brick).getLocation());
-                    end.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
-                    drawCrack(getImpact(point),getRandomPointHorizontal(start,end));
+                    oppositeSideOfCollisionCornerPoint1.setLocation(getBounds(brick).getLocation());
+                    oppositeSideOfCollisionCornerPoint2.setLocation(getBounds(brick).x + getBounds(brick).width, getBounds(brick).y);
+                    drawCrack(makeImpactPoint(point),getEndRandomPointHorizontal(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2));
                     break;
             }
         }
 
-        private Point getImpact(Point2D point) {
+        /**
+         * this method is used to create a point on the impact position.
+         *
+         * @param point the point of impact caused by the ball colliding with the brick.
+         * @return it returns a Point object which is based on the collision point.
+         */
+        private Point makeImpactPoint(Point2D point) {
             return new Point((int) point.getX(),(int) point.getY());
         }
 
         /**
          * this method is used to get a random point from a start point to the end point based on the direction it was given (horizontal).
          *
-         * @param start the start position where the crack starts.
-         * @param end
-         * @return
+         * @param oppositeOfCollisionCornerPoint1 one of the point (position) corner of the opposite to the collision
+         * @param oppositeOfCollisionCornerPoint2 the other point (position) corner of the opposite to the collision
+         * @return it returns a random position between Point1 and Point2
          */
-        private Point getRandomPointHorizontal(Point start, Point end){
-            return makeRandomPoint(start,end,HORIZONTAL);
+        private Point getEndRandomPointHorizontal(Point oppositeOfCollisionCornerPoint1, Point oppositeOfCollisionCornerPoint2){
+            return makeRandomPointBetween(oppositeOfCollisionCornerPoint1,oppositeOfCollisionCornerPoint2,HORIZONTAL);
         }
 
         /**
          * this method is used to get a random point from a start point to the end point based on the direction it was given (vertical).
          *
-         * @param start
-         * @param end
-         * @return
+         * @param oppositeOfCollisionCornerPoint1 one of the point (position) corner of the opposite to the collision
+         * @param oppositeOfCollisionCornerPoint2 the other point (position) corner of the opposite to the collision
+         * @return it returns a random position between Point1 and Point2
          */
-        private Point getRandomPointVertical(Point start, Point end){
-            return makeRandomPoint(start,end,VERTICAL);
+        private Point getEndRandomPointVertical(Point oppositeOfCollisionCornerPoint1, Point oppositeOfCollisionCornerPoint2){
+            return makeRandomPointBetween(oppositeOfCollisionCornerPoint1,oppositeOfCollisionCornerPoint2,VERTICAL);
         }
 
         /**
@@ -140,7 +146,7 @@ import java.util.Random;
             for(int i = 1; i < getSteps();i++){
 
                 x = (i * getBrickWidth(start, end)) + start.x;
-                y = (i * getBrickHeight(start, end)) + start.y + randomInBounds(bound);
+                y = (i * getPartOfTheBrickHeight(start, end)) + start.y + randomInBounds(bound);
 
                 path.lineTo(x,y);
 
@@ -150,10 +156,24 @@ import java.util.Random;
             getCrackPath().append(path,true);
         }
 
-        private double getBrickHeight(Point start, Point end) {
+        /**
+         * this method is used to get the height of the brick.
+         *
+         * @param start the start position of the brick a point of collision on the horizontal part of the brick.
+         * @param end the end position of the brick a point on the opposite side of the brick.
+         * @return it returns a part of the brick based on the total crack steps.
+         */
+        private double getPartOfTheBrickHeight(Point start, Point end) {
             return (end.y - start.y) / (double)getSteps();
         }
 
+        /**
+         * this method is used to get the width of the brick.
+         *
+         * @param start the start position of the brick a point of collision on the vertical part of the brick.
+         * @param end the end position of the brick a point on the opposite side of the brick.
+         * @return it returns a part of the brick based on the total crack steps.
+         */
         private double getBrickWidth(Point start, Point end) {
             return (end.x - start.x) / (double)getSteps();
         }
@@ -161,52 +181,71 @@ import java.util.Random;
         /**
          * this method is used to give a random value between negative bound and bound.
          *
-         * @param bound the bound (maximum) that it can go.
+         * @param bound the highest in both negative and positive value that it can go.
          * @return it returns a value between negative bound and bound.
          */
         private int randomInBounds(int bound){
-            int n = (bound * 2) + 1;
-            return rnd.nextInt(n) - bound;
+            return rnd.nextInt((bound * 2) + 1) - bound;
         }
 
         /**
          * this method is used to create a random point based on the direction provided.
          *
-         * @param from this is the position where it begins.
-         * @param to this is the position where it ends.
+         * @param oppositeOfCollisionCornerPoint1 this is the position where it begins.
+         * @param oppositeOfCollisionPoint2 this is the position where it ends.
          * @param direction the direction using an integer constant.
-         * @return it returns a random point (coordinates) on the brick.
+         * @return it returns a random point (coordinate) on the brick.
          */
-        private Point makeRandomPoint(Point from,Point to, int direction){
+        private Point makeRandomPointBetween(Point oppositeOfCollisionCornerPoint1, Point oppositeOfCollisionPoint2, int direction){
 
             Point out = new Point();
             int position;
 
             switch(direction){
                 case HORIZONTAL:
-                    position = rnd.nextInt(to.x - from.x) + from.x;
-                    out.setLocation(position,to.y);
+                    position = rnd.nextInt(oppositeOfCollisionPoint2.x - oppositeOfCollisionCornerPoint1.x) + oppositeOfCollisionCornerPoint1.x;
+                    out.setLocation(position,oppositeOfCollisionPoint2.y);
                     break;
                 case VERTICAL:
-                    position = rnd.nextInt(to.y - from.y) + from.y;
-                    out.setLocation(to.x,position);
+                    position = rnd.nextInt(oppositeOfCollisionPoint2.y - oppositeOfCollisionCornerPoint1.y) + oppositeOfCollisionCornerPoint1.y;
+                    out.setLocation(oppositeOfCollisionPoint2.x,position);
                     break;
             }
             return out;
         }
 
+        /**
+         * this method is used to get the crackDepth.
+         *
+         * @return it returns a value which is the depth of the crack.
+         */
         public int getCrackDepth() {
             return crackDepth;
         }
 
+        /**
+         * this method is used to set the depth of the crack.
+         *
+         * @param crackDepth this is the value used to set the depth of the crack.
+         */
         public void setCrackDepth(int crackDepth) {
             this.crackDepth = crackDepth;
         }
 
+        /**
+         * this method is used to get how many steps for the crack to complete.
+         *
+         * @return it returns the amount of steps needed to complete the crack.
+         */
         public int getSteps() {
             return steps;
         }
 
+        /**
+         * this method is used to set the total amount of steps needed for the crack to complete.
+         *
+         * @param steps this is the amount of steps that is needed to complete the crack.
+         */
         public void setSteps(int steps) {
             this.steps = steps;
         }

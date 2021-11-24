@@ -26,7 +26,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
- *  this is a class that handles the gaming part of the program. which includes the pause
+ *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
@@ -51,17 +51,18 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private String message;
 
     private boolean showPauseMenu;
+    private boolean canGetTime;
 
     private Font menuFont;
 
     private Rectangle continueButtonRect;
     private Rectangle exitButtonRect;
     private Rectangle restartButtonRect;
-    private int strLen;
+    private int stringDisplayLength;
 
     private DebugConsole debugConsole;
 
-    GameScore gameScore = new GameScore();
+    private GameScore gameScore = GameScore.singletonGameScore();
 
     private static GameBoard uniqueGameBoard;
 
@@ -80,8 +81,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private GameBoard(JFrame owner){
         super();
 
-        setStrLen(0);
+        setStringDisplayLength(0);
         setShowPauseMenu(false);
+        setCanGetTime(false);
 
         gameScore.setTimer(0);
         gameScore.setTotalTime(0);
@@ -298,13 +300,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setFont(getMenuFont());
         g2d.setColor(MENU_COLOR);
 
-        if(getStrLen() == 0){
+        if(getStringDisplayLength() == 0){
             FontRenderContext frc = g2d.getFontRenderContext();
-            setStrLen(getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
+            setStringDisplayLength(getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
         }
 
         // get the position of top center.
-        int x = (this.getWidth() - getStrLen()) / 2;
+        int x = (this.getWidth() - getStringDisplayLength()) / 2;
         int y = this.getHeight() / 10;
 
         g2d.drawString(PAUSE_TEXT,x,y);
@@ -371,6 +373,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 repaint();
                 if (getGameTimer().isRunning()){
                     gameScore.pauseTimer();
+                    setCanGetTime(false);
                     getGameTimer().stop();
                 }
                 break;
@@ -378,16 +381,21 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if(!isShowPauseMenu())
                     if(getGameTimer().isRunning()){
                         gameScore.pauseTimer();
+                        setCanGetTime(false);
                         getGameTimer().stop();
                     }else{
-                        gameScore.startTimer(this);
+                        gameScore.startTimer();
                         getGameTimer().start();
+                        setCanGetTime(true);
                     }
                 break;
             case KeyEvent.VK_F1:
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
                     setShowPauseMenu(true);
-                    gameScore.pauseTimer();
+                    if(isCanGetTime()){
+                        gameScore.pauseTimer();
+                        setCanGetTime(false);
+                    }
                     getGameTimer().stop();
                     getDebugConsole().setVisible(true);
                 }
@@ -524,7 +532,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         setMessage("Focus Lost");
         repaint();
 
-        gameScore.pauseTimer();
+        if(isCanGetTime()){
+            gameScore.pauseTimer();
+            setCanGetTime(false);
+        }
     }
 
     /**
@@ -573,75 +584,173 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.wall = wall;
     }
 
+    /**
+     * this method is used to get the value in the message variable.
+     *
+     * @return returns the value in the message variable.
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * this method is used to change the message variable.
+     *
+     * @param message the String used to change the message variable.
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     * this method is used to see if the game is in pause menu.
+     *
+     * @return returns true if it is.
+     */
     public boolean isShowPauseMenu() {
         return showPauseMenu;
     }
 
+    /**
+     * this method is used to set the show pause menu variable, which is used to record if the game is in pause.
+     *
+     * @param showPauseMenu this is used to change the status of the variable.
+     */
     public void setShowPauseMenu(boolean showPauseMenu) {
         this.showPauseMenu = showPauseMenu;
     }
 
+    /**
+     * this is to get the font of the menu font
+     *
+     * @return returns the font used by the menu font.
+     */
     public Font getMenuFont() {
         return menuFont;
     }
 
+    /**
+     * this method is used to change the menu font.
+     *
+     * @param menuFont this is the font used to change the menu font to.
+     */
     public void setMenuFont(Font menuFont) {
         this.menuFont = menuFont;
     }
 
+    /**
+     * this method is used to get the DebugConsole object.
+     *
+     * @return returns the DebugConsole object.
+     */
     public DebugConsole getDebugConsole() {
         return debugConsole;
     }
 
+    /**
+     * this method is used to set the DebugConsole object.
+     *
+     * @param debugConsole this is the DebugConsole object used to set into the variable.
+     */
     public void setDebugConsole(DebugConsole debugConsole) {
         this.debugConsole = debugConsole;
     }
 
+    /**
+     * this is the method used to get the GameBoard Object.
+     *
+     * @return returns the GameBoard Object.
+     */
     public static GameBoard getUniqueGameBoard() {
         return uniqueGameBoard;
     }
 
+    /**
+     * this method is used to set the set a GameBoard object into uniqueGameBoard variable.
+     *
+     * @param uniqueGameBoard this is the GameBoard object used to set the uniqueGameBoard variable.
+     */
     public static void setUniqueGameBoard(GameBoard uniqueGameBoard) {
         GameBoard.uniqueGameBoard = uniqueGameBoard;
     }
 
+    /**
+     * this method is used to get the rectangle continue button.
+     *
+     * @return it returns the rectangle object which is the continue button.
+     */
     public Rectangle getContinueButtonRect() {
         return continueButtonRect;
     }
 
+    /**
+     * this method is used to set the rectangle continue button.
+     *
+     * @param continueButtonRect it takes in a rectangle object which is set to be the continue button.
+     */
     public void setContinueButtonRect(Rectangle continueButtonRect) {
         this.continueButtonRect = continueButtonRect;
     }
 
+    /**
+     * this method is used to return the rectangle object which is the exit button.
+     *
+     * @return this returns a rectangle object which is the exit button.
+     */
     public Rectangle getExitButtonRect() {
         return exitButtonRect;
     }
 
+    /**
+     * this method is used to set the rectangle exit button object.
+     *
+     * @param exitButtonRect this is the rectangle object which is to be the exit button.
+     */
     public void setExitButtonRect(Rectangle exitButtonRect) {
         this.exitButtonRect = exitButtonRect;
     }
 
+    /**
+     * this is the method used to get the rectangle restart object.
+     *
+     * @return it returns a rectangle object which is the restart button.
+     */
     public Rectangle getRestartButtonRect() {
         return restartButtonRect;
     }
 
+    /**
+     * this method is used to set a rectangle object to be the restart button.
+     *
+     * @param restartButtonRect this is the rectangle object that is used to be the restart button.
+     */
     public void setRestartButtonRect(Rectangle restartButtonRect) {
         this.restartButtonRect = restartButtonRect;
     }
 
-    public int getStrLen() {
-        return strLen;
+    /**
+     * this is the method used to get the value from the stringDisplayLength variable.
+     *
+     * @return it returns the value from stringDisplayLength.
+     */
+    public int getStringDisplayLength() {
+        return stringDisplayLength;
     }
 
-    public void setStrLen(int strLen) {
-        this.strLen = strLen;
+    /**
+     * this method is used to set the display length of the string into a variable.
+     *
+     * @param stringDisplayLength this is the length (Integer) used to set the stringDisplayLength variable.
+     */
+    public void setStringDisplayLength(int stringDisplayLength) {
+        this.stringDisplayLength = stringDisplayLength;
+    }
+
+    public boolean isCanGetTime() {
+        return canGetTime;
+    }
+
+    public void setCanGetTime(boolean canGetTime) {
+        this.canGetTime = canGetTime;
     }
 }
