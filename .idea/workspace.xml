@@ -11,23 +11,36 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ball.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Brick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Crack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DebugConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SteelBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HomeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RubberBall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RubberBall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/WallModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WallModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Ball.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Crack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/DebugConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/DebugConsole.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/SteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/SteelBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/HomeMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/RubberBall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/RubberBall.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/WallLevelTemplates.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/WallLevelTemplates.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/WallModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/WallModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OPEN_IN_BROWSER" value="true" />
+    <option name="OUTPUT_DIRECTORY" value="C:\Users\chang\Documents" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -54,7 +67,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Design patterns examples/observerPattern" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -141,6 +154,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/COMP2042_CW$GraphicsMain.ic" NAME="GraphicsMain Coverage Results" MODIFIED="1637645565581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/COMP2042_CW$GraphicsMain.ic" NAME="GraphicsMain Coverage Results" MODIFIED="1637731398253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

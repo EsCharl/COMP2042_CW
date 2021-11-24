@@ -278,13 +278,13 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT,frc);
-        Rectangle2D mTxtRect = buttonFont.getStringBounds(EXIT_TEXT,frc);
+        Rectangle2D txtRect = getButtonFont().getStringBounds(START_TEXT,frc);
+        Rectangle2D mTxtRect = getButtonFont().getStringBounds(EXIT_TEXT,frc);
 
         // additional lines of code for the info button
-        Rectangle2D m2TxtRect = buttonFont.getStringBounds(INFO_TEXT,frc);
+        Rectangle2D m2TxtRect = getButtonFont().getStringBounds(INFO_TEXT,frc);
 
-        g2d.setFont(buttonFont);
+        g2d.setFont(getButtonFont());
 
         int x = (getMenuFace().width - getInfoButton().width) / 2;
         int y = (int) ((getMenuFace().height - getInfoButton().height) * 0.65);

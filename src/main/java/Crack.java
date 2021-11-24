@@ -5,15 +5,12 @@ import java.util.Random;
 
     public class Crack{
 
-        private static final int CRACK_SECTIONS = 3;
-        private static final double JUMP_PROBABILITY = 0.7;
-
         public static final int LEFT = 10;
         public static final int RIGHT = 20;
         public static final int UP = 30;
         public static final int DOWN = 40;
-        public static final int VERTICAL = 100;
-        public static final int HORIZONTAL = 200;
+        public final int VERTICAL = 100;
+        public final int HORIZONTAL = 200;
 
         private GeneralPath crack;
 
@@ -134,11 +131,9 @@ import java.util.Random;
 
             GeneralPath path = new GeneralPath();
 
-
             path.moveTo(start.x,start.y);
 
             int bound = getCrackDepth();
-            int jump  = bound * 5;
 
             double x,y;
 
@@ -146,11 +141,6 @@ import java.util.Random;
 
                 x = (i * getBrickWidth(start, end)) + start.x;
                 y = (i * getBrickHeight(start, end)) + start.y + randomInBounds(bound);
-                
-                // inMiddle(i,CRACK_SECTIONS,steps) should be inMiddle(i,steps,CRACK_SECTIONS) THIS NEEDS FURTHER CHECKING.
-                if(inMiddle(i,CRACK_SECTIONS,getSteps())){
-                    y += jumps(jump,JUMP_PROBABILITY);
-                }
 
                 path.lineTo(x,y);
 
@@ -180,38 +170,6 @@ import java.util.Random;
         }
 
         /**
-         * this method is used to determine if variable i will be within the value of (steps/divisions) and (steps/divisions) * (divisions - 1). if it is it will return true.
-         *
-         * @param i
-         * @param steps
-         * @param divisions
-         * @return it returns a boolean value depending if
-         */
-        // this is useless since the divisions is 35 and steps is 3. possibly the values are reversed (steps is divisions
-        // and divisions are steps during usage)
-        private boolean inMiddle(int i,int steps,int divisions){
-            int low = (steps / divisions);
-            int up = low * (divisions - 1);
-
-            return  (i > low) && (i < up);
-        }
-
-        /**
-         * this method is used to return a random number within the negative and positive bound based on a probability provided.
-         *
-         * @param bound the value which is used to pass into randomInBounds method.
-         * @param probability the probability that it will occur.
-         * @return returns a random value from randomInBounds based on a probability.
-         */
-        private int jumps(int bound,double probability){
-
-            if(rnd.nextDouble() > probability)
-                return randomInBounds(bound);
-            return  0;
-
-        }
-
-        /**
          * this method is used to create a random point based on the direction provided.
          *
          * @param from this is the position where it begins.
@@ -222,16 +180,16 @@ import java.util.Random;
         private Point makeRandomPoint(Point from,Point to, int direction){
 
             Point out = new Point();
-            int pos;
+            int position;
 
             switch(direction){
                 case HORIZONTAL:
-                    pos = rnd.nextInt(to.x - from.x) + from.x;
-                    out.setLocation(pos,to.y);
+                    position = rnd.nextInt(to.x - from.x) + from.x;
+                    out.setLocation(position,to.y);
                     break;
                 case VERTICAL:
-                    pos = rnd.nextInt(to.y - from.y) + from.y;
-                    out.setLocation(to.x,pos);
+                    position = rnd.nextInt(to.y - from.y) + from.y;
+                    out.setLocation(to.x,position);
                     break;
             }
             return out;

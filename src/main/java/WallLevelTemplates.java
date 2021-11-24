@@ -7,8 +7,21 @@ public class WallLevelTemplates {
 
     WallModel wallModel = WallModel.singletonWallModel();
 
+    private static WallLevelTemplates uniqueWallLevelTemplates;
+
+    public static WallLevelTemplates singletonWallLevelTemplates(){
+        if(getUniqueWallLevelTemplates() == null){
+            setUniqueWallLevelTemplates(new WallLevelTemplates());
+        }
+        return getUniqueWallLevelTemplates();
+    }
+
     Brick[] createBrickArray(int brickCount){
         return new Brick[brickCount];
+    }
+
+    private WallLevelTemplates(){
+
     }
 
     /**
@@ -32,14 +45,11 @@ public class WallLevelTemplates {
         int centerLeft = getBrickOnLine(brickCount,lineCount) / 2 - 1;
         int centerRight = getBrickOnLine(brickCount,lineCount) / 2 + 1;
 
-        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCount,lineCount);
-        double brickHgt = brickLen / brickSizeRatio;
-
         brickCount += lineCount / 2;
 
         Brick[] tmp  = createBrickArray(brickCount);
 
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
+        Dimension brickSize = new Dimension((int) getDrawBrickLength(drawArea, lineCount, brickCount),(int) getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio));
         Point p = new Point();
 
         int i;
@@ -48,17 +58,17 @@ public class WallLevelTemplates {
             if(line == lineCount)
                 break;
             int posX = i % getBrickOnLine(brickCount,lineCount);
-            double x = posX * brickLen;
-            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
+            double x = posX * getDrawBrickLength(drawArea, lineCount, brickCount);
+            x = (line % 2 == 0) ? x : (x - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2));
+            double y = (line) * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);
             p.setLocation(x,y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
             tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
         }
 
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (getBrickOnLine(brickCount,lineCount) * brickLen) - (brickLen / 2);
+        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);i < tmp.length;i++, y += 2*getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
+            double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
             p.setLocation(x,y);
             tmp[i] = makeBrick(p,brickSize,typeA);
         }
@@ -86,14 +96,11 @@ public class WallLevelTemplates {
         int centerLeft = getBrickOnLine(brickCount,lineCount) / 2 - 1;
         int centerRight = getBrickOnLine(brickCount,lineCount) / 2 + 1;
 
-        double brickLen = drawArea.getWidth() / getBrickOnLine(brickCount,lineCount);
-        double brickHgt = brickLen / brickSizeRatio;
-
         brickCount += lineCount / 2;
 
         Brick[] tmp  = createBrickArray(brickCount);
 
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
+        Dimension brickSize = new Dimension((int) getDrawBrickLength(drawArea, lineCount, brickCount),(int) getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio));
         Point p = new Point();
 
         int i;
@@ -102,17 +109,17 @@ public class WallLevelTemplates {
             if(line == lineCount)
                 break;
             int posX = i % getBrickOnLine(brickCount,lineCount);
-            double x = posX * brickLen;
-            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
+            double x = posX * getDrawBrickLength(drawArea, lineCount, brickCount);
+            x = (line % 2 == 0) ? x : (x - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2));
+            double y = (line) * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);
             p.setLocation(x,y);
 
             boolean b = ((i % 2 == 0) || (posX > centerLeft && posX <= centerRight));
             tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
         }
 
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (getBrickOnLine(brickCount,lineCount) * brickLen) - (brickLen / 2);
+        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);i < tmp.length;i++, y += 2*getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
+            double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
             p.setLocation(x,y);
             tmp[i] = makeBrick(p,brickSize,typeA);
         }
@@ -201,5 +208,13 @@ public class WallLevelTemplates {
      */
     private int getBrickOnLine(int brickCount, int lineCount){
         return brickCount/lineCount;
+    }
+
+    public static WallLevelTemplates getUniqueWallLevelTemplates() {
+        return uniqueWallLevelTemplates;
+    }
+
+    public static void setUniqueWallLevelTemplates(WallLevelTemplates uniqueWallLevelTemplates) {
+        WallLevelTemplates.uniqueWallLevelTemplates = uniqueWallLevelTemplates;
     }
 }

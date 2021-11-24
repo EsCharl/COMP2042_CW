@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -29,6 +30,15 @@ public class RubberBall extends Ball {
     private static final int DEF_DIAMETER = 10;
     private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
+
+    private static RubberBall uniqueRubberBall;
+
+    public static RubberBall singletonRubberBall(Point2D center){
+        if(getUniqueRubberBall() == null){
+            setUniqueRubberBall(new RubberBall(center));
+        }
+        return getUniqueRubberBall();
+    }
 
     /**
      * this constructor is used to create a rubber ball.
@@ -59,5 +69,13 @@ public class RubberBall extends Ball {
 
     private double getYUpperLeftCorner(Point2D center, int diameterB){
         return center.getY() - (diameterB / 2);
+    }
+
+    public static RubberBall getUniqueRubberBall() {
+        return uniqueRubberBall;
+    }
+
+    public static void setUniqueRubberBall(RubberBall uniqueRubberBall) {
+        RubberBall.uniqueRubberBall = uniqueRubberBall;
     }
 }

@@ -16,8 +16,8 @@ abstract public class Ball {
     Point2D left;
     Point2D right;
 
-    private Color border;
-    private Color inner;
+    private Color borderBallColor;
+    private Color innerBallColor;
 
     private int speedX;
     private int speedY;
@@ -38,7 +38,7 @@ abstract public class Ball {
 
         setDirectionalPoints(diameterA, diameterB);
 
-        ballFace = makeBall(center,diameterA,diameterB);
+        setBallFace(makeBall(center,diameterA,diameterB));
         setColorOfBall(inner, border);
         setSpeed(0,0);
     }
@@ -50,8 +50,8 @@ abstract public class Ball {
      * @param border the border color of the ball that is used to be set for the ball border color.
      */
     private void setColorOfBall(Color inner,Color border){
-        this.border = border;
-        this.inner  = inner;
+        setBorderBallColor(border);
+        setInnerBallColor(inner);
     }
 
     /**
@@ -72,18 +72,18 @@ abstract public class Ball {
     public void move(){
         center.setLocation((center.getX() + getSpeedX()),(center.getY() + getSpeedY()));
 
-        setBallFace();
+        setDisplayBallFace();
 
         setDirectionalPoints(getRectangularShape().getWidth(),getRectangularShape().getHeight());
     }
 
     /**
-     * this method is used to change the ball face variable.
+     * this method is used to set the ball face graphically.
      */
-    private void setBallFace(){
+    private void setDisplayBallFace(){
         getRectangularShape().setFrame((center.getX() -(getRectangularShape().getWidth() / 2)),(center.getY() - (getRectangularShape().getHeight() / 2)),getRectangularShape().getWidth(),getRectangularShape().getHeight());
 
-        ballFace = getRectangularShape();
+        setBallFace(getRectangularShape());
     }
 
     /**
@@ -119,14 +119,14 @@ abstract public class Ball {
      * this method is used to reverse the direction where the ball is going on the x-axis.
      */
     public void reverseX(){
-        setXSpeed(-this.speedX);
+        setXSpeed(-this.getSpeedX());
     }
 
     /**
      * this method is used to reverse the direction where the ball is going on the y-axis.
      */
     public void reverseY(){
-        setYSpeed(-this.speedY);
+        setYSpeed(-this.getSpeedY());
     }
 
     /**
@@ -134,8 +134,8 @@ abstract public class Ball {
      *
      * @return it returns a color that is the color of the border of the ball.
      */
-    public Color getBorderColor(){
-        return this.border;
+    public Color getBorderBallColor(){
+        return this.borderBallColor;
     }
 
     /**
@@ -143,8 +143,8 @@ abstract public class Ball {
      *
      * @return it returns a color that is the color of the in side of the ball.
      */
-    public Color getInnerColor(){
-        return this.inner;
+    public Color getInnerBallColor(){
+        return this.innerBallColor;
     }
 
     /**
@@ -173,7 +173,7 @@ abstract public class Ball {
     public void moveTo(Point p){
         center.setLocation(p);
 
-        setBallFace();
+        setDisplayBallFace();
     }
 
     /**
@@ -217,5 +217,15 @@ abstract public class Ball {
         return this.speedY;
     }
 
+    public void setBallFace(Shape ballFace) {
+        this.ballFace = ballFace;
+    }
 
+    public void setBorderBallColor(Color border) {
+        this.borderBallColor = border;
+    }
+
+    public void setInnerBallColor(Color inner) {
+        this.innerBallColor = inner;
+    }
 }

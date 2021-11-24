@@ -28,14 +28,14 @@ public class Wall {
     private static final int LEVELS_COUNT = 6;
 
     private Random rnd = new Random();
-    private Rectangle area;
+    private Rectangle borderArea;
 
-    Brick[] bricks;
-    Ball ball;
-    Player player;
-    WallLevelTemplates wallLevelTemplates = new WallLevelTemplates();
+    private Brick[] bricks;
+    private Ball ball;
+    private Player player;
+    private WallLevelTemplates wallLevelTemplates = WallLevelTemplates.singletonWallLevelTemplates();
 
-    WallModel wallModel = WallModel.singletonWallModel();
+    private WallModel wallModel = WallModel.singletonWallModel();
 
     private Brick[][] levels;
     private int level;
@@ -65,21 +65,21 @@ public class Wall {
      */
     private Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
-        this.startPoint = new Point(ballPos);
+        setStartPoint(new Point(ballPos));
 
-        levels = makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
-        level = 0;
+        setLevels(makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio));
+        setLevel(0);
 
-        ballCount = 3;
-        ballLost = false;
+        setBallCount(3);
+        setBallLost(false);
 
         makeBall(ballPos);
 
         setRandomBallSpeed();
 
-        player = Player.singletonPlayer((Point) ballPos.clone(),150,10, drawArea);
+        setPlayer(Player.singletonPlayer((Point) ballPos.clone(),150,10, drawArea));
 
-        area = drawArea;
+        setBorderArea(drawArea);
     }
 
     /**
@@ -89,11 +89,11 @@ public class Wall {
         int speedX,speedY;
 
         do{
-            speedX = rnd.nextInt(5) - 2;
+            speedX = getRnd().nextInt(5) - 2;
         }while(speedX == 0);
 
         do{
-            speedY = -rnd.nextInt(3);
+            speedY = -getRnd().nextInt(3);
         }while(speedY == 0);
 
         ball.setSpeed(speedX,speedY);
@@ -105,7 +105,7 @@ public class Wall {
      * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
      */
     private void makeBall(Point2D ballPos){
-        ball = new RubberBall(ballPos);
+        ball = RubberBall.singletonRubberBall(ballPos);
     }
 
     /**
@@ -119,12 +119,12 @@ public class Wall {
      */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getClayIntegerConstant(), wallModel.getClayIntegerConstant());
-        tmp[1] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getClayIntegerConstant(), wallModel.getCementIntegerConstant());
-        tmp[2] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getClayIntegerConstant(), wallModel.getSteelIntegerConstant());
-        tmp[3] = wallLevelTemplates.makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getSteelIntegerConstant(), wallModel.getCementIntegerConstant());
-        tmp[4] = wallLevelTemplates.makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio, wallModel.getReinforcedSteelIntegerConstant(), wallModel.getSteelIntegerConstant());
-        tmp[5] = wallLevelTemplates.makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
+        tmp[0] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getClayIntegerConstant(), getWallModel().getClayIntegerConstant());
+        tmp[1] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getClayIntegerConstant(), getWallModel().getCementIntegerConstant());
+        tmp[2] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getClayIntegerConstant(), getWallModel().getSteelIntegerConstant());
+        tmp[3] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getSteelIntegerConstant(), getWallModel().getCementIntegerConstant());
+        tmp[4] = getWallLevelTemplates().makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getReinforcedSteelIntegerConstant(), getWallModel().getSteelIntegerConstant());
+        tmp[5] = getWallLevelTemplates().makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
         return tmp;
     }
 
@@ -132,34 +132,34 @@ public class Wall {
      * This method is used for the movement of the player (paddle) and the ball.
      */
     public void move(){
-        player.move();
-        ball.move();
+        getPlayer().move();
+        getBall().move();
     }
 
     /**
      * this method is used to check if there is an impact for the ball with any entity, the sides of the screen. which will cause a reaction to the game.
      */
     public void findImpacts(){
-        if(player.impact(ball)){
-            ball.reverseY();
+        if(getPlayer().impact(getBall())){
+            getBall().reverseY();
         }
         else if(impactWall()){
             /*for efficiency reverse is done into method impactWall
             * because for every brick program checks for horizontal and vertical impacts
             */
-            brickCount--;
+            setBrickCount(getBrickCount()-1);
         }
 
-        if(impactBorder()) {
-            ball.reverseX();
+        if(impactSideBorder()) {
+            getBall().reverseX();
         }
 
-        if(ball.getPosition().getY() < area.getY()){
-            ball.reverseY();
+        if(getBall().getPosition().getY() < getBorderArea().getY()){
+            getBall().reverseY();
         }
-        else if(ball.getPosition().getY() > area.getY() + area.getHeight()){
-            ballCount--;
-            ballLost = true;
+        else if(getBall().getPosition().getY() > getBorderArea().getY() + getBorderArea().getHeight()){
+            setBallCount(getBallCount() - 1);
+            setBallLost(true);
         }
     }
 
@@ -169,23 +169,23 @@ public class Wall {
      * @return returns a boolean value if or if it doesn't touch any entity.
      */
     private boolean impactWall(){
-        for(Brick b : bricks){
-            switch(b.findImpact(ball)) {
+        for(Brick b : getBricks()){
+            switch(b.findImpact(getBall())) {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.down,Crack.UP);
+                    getBall().reverseY();
+                    return b.setImpact(getBall().down,Crack.UP);
                 case Brick.DOWN_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.up,Crack.DOWN);
+                    getBall().reverseY();
+                    return b.setImpact(getBall().up,Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.right,Crack.RIGHT);
+                    getBall().reverseX();
+                    return b.setImpact(getBall().right,Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.left,Crack.LEFT);
+                    getBall().reverseX();
+                    return b.setImpact(getBall().left,Crack.LEFT);
             }
         }
         return false;
@@ -196,9 +196,8 @@ public class Wall {
      *
      * @return this returns a boolean value if it touches or doesn't touch the side of the game window
      */
-    private boolean impactBorder(){
-        Point2D p = ball.getPosition();
-        return ((p.getX() < area.getX()) ||(p.getX() > (area.getX() + area.getWidth())));
+    private boolean impactSideBorder(){
+        return ((getBall().getPosition().getX() < getBorderArea().getX()) ||(getBall().getPosition().getX() > (getBorderArea().getX() + getBorderArea().getWidth())));
     }
 
     /**
@@ -232,22 +231,22 @@ public class Wall {
      * this is used to reset the ball and the player to the starting position and giving it a random speed for the ball.
      */
     public void positionsReset(){
-        player.resetPosition(startPoint);
-        ball.moveTo(startPoint);
+        getPlayer().resetPosition(getStartPoint());
+        getBall().moveTo(getStartPoint());
 
         setRandomBallSpeed();
 
-        ballLost = false;
+        setBallLost(false);
     }
 
     /**
      * this is used to reset the wall (bricks) and the ball count (tries).
      */
     public void wallReset(){
-        for(Brick b : bricks)
+        for(Brick b : getBricks())
             b.repair();
-        brickCount = bricks.length;
-        ballCount = 3;
+        setBrickCount(getBricks().length);
+        setBallCount(3);
     }
 
     /**
@@ -256,7 +255,7 @@ public class Wall {
      * @return returns a boolean value if there is or isn't any more tries allowed for the player.
      */
     public boolean ballEnd(){
-        return ballCount == 0;
+        return getBallCount() == 0;
     }
 
     /**
@@ -265,15 +264,15 @@ public class Wall {
      * @return returns a boolean value if the level is completed or isn't completed.
      */
     public boolean isDone(){
-        return brickCount == 0;
+        return getBrickCount() == 0;
     }
 
     /**
      * this method is used to progress to the next level.
      */
     public void nextLevel(){
-        bricks = levels[level++];
-        this.brickCount = bricks.length;
+        setBricks(getLevels()[level++]);
+        setBrickCount(getBricks().length);
     }
 
     /**
@@ -282,7 +281,7 @@ public class Wall {
      * @return returns a boolean value if there is or isn't any more levels for the player to play.
      */
     public boolean hasLevel(){
-        return level < levels.length;
+        return getLevel() < getLevels().length;
     }
 
     /**
@@ -291,7 +290,7 @@ public class Wall {
      * @param s this is the parameter (in integer) used to set the ball speed in x-axis.
      */
     public void setBallXSpeed(int s){
-        ball.setXSpeed(s);
+        getBall().setXSpeed(s);
     }
 
     /**
@@ -300,14 +299,14 @@ public class Wall {
      * @param s this is the parameter (in integer) used to set the ball speed in y-axis.
      */
     public void setBallYSpeed(int s){
-        ball.setYSpeed(s);
+        getBall().setYSpeed(s);
     }
 
     /**
      * this method is used to reset the ball count (tries count) to 3.
      */
     public void resetBallCount(){
-        ballCount = 3;
+        setBallCount(3);
     }
 
     /**
@@ -325,5 +324,97 @@ public class Wall {
 
     public static void setUniqueWall(Wall uniqueWall) {
         Wall.uniqueWall = uniqueWall;
+    }
+
+    public Brick[][] getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Brick[][] levels) {
+        this.levels = levels;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public Point getStartPoint() {
+        return startPoint;
+    }
+
+    public void setStartPoint(Point startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public void setBrickCount(int brickCount) {
+        this.brickCount = brickCount;
+    }
+
+    public void setBallCount(int ballCount) {
+        this.ballCount = ballCount;
+    }
+
+    public void setBallLost(boolean ballLost) {
+        this.ballLost = ballLost;
+    }
+
+    public Random getRnd() {
+        return rnd;
+    }
+
+    public void setRnd(Random rnd) {
+        this.rnd = rnd;
+    }
+
+    public Rectangle getBorderArea() {
+        return borderArea;
+    }
+
+    public void setBorderArea(Rectangle area) {
+        this.borderArea = area;
+    }
+
+    public Brick[] getBricks() {
+        return bricks;
+    }
+
+    public void setBricks(Brick[] bricks) {
+        this.bricks = bricks;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public WallLevelTemplates getWallLevelTemplates() {
+        return wallLevelTemplates;
+    }
+
+    public void setWallLevelTemplates(WallLevelTemplates wallLevelTemplates) {
+        this.wallLevelTemplates = wallLevelTemplates;
+    }
+
+    public WallModel getWallModel() {
+        return wallModel;
+    }
+
+    public void setWallModel(WallModel wallModel) {
+        this.wallModel = wallModel;
     }
 }

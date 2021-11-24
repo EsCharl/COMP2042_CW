@@ -1,8 +1,8 @@
 public class WallModel {
-    private static final int CLAY = 1;
-    private static final int STEEL = 2;
-    private static final int CEMENT = 3;
-    private static final int REINFORCED_STEEL = 4;
+    private final int CLAY = 1;
+    private final int STEEL = 2;
+    private final int CEMENT = 3;
+    private final int REINFORCED_STEEL = 4;
 
     private static WallModel uniqueWallModel;
 
