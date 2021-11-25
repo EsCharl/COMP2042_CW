@@ -20,7 +20,6 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.font.FontRenderContext;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -30,16 +29,11 @@ import java.util.ArrayList;
  */
 public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
 
-    private static final String CONTINUE_TEXT = "Continue";
-    private static final String RESTART_TEXT = "Restart";
-    private static final String EXIT_TEXT = "Exit";
-    private static final String PAUSE_TEXT = "Pause Menu";
+
 
     private static final int TEXT_SIZE = 30;
-    private static final Color MENU_COLOR = new Color(0,255,0);
 
 
-    private static final Color BG_COLOR = Color.WHITE;
 
     private Timer gameTimer;
 
@@ -97,6 +91,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         setDebugConsole(DebugConsole.singletonDebugConsole(owner,wall,this));
         //initialize the first level
+        startGame();
+
+    }
+
+    private void startGame() {
         getWall().nextLevel();
         gameScore.setLevelFilePathName("/scores/Level"+getWall().getWallLevel()+".txt");
 
@@ -143,7 +142,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
             repaint();
         }));
-
     }
 
     /**
@@ -155,163 +153,23 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         Graphics2D g2d = (Graphics2D) g;
 
-        clear(g2d);
+        gameBoardView.clear(g2d, this);
 
         g2d.setColor(Color.BLUE);
         g2d.drawString(getMessage(),250,225);
 
-        drawBall(getWall().getBall(),g2d);
+        gameBoardView.drawBall(getWall().getBall(),g2d);
 
         for(Brick b : getWall().getBricks())
             if(!b.isBroken())
-                drawBrick(b,g2d);
+                gameBoardView.drawBrick(b,g2d);
 
-        drawPlayer(getWall().getPlayer(),g2d);
+        gameBoardView.drawPlayer(getWall().getPlayer(),g2d);
 
         if(isShowPauseMenu())
-            drawMenu(g2d);
+            gameBoardView.drawMenu(g2d, this);
 
         Toolkit.getDefaultToolkit().sync();
-    }
-
-    /**
-     * This is for clearing the screen by setting the whole window to be set into the background colour.
-     *
-     * @param g2d this is the object that is being passed into for clearing.
-     */
-    private void clear(Graphics2D g2d){
-        Color tmp = g2d.getColor();
-        g2d.setColor(BG_COLOR);
-        g2d.fillRect(0,0,getWidth(),getHeight());
-        g2d.setColor(tmp);
-    }
-
-    /**
-     * This method is used for drawing the bricks for the level.
-     *
-     * @param brick this is the information of the brick that is going to be used for the drawing of the brick.
-     * @param g2d this takes in the object that is being used for the brick generation for the level.
-     */
-    private void drawBrick(Brick brick,Graphics2D g2d){
-        Color tmp = g2d.getColor();
-
-        g2d.setColor(brick.getInnerColor());
-        g2d.fill(brick.getBrick());
-
-        g2d.setColor(brick.getBorderColor());
-        g2d.draw(brick.getBrick());
-
-
-        g2d.setColor(tmp);
-    }
-
-    /**
-     * this method is used for drawing the ball used for the game.
-     *
-     * @param ball the object of the ball that is going to be drawn
-     * @param g2d the information that is being used to draw the ball.
-     */
-    private void drawBall(Ball ball,Graphics2D g2d){
-        Color tmp = g2d.getColor();
-
-        Shape s = ball.getBallFace();
-
-        g2d.setColor(ball.getInnerBallColor());
-        g2d.fill(s);
-
-        g2d.setColor(ball.getBorderBallColor());
-        g2d.draw(s);
-
-        g2d.setColor(tmp);
-    }
-
-    /**
-     * This is used to draw the paddle used by the user for the game.
-     *
-     * @param p the contains the information needed about the paddle to be drawn.
-     * @param g2d this is the object where the paddle is being drawn.
-     */
-    private void drawPlayer(Player p,Graphics2D g2d){
-        Color tmp = g2d.getColor();
-
-        Shape s = p.getPlayerFace();
-        g2d.setColor(Player.INNER_COLOR);
-        g2d.fill(s);
-
-        g2d.setColor(Player.BORDER_COLOR);
-        g2d.draw(s);
-
-        g2d.setColor(tmp);
-    }
-
-    /**
-     * This method is used to draw the pause menu (refer to drawPauseMenu method) and to obscure the game board (refer to the obscureGameBoard method).
-     *
-     * @param g2d this is the object used to draw the menu.
-     */
-    private void drawMenu(Graphics2D g2d){
-        gameBoardView.obscureGameBoard(g2d);
-        drawPauseMenu(g2d);
-    }
-
-    /**
-     * This method is used to draw the pause menu and the buttons of the pause menu.
-     *
-     * @param g2d this is the object to draw the pause menu.
-     */
-    private void drawPauseMenu(Graphics2D g2d){
-        Font tmpFont = g2d.getFont();
-        Color tmpColor = g2d.getColor();
-
-
-        g2d.setFont(getMenuFont());
-        g2d.setColor(MENU_COLOR);
-
-        if(getStringDisplayLength() == 0){
-            FontRenderContext frc = g2d.getFontRenderContext();
-            setStringDisplayLength(getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
-        }
-
-        // get the position of top center.
-        int x = (this.getWidth() - getStringDisplayLength()) / 2;
-        int y = this.getHeight() / 10;
-
-        g2d.drawString(PAUSE_TEXT,x,y);
-
-        x = this.getWidth() / 8;
-        y = this.getHeight() / 4;
-
-
-        if(getContinueButtonRect() == null){
-            FontRenderContext frc = g2d.getFontRenderContext();
-            setContinueButtonRect(getMenuFont().getStringBounds(CONTINUE_TEXT,frc).getBounds());
-            getContinueButtonRect().setLocation(x,y-getContinueButtonRect().height);
-        }
-
-        g2d.drawString(CONTINUE_TEXT,x,y);
-
-        y *= 2;
-
-        if(getRestartButtonRect() == null){
-            FontRenderContext frc = g2d.getFontRenderContext();
-            setRestartButtonRect(getMenuFont().getStringBounds(RESTART_TEXT,frc).getBounds());
-            getRestartButtonRect().setLocation(x,y-getRestartButtonRect().height);
-        }
-
-        g2d.drawString(RESTART_TEXT,x,y);
-
-        y *= 3.0/2;
-
-        if(getExitButtonRect() == null){
-            FontRenderContext frc = g2d.getFontRenderContext();
-            setExitButtonRect(getMenuFont().getStringBounds(EXIT_TEXT,frc).getBounds());
-            getExitButtonRect().setLocation(x,y-getExitButtonRect().height);
-        }
-
-        g2d.drawString(EXIT_TEXT,x,y);
-
-        g2d.setFont(tmpFont);
-        g2d.setColor(tmpColor);
     }
 
     /**
