@@ -38,17 +38,15 @@ abstract public class Brick  {
     /**
      * this method is used to create a brick object.
      *
-     * @param name the name of the brick
      * @param pos the position of the brick
      * @param size the size of the break
      * @param border the color of the brick border
      * @param inner the inside color of brick
      * @param strength the strength of the brick. (how many hits can it take before it break)
      */
-    public Brick(String name, Point pos,Dimension size,Color border,Color inner,int strength){
+    public Brick(Point pos,Dimension size,Color border,Color inner,int strength){
         setRnd(new Random());
         setBroken(false);
-        setName(name);
         setBrickFace(makeBrickFace(pos,size));
         setBorderColor(border);
         setInnerColor(inner);
@@ -161,14 +159,6 @@ abstract public class Brick  {
 
     public static void setRnd(Random rnd) {
         Brick.rnd = rnd;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Shape getBrickFace() {

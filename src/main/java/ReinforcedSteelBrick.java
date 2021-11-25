@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 public class ReinforcedSteelBrick extends Brick{
-    private static final String NAME = "Reinforced Steel Brick";
+
     private static final Color DEF_INNER = Color.BLUE;
     private static final Color DEF_BORDER = new Color(203, 203, 201);
     private static final int REINFORCED_STEEL_STRENGTH = 2;
@@ -21,7 +21,7 @@ public class ReinforcedSteelBrick extends Brick{
      * @param size  this is for the size of the brick
      */
     public ReinforcedSteelBrick(Point point, Dimension size) {
-        super(NAME,point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH);
+        super(point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH);
         crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS);
         brickFace = super.brickFace;
     }

@@ -25,7 +25,11 @@ import java.util.Random;
  */
 public class Wall {
 
-    private static final int LEVELS_COUNT = 6;
+    private final int LEVELS_COUNT = 6;
+    private final int UP_IMPACT = 100;
+    private final int DOWN_IMPACT = 200;
+    private final int LEFT_IMPACT = 300;
+    private final int RIGHT_IMPACT = 400;
 
     private Random rnd = new Random();
     private Rectangle borderArea;
@@ -105,7 +109,7 @@ public class Wall {
             speedY = -getRnd().nextInt(3);
         }while(speedY == 0);
 
-        ball.setSpeed(speedX,speedY);
+        getBall().setSpeed(speedX,speedY);
     }
 
     /**
@@ -181,18 +185,18 @@ public class Wall {
         for(Brick b : getBricks()){
             switch(b.findImpact(getBall())) {
                 //Vertical Impact
-                case Brick.UP_IMPACT:
+                case UP_IMPACT:
                     getBall().reverseY();
                     return b.setImpact(getBall().getDown(),Crack.UP);
-                case Brick.DOWN_IMPACT:
+                case DOWN_IMPACT:
                     getBall().reverseY();
                     return b.setImpact(getBall().getUp(),Crack.DOWN);
 
                 //Horizontal Impact
-                case Brick.LEFT_IMPACT:
+                case LEFT_IMPACT:
                     getBall().reverseX();
                     return b.setImpact(getBall().getRight(),Crack.RIGHT);
-                case Brick.RIGHT_IMPACT:
+                case RIGHT_IMPACT:
                     getBall().reverseX();
                     return b.setImpact(getBall().getLeft(),Crack.LEFT);
             }

@@ -10,30 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ball.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Brick.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/CementBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CementBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DebugConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ClayBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ClayBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SteelBrick.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameScore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
