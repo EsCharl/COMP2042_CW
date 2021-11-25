@@ -20,8 +20,8 @@ public class CementBrick extends Brick {
     /**
      * this constructor is used to create a cement brick object.
      *
-     * @param point
-     * @param size
+     * @param point this is the point where the cement brick is going to be created.
+     * @param size this is the size of the cement brick.
      */
     public CementBrick(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);

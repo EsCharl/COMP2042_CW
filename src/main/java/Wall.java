@@ -47,6 +47,15 @@ public class Wall {
 
     private static Wall uniqueWall;
 
+    /**
+     * this method is used to create a Wall object based on the Singleton design pattern.
+     *
+     * @param drawArea this is the area of the game will be held.
+     * @param brickCount this is the amount of brick for the wall.
+     * @param lineCount this is for how many lines (rows) of bricks are in the level.
+     * @param brickDimensionRatio this is for the ratio for the brick dimension.
+     * @param ballPos this is the ball position.
+     */
     public static Wall singletonWall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
         if(getUniqueWall() == null){
             setUniqueWall(new Wall(drawArea, brickCount, lineCount, brickDimensionRatio, ballPos));
@@ -174,18 +183,18 @@ public class Wall {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
                     getBall().reverseY();
-                    return b.setImpact(getBall().down,Crack.UP);
+                    return b.setImpact(getBall().getDown(),Crack.UP);
                 case Brick.DOWN_IMPACT:
                     getBall().reverseY();
-                    return b.setImpact(getBall().up,Crack.DOWN);
+                    return b.setImpact(getBall().getUp(),Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
                     getBall().reverseX();
-                    return b.setImpact(getBall().right,Crack.RIGHT);
+                    return b.setImpact(getBall().getRight(),Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
                     getBall().reverseX();
-                    return b.setImpact(getBall().left,Crack.LEFT);
+                    return b.setImpact(getBall().getLeft(),Crack.LEFT);
             }
         }
         return false;
@@ -406,15 +415,7 @@ public class Wall {
         return wallLevelTemplates;
     }
 
-    public void setWallLevelTemplates(WallLevelTemplates wallLevelTemplates) {
-        this.wallLevelTemplates = wallLevelTemplates;
-    }
-
     public WallModel getWallModel() {
         return wallModel;
-    }
-
-    public void setWallModel(WallModel wallModel) {
-        this.wallModel = wallModel;
     }
 }

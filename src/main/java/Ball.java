@@ -192,11 +192,11 @@ abstract public class Ball {
      * @param height the height of the ball.
      */
     private void setDirectionalPoints(double width,double height){
-        up.setLocation(center.getX(),center.getY()-(height / 2));
-        down.setLocation(center.getX(),center.getY()+(height / 2));
+        getUp().setLocation(center.getX(),center.getY()-(height / 2));
+        getDown().setLocation(center.getX(),center.getY()+(height / 2));
 
-        left.setLocation(center.getX()-(width / 2),center.getY());
-        right.setLocation(center.getX()+(width / 2),center.getY());
+        getLeft().setLocation(center.getX()-(width / 2),center.getY());
+        getRight().setLocation(center.getX()+(width / 2),center.getY());
     }
 
     /**
@@ -231,5 +231,21 @@ abstract public class Ball {
 
     public void setInnerBallColor(Color inner) {
         this.innerBallColor = inner;
+    }
+
+    public Point2D getUp() {
+        return up;
+    }
+
+    public Point2D getDown() {
+        return down;
+    }
+
+    public Point2D getLeft() {
+        return left;
+    }
+
+    public Point2D getRight() {
+        return right;
     }
 }

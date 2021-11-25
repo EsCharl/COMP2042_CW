@@ -27,7 +27,7 @@ public class WallLevelTemplates {
      * @param brickCount the amount of bricks that is going to be set for the array.
      * @return it returns a new empty brick array.
      */
-    Brick[] createBrickArray(int brickCount){
+    private Brick[] createBrickArray(int brickCount){
         return new Brick[brickCount];
     }
 
@@ -44,7 +44,7 @@ public class WallLevelTemplates {
      * @param typeB this is one of the type of brick used for this level.
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
-    Brick[] makeChessboardLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
+    public Brick[] makeChessboardLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -95,7 +95,7 @@ public class WallLevelTemplates {
      * @param typeB this is one of the type of brick used for this level.
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
-    Brick[] makeSonicLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
+    public Brick[] makeSonicLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -145,7 +145,7 @@ public class WallLevelTemplates {
      * @param brickSizeRatio this is the size ratio of the brick.
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
-    Brick[] makeRandomLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio){
+    public Brick[] makeRandomLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio){
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -189,15 +189,15 @@ public class WallLevelTemplates {
      */
     private Brick makeBrick(Point point, Dimension size, int type){
         if (wallModel.getClayIntegerConstant() == type)
-                return new ClayBrick(point,size);
+            return new ClayBrick(point,size);
         else if(wallModel.getSteelIntegerConstant() == type)
-                return new SteelBrick(point,size);
+            return new SteelBrick(point,size);
         else if(wallModel.getCementIntegerConstant() == type)
-                return new CementBrick(point, size);
+            return new CementBrick(point, size);
         else if(wallModel.getReinforcedSteelIntegerConstant() == type)
-                return new ReinforcedSteelBrick(point, size);
+            return new ReinforcedSteelBrick(point, size);
         else
-                throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
+            throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
     }
 
     /**
@@ -219,7 +219,7 @@ public class WallLevelTemplates {
      * @param brickCount this is the amount of bricks that is going to be on that level.
      * @param lineCount this is the amount of lines that are going to be on that level.
      * @param brickSizeRatio this is the brick size ratio used to determine the height of the brick.
-     * @return
+     * @return it returns a double value for the height of the brick.
      */
     private double getDrawBrickHeight(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio){
         return getDrawBrickLength(drawArea, lineCount, brickCount) / brickSizeRatio;
@@ -236,6 +236,11 @@ public class WallLevelTemplates {
         return brickCount/lineCount;
     }
 
+    /**
+     * this method is used to get the one and only WallLevelTemplates object (Singleton).
+     *
+     * @return it returns a WallLevelTemplates object.
+     */
     public static WallLevelTemplates getUniqueWallLevelTemplates() {
         return uniqueWallLevelTemplates;
     }

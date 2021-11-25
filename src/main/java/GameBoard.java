@@ -39,9 +39,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final Color MENU_COLOR = new Color(0,255,0);
 
 
-    private static final int DEF_WIDTH = 600;
-    private static final int DEF_HEIGHT = 450;
-
     private static final Color BG_COLOR = Color.WHITE;
 
     private Timer gameTimer;
@@ -61,6 +58,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private int stringDisplayLength;
 
     private DebugConsole debugConsole;
+    private GameBoardController gameBoardController;
+    private GameBoardView gameBoardView = new GameBoardView();
 
     private GameScore gameScore = GameScore.singletonGameScore();
 
@@ -85,16 +84,16 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         setShowPauseMenu(false);
         setCanGetTime(false);
 
-        gameScore.setTimer(0);
+        gameScore.setStartTime(0);
         gameScore.setTotalTime(0);
         gameScore.setPauseTime(0);
 
         setMenuFont(new Font("Monospaced",Font.PLAIN,TEXT_SIZE));
 
-        this.initialize();
+        this.gameBoardView.initialize(this);
         setMessage("");
 
-        setWall(Wall.singletonWall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430)));
+        setWall(Wall.singletonWall(new Rectangle(0,0, GameBoardView.DEF_WIDTH, GameBoardView.DEF_HEIGHT),30,3,6/2,new Point(300,430)));
 
         setDebugConsole(DebugConsole.singletonDebugConsole(owner,wall,this));
         //initialize the first level
@@ -145,18 +144,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             repaint();
         }));
 
-    }
-
-    /**
-     * this method sets the variables and prepares the game window based on awt. (game window size, track inputs, etc.)
-     */
-    private void initialize(){
-        this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(this);
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
     }
 
     /**
@@ -263,32 +250,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @param g2d this is the object used to draw the menu.
      */
     private void drawMenu(Graphics2D g2d){
-        obscureGameBoard(g2d);
+        gameBoardView.obscureGameBoard(g2d);
         drawPauseMenu(g2d);
     }
 
     /**
-     * This method is used by the drawMenu to darken the screen when the pause menu is prompted.
-     *
-     * @param g2d this is the object where the darkening of the screen when the pause menu is prompted.
-     */
-    private void obscureGameBoard(Graphics2D g2d){
-
-        Composite tmp = g2d.getComposite();
-        Color tmpColor = g2d.getColor();
-
-        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.55f);
-        g2d.setComposite(ac);
-
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(0,0,DEF_WIDTH,DEF_HEIGHT);
-
-        g2d.setComposite(tmp);
-        g2d.setColor(tmpColor);
-    }
-
-    /**
-     * This method is used to draw the pause menu.
+     * This method is used to draw the pause menu and the buttons of the pause menu.
      *
      * @param g2d this is the object to draw the pause menu.
      */
@@ -326,7 +293,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         y *= 2;
 
         if(getRestartButtonRect() == null){
-            setRestartButtonRect((Rectangle) getContinueButtonRect().clone());
+            FontRenderContext frc = g2d.getFontRenderContext();
+            setRestartButtonRect(getMenuFont().getStringBounds(RESTART_TEXT,frc).getBounds());
             getRestartButtonRect().setLocation(x,y-getRestartButtonRect().height);
         }
 
@@ -335,7 +303,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         y *= 3.0/2;
 
         if(getExitButtonRect() == null){
-            setExitButtonRect((Rectangle) getContinueButtonRect().clone());
+            FontRenderContext frc = g2d.getFontRenderContext();
+            setExitButtonRect(getMenuFont().getStringBounds(EXIT_TEXT,frc).getBounds());
             getExitButtonRect().setLocation(x,y-getExitButtonRect().height);
         }
 
@@ -746,10 +715,20 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.stringDisplayLength = stringDisplayLength;
     }
 
+    /**
+     * this method is used to check if it can get the time to set it to a scoring variable.
+     *
+     * @return it returns true based on the variable value.
+     */
     public boolean isCanGetTime() {
         return canGetTime;
     }
 
+    /**
+     * this method is used to set the variable if it can get the time to set to a scoring variable.
+     *
+     * @param canGetTime this is the variable used to set if it can take the time for the scoring.
+     */
     public void setCanGetTime(boolean canGetTime) {
         this.canGetTime = canGetTime;
     }

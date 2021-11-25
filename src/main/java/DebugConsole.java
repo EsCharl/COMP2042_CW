@@ -206,10 +206,20 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.wall = wall;
     }
 
+    /**
+     * this method is used to get the one and only DebugConsole object
+     *
+     * @return uniqueDebugConsole returns a DebugConsole object.
+     */
     public static DebugConsole getUniqueDebugConsole() {
         return uniqueDebugConsole;
     }
 
+    /**
+     * this method is used to get the one and only DebugConsole object
+     *
+     * @param uniqueDebugConsole returns a DebugConsole object.
+     */
     public static void setUniqueDebugConsole(DebugConsole uniqueDebugConsole) {
         DebugConsole.uniqueDebugConsole = uniqueDebugConsole;
     }

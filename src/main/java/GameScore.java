@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class GameScore {
 
     //for the timer
-    private long timer;
+    private long startTime;
     private long totalTime;
     private long pauseTime;
 
@@ -24,6 +24,11 @@ public class GameScore {
 
     private static GameScore uniqueGameScore;
 
+    /**
+     * this is the method used to get a GameScore object based on a singleton pattern design.
+     *
+     * @return it returns the one and only GameScore object.
+     */
     public static GameScore singletonGameScore(){
         if(getUniqueGameScore() == null){
             setUniqueGameScore(new GameScore());
@@ -32,7 +37,6 @@ public class GameScore {
     }
 
     private GameScore(){
-
     }
 
     /**
@@ -146,20 +150,20 @@ public class GameScore {
     }
 
     /**
-     * This method is used to start the timer.
+     * This method is used to start the timer based on current time in milliseconds.
      */
     void startTimer(){
-        timer = System.currentTimeMillis();
+        setStartTime(System.currentTimeMillis());
     }
 
     /**
-     * This method is used to pause the timer.
+     * This method is used to pause the timer by taking current time(pause time) and subtracting the start time, and setting the value into a variable.
      */
     void pauseTimer(){
-        if (getTimer() != 0){
+        if (getStartTime() != 0){
             setPauseTime(System.currentTimeMillis());
 
-            setTotalTime(getTotalTime() + getPauseTime() - getTimer());
+            setTotalTime(getTotalTime() + getPauseTime() - getStartTime());
         }
     }
 
@@ -187,7 +191,7 @@ public class GameScore {
     void restartTimer(){
         setPauseTime(0);
         setTotalTime(0);
-        setTimer(0);
+        setStartTime(0);
     }
 
     /**
@@ -195,6 +199,7 @@ public class GameScore {
      *
      * @param sorted this is the arraylist of string to store inside the save file.
      * @throws IOException This is in case if there is a problem writing the file.
+     * @throws URISyntaxException this is in case if there is a problem if the resource path to the file can't be converted to String format.
      */
     void updateSaveFile(ArrayList<String> sorted) throws IOException, URISyntaxException {
         File file = new File(GameBoard.class.getResource(getLevelFilePathName()).toURI());
@@ -205,26 +210,56 @@ public class GameScore {
         overwrite.close();
     }
 
-    public long getTimer() {
-        return timer;
+    /**
+     * this method is used to get the time in milliseconds where the timer is started
+     *
+     * @return returns the start time when the timer starts.
+     */
+    public long getStartTime() {
+        return startTime;
     }
 
-    public void setTimer(long timer) {
-        this.timer = timer;
+    /**
+     * this method is used to set the start time for the timer start.
+     *
+     * @param startTime this is the value where the start time is to be set.
+     */
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 
+    /**
+     * this method is used to get the pause time of the timer.
+     *
+     * @return it returns the pause time in milliseconds based on the last pause time.
+     */
     public long getPauseTime() {
         return pauseTime;
     }
 
+    /**
+     * this method is used to set the pause time based on the value given.
+     *
+     * @param pauseTime this is the value used to set the pause time.
+     */
     public void setPauseTime(long pauseTime) {
         this.pauseTime = pauseTime;
     }
 
+    /**
+     * this method is used to get the one and only GameScore object (Singleton).
+     *
+     * @return it returns a GameScore object.
+     */
     public static GameScore getUniqueGameScore() {
         return uniqueGameScore;
     }
 
+    /**
+     * this method is used to set a GameScore Object into a variable.
+     *
+     * @param uniqueGameScore this is a GameScore object used to store into a variable.
+     */
     public static void setUniqueGameScore(GameScore uniqueGameScore) {
         GameScore.uniqueGameScore = uniqueGameScore;
     }

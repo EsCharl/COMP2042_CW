@@ -10,29 +10,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/COMP2042_CW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMP2042_CW.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ball.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Brick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Crack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CementBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CementBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DebugConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Ball.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Crack.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameScore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/WallLevelTemplates.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/WallLevelTemplates.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" afterDir="false" />
     </list>
@@ -48,8 +47,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -89,6 +88,7 @@
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="GameBoardView" />
       <recent name="WallModel" />
       <recent name="Wall" />
       <recent name="WallLevelTemplates" />
