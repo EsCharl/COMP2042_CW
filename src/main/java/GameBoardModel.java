@@ -15,8 +15,6 @@ public class GameBoardModel {
 
     private Wall wall;
 
-    private DebugConsole debugConsole;
-
     GameScore gameScore;
     GameBoardController gameBoardController;
 
@@ -25,9 +23,8 @@ public class GameBoardModel {
      * this constructor is used to create a game board object that handles all the logic.
      *
      * @param gameBoardController this is the controller of the game board which takes in all the user inputs.
-     * @param owner this is the frame where the
      */
-    public GameBoardModel(GameBoardController gameBoardController, JFrame owner){
+    public GameBoardModel(GameBoardController gameBoardController){
         gameScore = GameScore.singletonGameScore();
 
         gameScore.setStartTime(0);
@@ -37,8 +34,6 @@ public class GameBoardModel {
         this.gameBoardController = gameBoardController;
 
         setWall(Wall.singletonWall(new Rectangle(0,0, GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT),30,3,6/2,new Point(300,430)));
-
-        setDebugConsole(DebugConsole.singletonDebugConsole(owner,getWall(),gameBoardController));
 
         setMessage("");
         setCanGetTime(false);
@@ -117,7 +112,7 @@ public class GameBoardModel {
      */
     public void displayDebugConsole() {
         getGameTimer().stop();
-        getDebugConsole().setVisible(true);
+        gameBoardController.gameBoardView.getDebugConsole().setVisible(true);
     }
 
     /**
@@ -294,21 +289,5 @@ public class GameBoardModel {
         this.wall = wall;
     }
 
-    /**
-     * this method is used to get the DebugConsole object.
-     *
-     * @return returns the DebugConsole object.
-     */
-    public DebugConsole getDebugConsole() {
-        return debugConsole;
-    }
 
-    /**
-     * this method is used to set the DebugConsole object.
-     *
-     * @param debugConsole this is the DebugConsole object used to set into the variable.
-     */
-    public void setDebugConsole(DebugConsole debugConsole) {
-        this.debugConsole = debugConsole;
-    }
 }

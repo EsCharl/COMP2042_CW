@@ -49,7 +49,7 @@ public class GameBoardController  {
 
         setShowPauseMenu(false);
 
-        gameBoardModel = new GameBoardModel(this, owner);
+        gameBoardModel = new GameBoardModel(this);
 
         gameBoardView = new GameBoardView(this, owner);
 

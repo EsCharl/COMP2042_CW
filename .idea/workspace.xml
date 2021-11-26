@@ -11,12 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoardModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

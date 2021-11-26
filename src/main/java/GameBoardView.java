@@ -17,6 +17,8 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
     private GameBoardController gameBoardController;
 
+    private DebugConsole debugConsole;
+
     private Font menuFont;
 
     private static final Color BG_COLOR = Color.WHITE;
@@ -37,6 +39,8 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         addMouseMotionListener(this);
 
         this.gameBoardController = gameBoardController;
+
+        setDebugConsole(DebugConsole.singletonDebugConsole(owner,gameBoardController.gameBoardModel.getWall(),gameBoardController));
 
         setMenuFont(new Font("Monospaced",Font.PLAIN,TEXT_SIZE));
     }
@@ -480,5 +484,23 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         else{
             setCursorLook(Cursor.getDefaultCursor());
         }
+    }
+
+    /**
+     * this method is used to get the DebugConsole object.
+     *
+     * @return returns the DebugConsole object.
+     */
+    public DebugConsole getDebugConsole() {
+        return debugConsole;
+    }
+
+    /**
+     * this method is used to set the DebugConsole object.
+     *
+     * @param debugConsole this is the DebugConsole object used to set into the variable.
+     */
+    public void setDebugConsole(DebugConsole debugConsole) {
+        this.debugConsole = debugConsole;
     }
 }
