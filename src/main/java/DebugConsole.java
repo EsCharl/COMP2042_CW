@@ -31,14 +31,14 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     private JFrame owner;
     private DebugPanel debugPanel;
-    private GameBoard gameBoard;
+    private GameBoardController gameBoardController;
     private Wall wall;
 
     private static DebugConsole uniqueDebugConsole;
 
-    public static DebugConsole singletonDebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
+    public static DebugConsole singletonDebugConsole(JFrame owner, Wall wall, GameBoardController gameBoardController){
         if(getUniqueDebugConsole() == null){
-            setUniqueDebugConsole(new DebugConsole(owner,wall,gameBoard));
+            setUniqueDebugConsole(new DebugConsole(owner,wall, gameBoardController));
         }
         return getUniqueDebugConsole();
     }
@@ -48,16 +48,16 @@ public class DebugConsole extends JDialog implements WindowListener{
      *
      * @param owner a graphical frame that is going to be used.
      * @param wall the game level that is generated, the status of the game.
-     * @param gameBoard the status of the game board.
+     * @param gameBoardController the status of the game board.
      */
-    private DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
+    private DebugConsole(JFrame owner, Wall wall, GameBoardController gameBoardController){
 
         setWall(wall);
         setOwner(owner);
-        setGameBoard(gameBoard);
+        setGameBoard(gameBoardController);
         initialize();
 
-        setDebugPanel(DebugPanel.singletonDebugPanel(wall,gameBoard));
+        setDebugPanel(DebugPanel.singletonDebugPanel(wall, gameBoardController));
         this.add(getDebugPanel(),BorderLayout.CENTER);
 
 
@@ -190,12 +190,12 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.debugPanel = debugPanel;
     }
 
-    public GameBoard getGameBoard() {
-        return gameBoard;
+    public GameBoardController getGameBoard() {
+        return gameBoardController;
     }
 
-    public void setGameBoard(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
+    public void setGameBoard(GameBoardController gameBoardController) {
+        this.gameBoardController = gameBoardController;
     }
 
     public Wall getWall() {

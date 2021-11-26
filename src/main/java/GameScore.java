@@ -106,7 +106,7 @@ public class GameScore {
 
         ArrayList<String> Completed = new ArrayList<String>();
 
-        Scanner scan = new Scanner(new File(GameBoard.class.getResource(getLevelFilePathName()).toURI()));
+        Scanner scan = new Scanner(new File(GameBoardController.class.getResource(getLevelFilePathName()).toURI()));
 
         while (scan.hasNextLine()){
             // to split the name and time to include inside the highscore.
@@ -202,7 +202,7 @@ public class GameScore {
      * @throws URISyntaxException this is in case if there is a problem if the resource path to the file can't be converted to String format.
      */
     void updateSaveFile(ArrayList<String> sorted) throws IOException, URISyntaxException {
-        File file = new File(GameBoard.class.getResource(getLevelFilePathName()).toURI());
+        File file = new File(GameBoardController.class.getResource(getLevelFilePathName()).toURI());
         FileWriter overwrite = new FileWriter(file,false);
         for (int i = 0; i < sorted.size()-1; i++)
             overwrite.write(sorted.get(i)+"\n");

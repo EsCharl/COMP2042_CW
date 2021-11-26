@@ -16,15 +16,15 @@ public class GameBoardView extends JComponent {
 
     /**
      * this method sets the variables and prepares the game window based on awt. (game window size, track inputs, etc.)
-     * @param gameBoard
+     * @param gameBoardController
      */
-    public void initialize(GameBoard gameBoard){
-        gameBoard.setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
-        gameBoard.setFocusable(true);
-        gameBoard.requestFocusInWindow();
-        gameBoard.addKeyListener(gameBoard);
-        gameBoard.addMouseListener(gameBoard);
-        gameBoard.addMouseMotionListener(gameBoard);
+    public void initialize(GameBoardController gameBoardController){
+        gameBoardController.setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
+        gameBoardController.setFocusable(true);
+        gameBoardController.requestFocusInWindow();
+        gameBoardController.addKeyListener(gameBoardController);
+        gameBoardController.addMouseListener(gameBoardController);
+        gameBoardController.addMouseMotionListener(gameBoardController);
     }
 
     /**
@@ -51,12 +51,12 @@ public class GameBoardView extends JComponent {
      * This is for clearing the screen by setting the whole window to be set into the background colour.
      *
      * @param g2d this is the object that is being passed into for clearing.
-     * @param gameBoard
+     * @param gameBoardController
      */
-    void clear(Graphics2D g2d, GameBoard gameBoard){
+    void clear(Graphics2D g2d, GameBoardController gameBoardController){
         Color tmp = g2d.getColor();
         g2d.setColor(BG_COLOR);
-        g2d.fillRect(0,0, gameBoard.getWidth(), gameBoard.getHeight());
+        g2d.fillRect(0,0, gameBoardController.getWidth(), gameBoardController.getHeight());
         g2d.setColor(tmp);
     }
 
@@ -119,55 +119,55 @@ public class GameBoardView extends JComponent {
      * This method is used to draw the pause menu and the buttons of the pause menu.
      *
      * @param g2d this is the object to draw the pause menu.
-     * @param gameBoard
+     * @param gameBoardController
      */
-    void drawPauseMenu(Graphics2D g2d, GameBoard gameBoard){
+    void drawPauseMenu(Graphics2D g2d, GameBoardController gameBoardController){
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
 
 
-        g2d.setFont(gameBoard.getMenuFont());
+        g2d.setFont(gameBoardController.getMenuFont());
         g2d.setColor(MENU_COLOR);
 
-        if(gameBoard.getStringDisplayLength() == 0){
+        if(gameBoardController.getStringDisplayLength() == 0){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoard.setStringDisplayLength(gameBoard.getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
+            gameBoardController.setStringDisplayLength(gameBoardController.getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
         }
 
         // get the position of top center.
-        int x = (gameBoard.getWidth() - gameBoard.getStringDisplayLength()) / 2;
-        int y = gameBoard.getHeight() / 10;
+        int x = (gameBoardController.getWidth() - gameBoardController.getStringDisplayLength()) / 2;
+        int y = gameBoardController.getHeight() / 10;
 
         g2d.drawString(PAUSE_TEXT,x,y);
 
-        x = gameBoard.getWidth() / 8;
-        y = gameBoard.getHeight() / 4;
+        x = gameBoardController.getWidth() / 8;
+        y = gameBoardController.getHeight() / 4;
 
 
-        if(gameBoard.getContinueButtonRect() == null){
+        if(gameBoardController.getContinueButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoard.setContinueButtonRect(gameBoard.getMenuFont().getStringBounds(CONTINUE_TEXT,frc).getBounds());
-            gameBoard.getContinueButtonRect().setLocation(x,y- gameBoard.getContinueButtonRect().height);
+            gameBoardController.setContinueButtonRect(gameBoardController.getMenuFont().getStringBounds(CONTINUE_TEXT,frc).getBounds());
+            gameBoardController.getContinueButtonRect().setLocation(x,y- gameBoardController.getContinueButtonRect().height);
         }
 
         g2d.drawString(CONTINUE_TEXT,x,y);
 
         y *= 2;
 
-        if(gameBoard.getRestartButtonRect() == null){
+        if(gameBoardController.getRestartButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoard.setRestartButtonRect(gameBoard.getMenuFont().getStringBounds(RESTART_TEXT,frc).getBounds());
-            gameBoard.getRestartButtonRect().setLocation(x,y- gameBoard.getRestartButtonRect().height);
+            gameBoardController.setRestartButtonRect(gameBoardController.getMenuFont().getStringBounds(RESTART_TEXT,frc).getBounds());
+            gameBoardController.getRestartButtonRect().setLocation(x,y- gameBoardController.getRestartButtonRect().height);
         }
 
         g2d.drawString(RESTART_TEXT,x,y);
 
         y *= 3.0/2;
 
-        if(gameBoard.getExitButtonRect() == null){
+        if(gameBoardController.getExitButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoard.setExitButtonRect(gameBoard.getMenuFont().getStringBounds(EXIT_TEXT,frc).getBounds());
-            gameBoard.getExitButtonRect().setLocation(x,y- gameBoard.getExitButtonRect().height);
+            gameBoardController.setExitButtonRect(gameBoardController.getMenuFont().getStringBounds(EXIT_TEXT,frc).getBounds());
+            gameBoardController.getExitButtonRect().setLocation(x,y- gameBoardController.getExitButtonRect().height);
         }
 
         g2d.drawString(EXIT_TEXT,x,y);
@@ -180,10 +180,10 @@ public class GameBoardView extends JComponent {
      * This method is used to draw the pause menu (refer to drawPauseMenu method) and to obscure the game board (refer to the obscureGameBoard method).
      *
      * @param g2d this is the object used to draw the menu.
-     * @param gameBoard
+     * @param gameBoardController
      */
-    void drawMenu(Graphics2D g2d, GameBoard gameBoard){
+    void drawMenu(Graphics2D g2d, GameBoardController gameBoardController){
         obscureGameBoard(g2d);
-        drawPauseMenu(g2d, gameBoard);
+        drawPauseMenu(g2d, gameBoardController);
     }
 }
