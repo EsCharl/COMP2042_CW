@@ -3,28 +3,41 @@ import java.awt.*;
 import java.awt.font.FontRenderContext;
 
 public class GameBoardView extends JComponent {
-    static final int DEF_WIDTH = 600;
-    static final int DEF_HEIGHT = 450;
+    private final int TEXT_SIZE = 30;
 
-    private static final String CONTINUE_TEXT = "Continue";
-    private static final String RESTART_TEXT = "Restart";
-    private static final String EXIT_TEXT = "Exit";
-    private static final String PAUSE_TEXT = "Pause Menu";
+    private final String CONTINUE_TEXT = "Continue";
+    private final String RESTART_TEXT = "Restart";
+    private final String EXIT_TEXT = "Exit";
+    private final String PAUSE_TEXT = "Pause Menu";
+
+    private Rectangle continueButtonRect;
+    private Rectangle exitButtonRect;
+    private Rectangle restartButtonRect;
+
+    private GameBoardController gameBoardController;
+
+    private Font menuFont;
 
     private static final Color BG_COLOR = Color.WHITE;
     private static final Color MENU_COLOR = new Color(0,255,0);
 
-    /**
-     * this method sets the variables and prepares the game window based on awt. (game window size, track inputs, etc.)
-     * @param gameBoardController
-     */
-    public void initialize(GameBoardController gameBoardController){
-        gameBoardController.setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
-        gameBoardController.setFocusable(true);
-        gameBoardController.requestFocusInWindow();
-        gameBoardController.addKeyListener(gameBoardController);
-        gameBoardController.addMouseListener(gameBoardController);
-        gameBoardController.addMouseMotionListener(gameBoardController);
+    private int stringDisplayLength;
+
+    public GameBoardView(GameBoardController gameBoardController){
+        super();
+
+        setStringDisplayLength(0);
+
+        setPreferredSize(new Dimension(GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT));
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(gameBoardController);
+        addMouseListener(gameBoardController);
+        addMouseMotionListener(gameBoardController);
+
+        this.gameBoardController = gameBoardController;
+
+        setMenuFont(new Font("Monospaced",Font.PLAIN,TEXT_SIZE));
     }
 
     /**
@@ -41,7 +54,7 @@ public class GameBoardView extends JComponent {
         g2d.setComposite(ac);
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0,0, DEF_WIDTH, DEF_HEIGHT);
+        g2d.fillRect(0,0, GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT);
 
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
@@ -51,12 +64,11 @@ public class GameBoardView extends JComponent {
      * This is for clearing the screen by setting the whole window to be set into the background colour.
      *
      * @param g2d this is the object that is being passed into for clearing.
-     * @param gameBoardController
      */
-    void clear(Graphics2D g2d, GameBoardController gameBoardController){
+    void clear(Graphics2D g2d){
         Color tmp = g2d.getColor();
         g2d.setColor(BG_COLOR);
-        g2d.fillRect(0,0, gameBoardController.getWidth(), gameBoardController.getHeight());
+        g2d.fillRect(0,0, getWidth(), getHeight());
         g2d.setColor(tmp);
     }
 
@@ -119,55 +131,54 @@ public class GameBoardView extends JComponent {
      * This method is used to draw the pause menu and the buttons of the pause menu.
      *
      * @param g2d this is the object to draw the pause menu.
-     * @param gameBoardController
      */
-    void drawPauseMenu(Graphics2D g2d, GameBoardController gameBoardController){
+    void drawPauseMenu(Graphics2D g2d){
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
 
 
-        g2d.setFont(gameBoardController.getMenuFont());
+        g2d.setFont(getMenuFont());
         g2d.setColor(MENU_COLOR);
 
-        if(gameBoardController.getStringDisplayLength() == 0){
+        if(getStringDisplayLength() == 0){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoardController.setStringDisplayLength(gameBoardController.getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
+            setStringDisplayLength(getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
         }
 
         // get the position of top center.
-        int x = (gameBoardController.getWidth() - gameBoardController.getStringDisplayLength()) / 2;
-        int y = gameBoardController.getHeight() / 10;
+        int x = (getWidth() - getStringDisplayLength()) / 2;
+        int y = getHeight() / 10;
 
         g2d.drawString(PAUSE_TEXT,x,y);
 
-        x = gameBoardController.getWidth() / 8;
-        y = gameBoardController.getHeight() / 4;
+        x = getWidth() / 8;
+        y = getHeight() / 4;
 
 
-        if(gameBoardController.getContinueButtonRect() == null){
+        if(getContinueButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoardController.setContinueButtonRect(gameBoardController.getMenuFont().getStringBounds(CONTINUE_TEXT,frc).getBounds());
-            gameBoardController.getContinueButtonRect().setLocation(x,y- gameBoardController.getContinueButtonRect().height);
+            setContinueButtonRect(getMenuFont().getStringBounds(CONTINUE_TEXT,frc).getBounds());
+            getContinueButtonRect().setLocation(x,y- getContinueButtonRect().height);
         }
 
         g2d.drawString(CONTINUE_TEXT,x,y);
 
         y *= 2;
 
-        if(gameBoardController.getRestartButtonRect() == null){
+        if(getRestartButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoardController.setRestartButtonRect(gameBoardController.getMenuFont().getStringBounds(RESTART_TEXT,frc).getBounds());
-            gameBoardController.getRestartButtonRect().setLocation(x,y- gameBoardController.getRestartButtonRect().height);
+            setRestartButtonRect(getMenuFont().getStringBounds(RESTART_TEXT,frc).getBounds());
+            getRestartButtonRect().setLocation(x,y- getRestartButtonRect().height);
         }
 
         g2d.drawString(RESTART_TEXT,x,y);
 
         y *= 3.0/2;
 
-        if(gameBoardController.getExitButtonRect() == null){
+        if(getExitButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            gameBoardController.setExitButtonRect(gameBoardController.getMenuFont().getStringBounds(EXIT_TEXT,frc).getBounds());
-            gameBoardController.getExitButtonRect().setLocation(x,y- gameBoardController.getExitButtonRect().height);
+            setExitButtonRect(getMenuFont().getStringBounds(EXIT_TEXT,frc).getBounds());
+            getExitButtonRect().setLocation(x,y- getExitButtonRect().height);
         }
 
         g2d.drawString(EXIT_TEXT,x,y);
@@ -180,10 +191,135 @@ public class GameBoardView extends JComponent {
      * This method is used to draw the pause menu (refer to drawPauseMenu method) and to obscure the game board (refer to the obscureGameBoard method).
      *
      * @param g2d this is the object used to draw the menu.
-     * @param gameBoardController
      */
-    void drawMenu(Graphics2D g2d, GameBoardController gameBoardController){
+    void drawMenu(Graphics2D g2d){
         obscureGameBoard(g2d);
-        drawPauseMenu(g2d, gameBoardController);
+        drawPauseMenu(g2d);
+    }
+
+    void setCursorLook(Cursor Cursor) {
+        setCursor(Cursor);
+    }
+
+    /**
+     * this method is used to set a rectangle object to be the restart button.
+     *
+     * @param restartButtonRect this is the rectangle object that is used to be the restart button.
+     */
+    public void setRestartButtonRect(Rectangle restartButtonRect) {
+        this.restartButtonRect = restartButtonRect;
+    }
+
+    /**
+     * this is the method used to get the rectangle restart object.
+     *
+     * @return it returns a rectangle object which is the restart button.
+     */
+    public Rectangle getRestartButtonRect() {
+        return restartButtonRect;
+    }
+
+    /**
+     * this method is used to set the rectangle exit button object.
+     *
+     * @param exitButtonRect this is the rectangle object which is to be the exit button.
+     */
+    public void setExitButtonRect(Rectangle exitButtonRect) {
+        this.exitButtonRect = exitButtonRect;
+    }
+
+    /**
+     * this method is used to return the rectangle object which is the exit button.
+     *
+     * @return this returns a rectangle object which is the exit button.
+     */
+    public Rectangle getExitButtonRect() {
+        return exitButtonRect;
+    }
+
+    /**
+     * this method is used to set the rectangle continue button.
+     *
+     * @param continueButtonRect it takes in a rectangle object which is set to be the continue button.
+     */
+    public void setContinueButtonRect(Rectangle continueButtonRect) {
+        this.continueButtonRect = continueButtonRect;
+    }
+
+    /**
+     * this method is used to get the rectangle continue button.
+     *
+     * @return it returns the rectangle object which is the continue button.
+     */
+    public Rectangle getContinueButtonRect() {
+        return continueButtonRect;
+    }
+
+    /**
+     * this method is used to change the menu font.
+     *
+     * @param menuFont this is the font used to change the menu font to.
+     */
+    public void setMenuFont(Font menuFont) {
+        this.menuFont = menuFont;
+    }
+
+    /**
+     * this is to get the font of the menu font
+     *
+     * @return returns the font used by the menu font.
+     */
+    public Font getMenuFont() {
+        return menuFont;
+    }
+
+    public void updateGameBoardView() {
+        repaint();
+    }
+
+    /**
+     * This method is used for apply the objects, namely the pause menu, the bricks, the ball, and the paddle which is controlled by the user on the screen.
+     *
+     * @param g this is an object where it will be drawn upon.
+     */
+    public void paint(Graphics g){
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        clear(g2d);
+
+        g2d.setColor(Color.BLUE);
+        g2d.drawString(gameBoardController.gameBoardModel.getMessage(),250,225);
+
+        drawBall(gameBoardController.gameBoardModel.getWall().getBall(),g2d);
+
+        for(Brick b : gameBoardController.gameBoardModel.getWall().getBricks())
+            if(!b.isBroken())
+                drawBrick(b,g2d);
+
+        drawPlayer(gameBoardController.gameBoardModel.getWall().getPlayer(),g2d);
+
+        if(gameBoardController.isShowPauseMenu())
+            drawMenu(g2d);
+
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+    /**
+     * this method is used to set the display length of the string into a variable.
+     *
+     * @param stringDisplayLength this is the length (Integer) used to set the stringDisplayLength variable.
+     */
+    public void setStringDisplayLength(int stringDisplayLength) {
+        this.stringDisplayLength = stringDisplayLength;
+    }
+
+    /**
+     * this is the method used to get the value from the stringDisplayLength variable.
+     *
+     * @return it returns the value from stringDisplayLength.
+     */
+    public int getStringDisplayLength() {
+        return stringDisplayLength;
     }
 }

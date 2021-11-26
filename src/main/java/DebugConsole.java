@@ -118,7 +118,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        getGameBoard().repaint();
+        getGameBoard().gameBoardView.repaint();
     }
 
     /**

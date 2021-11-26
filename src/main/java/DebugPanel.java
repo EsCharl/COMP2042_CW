@@ -69,7 +69,7 @@ public class DebugPanel extends JPanel {
     }
 
     private void functions() {
-        skipLevel = makeButton("Skip Level",e -> board.skipLevel());
+        skipLevel = makeButton("Skip Level",e -> board.gameBoardModel.skipLevel());
         resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
 
         ballXSpeed = makeSlider(-4,4,e -> wall.setBallXSpeed(ballXSpeed.getValue()));

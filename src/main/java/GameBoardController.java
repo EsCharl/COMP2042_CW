@@ -23,31 +23,15 @@ import java.awt.event.*;
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
-public class GameBoardController extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
+public class GameBoardController implements KeyListener,MouseListener,MouseMotionListener {
 
-    private static final int TEXT_SIZE = 30;
-
-    private Timer gameTimer;
-
-    private Wall wall;
-
-    private String message;
+    final static int DEF_WIDTH = 600;
+    final static int DEF_HEIGHT = 450;
 
     private boolean showPauseMenu;
-    private boolean canGetTime;
 
-    private Font menuFont;
-
-    private Rectangle continueButtonRect;
-    private Rectangle exitButtonRect;
-    private Rectangle restartButtonRect;
-    private int stringDisplayLength;
-
-    private DebugConsole debugConsole;
-    private GameBoardView gameBoardView = new GameBoardView();
-    private GameBoardModel gameBoardModel = new GameBoardModel();
-
-    private GameScore gameScore = GameScore.singletonGameScore();
+    GameBoardView gameBoardView;
+    GameBoardModel gameBoardModel;
 
     private static GameBoardController uniqueGameBoardController;
 
@@ -64,70 +48,15 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
      * @param owner this takes in the JFrame for the game board object.
      */
     private GameBoardController(JFrame owner){
-        super();
 
-        setStringDisplayLength(0);
         setShowPauseMenu(false);
-        setCanGetTime(false);
 
-        gameScore.setStartTime(0);
-        gameScore.setTotalTime(0);
-        gameScore.setPauseTime(0);
+        gameBoardModel = new GameBoardModel(this, owner);
 
-        setMenuFont(new Font("Monospaced",Font.PLAIN,TEXT_SIZE));
+        gameBoardView = new GameBoardView(this);
 
-        this.gameBoardView.initialize(this);
-        setMessage("");
-
-        setWall(Wall.singletonWall(new Rectangle(0,0, GameBoardView.DEF_WIDTH, GameBoardView.DEF_HEIGHT),30,3,6/2,new Point(300,430)));
-
-        setDebugConsole(DebugConsole.singletonDebugConsole(owner,wall,this));
         //initialize the first level
-        gameBoardModel.startGame(this);
-
-    }
-
-    public void updateGameView() {
-        repaint();
-    }
-
-    public void updateGameText(String s) {
-        setMessage(s);
-        getGameTimer().stop();
-    }
-
-    public void restartGameCondition() {
-        getWall().positionsReset();
-        getWall().wallReset();
-        getWall().nextLevel();
-    }
-
-    /**
-     * This method is used for apply the objects, namely the pause menu, the bricks, the ball, and the paddle which is controlled by the user on the screen.
-     *
-     * @param g this is an object where it will be drawn upon.
-     */
-    public void paint(Graphics g){
-
-        Graphics2D g2d = (Graphics2D) g;
-
-        gameBoardView.clear(g2d, this);
-
-        g2d.setColor(Color.BLUE);
-        g2d.drawString(getMessage(),250,225);
-
-        gameBoardView.drawBall(getWall().getBall(),g2d);
-
-        for(Brick b : getWall().getBricks())
-            if(!b.isBroken())
-                gameBoardView.drawBrick(b,g2d);
-
-        gameBoardView.drawPlayer(getWall().getPlayer(),g2d);
-
-        if(isShowPauseMenu())
-            gameBoardView.drawMenu(g2d, this);
-
-        Toolkit.getDefaultToolkit().sync();
+        gameBoardModel.startGame();
     }
 
     /**
@@ -148,44 +77,23 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_A:
-                getWall().getPlayer().moveLeft();
+                gameBoardModel.playerMoveLeft();
                 break;
             case KeyEvent.VK_D:
-                getWall().getPlayer().movRight();
+                gameBoardModel.playerMoveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
-                setShowPauseMenu(!isShowPauseMenu());
-                updateGameView();
-                if (getGameTimer().isRunning()){
-                    gameScore.pauseTimer();
-                    setCanGetTime(false);
-                    getGameTimer().stop();
-                }
+                gameBoardModel.pauseMenuButtonClicked();
                 break;
             case KeyEvent.VK_SPACE:
-                if(!isShowPauseMenu())
-                    if(getGameTimer().isRunning()){
-                        gameScore.pauseTimer();
-                        setCanGetTime(false);
-                        getGameTimer().stop();
-                    }else{
-                        gameScore.startTimer();
-                        getGameTimer().start();
-                        setCanGetTime(true);
-                    }
+                gameBoardModel.startPauseGameButtonClicked();
                 break;
             case KeyEvent.VK_F1:
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
-                    setShowPauseMenu(true);
-                    if(isCanGetTime()){
-                        gameScore.pauseTimer();
-                        setCanGetTime(false);
-                    }
-                    getGameTimer().stop();
-                    getDebugConsole().setVisible(true);
+                    gameBoardModel.debugConsoleButtonClicked();
                 }
             default:
-                getWall().getPlayer().stop();
+                gameBoardModel.playerStopMoving();
         }
     }
 
@@ -196,7 +104,7 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
      */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        getWall().getPlayer().stop();
+        gameBoardModel.playerStopMoving();
     }
 
     /**
@@ -208,20 +116,14 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
     public void mouseClicked(MouseEvent mouseEvent) {
         if(!isShowPauseMenu())
             return;
-        if(getContinueButtonRect().contains(mouseGetPointEvent(mouseEvent))){
+        if(gameBoardView.getContinueButtonRect().contains(mouseGetPointEvent(mouseEvent))){
             setShowPauseMenu(false);
-            updateGameView();
+            gameBoardView.updateGameBoardView();
         }
-        else if(getRestartButtonRect().contains(mouseGetPointEvent(mouseEvent))){
-            setMessage("Restarting Game...");
-            getWall().positionsReset();
-            getWall().wallReset();
-            setShowPauseMenu(false);
-            updateGameView();
-
-            gameScore.restartTimer();
+        else if(gameBoardView.getRestartButtonRect().contains(mouseGetPointEvent(mouseEvent))){
+            gameBoardModel.restartLevel();
         }
-        else if(getExitButtonRect().contains(mouseGetPointEvent(mouseEvent))){
+        else if(gameBoardView.getExitButtonRect().contains(mouseGetPointEvent(mouseEvent))){
             System.exit(0);
         }
 
@@ -284,14 +186,15 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
      */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        if(getExitButtonRect() != null && isShowPauseMenu()) {
+        if(gameBoardView.getExitButtonRect() != null && isShowPauseMenu()) {
             if (checkIfMouseMovedToButton(mouseGetPointEvent(mouseEvent)))
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            else
-                this.setCursor(Cursor.getDefaultCursor());
+                gameBoardView.setCursorLook(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            else {
+                gameBoardView.setCursorLook(Cursor.getDefaultCursor());
+            }
         }
         else{
-            this.setCursor(Cursor.getDefaultCursor());
+            gameBoardView.setCursorLook(Cursor.getDefaultCursor());
         }
     }
 
@@ -306,85 +209,20 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
      * @return returns true if the mouse is on the button.
      */
     private boolean checkIfMouseMovedToButton(Point p){
-        return (getExitButtonRect().contains(p) || getRestartButtonRect().contains(p) || getContinueButtonRect().contains(p));
+        return (gameBoardView.getExitButtonRect().contains(p) || gameBoardView.getRestartButtonRect().contains(p) || gameBoardView.getContinueButtonRect().contains(p));
     }
 
     /**
      * this method is used when the user is not focused on the game. i.e. when the user clicked on other components or outside the game window.
      */
     public void onLostFocus(){
-        getGameTimer().stop();
-        setMessage("Focus Lost");
-        updateGameView();
+        gameBoardModel.getGameTimer().stop();
+        gameBoardModel.setMessage("Focus Lost");
+        gameBoardView.updateGameBoardView();
 
-        if(isCanGetTime()){
-            gameScore.pauseTimer();
-            setCanGetTime(false);
+        if(gameBoardModel.isCanGetTime()){
+            gameBoardModel.pauseGame();
         }
-    }
-
-    /**
-     * this is used by the DebugPanel class to skip the level which will restart the timer and generate the next level.
-     */
-    void skipLevel(){
-        gameScore.restartTimer();
-        getWall().nextLevel();
-        getWall().wallReset();
-        getWall().positionsReset();
-    }
-
-    /**
-     * this method is used to get the gameTimer variable.
-     *
-     * @return returns a Timer datatype of gameTimer variable.
-     */
-    public Timer getGameTimer() {
-        return gameTimer;
-    }
-
-    /**
-     * this method is used to set the gameTimer variable.
-     *
-     * @param gameTimer this is the Timer datatype which will be used to set the gameTimer variable.
-     */
-    public void setGameTimer(Timer gameTimer) {
-        this.gameTimer = gameTimer;
-    }
-
-    /**
-     * this method is used to get the wall variable.
-     *
-     * @return returns a Wall datatype of wall variable.
-     */
-    public Wall getWall() {
-        return wall;
-    }
-
-    /**
-     * this method is used to set the wall variable
-     *
-     * @param wall this is the Wall datatype which will be used to set the wall variable.
-     */
-    public void setWall(Wall wall) {
-        this.wall = wall;
-    }
-
-    /**
-     * this method is used to get the value in the message variable.
-     *
-     * @return returns the value in the message variable.
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * this method is used to change the message variable.
-     *
-     * @param message the String used to change the message variable.
-     */
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     /**
@@ -406,42 +244,6 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
     }
 
     /**
-     * this is to get the font of the menu font
-     *
-     * @return returns the font used by the menu font.
-     */
-    public Font getMenuFont() {
-        return menuFont;
-    }
-
-    /**
-     * this method is used to change the menu font.
-     *
-     * @param menuFont this is the font used to change the menu font to.
-     */
-    public void setMenuFont(Font menuFont) {
-        this.menuFont = menuFont;
-    }
-
-    /**
-     * this method is used to get the DebugConsole object.
-     *
-     * @return returns the DebugConsole object.
-     */
-    public DebugConsole getDebugConsole() {
-        return debugConsole;
-    }
-
-    /**
-     * this method is used to set the DebugConsole object.
-     *
-     * @param debugConsole this is the DebugConsole object used to set into the variable.
-     */
-    public void setDebugConsole(DebugConsole debugConsole) {
-        this.debugConsole = debugConsole;
-    }
-
-    /**
      * this is the method used to get the GameBoard Object.
      *
      * @return returns the GameBoard Object.
@@ -457,95 +259,5 @@ public class GameBoardController extends JComponent implements KeyListener,Mouse
      */
     public static void setUniqueGameBoard(GameBoardController uniqueGameBoardController) {
         GameBoardController.uniqueGameBoardController = uniqueGameBoardController;
-    }
-
-    /**
-     * this method is used to get the rectangle continue button.
-     *
-     * @return it returns the rectangle object which is the continue button.
-     */
-    public Rectangle getContinueButtonRect() {
-        return continueButtonRect;
-    }
-
-    /**
-     * this method is used to set the rectangle continue button.
-     *
-     * @param continueButtonRect it takes in a rectangle object which is set to be the continue button.
-     */
-    public void setContinueButtonRect(Rectangle continueButtonRect) {
-        this.continueButtonRect = continueButtonRect;
-    }
-
-    /**
-     * this method is used to return the rectangle object which is the exit button.
-     *
-     * @return this returns a rectangle object which is the exit button.
-     */
-    public Rectangle getExitButtonRect() {
-        return exitButtonRect;
-    }
-
-    /**
-     * this method is used to set the rectangle exit button object.
-     *
-     * @param exitButtonRect this is the rectangle object which is to be the exit button.
-     */
-    public void setExitButtonRect(Rectangle exitButtonRect) {
-        this.exitButtonRect = exitButtonRect;
-    }
-
-    /**
-     * this is the method used to get the rectangle restart object.
-     *
-     * @return it returns a rectangle object which is the restart button.
-     */
-    public Rectangle getRestartButtonRect() {
-        return restartButtonRect;
-    }
-
-    /**
-     * this method is used to set a rectangle object to be the restart button.
-     *
-     * @param restartButtonRect this is the rectangle object that is used to be the restart button.
-     */
-    public void setRestartButtonRect(Rectangle restartButtonRect) {
-        this.restartButtonRect = restartButtonRect;
-    }
-
-    /**
-     * this is the method used to get the value from the stringDisplayLength variable.
-     *
-     * @return it returns the value from stringDisplayLength.
-     */
-    public int getStringDisplayLength() {
-        return stringDisplayLength;
-    }
-
-    /**
-     * this method is used to set the display length of the string into a variable.
-     *
-     * @param stringDisplayLength this is the length (Integer) used to set the stringDisplayLength variable.
-     */
-    public void setStringDisplayLength(int stringDisplayLength) {
-        this.stringDisplayLength = stringDisplayLength;
-    }
-
-    /**
-     * this method is used to check if it can get the time to set it to a scoring variable.
-     *
-     * @return it returns true based on the variable value.
-     */
-    public boolean isCanGetTime() {
-        return canGetTime;
-    }
-
-    /**
-     * this method is used to set the variable if it can get the time to set to a scoring variable.
-     *
-     * @param canGetTime this is the variable used to set if it can take the time for the scoring.
-     */
-    public void setCanGetTime(boolean canGetTime) {
-        this.canGetTime = canGetTime;
     }
 }

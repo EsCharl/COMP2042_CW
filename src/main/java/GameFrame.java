@@ -78,7 +78,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void enableGameBoard(){
         this.dispose();
         this.remove(getHomeMenu());
-        this.add(getGameBoard(),BorderLayout.CENTER);
+        this.add(getGameBoard().gameBoardView,BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
