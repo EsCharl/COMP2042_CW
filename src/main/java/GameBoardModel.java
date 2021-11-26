@@ -21,6 +21,12 @@ public class GameBoardModel {
     GameBoardController gameBoardController;
 
 
+    /**
+     * this constructor is used to create a game board object that handles all the logic.
+     *
+     * @param gameBoardController this is the controller of the game board which takes in all the user inputs.
+     * @param owner this is the frame where the
+     */
     public GameBoardModel(GameBoardController gameBoardController, JFrame owner){
         gameScore = GameScore.singletonGameScore();
 
@@ -39,6 +45,9 @@ public class GameBoardModel {
         setCanGetTime(false);
     }
 
+    /**
+     * this method is used to start the game.
+     */
     void startGame() {
         getWall().nextLevel();
         gameScore.setLevelFilePathName("/scores/Level"+ getWall().getWallLevel()+".txt");
@@ -50,7 +59,8 @@ public class GameBoardModel {
             if(getWall().isBallLost()){
                 if(getWall().ballEnd()){
                     getWall().wallReset();
-                    updateGameText("Game over");
+                    setMessage("Game over");
+                    getGameTimer().stop();
                     gameScore.restartTimer();
                 }
                 getWall().positionsReset();
@@ -59,29 +69,39 @@ public class GameBoardModel {
             }
             else if(getWall().isDone()){
                 if(getWall().hasLevel()){
-                    updateGameText("Go to Next Level");
+                    setMessage("Go to Next Level");
+                    getGameTimer().stop();
                     restartGameStatus();
                 }
                 else{
-                    updateGameText("ALL WALLS DESTROYED");
+                    setMessage("ALL WALLS DESTROYED");
+                    getGameTimer().stop();
                 }
 
                 gameScore.pauseTimer();
 
                 //for save file saving and high score pop up
-                try {
-                    ArrayList<String> sorted = gameScore.getHighScore();
-                    gameScore.updateSaveFile(sorted);
-                    gameScore.highScorePanel(sorted);
-                } catch (IOException | BadLocationException | URISyntaxException ex) {
-                    ex.printStackTrace();
-                }
+                saveLevelScore();
+
                 gameScore.restartTimer();
             }
             gameScore.setLevelFilePathName("/scores/Level"+ getWall().getWallLevel()+".txt");
 
             gameBoardController.gameBoardView.updateGameBoardView();
         }));
+    }
+
+    /**
+     * this method is used to save the game score.
+     */
+    private void saveLevelScore() {
+        try {
+            ArrayList<String> sorted = gameScore.getHighScore();
+            gameScore.updateSaveFile(sorted);
+            gameScore.highScorePanel(sorted);
+        } catch (IOException | BadLocationException | URISyntaxException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -124,10 +144,16 @@ public class GameBoardModel {
         getGameTimer().stop();
     }
 
+    /**
+     * this method is used to move the player to the right.
+     */
     public void playerMoveRight() {
         getWall().getPlayer().movRight();
     }
 
+    /**
+     * this method is used to move the player to the left.
+     */
     public void playerMoveLeft() {
         getWall().getPlayer().moveLeft();
     }
@@ -161,6 +187,9 @@ public class GameBoardModel {
         getWall().positionsReset();
     }
 
+    /**
+     * this method is used to restart the level.
+     */
     public void restartLevel() {
         setMessage("Restarting Game...");
         getWall().positionsReset();
@@ -169,11 +198,6 @@ public class GameBoardModel {
         gameBoardController.gameBoardView.updateGameBoardView();
 
         gameScore.restartTimer();
-    }
-
-    public void updateGameText(String s) {
-        setMessage(s);
-        getGameTimer().stop();
     }
 
     /**
@@ -194,6 +218,9 @@ public class GameBoardModel {
         return gameTimer;
     }
 
+    /**
+     * this method is used used to create the
+     */
     public void debugConsoleButtonClicked() {
         gameBoardController.setShowPauseMenu(true);
         if(isCanGetTime()){
@@ -202,6 +229,9 @@ public class GameBoardModel {
         displayDebugConsole();
     }
 
+    /**
+     * this method is used to set the game into a pause state.
+     */
     public void pauseMenuButtonClicked() {
         gameBoardController.setShowPauseMenu(!gameBoardController.isShowPauseMenu());
         gameBoardController.gameBoardView.updateGameBoardView();
@@ -210,6 +240,9 @@ public class GameBoardModel {
         }
     }
 
+    /**
+     * this method is used to toggle between start and pause of the game.
+     */
     public void startPauseGameButtonClicked() {
         if(!gameBoardController.isShowPauseMenu())
             if(getGameTimer().isRunning()){
