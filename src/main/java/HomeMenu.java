@@ -25,7 +25,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -76,6 +75,13 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     private static HomeMenu uniqueHomeMenu;
 
+    /**
+     * this method is used to create and return one and only one home menu object.
+     *
+     * @param owner this is the game frame object used to create the object.
+     * @param area this is the size area of which the Home menu will be drawn.
+     * @return it returns a home menu object.
+     */
     public static HomeMenu singletonHomeMenu(GameFrame owner, Dimension area){
         if(getUniqueHomeMenu() == null){
             setUniqueHomeMenu(new HomeMenu(owner,area));
@@ -86,10 +92,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     /**
      * this constructor creates the home menu object.
      *
-     * @param owner this takes in the game frame which is also a frame that is shown on the start page when the game is started
+     * @param gameFrame this takes in the game frame which is also a frame that is shown on the start page when the game is started
      * @param area is the information that is used to create the window in terms of the dimensions.
      */
-    private HomeMenu(GameFrame owner,Dimension area){
+    private HomeMenu(GameFrame gameFrame,Dimension area){
 
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -97,7 +103,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        setOwner(owner);
+        setGameFrame(gameFrame);
 
         setMenuFace(new Rectangle(new Point(0,0),area));
 
@@ -114,12 +120,21 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      * @param area this is the area dimension where the button could add the buttons.
      */
     private void createButtonObjects(Dimension area){
-        Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
-        setStartButton(new Rectangle(btnDim));
-        setExitButton(new Rectangle(btnDim));
+        setStartButton(new Rectangle(createButtonDimension(area)));
+        setExitButton(new Rectangle(createButtonDimension(area)));
 
         //for the info button
-        setInfoButton(new Rectangle(btnDim));
+        setInfoButton(new Rectangle(createButtonDimension(area)));
+    }
+
+    /**
+     * this method is used to create a dimension object used to create a button object.
+     *
+     * @param area this is the area used to create the dimension object.
+     * @return returns a dimension object based on the area provided.
+     */
+    private Dimension createButtonDimension(Dimension area) {
+        return new Dimension(area.width / 3, area.height / 12);
     }
 
     /**
@@ -144,7 +159,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         drawMenu((Graphics2D)g);
     }
 
-
     /**
      * this method is used to call the drawButton method. and also needs to set the dimension for g2d that is going to be used for drawText and drawButton method.
      *
@@ -152,7 +166,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      */
     public void drawMenu(Graphics2D g2d){
 
-        drawContainer(g2d);
+        drawBackground(g2d);
 
         /*
         all the following method calls need a relative
@@ -162,21 +176,14 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         g2d.translate(getMenuFaceXCoordinate(),getMenuFaceYCoordinate());
 
         //methods calls
-        drawText(g2d);
+        drawMenuTexts(g2d);
         drawButton(g2d);
         //end of methods calls
 
         g2d.translate(-getMenuFaceXCoordinate(),-getMenuFaceYCoordinate());
-        g2d.setFont(getPrevFont(g2d));
-        g2d.setColor(getPrevColor(g2d));
-    }
 
-    private Color getPrevColor(Graphics2D g2d){
-        return g2d.getColor();
-    }
-
-    private Font getPrevFont(Graphics2D g2d){
-        return g2d.getFont();
+        g2d.setFont(g2d.getFont());
+        g2d.setColor(g2d.getColor());
     }
 
     /**
@@ -202,7 +209,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      *
      * @param g2d the graphics2d that is used to draw on.
      */
-    private void drawContainer(Graphics2D g2d){
+    private void drawBackground(Graphics2D g2d){
         Color prev = g2d.getColor();
 
         //code for an image in the start game menu.
@@ -218,13 +225,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         Stroke tmp = g2d.getStroke();
 
-        g2d.setStroke(getBorderStoke_noDashes());
-        g2d.setColor(DASH_BORDER_COLOR);
-        g2d.draw(getMenuFace());
+        drawBorderPattern(g2d, getBorderStoke_noDashes(), DASH_BORDER_COLOR);
 
-        g2d.setStroke(getBorderStoke());
-        g2d.setColor(BORDER_COLOR);
-        g2d.draw(getMenuFace());
+        drawBorderPattern(g2d, getBorderStoke(), BORDER_COLOR);
 
         g2d.setStroke(tmp);
 
@@ -232,41 +235,76 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     }
 
     /**
+     * this method is used to draw patterns on the border.
+     *
+     * @param g2d this is the graphical property used to set inorder to draw the pattern.
+     * @param borderStoke this is the basic stroke used to draw the pattern.
+     * @param borderColor this is the color set for the drawing of the pattern.
+     */
+    private void drawBorderPattern(Graphics2D g2d, BasicStroke borderStoke, Color borderColor) {
+        g2d.setStroke(borderStoke);
+        g2d.setColor(borderColor);
+        g2d.draw(getMenuFace());
+    }
+
+    /**
      * this method is used to draw the text to the home menu.
      *
      * @param g2d this is Graphics2D that have the information on how to style the texts
      */
-    private void drawText(Graphics2D g2d){
+    private void drawMenuTexts(Graphics2D g2d){
 
         g2d.setColor(TEXT_COLOR);
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D greetingsRect = getGreetingsFont().getStringBounds(GREETINGS,frc);
-        Rectangle2D gameTitleRect = getGameTitleFont().getStringBounds(GAME_TITLE,frc);
-        Rectangle2D creditsRect = getCreditsFont().getStringBounds(CREDITS,frc);
+        Rectangle2D greetingsRect = getStringBounds(frc, getGreetingsFont(), GREETINGS);
+        Rectangle2D gameTitleRect = getStringBounds(frc, getGameTitleFont(), GAME_TITLE);
+        Rectangle2D creditsRect = getStringBounds(frc, getCreditsFont(), CREDITS);
 
         int sX,sY;
 
         sX = (int)(getMenuFace().getWidth() - greetingsRect.getWidth()) / 2;
         sY = (int)(getMenuFace().getHeight() / 4);
 
-        g2d.setFont(getGreetingsFont());
-        g2d.drawString(GREETINGS,sX,sY);
+        drawMenuText(g2d, sX, sY, getGreetingsFont(), GREETINGS);
 
         sX = (int)(getMenuFace().getWidth() - gameTitleRect.getWidth()) / 2;
         sY += (int) gameTitleRect.getHeight() * 1.1;//add 10% of String height between the two strings
 
-        g2d.setFont(getGameTitleFont());
-        g2d.drawString(GAME_TITLE,sX,sY);
+        drawMenuText(g2d, sX, sY, getGameTitleFont(), GAME_TITLE);
 
         sX = (int)(getMenuFace().getWidth() - creditsRect.getWidth()) / 2;
         sY += (int) creditsRect.getHeight() * 1.1;
 
-        g2d.setFont(getCreditsFont());
-        g2d.drawString(CREDITS,sX,sY);
+        drawMenuText(g2d, sX, sY, getCreditsFont(), CREDITS);
     }
 
+    /**
+     * this method is used to get the string boundaries for the strings based on the font render context.
+     *
+     * @param frc the font render context used to determine the string boundary.
+     * @param creditsFont this is the font used to get the string boundary.
+     * @param string this is the string used to get the boundary for the said string.
+     * @return this returns a rectangle2d shape that is used for the main menu string.
+     */
+    private Rectangle2D getStringBounds(FontRenderContext frc, Font creditsFont, String string) {
+        return creditsFont.getStringBounds(string, frc);
+    }
+
+    /**
+     * this is used to draw one of the text on the main menu.
+     *
+     * @param g2d this is the property used to set the text property style.
+     * @param sX this is the coordinate where the string will be drawn (x-coordinate).
+     * @param sY this is the coordinate where the string will be drawn (y-coordinate).
+     * @param greetingsFont this is the font used to set the string display font.
+     * @param string this is the string used to display on the main menu
+     */
+    private void drawMenuText(Graphics2D g2d, int sX, int sY, Font greetingsFont, String string) {
+        g2d.setFont(greetingsFont);
+        g2d.drawString(string, sX, sY);
+    }
 
 
     /**
@@ -278,11 +316,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D txtRect = getButtonFont().getStringBounds(START_TEXT,frc);
-        Rectangle2D mTxtRect = getButtonFont().getStringBounds(EXIT_TEXT,frc);
+        Rectangle2D txtRect = getStringBounds(frc, getButtonFont(), START_TEXT);
+        Rectangle2D mTxtRect = getStringBounds(frc, getButtonFont(), EXIT_TEXT);
 
         // additional lines of code for the info button
-        Rectangle2D m2TxtRect = getButtonFont().getStringBounds(INFO_TEXT,frc);
+        Rectangle2D m2TxtRect = getStringBounds(frc, getButtonFont(), INFO_TEXT);
 
         g2d.setFont(getButtonFont());
 
@@ -302,7 +340,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             drawClickedButton(g2d, getInfoButton(), INFO_TEXT, x, y);
         }
         else{
-            drawNormalButton(g2d,getInfoButton(),INFO_TEXT,x,y);
+            drawButton(g2d,getInfoButton(),INFO_TEXT,x,y);
         }
 
         x = (getMenuFace().width - getStartButton().width) / 2;
@@ -320,7 +358,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             drawClickedButton(g2d, getStartButton(), START_TEXT, x, y);
         }
         else{
-            drawNormalButton(g2d,getStartButton(),START_TEXT,x,y);
+            drawButton(g2d,getStartButton(),START_TEXT,x,y);
         }
 
         x = getStartButton().x;
@@ -340,7 +378,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             drawClickedButton(g2d,getExitButton(),EXIT_TEXT,x,y);
         }
         else{
-            drawNormalButton(g2d,getExitButton(),EXIT_TEXT,x,y);
+            drawButton(g2d,getExitButton(),EXIT_TEXT,x,y);
         }
 
     }
@@ -351,10 +389,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      * @param g2d this is the graphics2D for the button
      * @param button this is the button that is going to be changed
      * @param text this is the text of the button.
-     * @param xCoordinate this is the position of the button on x-axis.
-     * @param yCoordinate this is the position of the button on y-axis.
+     * @param xCoordinate this is the position for the button on x-axis.
+     * @param yCoordinate this is the position for the button on y-axis.
      */
-    private void drawNormalButton (Graphics2D g2d,Rectangle button, String text, int xCoordinate, int yCoordinate){
+    private void drawButton(Graphics2D g2d, Rectangle button, String text, int xCoordinate, int yCoordinate){
         g2d.draw(button);
         g2d.drawString(text,xCoordinate,yCoordinate);
     }
@@ -671,7 +709,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         return owner;
     }
 
-    public void setOwner(GameFrame owner) {
+    public void setGameFrame(GameFrame owner) {
         this.owner = owner;
     }
 }

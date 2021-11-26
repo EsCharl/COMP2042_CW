@@ -16,14 +16,8 @@ abstract public class Brick  {
     public static final int LEFT_IMPACT = 300;
     public static final int RIGHT_IMPACT = 400;
 
-    /**
-     * This class is used for the bricks on the level to display the crack if they are not destroyed.
-     */
-
-
     private static Random rnd;
 
-    private String name;
     Shape brickFace;
 
     private Color border;
@@ -33,7 +27,6 @@ abstract public class Brick  {
     private int strength;
 
     private boolean broken;
-
 
     /**
      * this method is used to create a brick object.
@@ -111,21 +104,20 @@ abstract public class Brick  {
      * this method is used to get the direction of impact where the ball comes in contact with the brick,
      *
      * @param b the ball object.
-     * @return an Integer where the impact direction is decided.
+     * @return an Integer where the impact direction is decided based on a constant integer.
      */
     public final int findImpact(Ball b){
         if(isBroken())
             return 0;
-        int out  = 0;
         if(getBrickFace().contains(b.getRight()))
-            out = LEFT_IMPACT;
+            return LEFT_IMPACT;
         else if(getBrickFace().contains(b.getLeft()))
-            out = RIGHT_IMPACT;
+            return RIGHT_IMPACT;
         else if(getBrickFace().contains(b.getUp()))
-            out = DOWN_IMPACT;
+            return DOWN_IMPACT;
         else if(getBrickFace().contains(b.getDown()))
-            out = UP_IMPACT;
-        return out;
+            return UP_IMPACT;
+        return 0;
     }
 
     /**

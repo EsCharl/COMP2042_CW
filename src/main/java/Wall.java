@@ -1,21 +1,3 @@
-/*
- *  Brick Destroy - A simple Arcade video game
- *   Copyright (C) 2017  Filippo Ranza
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -26,12 +8,8 @@ import java.util.Random;
 public class Wall {
 
     private final int LEVELS_COUNT = 6;
-    private final int UP_IMPACT = 100;
-    private final int DOWN_IMPACT = 200;
-    private final int LEFT_IMPACT = 300;
-    private final int RIGHT_IMPACT = 400;
 
-    private Random rnd = new Random();
+    private Random rnd;
     private Rectangle borderArea;
 
     private Brick[] bricks;
@@ -39,10 +17,10 @@ public class Wall {
     private Player player;
     private WallLevelTemplates wallLevelTemplates = WallLevelTemplates.singletonWallLevelTemplates();
 
-    private WallModel wallModel = WallModel.singletonWallModel();
+    Movements movements;
 
-    private Brick[][] levels;
-    private int level;
+    private Brick[][] brickLevels;
+    private int currentLevel;
 
     private Point startPoint;
     private int brickCount;
@@ -78,10 +56,14 @@ public class Wall {
      */
     private Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
+        movements = Movements.singletonMovements(this);
+
+        setRnd(new Random());
         setStartPoint(new Point(ballPos));
 
-        setLevels(makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio));
-        setLevel(0);
+        setBrickLevels(makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio));
+
+        setCurrentLevel(0);
 
         setBallCount(3);
         setBallLost(false);
@@ -132,85 +114,13 @@ public class Wall {
      */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getClayIntegerConstant(), getWallModel().getClayIntegerConstant());
-        tmp[1] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getClayIntegerConstant(), getWallModel().getCementIntegerConstant());
-        tmp[2] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getClayIntegerConstant(), getWallModel().getSteelIntegerConstant());
-        tmp[3] = getWallLevelTemplates().makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getSteelIntegerConstant(), getWallModel().getCementIntegerConstant());
-        tmp[4] = getWallLevelTemplates().makeSonicLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallModel().getReinforcedSteelIntegerConstant(), getWallModel().getSteelIntegerConstant());
+        tmp[0] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getClayIntegerConstant(), getWallLevelTemplates().getClayIntegerConstant());
+        tmp[1] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getClayIntegerConstant(), getWallLevelTemplates().getCementIntegerConstant());
+        tmp[2] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getClayIntegerConstant(), getWallLevelTemplates().getSteelIntegerConstant());
+        tmp[3] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getSteelIntegerConstant(), getWallLevelTemplates().getCementIntegerConstant());
+        tmp[4] = getWallLevelTemplates().makeTwoLinesLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getReinforcedSteelIntegerConstant(), getWallLevelTemplates().getSteelIntegerConstant());
         tmp[5] = getWallLevelTemplates().makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
         return tmp;
-    }
-
-    /**
-     * This method is used for the movement of the player (paddle) and the ball.
-     */
-    public void move(){
-        getPlayer().move();
-        getBall().move();
-    }
-
-    /**
-     * this method is used to check if there is an impact for the ball with any entity, the sides of the screen. which will cause a reaction to the game.
-     */
-    public void findImpacts(){
-        if(getPlayer().impact(getBall())){
-            getBall().reverseY();
-        }
-        else if(impactWall()){
-            /*for efficiency reverse is done into method impactWall
-            * because for every brick program checks for horizontal and vertical impacts
-            */
-            setBrickCount(getBrickCount()-1);
-        }
-
-        if(impactSideBorder()) {
-            getBall().reverseX();
-        }
-
-        if(getBall().getPosition().getY() < getBorderArea().getY()){
-            getBall().reverseY();
-        }
-        else if(getBall().getPosition().getY() > getBorderArea().getY() + getBorderArea().getHeight()){
-            setBallCount(getBallCount() - 1);
-            setBallLost(true);
-        }
-    }
-
-    /**
-     * this is to check if the ball comes in contact with any side of the brick.
-     *
-     * @return returns a boolean value if or if it doesn't touch any entity.
-     */
-    private boolean impactWall(){
-        for(Brick b : getBricks()){
-            switch(b.findImpact(getBall())) {
-                //Vertical Impact
-                case UP_IMPACT:
-                    getBall().reverseY();
-                    return b.setImpact(getBall().getDown(),Crack.UP);
-                case DOWN_IMPACT:
-                    getBall().reverseY();
-                    return b.setImpact(getBall().getUp(),Crack.DOWN);
-
-                //Horizontal Impact
-                case LEFT_IMPACT:
-                    getBall().reverseX();
-                    return b.setImpact(getBall().getRight(),Crack.RIGHT);
-                case RIGHT_IMPACT:
-                    getBall().reverseX();
-                    return b.setImpact(getBall().getLeft(),Crack.LEFT);
-            }
-        }
-        return false;
-    }
-
-    /**
-     * this method is used to check if the ball have come in contact with the vertical sides of the game window.
-     *
-     * @return this returns a boolean value if it touches or doesn't touch the side of the game window
-     */
-    private boolean impactSideBorder(){
-        return ((getBall().getPosition().getX() < getBorderArea().getX()) ||(getBall().getPosition().getX() > (getBorderArea().getX() + getBorderArea().getWidth())));
     }
 
     /**
@@ -284,7 +194,7 @@ public class Wall {
      * this method is used to progress to the next level.
      */
     public void nextLevel(){
-        setBricks(getLevels()[level++]);
+        setBricks(getBrickLevels()[currentLevel++]);
         setBrickCount(getBricks().length);
     }
 
@@ -294,7 +204,7 @@ public class Wall {
      * @return returns a boolean value if there is or isn't any more levels for the player to play.
      */
     public boolean hasLevel(){
-        return getLevel() < getLevels().length;
+        return getCurrentLevel() < getBrickLevels().length;
     }
 
     /**
@@ -323,103 +233,191 @@ public class Wall {
     }
 
     /**
-     * this is used to get the wall level.
+     * this method is used to get the one and only one wall object based on singleton design after the singletonWall method is called.
      *
-     * @return this returns an integer value of the level which the player is currently in.
+     * @return this returns the one and only wall object.
      */
-    public int getWallLevel(){
-        return level;
-    }
-
     public static Wall getUniqueWall() {
         return uniqueWall;
     }
 
+    /**
+     * this method is used to set the one and only wall object and enable it to be reused in the future. Singleton design.
+     *
+     * @param uniqueWall this is the variable used to set the wall object into a variable.
+     */
     public static void setUniqueWall(Wall uniqueWall) {
         Wall.uniqueWall = uniqueWall;
     }
 
-    public Brick[][] getLevels() {
-        return levels;
+    /**
+     * this method is used to get the generated brick levels for the game.
+     *
+     * @return this returns a Brick 2 dimension array which the first array is the level and second array is the brick.
+     */
+    public Brick[][] getBrickLevels() {
+        return brickLevels;
     }
 
-    public void setLevels(Brick[][] levels) {
-        this.levels = levels;
+    /**
+     * this is the method used to set the brick levels for the game.
+     *
+     * @param brickLevels this is the brick levels used to be recorded for the game levels.
+     */
+    public void setBrickLevels(Brick[][] brickLevels) {
+        this.brickLevels = brickLevels;
     }
 
-    public int getLevel() {
-        return level;
+    /**
+     * this is the method used to get the current level variable.
+     *
+     * @return this returns the currentLevel variable
+     */
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    /**
+     * this method is used to set the current level variable.
+     *
+     * @param level this is the integer used to set the level.
+     */
+    public void setCurrentLevel(int level) {
+        this.currentLevel = level;
     }
 
+    /**
+     * this method is used get the start point for both ball and the player (paddle).
+     *
+     * @return this returns A point which is the start location.
+     */
     public Point getStartPoint() {
         return startPoint;
     }
 
+    /**
+     * this method is used to set the starting point for both the ball and player (paddle).
+     *
+     * @param startPoint this is the point position used to set the position.
+     */
     public void setStartPoint(Point startPoint) {
         this.startPoint = startPoint;
     }
 
+    /**
+     * this method is used to set the brick amount for a level.
+     *
+     * @param brickCount this is the value of bricks being used for the level.
+     */
     public void setBrickCount(int brickCount) {
         this.brickCount = brickCount;
     }
 
+    /**
+     * this is used to set the ball counter which is the amount of tries the player have before losing,
+     *
+     * @param ballCount this is the amount of balls (tries) for the level.
+     */
     public void setBallCount(int ballCount) {
         this.ballCount = ballCount;
     }
 
+    /**
+     * this variable is used to set if the ball is lost. (gone under the player (paddle)).
+     *
+     * @param ballLost this is the boolean value used to set if the ball is lost or not.
+     */
     public void setBallLost(boolean ballLost) {
         this.ballLost = ballLost;
     }
 
+    /**
+     * this method is used to get a random number generator object. (used for the setting of the random ball speed).
+     *
+     * @return returns a random number generator object.
+     */
     public Random getRnd() {
         return rnd;
     }
 
+    /**
+     * this is used to set the random number generator object into a variable for future uses.
+     *
+     * @param rnd this is the random object used to be setted for future use.
+     */
     public void setRnd(Random rnd) {
         this.rnd = rnd;
     }
 
+    /**
+     * this method is used to get the border area of the game.
+     *
+     * @return this returns a rectangle which is the border area in a rectangular shape.
+     */
     public Rectangle getBorderArea() {
         return borderArea;
     }
 
+    /**
+     * this returns a rectangle border area of the game.
+     *
+     * @param area this is the rectangle used to set the game area.
+     */
     public void setBorderArea(Rectangle area) {
         this.borderArea = area;
     }
 
+    /**
+     * this is the array of bricks used for the level.
+     *
+     * @return this returns a brick array.
+     */
     public Brick[] getBricks() {
         return bricks;
     }
 
+    /**
+     * this method is used to set the bricks for the level.
+     *
+     * @param bricks this is the brick array used to set into a variable.
+     */
     public void setBricks(Brick[] bricks) {
         this.bricks = bricks;
     }
 
+    /**
+     * this method is used to get the ball object to check the position of the ball, collision, and set the speed.
+     *
+     * @return this returns a ball object
+     */
     public Ball getBall() {
         return ball;
     }
 
-    public void setBall(Ball ball) {
-        this.ball = ball;
-    }
-
+    /**
+     * this method is used to get the player object for the game.
+     *
+     * @return this returns the player object.
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * this method is used to set the player object.
+     *
+     * @param player this is the player object used to set into an object.
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+    /**
+     * this method is used to get the wall level templates object which consist the wall templates for the level. this is used to get and set the levels based on the templates.
+     *
+     * @return this returns a wall level templates.
+     */
     public WallLevelTemplates getWallLevelTemplates() {
         return wallLevelTemplates;
-    }
-
-    public WallModel getWallModel() {
-        return wallModel;
     }
 }

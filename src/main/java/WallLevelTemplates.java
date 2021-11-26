@@ -1,11 +1,17 @@
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * this class has the walls (levels) templates used for the game.
+ */
 public class WallLevelTemplates {
 
-    Random rnd = new Random();
+    private final int CLAY = 1;
+    private final int STEEL = 2;
+    private final int CEMENT = 3;
+    private final int REINFORCED_STEEL = 4;
 
-    WallModel wallModel = WallModel.singletonWallModel();
+    private Random rnd = new Random();
 
     private static WallLevelTemplates uniqueWallLevelTemplates;
 
@@ -34,7 +40,7 @@ public class WallLevelTemplates {
     private WallLevelTemplates(){}
 
     /**
-     * this method is one of the template used for the wall (level).
+     * this method is one of the template used for the wall (level). this creates a level which looks like a chessboard.
      *
      * @param drawArea this is the area which the bricks could be placed
      * @param brickCount this is the amount of bricks which will be in for the level.
@@ -44,11 +50,7 @@ public class WallLevelTemplates {
      * @param typeB this is one of the type of brick used for this level.
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
-    public Brick[] makeChessboardLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
+    public Brick[] makeChainWallLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
         brickCount -= brickCount % lineCount;
 
         int centerLeft = getBrickOnLine(brickCount,lineCount) / 2 - 1;
@@ -56,13 +58,13 @@ public class WallLevelTemplates {
 
         brickCount += lineCount / 2;
 
-        Brick[] tmp  = createBrickArray(brickCount);
+        Brick[] brickArray  = createBrickArray(brickCount);
 
         Dimension brickSize = new Dimension((int) getDrawBrickLength(drawArea, lineCount, brickCount),(int) getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio));
         Point p = new Point();
 
         int i;
-        for(i = 0; i < tmp.length; i++){
+        for(i = 0; i < brickArray.length; i++){
             int line = i / getBrickOnLine(brickCount,lineCount);
             if(line == lineCount)
                 break;
@@ -73,19 +75,19 @@ public class WallLevelTemplates {
             p.setLocation(x,y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
+            brickArray[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
         }
 
-        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);i < tmp.length;i++, y += 2*getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
+        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);i < brickArray.length;i++, y += 2*getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
             double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,typeA);
+            brickArray[i] = makeBrick(p,brickSize,typeA);
         }
-        return tmp;
+        return brickArray;
     }
 
     /**
-     * this method is one of the template used for the wall (level).
+     * this method is one of the template used for the wall (level). this creates a level that looks like an almost straight line of bricks on the left and right of the center.
      *
      * @param drawArea this is the area which the bricks could be placed
      * @param brickCount this is the amount of bricks which will be in for the level.
@@ -95,11 +97,7 @@ public class WallLevelTemplates {
      * @param typeB this is one of the type of brick used for this level.
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
-    public Brick[] makeSonicLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
+    public Brick[] makeTwoLinesLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
         brickCount -= brickCount % lineCount;
 
         int centerLeft = getBrickOnLine(brickCount,lineCount) / 2 - 1;
@@ -107,13 +105,13 @@ public class WallLevelTemplates {
 
         brickCount += lineCount / 2;
 
-        Brick[] tmp  = createBrickArray(brickCount);
+        Brick[] brickArray  = createBrickArray(brickCount);
 
         Dimension brickSize = new Dimension((int) getDrawBrickLength(drawArea, lineCount, brickCount),(int) getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio));
         Point p = new Point();
 
         int i;
-        for(i = 0; i < tmp.length; i++){
+        for(i = 0; i < brickArray.length; i++){
             int line = i / getBrickOnLine(brickCount,lineCount);
             if(line == lineCount)
                 break;
@@ -124,20 +122,20 @@ public class WallLevelTemplates {
             p.setLocation(x,y);
 
             boolean b = ((i % 2 == 0) || (posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
+            brickArray[i] = b ? makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
         }
 
-        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);i < tmp.length;i++, y += 2*getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
+        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);i < brickArray.length;i++, y += 2*getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
             double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,typeA);
+            brickArray[i] = makeBrick(p,brickSize,typeA);
         }
 
-        return tmp;
+        return brickArray;
     }
 
     /**
-     * this method is one of the template used for the wall (level).
+     * this method is one of the template used for the wall (level). this creates a random brick level.
      *
      * @param drawArea this is the area which the bricks could be placed
      * @param brickCount this is the amount of bricks which will be in for the level.
@@ -146,21 +144,17 @@ public class WallLevelTemplates {
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
     public Brick[] makeRandomLevel(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio){
-        /*
-          if brickCount is not divisible by line count,brickCount is adjusted to the biggest
-          multiple of lineCount smaller then brickCount
-         */
         brickCount -= brickCount % lineCount;
 
         brickCount += lineCount / 2;
 
-        Brick[] tmp  = createBrickArray(brickCount);
+        Brick[] brickArray  = createBrickArray(brickCount);
 
         Dimension brickSize = new Dimension((int) getDrawBrickLength(drawArea, lineCount,brickCount),(int) getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio));
         Point p = new Point();
 
         int i;
-        for(i = 0; i < tmp.length; i++){
+        for(i = 0; i < brickArray.length; i++){
             int line = i / getBrickOnLine(brickCount,lineCount);
             if(line == lineCount)
                 break;
@@ -168,15 +162,15 @@ public class WallLevelTemplates {
             x = (line % 2 == 0) ? x : (x - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2));
             double y = (line) * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize, rnd.nextInt(4)+1);
+            brickArray[i] = makeBrick(p,brickSize, rnd.nextInt(4)+1);
         }
 
-        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio); i < tmp.length; i++, y += 2* getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
+        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio); i < brickArray.length; i++, y += 2 * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
             double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize, rnd.nextInt(4)+1);
+            brickArray[i] = makeBrick(p,brickSize, rnd.nextInt(4)+1);
         }
-        return tmp;
+        return brickArray;
     }
 
     /**
@@ -188,13 +182,13 @@ public class WallLevelTemplates {
      * @return this returns the brick that is created.
      */
     private Brick makeBrick(Point point, Dimension size, int type){
-        if (wallModel.getClayIntegerConstant() == type)
+        if (getClayIntegerConstant() == type)
             return new ClayBrick(point,size);
-        else if(wallModel.getSteelIntegerConstant() == type)
+        else if(getSteelIntegerConstant() == type)
             return new SteelBrick(point,size);
-        else if(wallModel.getCementIntegerConstant() == type)
+        else if(getCementIntegerConstant() == type)
             return new CementBrick(point, size);
-        else if(wallModel.getReinforcedSteelIntegerConstant() == type)
+        else if(getReinforcedSteelIntegerConstant() == type)
             return new ReinforcedSteelBrick(point, size);
         else
             throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
@@ -245,7 +239,33 @@ public class WallLevelTemplates {
         return uniqueWallLevelTemplates;
     }
 
+    /**
+     * this method is used to set a WallLevelTemplates object into a variable which is used to return a singleton WallLevelTemplates.
+     *
+     * @param uniqueWallLevelTemplates it returns a WallLevelTemplates object.
+     */
     public static void setUniqueWallLevelTemplates(WallLevelTemplates uniqueWallLevelTemplates) {
         WallLevelTemplates.uniqueWallLevelTemplates = uniqueWallLevelTemplates;
+    }
+
+    /**
+     * this is used to get the Clay Integer constant for easier identification.
+     *
+     * @return
+     */
+    public int getClayIntegerConstant(){
+        return CLAY;
+    }
+
+    public int getSteelIntegerConstant(){
+        return STEEL;
+    }
+
+    public int getCementIntegerConstant(){
+        return CEMENT;
+    }
+
+    public int getReinforcedSteelIntegerConstant(){
+        return REINFORCED_STEEL;
     }
 }

@@ -45,11 +45,11 @@ public class GameBoardModel {
      */
     void startGame() {
         getWall().nextLevel();
-        gameScore.setLevelFilePathName("/scores/Level"+ getWall().getWallLevel()+".txt");
+        gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
 
         setGameTimer(new Timer(10, e ->{
-            getWall().move();
-            getWall().findImpacts();
+            getWall().movements.entitiesMovements();
+            getWall().movements.findImpacts();
             setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
             if(getWall().isBallLost()){
                 if(getWall().ballEnd()){
@@ -80,7 +80,7 @@ public class GameBoardModel {
 
                 gameScore.restartTimer();
             }
-            gameScore.setLevelFilePathName("/scores/Level"+ getWall().getWallLevel()+".txt");
+            gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
 
             gameBoardController.gameBoardView.updateGameBoardView();
         }));
@@ -177,9 +177,7 @@ public class GameBoardModel {
      */
     void skipLevel(){
         gameScore.restartTimer();
-        getWall().nextLevel();
-        getWall().wallReset();
-        getWall().positionsReset();
+        restartGameStatus();
     }
 
     /**
