@@ -123,7 +123,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
         if(isGaming())
-            gameBoardController.onLostFocus();
+            gameBoardController.gameBoardModel.onLostFocus();
 
     }
 

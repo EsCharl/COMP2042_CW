@@ -9,17 +9,23 @@ import java.awt.event.ActionListener;
 
 public class DebugPanel extends JPanel {
 
-    private static final Color DEF_BKG = Color.WHITE;
+    private static final Color BACKGROUND_COLOR = Color.WHITE;
 
+    public static final String RESET_BALLS_TEXT = "Reset Balls";
+    public static final String SKIP_LEVEL_TEXT = "Skip Level";
+    public static final String BALL_X_AXIS_SPEED_TEXT = "Ball x-axis speed";
+    public static final String BALL_Y_AXIS_SPEED_TEXT = "Ball y-axis speed";
+
+    private final int MAX_POSITIVE_SPEED_X = 4;
+    private final int MAX_NEGATIVE_SPEED_X = -4;
+    private final int MAX_POSITIVE_SPEED_Y = 4;
+    private final int MAX_NEGATIVE_SPEED_Y = -4;
 
     private JButton skipLevel;
     private JButton resetBalls;
 
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
-
-    private JLabel xText;
-    private JLabel yText;
 
     private Wall wall;
     private GameBoardController board;
@@ -39,21 +45,40 @@ public class DebugPanel extends JPanel {
      *               and setBallYSpeed method that is available in wall class.
      */
     private DebugPanel(Wall wall, GameBoardController board){
-
         this.wall = wall;
         this.board = board;
 
         setDebugPanelLook();
 
         debugFunctions();
+
+        addTextSpeedCategory();
+    }
+
+    /**
+     * this method is to add the speed category into the Debug Panel.
+     */
+    private void addTextSpeedCategory() {
+        this.add(createJLabelCentered(BALL_X_AXIS_SPEED_TEXT));
+        this.add(createJLabelCentered(BALL_Y_AXIS_SPEED_TEXT));
+    }
+
+    /**
+     * this method is used to create a JLabel and set a text into it.
+     *
+     * @param setText the text used to set the string into the JLabel.
+     * @return returns a new JLabel object.
+     */
+    private JLabel createJLabelCentered(String setText) {
+        return new JLabel(setText, SwingConstants.CENTER);
     }
 
     private void debugFunctions() {
-        skipLevel = makeButton("Skip Level",e -> board.gameBoardModel.skipLevel());
-        resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
+        skipLevel = makeButton(SKIP_LEVEL_TEXT, e -> board.gameBoardModel.skipLevel());
+        resetBalls = makeButton(RESET_BALLS_TEXT, e -> wall.resetBallCount());
 
-        ballXSpeed = makeSlider(-4,4,e -> wall.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(-4,4,e -> wall.setBallYSpeed(ballYSpeed.getValue()));
+        ballXSpeed = makeSlider(MAX_NEGATIVE_SPEED_X, MAX_POSITIVE_SPEED_X, e -> wall.setBallXSpeed(ballXSpeed.getValue()));
+        ballYSpeed = makeSlider(MAX_NEGATIVE_SPEED_Y, MAX_POSITIVE_SPEED_Y, e -> wall.setBallYSpeed(ballYSpeed.getValue()));
 
         this.add(skipLevel);
         this.add(resetBalls);
@@ -61,27 +86,14 @@ public class DebugPanel extends JPanel {
         this.add(ballXSpeed);
         this.add(ballYSpeed);
 
-        // newly added
-        ballXSpeed.setPaintTicks(true);
-        ballXSpeed.setPaintTrack(true);
-        ballXSpeed.setPaintLabels(true);
 
-        ballYSpeed.setPaintTicks(true);
-        ballYSpeed.setPaintTrack(true);
-        ballYSpeed.setPaintLabels(true);
-
-        xText = new JLabel("Ball x-axis speed", SwingConstants.CENTER);
-        yText = new JLabel("Ball y-axis speed", SwingConstants.CENTER);
-
-        this.add(xText);
-        this.add(yText);
     }
 
     /**
      * this method creates a square which will specify the number of inputs allowed.
      */
     private void setDebugPanelLook(){
-        this.setBackground(DEF_BKG);
+        this.setBackground(BACKGROUND_COLOR);
         this.setLayout(new GridLayout(3,2));
     }
 
@@ -112,6 +124,10 @@ public class DebugPanel extends JPanel {
         out.setSnapToTicks(true);
         out.setPaintTicks(true);
         out.addChangeListener(e);
+
+        out.setPaintTicks(true);
+        out.setPaintTrack(true);
+        out.setPaintLabels(true);
         return out;
     }
 

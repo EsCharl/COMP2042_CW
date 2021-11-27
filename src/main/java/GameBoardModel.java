@@ -21,8 +21,8 @@ public class GameBoardModel {
 
     private Wall wall;
 
-    GameScore gameScore;
-    GameBoardController gameBoardController;
+    private GameScore gameScore;
+    private GameBoardController gameBoardController;
 
     private static GameBoardModel uniqueGameBoardModel;
 
@@ -346,5 +346,18 @@ public class GameBoardModel {
 
     private static void setUniqueGameBoardModel(GameBoardModel uniqueGameBoardModel) {
         GameBoardModel.uniqueGameBoardModel = uniqueGameBoardModel;
+    }
+
+    /**
+     * this method is used when the user is not focused on the game. i.e. when the user clicked on other components or outside the game window.
+     */
+    public void onLostFocus(){
+        getGameTimer().stop();
+        setMessage("Focus Lost");
+        gameBoardController.gameBoardView.updateGameBoardView();
+
+        if(isCanGetTime()){
+            pauseGame();
+        }
     }
 }

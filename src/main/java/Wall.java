@@ -15,7 +15,7 @@ public class Wall {
     private Brick[] bricks;
     private Ball ball;
     private Player player;
-    private WallLevelTemplates wallLevelTemplates = WallLevelTemplates.singletonWallLevelTemplates();
+    private WallLevelTemplates wallLevelTemplates;
 
     private Movements movements;
 
@@ -55,6 +55,7 @@ public class Wall {
      * @param ballPos this is the ball position.
      */
     private Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+        wallLevelTemplates = WallLevelTemplates.singletonWallLevelTemplates();
 
         setMovements(Movements.singletonMovements(this));
 
@@ -114,11 +115,11 @@ public class Wall {
      */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getClayIntegerConstant(), getWallLevelTemplates().getClayIntegerConstant());
-        tmp[1] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getClayIntegerConstant(), getWallLevelTemplates().getCementIntegerConstant());
-        tmp[2] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getClayIntegerConstant(), getWallLevelTemplates().getSteelIntegerConstant());
-        tmp[3] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getSteelIntegerConstant(), getWallLevelTemplates().getCementIntegerConstant());
-        tmp[4] = getWallLevelTemplates().makeTwoLinesLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().getReinforcedSteelIntegerConstant(), getWallLevelTemplates().getSteelIntegerConstant());
+        tmp[0] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().CLAY, getWallLevelTemplates().CLAY);
+        tmp[1] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().CLAY, getWallLevelTemplates().CEMENT);
+        tmp[2] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().CLAY, getWallLevelTemplates().STEEL);
+        tmp[3] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().STEEL, getWallLevelTemplates().CEMENT);
+        tmp[4] = getWallLevelTemplates().makeTwoLinesLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().REINFORCED_STEEL, getWallLevelTemplates().STEEL);
         tmp[5] = getWallLevelTemplates().makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
         return tmp;
     }

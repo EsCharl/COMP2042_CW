@@ -6,10 +6,10 @@ import java.util.Random;
  */
 public class WallLevelTemplates {
 
-    private final int CLAY = 1;
-    private final int STEEL = 2;
-    private final int CEMENT = 3;
-    private final int REINFORCED_STEEL = 4;
+    public static final int CLAY = 1;
+    public static final int STEEL = 2;
+    public static final int CEMENT = 3;
+    public static final int REINFORCED_STEEL = 4;
 
     private Random rnd = new Random();
 
@@ -182,16 +182,18 @@ public class WallLevelTemplates {
      * @return this returns the brick that is created.
      */
     private Brick makeBrick(Point point, Dimension size, int type){
-        if (getClayIntegerConstant() == type)
-            return new ClayBrick(point,size);
-        else if(getSteelIntegerConstant() == type)
-            return new SteelBrick(point,size);
-        else if(getCementIntegerConstant() == type)
-            return new CementBrick(point, size);
-        else if(getReinforcedSteelIntegerConstant() == type)
-            return new ReinforcedSteelBrick(point, size);
-        else
-            throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
+        switch(type){
+            case(CLAY):
+                return new ClayBrick(point, size);
+            case(STEEL):
+                return new SteelBrick(point, size);
+            case(CEMENT):
+                return new CementBrick(point, size);
+            case(REINFORCED_STEEL):
+                return new ReinforcedSteelBrick(point, size);
+            default:
+                throw new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
+        }
     }
 
     /**
@@ -246,26 +248,5 @@ public class WallLevelTemplates {
      */
     public static void setUniqueWallLevelTemplates(WallLevelTemplates uniqueWallLevelTemplates) {
         WallLevelTemplates.uniqueWallLevelTemplates = uniqueWallLevelTemplates;
-    }
-
-    /**
-     * this is used to get the Clay Integer constant for easier identification.
-     *
-     * @return
-     */
-    public int getClayIntegerConstant(){
-        return CLAY;
-    }
-
-    public int getSteelIntegerConstant(){
-        return STEEL;
-    }
-
-    public int getCementIntegerConstant(){
-        return CEMENT;
-    }
-
-    public int getReinforcedSteelIntegerConstant(){
-        return REINFORCED_STEEL;
     }
 }

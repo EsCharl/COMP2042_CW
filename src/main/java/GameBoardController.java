@@ -42,19 +42,6 @@ public class GameBoardController  {
     }
 
     /**
-     * this method is used when the user is not focused on the game. i.e. when the user clicked on other components or outside the game window.
-     */
-    public void onLostFocus(){
-        gameBoardModel.getGameTimer().stop();
-        gameBoardModel.setMessage("Focus Lost");
-        gameBoardView.updateGameBoardView();
-
-        if(gameBoardModel.isCanGetTime()){
-            gameBoardModel.pauseGame();
-        }
-    }
-
-    /**
      * this method is used to see if the game is in pause menu.
      *
      * @return returns true if it is.
