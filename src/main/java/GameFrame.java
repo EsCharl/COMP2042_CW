@@ -33,7 +33,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         this.setLayout(new BorderLayout());
 
-        setGameBoard(GameBoardController.singletonGameBoard(this));
+        setGameBoard(GameBoardController.singletonGameBoardController(this));
         setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(450,300)));
 
         this.add(getHomeMenu(),BorderLayout.CENTER);

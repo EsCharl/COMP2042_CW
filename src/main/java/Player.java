@@ -132,11 +132,21 @@ public class Player {
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 
-    public static Player getUniquePlayer() {
+    /**
+     * this method is used to get the one and only player object.
+     *
+     * @return it returns a player object after the method singletonPlayer is called.
+     */
+    private static Player getUniquePlayer() {
         return uniquePlayer;
     }
 
-    public static void setUniquePlayer(Player uniquePlayer) {
+    /**
+     * this method is used to set the player object into a variable for future reference.
+     *
+     * @param uniquePlayer this is the Player object used to store into a variable.
+     */
+    private static void setUniquePlayer(Player uniquePlayer) {
         Player.uniquePlayer = uniquePlayer;
     }
 }

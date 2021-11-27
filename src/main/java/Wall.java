@@ -17,7 +17,7 @@ public class Wall {
     private Player player;
     private WallLevelTemplates wallLevelTemplates = WallLevelTemplates.singletonWallLevelTemplates();
 
-    Movements movements;
+    private Movements movements;
 
     private Brick[][] brickLevels;
     private int currentLevel;
@@ -56,7 +56,7 @@ public class Wall {
      */
     private Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
-        movements = Movements.singletonMovements(this);
+        setMovements(Movements.singletonMovements(this));
 
         setRnd(new Random());
         setStartPoint(new Point(ballPos));
@@ -95,7 +95,7 @@ public class Wall {
     }
 
     /**
-     * this method is used to create a ball object.
+     * this method is used to create a ball object (rubber ball).
      *
      * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
      */
@@ -237,7 +237,7 @@ public class Wall {
      *
      * @return this returns the one and only wall object.
      */
-    public static Wall getUniqueWall() {
+    private static Wall getUniqueWall() {
         return uniqueWall;
     }
 
@@ -246,7 +246,7 @@ public class Wall {
      *
      * @param uniqueWall this is the variable used to set the wall object into a variable.
      */
-    public static void setUniqueWall(Wall uniqueWall) {
+    private static void setUniqueWall(Wall uniqueWall) {
         Wall.uniqueWall = uniqueWall;
     }
 
@@ -419,5 +419,23 @@ public class Wall {
      */
     public WallLevelTemplates getWallLevelTemplates() {
         return wallLevelTemplates;
+    }
+
+    /**
+     * this method is used to get the movements object which handles all the entity movements.
+     *
+     * @return it returns a movements object.
+     */
+    public Movements getMovements() {
+        return movements;
+    }
+
+    /**
+     * this method is used to set the movement object into a variable for easy referencing.
+     *
+     * @param movements this is the movements object used to be called down the line.
+     */
+    public void setMovements(Movements movements) {
+        this.movements = movements;
     }
 }

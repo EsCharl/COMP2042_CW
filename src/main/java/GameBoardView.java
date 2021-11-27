@@ -7,6 +7,9 @@ import java.awt.font.FontRenderContext;
  * this class handles the rendering for the game board.
  */
 public class GameBoardView extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
+    final static int DEF_WIDTH = 600;
+    final static int DEF_HEIGHT = 450;
+
     private final int TEXT_SIZE = 30;
 
     private final String CONTINUE_TEXT = "Continue";
@@ -29,21 +32,30 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
     private int stringDisplayLength;
 
+    private static GameBoardView uniqueGameBoardView;
+
+    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController, JFrame owner){
+        if(getUniqueGameBoardView() == null){
+            setUniqueGameBoardView(new GameBoardView(gameBoardController, owner));
+        }
+        return getUniqueGameBoardView();
+    }
+
     public GameBoardView(GameBoardController gameBoardController, JFrame owner){
         super();
 
         setStringDisplayLength(0);
 
-        setPreferredSize(new Dimension(GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT));
+        setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
 
-        this.gameBoardController = gameBoardController;
+        setGameBoardController(gameBoardController);
 
-        setDebugConsole(DebugConsole.singletonDebugConsole(owner,gameBoardController.gameBoardModel.getWall(),gameBoardController));
+        setDebugConsole(DebugConsole.singletonDebugConsole(owner,getGameBoardController().gameBoardModel.getWall(),getGameBoardController()));
 
         setMenuFont(new Font("Monospaced",Font.PLAIN,TEXT_SIZE));
     }
@@ -62,7 +74,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         g2d.setComposite(ac);
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0,0, GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT);
+        g2d.fillRect(0,0, DEF_WIDTH, DEF_HEIGHT);
 
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
@@ -286,6 +298,9 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         return menuFont;
     }
 
+    /**
+     * this method is used to update the game board view to update the screen.
+     */
     public void updateGameBoardView() {
         repaint();
     }
@@ -302,17 +317,17 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         clear(g2d);
 
         g2d.setColor(Color.BLUE);
-        g2d.drawString(gameBoardController.gameBoardModel.getMessage(),250,225);
+        g2d.drawString(getGameBoardController().gameBoardModel.getMessage(),250,225);
 
-        drawBall(gameBoardController.gameBoardModel.getWall().getBall(),g2d);
+        drawBall(getGameBoardController().gameBoardModel.getWall().getBall(),g2d);
 
-        for(Brick b : gameBoardController.gameBoardModel.getWall().getBricks())
+        for(Brick b : getGameBoardController().gameBoardModel.getWall().getBricks())
             if(!b.isBroken())
                 drawBrick(b,g2d);
 
-        drawPlayer(gameBoardController.gameBoardModel.getWall().getPlayer(),g2d);
+        drawPlayer(getGameBoardController().gameBoardModel.getWall().getPlayer(),g2d);
 
-        if(gameBoardController.isShowPauseMenu())
+        if(getGameBoardController().isShowPauseMenu())
             drawMenu(g2d);
 
         Toolkit.getDefaultToolkit().sync();
@@ -354,23 +369,23 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_A:
-                gameBoardController.gameBoardModel.playerMoveLeft();
+                getGameBoardController().gameBoardModel.playerMoveLeft();
                 break;
             case KeyEvent.VK_D:
-                gameBoardController.gameBoardModel.playerMoveRight();
+                getGameBoardController().gameBoardModel.playerMoveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
-                gameBoardController.gameBoardModel.pauseMenuButtonClicked();
+                getGameBoardController().gameBoardModel.pauseMenuButtonClicked();
                 break;
             case KeyEvent.VK_SPACE:
-                gameBoardController.gameBoardModel.startPauseGameButtonClicked();
+                getGameBoardController().gameBoardModel.startPauseGameButtonClicked();
                 break;
             case KeyEvent.VK_F1:
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
-                    gameBoardController.gameBoardModel.debugConsoleButtonClicked();
+                    getGameBoardController().gameBoardModel.debugConsoleButtonClicked();
                 }
             default:
-                gameBoardController.gameBoardModel.playerStopMoving();
+                getGameBoardController().gameBoardModel.playerStopMoving();
         }
     }
 
@@ -505,5 +520,25 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
      */
     public void setDebugConsole(DebugConsole debugConsole) {
         this.debugConsole = debugConsole;
+    }
+
+    /**
+     * this method is used
+     * @return
+     */
+    public GameBoardController getGameBoardController() {
+        return gameBoardController;
+    }
+
+    public void setGameBoardController(GameBoardController gameBoardController) {
+        this.gameBoardController = gameBoardController;
+    }
+
+    private static GameBoardView getUniqueGameBoardView() {
+        return uniqueGameBoardView;
+    }
+
+    private static void setUniqueGameBoardView(GameBoardView uniqueGameBoardView) {
+        GameBoardView.uniqueGameBoardView = uniqueGameBoardView;
     }
 }

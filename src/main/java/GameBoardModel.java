@@ -10,6 +10,9 @@ import java.util.ArrayList;
  */
 public class GameBoardModel {
 
+    private int wallWidth;
+    private int wallLength;
+
     private String message;
 
     private boolean canGetTime;
@@ -21,13 +24,21 @@ public class GameBoardModel {
     GameScore gameScore;
     GameBoardController gameBoardController;
 
+    private static GameBoardModel uniqueGameBoardModel;
+
+    public static GameBoardModel singletonGameBoardModel(GameBoardController gameBoardController){
+        if(getUniqueGameBoardModel() == null){
+            setUniqueGameBoardModel(new GameBoardModel(gameBoardController));
+        }
+        return getUniqueGameBoardModel();
+    }
 
     /**
      * this constructor is used to create a game board object that handles all the logic.
      *
      * @param gameBoardController this is the controller of the game board which takes in all the user inputs.
      */
-    public GameBoardModel(GameBoardController gameBoardController){
+    private GameBoardModel(GameBoardController gameBoardController){
         gameScore = GameScore.singletonGameScore();
 
         gameScore.setStartTime(0);
@@ -36,7 +47,10 @@ public class GameBoardModel {
 
         this.gameBoardController = gameBoardController;
 
-        setWall(Wall.singletonWall(new Rectangle(0,0, GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT),30,3,6/2,new Point(300,430)));
+        setWallLength(GameBoardView.DEF_HEIGHT);
+        setWallWidth(GameBoardView.DEF_WIDTH);
+
+        setWall(Wall.singletonWall(new Rectangle(0,0, getWallWidth(), getWallLength()),30,3,6/2,new Point(300,430)));
 
         setMessage("");
         setCanGetTime(false);
@@ -51,8 +65,8 @@ public class GameBoardModel {
         gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
 
         setGameTimer(new Timer(10, e ->{
-            getWall().movements.entitiesMovements();
-            getWall().movements.findImpacts();
+            getWall().getMovements().entitiesMovements();
+            getWall().getMovements().findImpacts();
             setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
             if(getWall().isBallLost()){
                 if(getWall().ballEnd()){
@@ -290,5 +304,47 @@ public class GameBoardModel {
         this.wall = wall;
     }
 
+    /**
+     * this method is to get the wall width.
+     *
+     * @return returns an integer which is the wall width.
+     */
+    public int getWallWidth() {
+        return wallWidth;
+    }
 
+    /**
+     * this method is used to set the game window width.
+     *
+     * @param wallWidth this is the integer used to set the width of the wall.
+     */
+    public void setWallWidth(int wallWidth) {
+        this.wallWidth = wallWidth;
+    }
+
+    /**
+     * this method is used to get the wall length.
+     *
+     * @return returns an integer which is the wall length.
+     */
+    public int getWallLength() {
+        return wallLength;
+    }
+
+    /**
+     * this method is used to set the wall length.
+     *
+     * @param wallLength this is the integer used to set the wall length.
+     */
+    public void setWallLength(int wallLength) {
+        this.wallLength = wallLength;
+    }
+
+    private static GameBoardModel getUniqueGameBoardModel() {
+        return uniqueGameBoardModel;
+    }
+
+    private static void setUniqueGameBoardModel(GameBoardModel uniqueGameBoardModel) {
+        GameBoardModel.uniqueGameBoardModel = uniqueGameBoardModel;
+    }
 }

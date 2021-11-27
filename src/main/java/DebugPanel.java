@@ -27,10 +27,10 @@ public class DebugPanel extends JPanel {
     private static DebugPanel uniqueDebugPanel;
 
     public static DebugPanel singletonDebugPanel(Wall wall, GameBoardController board){
-        if(uniqueDebugPanel == null){
-            uniqueDebugPanel = new DebugPanel(wall, board);
+        if(getUniqueDebugPanel() == null){
+            setUniqueDebugPanel(new DebugPanel(wall, board));
         }
-        return uniqueDebugPanel;
+        return getUniqueDebugPanel();
     }
     /**
      * This constructor contains the code needed for the console in the game.
@@ -43,14 +43,12 @@ public class DebugPanel extends JPanel {
         this.wall = wall;
         this.board = board;
 
-        initialize();
+        setDebugPanelLook();
 
-        functions();
-
-
+        debugFunctions();
     }
 
-    private void functions() {
+    private void debugFunctions() {
         skipLevel = makeButton("Skip Level",e -> board.gameBoardModel.skipLevel());
         resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
 
@@ -82,7 +80,7 @@ public class DebugPanel extends JPanel {
     /**
      * this method creates a square which will specify the number of inputs allowed.
      */
-    private void initialize(){
+    private void setDebugPanelLook(){
         this.setBackground(DEF_BKG);
         this.setLayout(new GridLayout(3,2));
     }
@@ -128,4 +126,21 @@ public class DebugPanel extends JPanel {
         ballYSpeed.setValue(y);
     }
 
+    /**
+     * this method is used to get the one and only debug panel after the method singletonDebugPanel is called.
+     *
+     * @return this returns the debug panel object.
+     */
+    private static DebugPanel getUniqueDebugPanel() {
+        return uniqueDebugPanel;
+    }
+
+    /**
+     * this method is used to set a one and only debug panel into a variable for future referencing used in singletonDebugPanel method.
+     *
+     * @param uniqueDebugPanel this is the debug panel object used to set into a variable for future uses.
+     */
+    private static void setUniqueDebugPanel(DebugPanel uniqueDebugPanel) {
+        DebugPanel.uniqueDebugPanel = uniqueDebugPanel;
+    }
 }

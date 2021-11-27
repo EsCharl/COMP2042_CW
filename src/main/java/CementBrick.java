@@ -14,7 +14,6 @@ public class CementBrick extends Brick {
     private Crack crack;
     private Shape brickFace;
 
-
     /**
      * this constructor is used to create a cement brick object.
      *

@@ -5,9 +5,6 @@ import javax.swing.*;
  */
 public class GameBoardController  {
 
-    final static int DEF_WIDTH = 600;
-    final static int DEF_HEIGHT = 450;
-
     private boolean showPauseMenu;
 
     GameBoardView gameBoardView;
@@ -15,25 +12,30 @@ public class GameBoardController  {
 
     private static GameBoardController uniqueGameBoardController;
 
-    public static GameBoardController singletonGameBoard(JFrame owner){
-        if(getUniqueGameBoard() == null){
+    /**
+     * this method is used to create and return the one and only game board controller object. (singleton)
+     *
+     * @param owner this takes in the JFrame for the game board view object.
+     */
+    public static GameBoardController singletonGameBoardController(JFrame owner){
+        if(getUniqueGameBoardController() == null){
             setUniqueGameBoard(new GameBoardController(owner));
         }
-        return getUniqueGameBoard();
+        return getUniqueGameBoardController();
     }
 
     /**
      * this constructor is used to create a game board object.
      *
-     * @param owner this takes in the JFrame for the game board object.
+     * @param owner this takes in the JFrame for the game board view object.
      */
     private GameBoardController(JFrame owner){
 
         setShowPauseMenu(false);
 
-        gameBoardModel = new GameBoardModel(this);
+        gameBoardModel = GameBoardModel.singletonGameBoardModel(this);
 
-        gameBoardView = new GameBoardView(this, owner);
+        gameBoardView = GameBoardView.singletonGameBoardView(this, owner);
 
         //initialize the first level
         gameBoardModel.startGame();
@@ -75,7 +77,7 @@ public class GameBoardController  {
      *
      * @return returns the GameBoard Object.
      */
-    public static GameBoardController getUniqueGameBoard() {
+    private static GameBoardController getUniqueGameBoardController() {
         return uniqueGameBoardController;
     }
 
@@ -84,7 +86,7 @@ public class GameBoardController  {
      *
      * @param uniqueGameBoardController this is the GameBoard object used to set the uniqueGameBoard variable.
      */
-    public static void setUniqueGameBoard(GameBoardController uniqueGameBoardController) {
+    private static void setUniqueGameBoard(GameBoardController uniqueGameBoardController) {
         GameBoardController.uniqueGameBoardController = uniqueGameBoardController;
     }
 }
