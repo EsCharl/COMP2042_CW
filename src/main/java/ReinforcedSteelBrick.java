@@ -1,8 +1,10 @@
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
-import java.util.Random;
 
+/**
+ * this class is for the reinforced steel brick which is used for the level.
+ */
 public class ReinforcedSteelBrick extends Brick{
 
     private static final Color DEF_INNER = Color.BLUE;

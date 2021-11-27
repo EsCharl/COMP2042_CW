@@ -12,6 +12,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * this class is used to record the user game score for each level.
+ */
 public class GameScore {
 
     //for the timer

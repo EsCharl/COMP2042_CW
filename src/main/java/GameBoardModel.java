@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+/**
+ * this class is used to handle the game board logic.
+ */
 public class GameBoardModel {
 
     private String message;

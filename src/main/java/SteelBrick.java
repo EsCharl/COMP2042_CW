@@ -17,10 +17,9 @@
  */
 
 import java.awt.*;
-import java.util.Random;
 
 /**
- * this class is for the steel brick.
+ * this class is for the steel brick which is used for the level.
  */
 public class SteelBrick extends Brick {
 

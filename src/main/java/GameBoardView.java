@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
+/**
+ * this class handles the rendering for the game board.
+ */
 public class GameBoardView extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
     private final int TEXT_SIZE = 30;
 
