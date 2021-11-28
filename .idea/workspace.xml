@@ -10,12 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SteelBrick.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/WallLevelTemplates.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/WallLevelTemplates.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +35,8 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/GameFrame.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Movements.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/GameBoardView.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/CementBrick.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Brick.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Wall.java" root0="FORCE_HIGHLIGHTING" />

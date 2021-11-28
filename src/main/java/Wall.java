@@ -9,6 +9,7 @@ public class Wall {
 
     public static final int BALL_COUNT = 3;
     private final int LEVELS_COUNT = 6;
+    private final int MAX_BALL_SPEED = 5;
 
     private Random rnd;
     private Rectangle borderArea;
@@ -84,12 +85,16 @@ public class Wall {
     private void setRandomBallSpeed(){
         int speedX,speedY;
 
-        do{
-            speedX = getRnd().nextInt(5) - 2;
-        }while(speedX == 0);
+        // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
+        do {
+            if(getRnd().nextBoolean())
+                speedX = getRnd().nextInt(MAX_BALL_SPEED);
+            else
+                speedX = -getRnd().nextInt(MAX_BALL_SPEED);
+        } while (speedX == 0);
 
         do{
-            speedY = -getRnd().nextInt(3);
+            speedY = -getRnd().nextInt(MAX_BALL_SPEED);
         }while(speedY == 0);
 
         getBall().setSpeed(speedX,speedY);
