@@ -61,7 +61,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      * This method is used for get the size of the window and setting it in the middle of the window.
      */
     private void setLocation(){
-        this.setLocation(getXDebugConsoleCoordinate(),getYDebugConsoleCoordinate());
+        this.setLocation(getSetDebugConsoleXCoordinate(), getSetDebugConsoleYCoordinate());
     }
 
     /**
@@ -69,7 +69,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      *
      * @return returns an X coordinate on where the debug console is to be set.
      */
-    private int getXDebugConsoleCoordinate(){
+    private int getSetDebugConsoleXCoordinate(){
         return ((getOwner().getWidth() - this.getWidth()) / 2) + getOwner().getX();
     }
 
@@ -78,7 +78,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      *
      * @return returns an X coordinate on where the debug console is to be set.
      */
-    private int getYDebugConsoleCoordinate(){
+    private int getSetDebugConsoleYCoordinate(){
         return ((getOwner().getHeight() - this.getHeight()) / 2) + getOwner().getY();
     }
 

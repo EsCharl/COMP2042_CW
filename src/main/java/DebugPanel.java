@@ -85,8 +85,6 @@ public class DebugPanel extends JPanel {
 
         this.add(ballXSpeed);
         this.add(ballYSpeed);
-
-
     }
 
     /**

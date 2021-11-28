@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * this class is used to create one of the levels.
+ */
 public class ChainWallLevel extends WallLevelAbstractions implements WallLevelTemplates{
 
 

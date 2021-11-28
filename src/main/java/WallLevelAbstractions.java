@@ -1,17 +1,13 @@
 import java.awt.*;
 
+/**
+ * this abstract class is used to call methods which are used in multiple classes.
+ */
 public abstract class WallLevelAbstractions {
     public static final int CLAY = 1;
     public static final int STEEL = 2;
     public static final int CEMENT = 3;
     public static final int REINFORCED_STEEL = 4;
-
-    Rectangle drawArea;
-    int brickCount;
-    int lineCount;
-    double brickSizeRatio;
-    int typeA;
-    int typeB;
 
     /**
      * this method is used to create a brick array which is used to store the bricks for the level templates

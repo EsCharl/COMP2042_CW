@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * this class is used to create one of the wall level.
+ */
 public class RandomWallLevel extends WallLevelAbstractions implements WallLevelTemplates{
 
     Random rnd = new Random();

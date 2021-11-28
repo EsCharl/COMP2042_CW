@@ -17,7 +17,6 @@ public class Wall {
     private Brick[] bricks;
     private Ball ball;
     private Player player;
-    private WallLevelTemplates wallLevelTemplates;
 
     private Movements movements;
 
@@ -87,11 +86,9 @@ public class Wall {
 
         // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
         do {
-            if(getRnd().nextBoolean())
-                speedX = getRnd().nextInt(MAX_BALL_SPEED);
-            else
-                speedX = -getRnd().nextInt(MAX_BALL_SPEED);
+            speedX = getRnd().nextBoolean() ? getRnd().nextInt(MAX_BALL_SPEED) : -getRnd().nextInt(MAX_BALL_SPEED);
         } while (speedX == 0);
+
 
         do{
             speedY = -getRnd().nextInt(MAX_BALL_SPEED);
@@ -417,15 +414,6 @@ public class Wall {
      */
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    /**
-     * this method is used to get the wall level templates object which consist the wall templates for the level. this is used to get and set the levels based on the templates.
-     *
-     * @return this returns a wall level templates.
-     */
-    public WallLevelTemplates getWallLevelTemplates() {
-        return wallLevelTemplates;
     }
 
     /**

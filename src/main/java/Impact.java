@@ -1,3 +1,6 @@
+/**
+ * this class is used to deal with impacts by caused by the ball,bricks(wall), player(paddle).
+ */
 public class Impact {
 
     private final int UP_IMPACT = 100;

@@ -1,9 +1,7 @@
 /**
- * this class is used to manage the
+ * this class is used to manage the movements of the entities.
  */
 public class Movements {
-
-
 
     private static Movements uniqueMovements;
 
@@ -22,7 +20,6 @@ public class Movements {
         }
         return getUniqueMovements();
     }
-
 
     private Movements(Wall wall){
         setWall(wall);
