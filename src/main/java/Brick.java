@@ -23,8 +23,8 @@ abstract public class Brick  {
     private Color border;
     private Color inner;
 
-    private int fullStrength;
-    private int strength;
+    private int maxStrength;
+    private int currentStrength;
 
     private boolean broken;
 
@@ -43,8 +43,8 @@ abstract public class Brick  {
         setBrickFace(makeBrickFace(pos,size));
         setBorderColor(border);
         setInnerColor(inner);
-        setFullStrength(strength);
-        setStrength(strength);
+        setMaxStrength(strength);
+        setCurrentStrength(strength);
     }
 
     /**
@@ -68,7 +68,7 @@ abstract public class Brick  {
     public boolean setImpact(Point2D point , int dir){
         if(isBroken())
             return false;
-        impact();
+        impacted();
         return  isBroken();
     }
 
@@ -134,57 +134,112 @@ abstract public class Brick  {
      */
     public void repair() {
         setBroken(false);
-        setStrength(getFullStrength());
+        setCurrentStrength(getMaxStrength());
     }
 
     /**
      * this method is used to decrement the strength of the brick and update the broken variable if it is broken or not.
      */
-    public void impact(){
-        setStrength(getStrength()-1);
-        setBroken(getStrength() == 0);
+    public void impacted(){
+        setCurrentStrength(getCurrentStrength()-1);
+        setBroken(getCurrentStrength() == 0);
     }
 
+    /**
+     * this method is used to get the random object.
+     *
+     * @return it returns a random object.
+     */
     public static Random getRnd() {
         return rnd;
     }
 
+    /**
+     * this method is used to set a random object into a variable for future usage.
+     *
+     * @param rnd this is the random object used to set into a variable.
+     */
     public static void setRnd(Random rnd) {
         Brick.rnd = rnd;
     }
 
+    /**
+     * this method is used to get the brick face which is the shape of the brick.
+     *
+     * @return this returns the brick face shape.
+     */
     public Shape getBrickFace() {
         return brickFace;
     }
 
+    /**
+     * this method is used to set the brick face object into a variable for future usage.
+     *
+     * @param brickFace this is the brick face shape used to set into a variable.
+     */
     public void setBrickFace(Shape brickFace) {
         this.brickFace = brickFace;
     }
 
+    /**
+     * this method is used to set the brick border color.
+     *
+     * @param border this is the color of the border for the brick.
+     */
     public void setBorderColor(Color border) {
         this.border = border;
     }
 
+    /**
+     * this method is used to set the inner color of the brick.
+     *
+     * @param inner this method is used to set the inner color of the brick.
+     */
     public void setInnerColor(Color inner) {
         this.inner = inner;
     }
 
-    public int getFullStrength() {
-        return fullStrength;
+    /**
+     * this method is used get the brick maximum strength.
+     *
+     * @return it returns an integer of the max strength of th brick.
+     */
+    public int getMaxStrength() {
+        return maxStrength;
     }
 
-    public void setFullStrength(int fullStrength) {
-        this.fullStrength = fullStrength;
+    /**
+     * this method is used to set the maximum brick strength.
+     *
+     * @param maxStrength this is the maximum integer set for the brick strength.
+     */
+    public void setMaxStrength(int maxStrength) {
+        this.maxStrength = maxStrength;
     }
 
-    public int getStrength() {
-        return strength;
+    /**
+     * this method is used to get the brick current strength in integer.
+     *
+     * @return this the integer of the brick current strength.
+     */
+    public int getCurrentStrength() {
+        return currentStrength;
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
+    /**
+     * this method is used to set the current strength of the brick.
+     *
+     * @param currentStrength this is the integer used to set the strength of the brick.
+     */
+    public void setCurrentStrength(int currentStrength) {
+        this.currentStrength = currentStrength;
     }
 
+    /**
+     * this is method is used to set if the brick is broken or not.
+     *
+     * @param broken this is the boolean value used to set if the brick is broken or not.
+     */
     public void setBroken(boolean broken) {
         this.broken = broken;
     }

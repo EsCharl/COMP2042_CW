@@ -37,7 +37,7 @@ public class CementBrick extends Brick {
     public boolean setImpact(Point2D point, int dir) {
         if(super.isBroken())
             return false;
-        super.impact();
+        super.impacted();
         if(!super.isBroken()){
             crack.makeCrack(point,dir,this);
             updateBrick();

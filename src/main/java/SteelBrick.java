@@ -24,9 +24,9 @@ public class SteelBrick extends Brick {
      * this method is used to determine if the brick can be broken based on a probability.
      */
     @Override
-    public void impact(){
+    public void impacted(){
         if(getRnd().nextDouble() < STEEL_PROBABILITY){
-            super.impact();
+            super.impacted();
         }
     }
 

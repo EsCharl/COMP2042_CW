@@ -123,7 +123,7 @@ public class GameBoardController  {
 
         gameBoardModel.setGameTimer(new Timer(10, e ->{
             getWall().getMovements().entitiesMovements();
-            getWall().getMovements().impact.findImpacts();
+            getWall().getMovements().findImpacts();
             gameBoardModel.setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
             if(getWall().isBallLost()){
                 if(getWall().ballEnd()){

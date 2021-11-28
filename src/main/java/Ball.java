@@ -218,33 +218,64 @@ abstract public class Ball {
     }
 
     /**
+     * this is used to set the shape of the ball.
      *
-     * @param ballFace
+     * @param ballFace this is the shape used to set the ball shape.
      */
     public void setBallFace(Shape ballFace) {
         this.ballFace = ballFace;
     }
 
+    /**
+     * this method is used to set the border color of the ball.
+     *
+     * @param border this is the color used to set the border of the ball.
+     */
     public void setBorderBallColor(Color border) {
         this.borderBallColor = border;
     }
 
+    /**
+     * this method is used to set the inner color of the ball.
+     *
+     * @param inner this is the color used to set the inside of the ball.
+     */
     public void setInnerBallColor(Color inner) {
         this.innerBallColor = inner;
     }
 
+    /**
+     * this method is used to get the ball upwards position in point 2D.
+     *
+     * @return this returns a point2D object for the upside of the ball.
+     */
     public Point2D getUp() {
         return up;
     }
 
+    /**
+     * this method is used to get the ball downwards position in point 2D.
+     *
+     * @return this returns a point2D object for the downside of the ball.
+     */
     public Point2D getDown() {
         return down;
     }
 
+    /**
+     * this method is used to get the ball left position in point 2D.
+     *
+     * @return this returns a point2D object for the left side of the ball.
+     */
     public Point2D getLeft() {
         return left;
     }
 
+    /**
+     * this method is used to get the ball right position in point 2D.
+     *
+     * @return this returns a point2D object for the right side of the ball.
+     */
     public Point2D getRight() {
         return right;
     }

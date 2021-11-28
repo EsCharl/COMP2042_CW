@@ -62,7 +62,7 @@ public class ReinforcedSteelBrick extends Brick{
             return false;
         hit = getRnd().nextDouble() < STEEL_PROBABILITY;
         if(hit)
-            impact();
+            impacted();
         if(!super.isBroken()){
             if(hit){ // remove this if statement for more fun inducing excitement. :D
                 crack.makeCrack(point,dir, this);

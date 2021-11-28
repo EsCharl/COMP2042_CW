@@ -2,11 +2,14 @@
  * this class is used to manage the movements of the entities.
  */
 public class Movements {
+    private final int UP_IMPACT = 100;
+    private final int DOWN_IMPACT = 200;
+    private final int LEFT_IMPACT = 300;
+    private final int RIGHT_IMPACT = 400;
 
     private static Movements uniqueMovements;
 
     private Wall wall;
-    Impact impact;
 
     /**
      * this method is used to create one and only one movement class. singleton design pattern.
@@ -23,7 +26,6 @@ public class Movements {
 
     private Movements(Wall wall){
         setWall(wall);
-        impact = new Impact(this);
     }
 
     /**
@@ -68,5 +70,66 @@ public class Movements {
      */
     public void setWall(Wall wall) {
         this.wall = wall;
+    }
+
+    /**
+     * this is to check if the ball comes in contact with any side of the brick.
+     *
+     * @return returns a boolean value if or if it doesn't touch any entity.
+     */
+    boolean impactWall(){
+        for(Brick b : getWall().getBricks()){
+            switch(b.findImpact(getWall().getBall())) {
+                //Vertical Impact
+                case UP_IMPACT:
+                    getWall().getBall().reverseY();
+                    return b.setImpact(getWall().getBall().getDown(),Crack.UP);
+                case DOWN_IMPACT:
+                    getWall().getBall().reverseY();
+                    return b.setImpact(getWall().getBall().getUp(),Crack.DOWN);
+
+                //Horizontal Impact
+                case LEFT_IMPACT:
+                    getWall().getBall().reverseX();
+                    return b.setImpact(getWall().getBall().getRight(),Crack.RIGHT);
+                case RIGHT_IMPACT:
+                    getWall().getBall().reverseX();
+                    return b.setImpact(getWall().getBall().getLeft(),Crack.LEFT);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * this method is used to check if the ball have come in contact with the vertical sides of the game window.
+     *
+     * @return this returns a boolean value if it touches or doesn't touch the side of the game window
+     */
+    boolean impactSideBorder(){
+        return ((getWall().getBall().getPosition().getX() < getWall().getBorderArea().getX()) ||(getWall().getBall().getPosition().getX() > (getWall().getBorderArea().getX() + getWall().getBorderArea().getWidth())));
+    }
+
+    /**
+     * this method is used to check if there is an impact for the ball with any entity, the sides of the screen. which will cause a reaction to the game.
+     */
+    public void findImpacts(){
+        if(getWall().getPlayer().impact(getWall().getBall())){
+            getWall().getBall().reverseY();
+        }
+        else if(impactWall()){
+            getWall().setBrickCount(getWall().getBrickCount()-1);
+        }
+
+        if(impactSideBorder()) {
+            getWall().getBall().reverseX();
+        }
+
+        if(getWall().getBall().getPosition().getY() < getWall().getBorderArea().getY()){
+            getWall().getBall().reverseY();
+        }
+        else if(getWall().getBall().getPosition().getY() > getWall().getBorderArea().getY() + getWall().getBorderArea().getHeight()){
+            getWall().setBallCount(getWall().getBallCount() - 1);
+            getWall().setBallLost(true);
+        }
     }
 }

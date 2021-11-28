@@ -89,7 +89,6 @@ public class Wall {
             speedX = getRnd().nextBoolean() ? getRnd().nextInt(MAX_BALL_SPEED) : -getRnd().nextInt(MAX_BALL_SPEED);
         } while (speedX == 0);
 
-
         do{
             speedY = -getRnd().nextInt(MAX_BALL_SPEED);
         }while(speedY == 0);

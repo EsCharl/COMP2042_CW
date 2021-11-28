@@ -11,27 +11,26 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChainWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChainWallLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DebugConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DebugPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DebugPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Impact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Impact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Brick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CementBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CementBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Impact.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Movements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Movements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RandomWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RandomWallLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ReinforcedSteelBrick.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SteelBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TwoLinesWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TwoLinesWallLevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WallLevelAbstractions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WallLevelAbstractions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WallLevelTemplates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/ChainWallLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ChainWallLevel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/DebugConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/DebugConsole.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/DebugPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/DebugPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Impact.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Impact.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Brick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/CementBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/CementBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoardModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Impact.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Movements.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Movements.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/RandomWallLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/RandomWallLevel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/ReinforcedSteelBrick.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/SteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/SteelBrick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/TwoLinesWallLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/TwoLinesWallLevel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Wall.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/WallLevelAbstractions.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/WallLevelAbstractions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
