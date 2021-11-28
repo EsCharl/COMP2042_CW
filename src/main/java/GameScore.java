@@ -25,21 +25,10 @@ public class GameScore {
     //for the level saving
     private String levelFilePathName;
 
-    private static GameScore uniqueGameScore;
-
-    /**
-     * this is the method used to get a GameScore object based on a singleton pattern design.
-     *
-     * @return it returns the one and only GameScore object.
-     */
-    public static GameScore singletonGameScore(){
-        if(getUniqueGameScore() == null){
-            setUniqueGameScore(new GameScore());
-        }
-        return getUniqueGameScore();
-    }
-
-    private GameScore(){
+    public GameScore(){
+        setStartTime(0);
+        setTotalTime(0);
+        setPauseTime(0);
     }
 
     /**
@@ -247,23 +236,5 @@ public class GameScore {
      */
     public void setPauseTime(long pauseTime) {
         this.pauseTime = pauseTime;
-    }
-
-    /**
-     * this method is used to get the one and only GameScore object (Singleton).
-     *
-     * @return it returns a GameScore object.
-     */
-    public static GameScore getUniqueGameScore() {
-        return uniqueGameScore;
-    }
-
-    /**
-     * this method is used to set a GameScore Object into a variable.
-     *
-     * @param uniqueGameScore this is a GameScore object used to store into a variable.
-     */
-    public static void setUniqueGameScore(GameScore uniqueGameScore) {
-        GameScore.uniqueGameScore = uniqueGameScore;
     }
 }

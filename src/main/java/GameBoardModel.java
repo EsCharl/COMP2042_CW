@@ -1,9 +1,4 @@
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import java.awt.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 /**
  * this class is used to handle the game board logic.
@@ -19,10 +14,7 @@ public class GameBoardModel {
 
     private Timer gameTimer;
 
-    private Wall wall;
-
-    private GameScore gameScore;
-    private GameBoardController gameBoardController;
+    GameBoardController gameBoardController;
 
     private static GameBoardModel uniqueGameBoardModel;
 
@@ -39,18 +31,12 @@ public class GameBoardModel {
      * @param gameBoardController this is the controller of the game board which takes in all the user inputs.
      */
     private GameBoardModel(GameBoardController gameBoardController){
-        gameScore = GameScore.singletonGameScore();
-
-        gameScore.setStartTime(0);
-        gameScore.setTotalTime(0);
-        gameScore.setPauseTime(0);
 
         this.gameBoardController = gameBoardController;
 
         setWallLength(GameBoardView.DEF_HEIGHT);
         setWallWidth(GameBoardView.DEF_WIDTH);
 
-        setWall(Wall.singletonWall(new Rectangle(0,0, getWallWidth(), getWallLength()),30,3,6/2,new Point(300,430)));
 
         setMessage("");
         setCanGetTime(false);
@@ -58,92 +44,18 @@ public class GameBoardModel {
     }
 
     /**
-     * this method is used to start the game.
-     */
-    void startGame() {
-        getWall().nextLevel();
-        gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
-
-        setGameTimer(new Timer(10, e ->{
-            getWall().getMovements().entitiesMovements();
-            getWall().getMovements().findImpacts();
-            setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
-            if(getWall().isBallLost()){
-                if(getWall().ballEnd()){
-                    getWall().wallReset();
-                    setMessage("Game over");
-                    getGameTimer().stop();
-                    gameScore.restartTimer();
-                }
-                getWall().positionsReset();
-                getGameTimer().stop();
-                gameScore.pauseTimer();
-            }
-            else if(getWall().isDone()){
-                if(getWall().hasLevel()){
-                    setMessage("Go to Next Level");
-                    getGameTimer().stop();
-                    restartGameStatus();
-                }
-                else{
-                    setMessage("ALL WALLS DESTROYED");
-                    getGameTimer().stop();
-                }
-
-                gameScore.pauseTimer();
-
-                //for save file saving and high score pop up
-                saveLevelScore();
-
-                gameScore.restartTimer();
-            }
-            gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
-
-            gameBoardController.gameBoardView.updateGameBoardView();
-        }));
-    }
-
-    /**
-     * this method is used to save the game score.
-     */
-    private void saveLevelScore() {
-        try {
-            ArrayList<String> sorted = gameScore.getHighScore();
-            gameScore.updateSaveFile(sorted);
-            gameScore.highScorePanel(sorted);
-        } catch (IOException | BadLocationException | URISyntaxException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
      * this method is used to pause the game that is using the space button.
      */
     public void pauseGame() {
-        gameScore.pauseTimer();
+        gameBoardController.gameScore.pauseTimer();
         setCanGetTime(false);
-    }
-
-    /**
-     * this method is used to set the debug console visible on the window and let the game .
-     */
-    public void displayDebugConsole() {
-        getGameTimer().stop();
-        gameBoardController.gameBoardView.getDebugConsole().setVisible(true);
-    }
-
-    /**
-     * this method is used to stop the player movement.
-     */
-    public void playerStopMoving() {
-        getWall().getPlayer().stop();
     }
 
     /**
      * this method is used to resume the game.
      */
     public void resumeGame() {
-        gameScore.startTimer();
+        gameBoardController.gameScore.startTimer();
         getGameTimer().start();
         setCanGetTime(true);
     }
@@ -160,14 +72,14 @@ public class GameBoardModel {
      * this method is used to move the player to the right.
      */
     public void playerMoveRight() {
-        getWall().getPlayer().movRight();
+        gameBoardController.getWall().getPlayer().movRight();
     }
 
     /**
      * this method is used to move the player to the left.
      */
     public void playerMoveLeft() {
-        getWall().getPlayer().moveLeft();
+        gameBoardController.getWall().getPlayer().moveLeft();
     }
 
     /**
@@ -193,7 +105,7 @@ public class GameBoardModel {
      *
      */
     void skipLevel(){
-        gameScore.restartTimer();
+        gameBoardController.gameScore.restartTimer();
         restartGameStatus();
     }
 
@@ -202,12 +114,12 @@ public class GameBoardModel {
      */
     public void restartLevel() {
         setMessage("Restarting Game...");
-        getWall().positionsReset();
-        getWall().wallReset();
+        gameBoardController.getWall().positionsReset();
+        gameBoardController.getWall().wallReset();
         gameBoardController.setShowPauseMenu(false);
         gameBoardController.gameBoardView.updateGameBoardView();
 
-        gameScore.restartTimer();
+        gameBoardController.gameScore.restartTimer();
     }
 
     /**
@@ -226,17 +138,6 @@ public class GameBoardModel {
      */
     public Timer getGameTimer() {
         return gameTimer;
-    }
-
-    /**
-     * this method is used used to create the
-     */
-    public void debugConsoleButtonClicked() {
-        gameBoardController.setShowPauseMenu(true);
-        if(isCanGetTime()){
-            pauseGame();
-        }
-        displayDebugConsole();
     }
 
     /**
@@ -281,27 +182,9 @@ public class GameBoardModel {
     }
 
     public void restartGameStatus() {
-        getWall().positionsReset();
-        getWall().wallReset();
-        getWall().nextLevel();
-    }
-
-    /**
-     * this method is used to get the wall variable.
-     *
-     * @return returns a Wall datatype of wall variable.
-     */
-    public Wall getWall() {
-        return wall;
-    }
-
-    /**
-     * this method is used to set the wall variable
-     *
-     * @param wall this is the Wall datatype which will be used to set the wall variable.
-     */
-    public void setWall(Wall wall) {
-        this.wall = wall;
+        gameBoardController.getWall().positionsReset();
+        gameBoardController.getWall().wallReset();
+        gameBoardController.getWall().nextLevel();
     }
 
     /**

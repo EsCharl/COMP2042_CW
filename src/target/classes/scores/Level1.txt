@@ -7,7 +7,10 @@ chang,1:23
 chang,1:31
 chang,1:34
 chang,1:35
+chang,1:39
 chang,1:41
+chang,1:57
 chang,1:58
 chang,2:09
+chang,2:11
 chang,2:15

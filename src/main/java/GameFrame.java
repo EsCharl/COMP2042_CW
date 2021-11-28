@@ -84,15 +84,21 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     }
 
     /**
-     * this method is used to get the
+     * this method is used to get the middle of the x coordinate based on the size provided.
      *
-     * @param size
-     * @return
+     * @param size this is the size dimension used to get the middle of the size.
+     * @return this returns an integer which is the middle of the size provided based on x coordinate.
      */
     private int getGameFrameXCoordinate(Dimension size){
         return (size.width - this.getWidth()) / 2;
     }
 
+    /**
+     * this method is used to get the middle of the y coordinate based on the size provided.
+     *
+     * @param size this is the size dimension used to get the middle of the size.
+     * @return this returns an integegr which is the middle of the size provided based on y coordinate.
+     */
     private int getGameFrameYCoordinate(Dimension size){
         return (size.height - this.getHeight()) / 2;
     }
@@ -123,8 +129,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
         if(isGaming())
-            gameBoardController.gameBoardModel.onLostFocus();
-
+            gameBoardController.lostFocusTriggered();
     }
 
     public GameBoardController getGameBoard() {

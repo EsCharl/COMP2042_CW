@@ -7,6 +7,7 @@ import java.util.Random;
  */
 public class Wall {
 
+    public static final int BALL_COUNT = 3;
     private final int LEVELS_COUNT = 6;
 
     private Random rnd;
@@ -66,7 +67,7 @@ public class Wall {
 
         setCurrentLevel(0);
 
-        setBallCount(3);
+        setBallCount(BALL_COUNT);
         setBallLost(false);
 
         makeBall(ballPos);
@@ -170,7 +171,7 @@ public class Wall {
         for(Brick b : getBricks())
             b.repair();
         setBrickCount(getBricks().length);
-        setBallCount(3);
+        setBallCount(BALL_COUNT);
     }
 
     /**
@@ -230,7 +231,7 @@ public class Wall {
      * this method is used to reset the ball count (tries count) to 3.
      */
     public void resetBallCount(){
-        setBallCount(3);
+        setBallCount(BALL_COUNT);
     }
 
     /**

@@ -1,4 +1,9 @@
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
@@ -9,6 +14,8 @@ public class GameBoardController  {
 
     GameBoardView gameBoardView;
     GameBoardModel gameBoardModel;
+    GameScore gameScore;
+    private Wall wall;
 
     private static GameBoardController uniqueGameBoardController;
 
@@ -30,15 +37,17 @@ public class GameBoardController  {
      * @param owner this takes in the JFrame for the game board view object.
      */
     private GameBoardController(JFrame owner){
-
-        setShowPauseMenu(false);
-
         gameBoardModel = GameBoardModel.singletonGameBoardModel(this);
+
+        setWall(Wall.singletonWall(new Rectangle(0,0, gameBoardModel.getWallWidth(), gameBoardModel.getWallLength()),30,3,6/2,new Point(300,430)));
+
+        gameScore = new GameScore();
+        setShowPauseMenu(false);
 
         gameBoardView = GameBoardView.singletonGameBoardView(this, owner);
 
         //initialize the first level
-        gameBoardModel.startGame();
+        startGame();
     }
 
     /**
@@ -75,5 +84,132 @@ public class GameBoardController  {
      */
     private static void setUniqueGameBoard(GameBoardController uniqueGameBoardController) {
         GameBoardController.uniqueGameBoardController = uniqueGameBoardController;
+    }
+
+    /**
+     * this method is used to set the debug console visible on the window and let the game.
+     */
+    public void displayDebugConsole() {
+        gameBoardModel.getGameTimer().stop();
+        gameBoardView.getDebugConsole().setVisible(true);
+    }
+
+    /**
+     * this method is used to stop the player movement.
+     */
+    public void playerStopMoving() {
+        getWall().getPlayer().stop();
+    }
+
+    /**
+     * this method is used to save the game score.
+     */
+    void saveLevelScore() {
+        try {
+            ArrayList<String> sorted = gameScore.getHighScore();
+            gameScore.updateSaveFile(sorted);
+            gameScore.highScorePanel(sorted);
+        } catch (IOException | BadLocationException | URISyntaxException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * this method is used to start the game.
+     */
+    void startGame() {
+        getWall().nextLevel();
+        gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
+
+        gameBoardModel.setGameTimer(new Timer(10, e ->{
+            getWall().getMovements().entitiesMovements();
+            getWall().getMovements().impact.findImpacts();
+            gameBoardModel.setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
+            if(getWall().isBallLost()){
+                if(getWall().ballEnd()){
+                    getWall().wallReset();
+                    gameBoardModel.setMessage("Game over");
+                    gameBoardModel.getGameTimer().stop();
+                    gameScore.restartTimer();
+                }
+                getWall().positionsReset();
+                gameBoardModel.getGameTimer().stop();
+                gameScore.pauseTimer();
+            }
+            else if(getWall().isDone()){
+                if(getWall().hasLevel()){
+                    gameBoardModel.setMessage("Go to Next Level");
+                    gameBoardModel.getGameTimer().stop();
+                    gameBoardModel.restartGameStatus();
+                }
+                else{
+                    gameBoardModel.setMessage("ALL WALLS DESTROYED");
+                    gameBoardModel.getGameTimer().stop();
+                }
+
+                gameScore.pauseTimer();
+
+                //for save file saving and high score pop up
+                saveLevelScore();
+
+                gameScore.restartTimer();
+            }
+            gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
+
+            gameBoardView.updateGameBoardView();
+        }));
+    }
+
+    /**
+     * this method is used to get the wall variable.
+     *
+     * @return returns a Wall datatype of wall variable.
+     */
+    public Wall getWall() {
+        return wall;
+    }
+
+    /**
+     * this method is used to set the wall variable
+     *
+     * @param wall this is the Wall datatype which will be used to set the wall variable.
+     */
+    public void setWall(Wall wall) {
+        this.wall = wall;
+    }
+
+    public void lostFocusTriggered(){
+        gameBoardModel.onLostFocus();
+    }
+
+    public void restartLevelTriggered(){
+        gameBoardModel.restartLevel();
+    }
+
+    public void moveLeftButtonTriggered(){
+        gameBoardModel.playerMoveLeft();
+    }
+
+    public void moveRightButtonTriggered(){
+        gameBoardModel.playerMoveRight();
+    }
+
+    public void pauseButtonTriggered(){
+        gameBoardModel.pauseMenuButtonClicked();
+    }
+
+    public void startPauseButtonTriggered(){
+        gameBoardModel.startPauseGameButtonClicked();
+    }
+
+    /**
+     * this method is used to create the
+     */
+    public void debugConsoleButtonClicked() {
+        setShowPauseMenu(true);
+        if(gameBoardModel.isCanGetTime()){
+            gameBoardModel.pauseGame();
+        }
+        displayDebugConsole();
     }
 }
