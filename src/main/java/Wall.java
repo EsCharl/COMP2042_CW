@@ -56,7 +56,6 @@ public class Wall {
      * @param ballPos this is the ball position.
      */
     private Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
-        wallLevelTemplates = WallLevelTemplates.singletonWallLevelTemplates();
 
         setMovements(Movements.singletonMovements(this));
 
@@ -116,12 +115,13 @@ public class Wall {
      */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().CLAY, getWallLevelTemplates().CLAY);
-        tmp[1] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().CLAY, getWallLevelTemplates().CEMENT);
-        tmp[2] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().CLAY, getWallLevelTemplates().STEEL);
-        tmp[3] = getWallLevelTemplates().makeChainWallLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().STEEL, getWallLevelTemplates().CEMENT);
-        tmp[4] = getWallLevelTemplates().makeTwoLinesLevel(drawArea,brickCount,lineCount,brickDimensionRatio, getWallLevelTemplates().REINFORCED_STEEL, getWallLevelTemplates().STEEL);
-        tmp[5] = getWallLevelTemplates().makeRandomLevel(drawArea,brickCount,lineCount,brickDimensionRatio);
+        LevelFactory levelFactory = new LevelFactory();
+        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.CLAY, WallLevelAbstractions.CLAY);
+        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.CLAY, WallLevelAbstractions.CEMENT);
+        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.CLAY, WallLevelAbstractions.STEEL);
+        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.STEEL, WallLevelAbstractions.CEMENT);
+        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.REINFORCED_STEEL, WallLevelAbstractions.STEEL);
+        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio,WallLevelAbstractions.REINFORCED_STEEL, WallLevelAbstractions.STEEL);
         return tmp;
     }
 

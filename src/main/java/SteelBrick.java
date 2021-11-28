@@ -28,8 +28,6 @@ public class SteelBrick extends Brick {
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
-    private Shape brickFace;
-
     /**
      * this method is used to create a steel brick object.
      *
@@ -38,7 +36,6 @@ public class SteelBrick extends Brick {
      */
     public SteelBrick(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
-        brickFace = super.brickFace;
     }
 
     /**
