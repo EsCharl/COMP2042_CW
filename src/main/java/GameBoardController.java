@@ -156,8 +156,12 @@ public class GameBoardController  {
             }
             gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
 
-            gameBoardView.updateGameBoardView();
+            gameBoardViewUpdate();
         }));
+    }
+
+    public void gameBoardViewUpdate() {
+        gameBoardView.updateGameBoardView();
     }
 
     /**
@@ -184,6 +188,7 @@ public class GameBoardController  {
 
     public void restartLevelTriggered(){
         gameBoardModel.restartLevel();
+        gameScore.restartTimer();
     }
 
     public void moveLeftButtonTriggered(){

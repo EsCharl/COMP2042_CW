@@ -117,9 +117,7 @@ public class GameBoardModel {
         gameBoardController.getWall().positionsReset();
         gameBoardController.getWall().wallReset();
         gameBoardController.setShowPauseMenu(false);
-        gameBoardController.gameBoardView.updateGameBoardView();
-
-        gameBoardController.gameScore.restartTimer();
+        gameBoardController.gameBoardViewUpdate();
     }
 
     /**
@@ -145,7 +143,7 @@ public class GameBoardModel {
      */
     public void pauseMenuButtonClicked() {
         gameBoardController.setShowPauseMenu(!gameBoardController.isShowPauseMenu());
-        gameBoardController.gameBoardView.updateGameBoardView();
+        gameBoardController.gameBoardViewUpdate();
         if (getGameTimer().isRunning()){
             stopGame();
         }
@@ -237,7 +235,7 @@ public class GameBoardModel {
     public void onLostFocus(){
         getGameTimer().stop();
         setMessage("Focus Lost");
-        gameBoardController.gameBoardView.updateGameBoardView();
+        gameBoardController.gameBoardViewUpdate();
 
         if(isCanGetTime()){
             pauseGame();
