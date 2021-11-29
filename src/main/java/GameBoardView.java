@@ -7,8 +7,6 @@ import java.awt.font.FontRenderContext;
  * this class handles the rendering for the game board.
  */
 public class GameBoardView extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
-    final static int DEF_WIDTH = 600;
-    final static int DEF_HEIGHT = 450;
 
     private final int TEXT_SIZE = 30;
 
@@ -22,7 +20,6 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
     private Rectangle restartButtonRect;
 
     GameBoardController gameBoardController;
-
 
     private Font menuFont;
 
@@ -45,7 +42,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
         setStringDisplayLength(0);
 
-        setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
+        setPreferredSize(new Dimension(GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT));
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(this);
@@ -71,7 +68,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         g2d.setComposite(ac);
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0,0, DEF_WIDTH, DEF_HEIGHT);
+        g2d.fillRect(0,0, GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT);
 
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
@@ -314,7 +311,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         clear(g2d);
 
         g2d.setColor(Color.BLUE);
-        g2d.drawString(getGameBoardController().gameBoardModel.getMessage(),250,225);
+        g2d.drawString(gameBoardController.getMessage(),250,225);
 
         drawBall(getGameBoardController().getWall().getBall(),g2d);
 

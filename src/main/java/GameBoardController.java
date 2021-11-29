@@ -10,12 +10,17 @@ import java.util.ArrayList;
  */
 public class GameBoardController {
 
+    final static int DEF_WIDTH = 600;
+    final static int DEF_HEIGHT = 450;
+
     private boolean showPauseMenu;
+    private boolean canGetTime;
 
     private Timer gameTimer;
 
+    private String message;
+
     GameBoardView gameBoardView;
-    GameBoardModel gameBoardModel;
     GameScore gameScore;
     private Wall wall;
     private DebugConsole debugConsole;
@@ -40,9 +45,11 @@ public class GameBoardController {
      * @param owner this takes in the JFrame for the game board view object.
      */
     private GameBoardController(JFrame owner){
-        gameBoardModel = GameBoardModel.singletonGameBoardModel(this);
 
-        setWall(Wall.singletonWall(new Rectangle(0,0, GameBoardView.DEF_WIDTH, GameBoardView.DEF_HEIGHT),30,3,6/2,new Point(300,430)));
+        setMessage("");
+        setCanGetTime(false);
+
+        setWall(Wall.singletonWall(new Rectangle(0,0, DEF_WIDTH, DEF_HEIGHT),30,3,6/2,new Point(300,430)));
 
         setDebugConsole(DebugConsole.singletonDebugConsole(owner, getWall()));
 
@@ -109,7 +116,7 @@ public class GameBoardController {
     /**
      * this method is used to save the game score.
      */
-    void saveLevelScore() {
+    void saveScoreLevel() {
         try {
             ArrayList<String> sorted = gameScore.getHighScore();
             gameScore.updateSaveFile(sorted);
@@ -126,14 +133,14 @@ public class GameBoardController {
         getWall().nextLevel();
         gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
 
-        gameBoardModel.gameBoardController.setGameTimer(new Timer(10, e ->{
+        setGameTimer(new Timer(10, e ->{
             getWall().getMovements().entitiesMovements();
             getWall().getMovements().findImpacts();
-            gameBoardModel.setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
+            setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
             if(getWall().isBallLost()){
                 if(getWall().ballEnd()){
                     getWall().wallReset();
-                    gameBoardModel.setMessage("Game over");
+                    setMessage("Game over");
                     getGameTimer().stop();
                     gameScore.restartTimer();
                 }
@@ -143,19 +150,19 @@ public class GameBoardController {
             }
             else if(getWall().isDone()){
                 if(getWall().hasLevel()){
-                    gameBoardModel.setMessage("Go to Next Level");
+                    setMessage("Go to Next Level");
                     getGameTimer().stop();
                     restartGameStatus();
                 }
                 else{
-                    gameBoardModel.setMessage("ALL WALLS DESTROYED");
+                    setMessage("ALL WALLS DESTROYED");
                     getGameTimer().stop();
                 }
 
                 gameScore.pauseTimer();
 
                 //for save file saving and high score pop up
-                saveLevelScore();
+                saveScoreLevel();
 
                 gameScore.restartTimer();
             }
@@ -190,16 +197,16 @@ public class GameBoardController {
     public void lostFocusTriggered(){
         getGameTimer().stop();
 
-        gameBoardModel.setMessage("Focus Lost");
+        setMessage("Focus Lost");
         gameBoardViewUpdate();
 
-        if(gameBoardModel.isCanGetTime()){
-            gameBoardModel.pauseGame();
+        if(isCanGetTime()){
+            pauseGame();
         }
     }
 
     public void restartLevelTriggered(){
-        gameBoardModel.setMessage("Restarting Game...");
+        setMessage("Restarting Game...");
         gameScore.restartTimer();
         getWall().positionsReset();
         getWall().wallReset();
@@ -208,19 +215,15 @@ public class GameBoardController {
     }
 
     public void moveLeftButtonTriggered(){
-        gameBoardModel.playerMoveLeft();
+        playerMoveLeft();
     }
 
     public void moveRightButtonTriggered(){
-        gameBoardModel.playerMoveRight();
+        playerMoveRight();
     }
 
     public void pauseButtonTriggered(){
-        gameBoardModel.pauseMenuButtonClicked();
-    }
-
-    public void startPauseButtonTriggered(){
-        gameBoardModel.startPauseGameButtonClicked();
+        pauseMenuButtonClicked();
     }
 
     /**
@@ -228,8 +231,8 @@ public class GameBoardController {
      */
     public void debugConsoleButtonClicked() {
         setShowPauseMenu(true);
-        if(gameBoardModel.isCanGetTime()){
-            gameBoardModel.pauseGame();
+        if(isCanGetTime()){
+            pauseGame();
         }
         displayDebugConsole();
     }
@@ -277,5 +280,103 @@ public class GameBoardController {
      */
     public void setGameTimer(Timer gameTimer) {
         this.gameTimer = gameTimer;
+    }
+
+    /**
+     * this method is used to toggle between start and pause of the game.
+     */
+    public void startPauseButtonTriggered() {
+        if(!isShowPauseMenu())
+            if(getGameTimer().isRunning()){
+                stopGame();
+            }else{
+                resumeGame();
+            }
+    }
+
+    /**
+     * this method is used to set the game into a pause state.
+     */
+    public void pauseMenuButtonClicked() {
+        setShowPauseMenu(!isShowPauseMenu());
+        gameBoardViewUpdate();
+        if (getGameTimer().isRunning()){
+            stopGame();
+        }
+    }
+
+    /**
+     * this method is used to move the player to the left.
+     */
+    public void playerMoveLeft() {
+        getWall().getPlayer().moveLeft();
+    }
+
+    /**
+     * this method is used to move the player to the right.
+     */
+    public void playerMoveRight() {
+        getWall().getPlayer().movRight();
+    }
+
+    /**
+     * this method is used to pause the game that is using the space button.
+     */
+    public void pauseGame() {
+        gameScore.pauseTimer();
+        setCanGetTime(false);
+    }
+
+    /**
+     * this method is used to resume the game.
+     */
+    public void resumeGame() {
+        gameScore.startTimer();
+        getGameTimer().start();
+        setCanGetTime(true);
+    }
+
+    /**
+     * this method is used to stop the game
+     */
+    public void stopGame() {
+        pauseGame();
+        getGameTimer().stop();
+    }
+
+    /**
+     * this method is used to check if it can get the time to set it to a scoring variable.
+     *
+     * @return it returns true based on the variable value.
+     */
+    public boolean isCanGetTime() {
+        return canGetTime;
+    }
+
+    /**
+     * this method is used to set the variable if it can get the time to set to a scoring variable.
+     *
+     * @param canGetTime this is the variable used to set if it can take the time for the scoring.
+     */
+    public void setCanGetTime(boolean canGetTime) {
+        this.canGetTime = canGetTime;
+    }
+
+    /**
+     * this method is used to get the value in the message variable.
+     *
+     * @return returns the value in the message variable.
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * this method is used to change the message variable.
+     *
+     * @param message the String used to change the message variable.
+     */
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

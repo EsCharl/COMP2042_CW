@@ -11,16 +11,13 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ChainWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ChainWallLevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardModel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RandomWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RandomWallLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TwoLinesWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TwoLinesWallLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Wall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WallLevelAbstractions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FullWallRowsLevels.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardModel.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoardView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,8 +80,8 @@
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
-      <recent name="GameBoardView" />
       <recent name="GameBoardController" />
+      <recent name="GameBoardView" />
       <recent name="WallModel" />
       <recent name="Wall" />
       <recent name="WallLevelTemplates" />
