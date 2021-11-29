@@ -53,7 +53,7 @@ public class GameBoardController {
         gameScore = GameScore.singletonGameScore();
         setShowPauseMenu(false);
 
-        gameBoardView = GameBoardView.singletonGameBoardView(this);
+        gameBoardView = GameBoardView.singletonGameBoardView(this, getWall());
         gameBoardView.setMessage("");
 
         //initialize the first level

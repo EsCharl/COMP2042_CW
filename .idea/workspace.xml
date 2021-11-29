@@ -10,8 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameBoardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameBoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GameBoardView.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

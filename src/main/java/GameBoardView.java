@@ -22,6 +22,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
     private String message;
 
     GameBoardController gameBoardController;
+    Wall wall;
 
     private Font menuFont;
 
@@ -32,17 +33,19 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
     private static GameBoardView uniqueGameBoardView;
 
-    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController){
+    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController, Wall wall){
         if(getUniqueGameBoardView() == null){
-            setUniqueGameBoardView(new GameBoardView(gameBoardController));
+            setUniqueGameBoardView(new GameBoardView(gameBoardController, wall));
         }
         return getUniqueGameBoardView();
     }
 
-    public GameBoardView(GameBoardController gameBoardController){
+    public GameBoardView(GameBoardController gameBoardController, Wall wall){
         super();
 
         setStringDisplayLength(0);
+
+        this.wall = wall;
 
         setPreferredSize(new Dimension(GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT));
         setFocusable(true);
@@ -313,15 +316,15 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         clear(g2d);
 
         g2d.setColor(Color.BLUE);
-        g2d.drawString(gameBoardController.gameBoardView.getMessage(),250,225);
+        g2d.drawString(getMessage(),250,225);
 
-        drawBall(getGameBoardController().getWall().getBall(),g2d);
+        drawBall(wall.getBall(),g2d);
 
-        for(Brick b : getGameBoardController().getWall().getBricks())
+        for(Brick b : wall.getBricks())
             if(!b.isBroken())
                 drawBrick(b,g2d);
 
-        drawPlayer(getGameBoardController().getWall().getPlayer(),g2d);
+        drawPlayer(wall.getPlayer(),g2d);
 
         if(getGameBoardController().isShowPauseMenu())
             drawMenu(g2d);
