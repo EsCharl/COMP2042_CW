@@ -1,3 +1,5 @@
+import Controller.GameFrame;
+
 import java.awt.*;
 
 /**

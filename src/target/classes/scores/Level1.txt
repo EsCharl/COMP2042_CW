@@ -5,4 +5,5 @@ chang,0:58
 chang,1:08
 chang,1:23
 chang,1:29
+chang,1:40
 chang,2:01
