@@ -27,26 +27,23 @@ public class DebugPanel extends JPanel {
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
-    private Wall wall;
-    private GameBoardController board;
+    private DebugConsole debugConsole;
 
     private static DebugPanel uniqueDebugPanel;
 
-    public static DebugPanel singletonDebugPanel(Wall wall, GameBoardController board){
+    public static DebugPanel singletonDebugPanel(DebugConsole debugConsole){
         if(getUniqueDebugPanel() == null){
-            setUniqueDebugPanel(new DebugPanel(wall, board));
+            setUniqueDebugPanel(new DebugPanel(debugConsole));
         }
         return getUniqueDebugPanel();
     }
     /**
      * This constructor contains the code needed for the console in the game.
      *
-     * @param   wall A wall class that is created, and it is used for nextLevel, resetBallCount, setBallXSpeed,
-     *               and setBallYSpeed method that is available in wall class.
+     * @param   debugConsole this is the console which it will send the user information to.
      */
-    private DebugPanel(Wall wall, GameBoardController board){
-        this.wall = wall;
-        this.board = board;
+    private DebugPanel(DebugConsole debugConsole){
+        this.debugConsole = debugConsole;
 
         setDebugPanelLook();
 
@@ -74,11 +71,11 @@ public class DebugPanel extends JPanel {
     }
 
     private void debugFunctions() {
-        skipLevel = makeButton(SKIP_LEVEL_TEXT, e -> board.gameBoardModel.skipLevel());
-        resetBalls = makeButton(RESET_BALLS_TEXT, e -> wall.resetBallCount());
+        skipLevel = makeButton(SKIP_LEVEL_TEXT, e -> debugConsole.skipLevelTriggered());
+        resetBalls = makeButton(RESET_BALLS_TEXT, e -> debugConsole.resetBallCountTriggered());
 
-        ballXSpeed = makeSlider(MAX_NEGATIVE_SPEED_X, MAX_POSITIVE_SPEED_X, e -> wall.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(MAX_NEGATIVE_SPEED_Y, MAX_POSITIVE_SPEED_Y, e -> wall.setBallYSpeed(ballYSpeed.getValue()));
+        ballXSpeed = makeSlider(MAX_NEGATIVE_SPEED_X, MAX_POSITIVE_SPEED_X, e -> debugConsole.ballXSpeedValue(ballXSpeed.getValue()));
+        ballYSpeed = makeSlider(MAX_NEGATIVE_SPEED_Y, MAX_POSITIVE_SPEED_Y, e -> debugConsole.ballYSpeedValue(ballYSpeed.getValue()));
 
         this.add(skipLevel);
         this.add(resetBalls);
@@ -105,7 +102,7 @@ public class DebugPanel extends JPanel {
     private JButton makeButton(String title, ActionListener e){
         JButton out = new JButton(title);
         out.addActionListener(e);
-        return  out;
+        return out;
     }
 
     /**
@@ -135,7 +132,7 @@ public class DebugPanel extends JPanel {
      * @param x this takes in the value that the ball supposed to go in the x-axis and set it for the ball
      * @param y this takes in the value that the ball supposed to go in the y-axis and set it for the ball
      */
-    public void setValues(int x,int y){
+    public void setViewValues(int x, int y){
         ballXSpeed.setValue(x);
         ballYSpeed.setValue(y);
     }

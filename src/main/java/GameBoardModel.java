@@ -5,9 +5,6 @@ import javax.swing.*;
  */
 public class GameBoardModel {
 
-    private int wallWidth;
-    private int wallLength;
-
     private String message;
 
     private boolean canGetTime;
@@ -33,10 +30,6 @@ public class GameBoardModel {
     private GameBoardModel(GameBoardController gameBoardController){
 
         this.gameBoardController = gameBoardController;
-
-        setWallLength(GameBoardView.DEF_HEIGHT);
-        setWallWidth(GameBoardView.DEF_WIDTH);
-
 
         setMessage("");
         setCanGetTime(false);
@@ -101,26 +94,6 @@ public class GameBoardModel {
     }
 
     /**
-     * this is used by the DebugPanel class to skip the level which will restart the timer and generate the next level.
-     *
-     */
-    void skipLevel(){
-        gameBoardController.gameScore.restartTimer();
-        restartGameStatus();
-    }
-
-    /**
-     * this method is used to restart the level.
-     */
-    public void restartLevel() {
-        setMessage("Restarting Game...");
-        gameBoardController.getWall().positionsReset();
-        gameBoardController.getWall().wallReset();
-        gameBoardController.setShowPauseMenu(false);
-        gameBoardController.gameBoardViewUpdate();
-    }
-
-    /**
      * this method is used to set the gameTimer variable.
      *
      * @param gameTimer this is the Timer datatype which will be used to set the gameTimer variable.
@@ -179,66 +152,11 @@ public class GameBoardModel {
         return canGetTime;
     }
 
-    public void restartGameStatus() {
-        gameBoardController.getWall().positionsReset();
-        gameBoardController.getWall().wallReset();
-        gameBoardController.getWall().nextLevel();
-    }
-
-    /**
-     * this method is to get the wall width.
-     *
-     * @return returns an integer which is the wall width.
-     */
-    public int getWallWidth() {
-        return wallWidth;
-    }
-
-    /**
-     * this method is used to set the game window width.
-     *
-     * @param wallWidth this is the integer used to set the width of the wall.
-     */
-    public void setWallWidth(int wallWidth) {
-        this.wallWidth = wallWidth;
-    }
-
-    /**
-     * this method is used to get the wall length.
-     *
-     * @return returns an integer which is the wall length.
-     */
-    public int getWallLength() {
-        return wallLength;
-    }
-
-    /**
-     * this method is used to set the wall length.
-     *
-     * @param wallLength this is the integer used to set the wall length.
-     */
-    public void setWallLength(int wallLength) {
-        this.wallLength = wallLength;
-    }
-
     private static GameBoardModel getUniqueGameBoardModel() {
         return uniqueGameBoardModel;
     }
 
     private static void setUniqueGameBoardModel(GameBoardModel uniqueGameBoardModel) {
         GameBoardModel.uniqueGameBoardModel = uniqueGameBoardModel;
-    }
-
-    /**
-     * this method is used when the user is not focused on the game. i.e. when the user clicked on other components or outside the game window.
-     */
-    public void onLostFocus(){
-        getGameTimer().stop();
-        setMessage("Focus Lost");
-        gameBoardController.gameBoardViewUpdate();
-
-        if(isCanGetTime()){
-            pauseGame();
-        }
     }
 }

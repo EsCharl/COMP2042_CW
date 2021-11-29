@@ -9,6 +9,8 @@ import java.awt.event.WindowFocusListener;
 public class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
+    private final int MAIN_MENU_WIDTH = 450;
+    private final int MAIN_MENU_HEIGHT = 300;
 
     private GameBoardController gameBoardController;
     private HomeMenu homeMenu;
@@ -34,7 +36,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setLayout(new BorderLayout());
 
         setGameBoard(GameBoardController.singletonGameBoardController(this));
-        setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(450,300)));
+        setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(MAIN_MENU_WIDTH,MAIN_MENU_HEIGHT)));
 
         this.add(getHomeMenu(),BorderLayout.CENTER);
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
-public class GameBoardController  {
+public class GameBoardController {
 
     private boolean showPauseMenu;
 
@@ -16,6 +16,7 @@ public class GameBoardController  {
     GameBoardModel gameBoardModel;
     GameScore gameScore;
     private Wall wall;
+    private DebugConsole debugConsole;
 
     private static GameBoardController uniqueGameBoardController;
 
@@ -39,9 +40,11 @@ public class GameBoardController  {
     private GameBoardController(JFrame owner){
         gameBoardModel = GameBoardModel.singletonGameBoardModel(this);
 
-        setWall(Wall.singletonWall(new Rectangle(0,0, gameBoardModel.getWallWidth(), gameBoardModel.getWallLength()),30,3,6/2,new Point(300,430)));
+        setWall(Wall.singletonWall(new Rectangle(0,0, GameBoardView.DEF_WIDTH, GameBoardView.DEF_HEIGHT),30,3,6/2,new Point(300,430)));
 
-        gameScore = new GameScore();
+        setDebugConsole(DebugConsole.singletonDebugConsole(owner, getWall()));
+
+        gameScore = GameScore.singletonGameScore();
         setShowPauseMenu(false);
 
         gameBoardView = GameBoardView.singletonGameBoardView(this, owner);
@@ -91,7 +94,7 @@ public class GameBoardController  {
      */
     public void displayDebugConsole() {
         gameBoardModel.getGameTimer().stop();
-        gameBoardView.getDebugConsole().setVisible(true);
+        getDebugConsole().setVisible(true);
     }
 
     /**
@@ -140,7 +143,7 @@ public class GameBoardController  {
                 if(getWall().hasLevel()){
                     gameBoardModel.setMessage("Go to Next Level");
                     gameBoardModel.getGameTimer().stop();
-                    gameBoardModel.restartGameStatus();
+                    restartGameStatus();
                 }
                 else{
                     gameBoardModel.setMessage("ALL WALLS DESTROYED");
@@ -183,12 +186,23 @@ public class GameBoardController  {
     }
 
     public void lostFocusTriggered(){
-        gameBoardModel.onLostFocus();
+        gameBoardModel.getGameTimer().stop();
+
+        gameBoardModel.setMessage("Focus Lost");
+        gameBoardViewUpdate();
+
+        if(gameBoardModel.isCanGetTime()){
+            gameBoardModel.pauseGame();
+        }
     }
 
     public void restartLevelTriggered(){
-        gameBoardModel.restartLevel();
+        gameBoardModel.setMessage("Restarting Game...");
         gameScore.restartTimer();
+        getWall().positionsReset();
+        getWall().wallReset();
+        setShowPauseMenu(false);
+        gameBoardViewUpdate();
     }
 
     public void moveLeftButtonTriggered(){
@@ -216,5 +230,32 @@ public class GameBoardController  {
             gameBoardModel.pauseGame();
         }
         displayDebugConsole();
+    }
+
+    /**
+     * this method is used to get the DebugConsole object.
+     *
+     * @return returns the DebugConsole object.
+     */
+    public DebugConsole getDebugConsole() {
+        return debugConsole;
+    }
+
+    /**
+     * this method is used to set the DebugConsole object.
+     *
+     * @param debugConsole this is the DebugConsole object used to set into the variable.
+     */
+    public void setDebugConsole(DebugConsole debugConsole) {
+        this.debugConsole = debugConsole;
+    }
+
+    /**
+     * this method is used to restart the game status.
+     */
+    public void restartGameStatus() {
+        getWall().positionsReset();
+        getWall().wallReset();
+        getWall().nextLevel();
     }
 }

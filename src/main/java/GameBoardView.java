@@ -21,9 +21,8 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
     private Rectangle exitButtonRect;
     private Rectangle restartButtonRect;
 
-    private GameBoardController gameBoardController;
+    GameBoardController gameBoardController;
 
-    private DebugConsole debugConsole;
 
     private Font menuFont;
 
@@ -54,8 +53,6 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         addMouseMotionListener(this);
 
         setGameBoardController(gameBoardController);
-
-        setDebugConsole(DebugConsole.singletonDebugConsole(owner, getGameBoardController().gameBoardModel.gameBoardController.getWall(),getGameBoardController()));
 
         setMenuFont(new Font("Monospaced",Font.PLAIN,TEXT_SIZE));
     }
@@ -502,24 +499,6 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         else{
             setCursorLook(Cursor.getDefaultCursor());
         }
-    }
-
-    /**
-     * this method is used to get the DebugConsole object.
-     *
-     * @return returns the DebugConsole object.
-     */
-    public DebugConsole getDebugConsole() {
-        return debugConsole;
-    }
-
-    /**
-     * this method is used to set the DebugConsole object.
-     *
-     * @param debugConsole this is the DebugConsole object used to set into the variable.
-     */
-    public void setDebugConsole(DebugConsole debugConsole) {
-        this.debugConsole = debugConsole;
     }
 
     /**

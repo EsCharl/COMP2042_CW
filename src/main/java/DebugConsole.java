@@ -12,14 +12,14 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     private JFrame owner;
     private DebugPanel debugPanel;
-    private GameBoardController gameBoardController;
     private Wall wall;
+    private GameScore gameScore;
 
     private static DebugConsole uniqueDebugConsole;
 
-    public static DebugConsole singletonDebugConsole(JFrame owner, Wall wall, GameBoardController gameBoardController){
+    public static DebugConsole singletonDebugConsole(JFrame owner, Wall wall){
         if(getUniqueDebugConsole() == null){
-            setUniqueDebugConsole(new DebugConsole(owner,wall, gameBoardController));
+            setUniqueDebugConsole(new DebugConsole(owner,wall));
         }
         return getUniqueDebugConsole();
     }
@@ -29,18 +29,16 @@ public class DebugConsole extends JDialog implements WindowListener{
      *
      * @param owner a graphical frame that is going to be used.
      * @param wall the game level that is generated, the status of the game.
-     * @param gameBoardController the status of the game board.
      */
-    private DebugConsole(JFrame owner, Wall wall, GameBoardController gameBoardController){
+    private DebugConsole(JFrame owner, Wall wall){
+        gameScore = GameScore.singletonGameScore();
 
         setWall(wall);
         setOwner(owner);
-        setGameBoard(gameBoardController);
         initialize();
 
-        setDebugPanel(DebugPanel.singletonDebugPanel(wall, getGameBoard()));
+        setDebugPanel(DebugPanel.singletonDebugPanel(this));
         this.add(getDebugPanel(),BorderLayout.CENTER);
-
 
         this.pack();
     }
@@ -99,7 +97,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        getGameBoard().gameBoardView.repaint();
+        repaint();
     }
 
     /**
@@ -141,7 +139,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
         Ball b = getWall().getBall();
-        getDebugPanel().setValues(b.getSpeedX(),b.getSpeedY());
+        getDebugPanel().setViewValues(b.getSpeedX(),b.getSpeedY());
     }
 
     /**
@@ -171,14 +169,6 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.debugPanel = debugPanel;
     }
 
-    public GameBoardController getGameBoard() {
-        return gameBoardController;
-    }
-
-    public void setGameBoard(GameBoardController gameBoardController) {
-        this.gameBoardController = gameBoardController;
-    }
-
     public Wall getWall() {
         return wall;
     }
@@ -203,5 +193,28 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     public static void setUniqueDebugConsole(DebugConsole uniqueDebugConsole) {
         DebugConsole.uniqueDebugConsole = uniqueDebugConsole;
+    }
+
+    public void ballXSpeedValue(int speed){
+        getWall().setBallXSpeed(speed);
+    }
+
+    public void ballYSpeedValue(int speed){
+        getWall().setBallYSpeed(speed);
+    }
+
+    /**
+     * this is used by the DebugPanel class to skip the level which will restart the timer and generate the next level.
+     *
+     */
+    void skipLevelTriggered(){
+        gameScore.restartTimer();
+        getWall().positionsReset();
+        getWall().wallReset();
+        getWall().nextLevel();
+    }
+
+    public void resetBallCountTriggered(){
+        getWall().resetBallCount();
     }
 }

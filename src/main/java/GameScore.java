@@ -25,7 +25,16 @@ public class GameScore {
     //for the level saving
     private String levelFilePathName;
 
-    public GameScore(){
+    private static GameScore uniqueGameScore;
+
+    public static GameScore singletonGameScore(){
+        if(getUniqueGameScore() == null){
+            setUniqueGameScore(new GameScore());
+        }
+        return getUniqueGameScore();
+    }
+
+    private GameScore(){
         setStartTime(0);
         setTotalTime(0);
         setPauseTime(0);
@@ -236,5 +245,13 @@ public class GameScore {
      */
     public void setPauseTime(long pauseTime) {
         this.pauseTime = pauseTime;
+    }
+
+    public static GameScore getUniqueGameScore() {
+        return uniqueGameScore;
+    }
+
+    public static void setUniqueGameScore(GameScore uniqueGameScore) {
+        GameScore.uniqueGameScore = uniqueGameScore;
     }
 }
