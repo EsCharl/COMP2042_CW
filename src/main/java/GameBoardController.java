@@ -166,12 +166,8 @@ public class GameBoardController {
             }
             gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
 
-            gameBoardViewUpdate();
+            gameBoardView.updateGameBoardView();
         }));
-    }
-
-    public void gameBoardViewUpdate() {
-        gameBoardView.updateGameBoardView();
     }
 
     /**
@@ -196,7 +192,7 @@ public class GameBoardController {
         getGameTimer().stop();
 
         gameBoardView.setMessage("Focus Lost");
-        gameBoardViewUpdate();
+        gameBoardView.updateGameBoardView();
 
         if(isCanGetTime()){
             pauseGame();
@@ -209,7 +205,7 @@ public class GameBoardController {
         getWall().positionsReset();
         getWall().wallReset();
         setShowPauseMenu(false);
-        gameBoardViewUpdate();
+        gameBoardView.updateGameBoardView();
     }
 
     public void moveLeftButtonTriggered(){
@@ -297,7 +293,7 @@ public class GameBoardController {
      */
     public void pauseMenuButtonClicked() {
         setShowPauseMenu(!isShowPauseMenu());
-        gameBoardViewUpdate();
+        gameBoardView.updateGameBoardView();
         if (getGameTimer().isRunning()){
             stopGame();
         }
