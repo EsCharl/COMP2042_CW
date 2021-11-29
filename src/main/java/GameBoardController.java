@@ -18,8 +18,6 @@ public class GameBoardController {
 
     private Timer gameTimer;
 
-    private String message;
-
     GameBoardView gameBoardView;
     GameScore gameScore;
     private Wall wall;
@@ -46,7 +44,6 @@ public class GameBoardController {
      */
     private GameBoardController(JFrame owner){
 
-        setMessage("");
         setCanGetTime(false);
 
         setWall(Wall.singletonWall(new Rectangle(0,0, DEF_WIDTH, DEF_HEIGHT),30,3,6/2,new Point(300,430)));
@@ -57,6 +54,7 @@ public class GameBoardController {
         setShowPauseMenu(false);
 
         gameBoardView = GameBoardView.singletonGameBoardView(this);
+        gameBoardView.setMessage("");
 
         //initialize the first level
         startGame();
@@ -136,11 +134,11 @@ public class GameBoardController {
         setGameTimer(new Timer(10, e ->{
             getWall().getMovements().entitiesMovements();
             getWall().getMovements().findImpacts();
-            setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
+            gameBoardView.setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
             if(getWall().isBallLost()){
                 if(getWall().ballEnd()){
                     getWall().wallReset();
-                    setMessage("Game over");
+                    gameBoardView.setMessage("Game over");
                     getGameTimer().stop();
                     gameScore.restartTimer();
                 }
@@ -150,12 +148,12 @@ public class GameBoardController {
             }
             else if(getWall().isDone()){
                 if(getWall().hasLevel()){
-                    setMessage("Go to Next Level");
+                    gameBoardView.setMessage("Go to Next Level");
                     getGameTimer().stop();
                     restartGameStatus();
                 }
                 else{
-                    setMessage("ALL WALLS DESTROYED");
+                    gameBoardView.setMessage("ALL WALLS DESTROYED");
                     getGameTimer().stop();
                 }
 
@@ -197,7 +195,7 @@ public class GameBoardController {
     public void lostFocusTriggered(){
         getGameTimer().stop();
 
-        setMessage("Focus Lost");
+        gameBoardView.setMessage("Focus Lost");
         gameBoardViewUpdate();
 
         if(isCanGetTime()){
@@ -206,7 +204,7 @@ public class GameBoardController {
     }
 
     public void restartLevelTriggered(){
-        setMessage("Restarting Game...");
+        gameBoardView.setMessage("Restarting Game...");
         gameScore.restartTimer();
         getWall().positionsReset();
         getWall().wallReset();
@@ -362,21 +360,4 @@ public class GameBoardController {
         this.canGetTime = canGetTime;
     }
 
-    /**
-     * this method is used to get the value in the message variable.
-     *
-     * @return returns the value in the message variable.
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * this method is used to change the message variable.
-     *
-     * @param message the String used to change the message variable.
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

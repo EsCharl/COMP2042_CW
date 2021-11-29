@@ -19,6 +19,8 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
     private Rectangle exitButtonRect;
     private Rectangle restartButtonRect;
 
+    private String message;
+
     GameBoardController gameBoardController;
 
     private Font menuFont;
@@ -311,7 +313,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         clear(g2d);
 
         g2d.setColor(Color.BLUE);
-        g2d.drawString(gameBoardController.getMessage(),250,225);
+        g2d.drawString(gameBoardController.gameBoardView.getMessage(),250,225);
 
         drawBall(getGameBoardController().getWall().getBall(),g2d);
 
@@ -522,5 +524,23 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
     private static void setUniqueGameBoardView(GameBoardView uniqueGameBoardView) {
         GameBoardView.uniqueGameBoardView = uniqueGameBoardView;
+    }
+
+    /**
+     * this method is used to change the message variable.
+     *
+     * @param message the String used to change the message variable.
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * this method is used to get the value in the message variable.
+     *
+     * @return returns the value in the message variable.
+     */
+    public String getMessage() {
+        return message;
     }
 }
