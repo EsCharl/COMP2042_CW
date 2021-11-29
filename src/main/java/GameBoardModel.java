@@ -9,7 +9,6 @@ public class GameBoardModel {
 
     private boolean canGetTime;
 
-    private Timer gameTimer;
 
     GameBoardController gameBoardController;
 
@@ -49,7 +48,7 @@ public class GameBoardModel {
      */
     public void resumeGame() {
         gameBoardController.gameScore.startTimer();
-        getGameTimer().start();
+        gameBoardController.getGameTimer().start();
         setCanGetTime(true);
     }
 
@@ -58,7 +57,7 @@ public class GameBoardModel {
      */
     public void stopGame() {
         pauseGame();
-        getGameTimer().stop();
+        gameBoardController.getGameTimer().stop();
     }
 
     /**
@@ -94,30 +93,12 @@ public class GameBoardModel {
     }
 
     /**
-     * this method is used to set the gameTimer variable.
-     *
-     * @param gameTimer this is the Timer datatype which will be used to set the gameTimer variable.
-     */
-    public void setGameTimer(Timer gameTimer) {
-        this.gameTimer = gameTimer;
-    }
-
-    /**
-     * this method is used to get the gameTimer variable.
-     *
-     * @return returns a Timer datatype of gameTimer variable.
-     */
-    public Timer getGameTimer() {
-        return gameTimer;
-    }
-
-    /**
      * this method is used to set the game into a pause state.
      */
     public void pauseMenuButtonClicked() {
         gameBoardController.setShowPauseMenu(!gameBoardController.isShowPauseMenu());
         gameBoardController.gameBoardViewUpdate();
-        if (getGameTimer().isRunning()){
+        if (gameBoardController.getGameTimer().isRunning()){
             stopGame();
         }
     }
@@ -127,7 +108,7 @@ public class GameBoardModel {
      */
     public void startPauseGameButtonClicked() {
         if(!gameBoardController.isShowPauseMenu())
-            if(getGameTimer().isRunning()){
+            if(gameBoardController.getGameTimer().isRunning()){
                 stopGame();
             }else{
                 resumeGame();

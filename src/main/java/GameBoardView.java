@@ -33,14 +33,14 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
     private static GameBoardView uniqueGameBoardView;
 
-    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController, JFrame owner){
+    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController){
         if(getUniqueGameBoardView() == null){
-            setUniqueGameBoardView(new GameBoardView(gameBoardController, owner));
+            setUniqueGameBoardView(new GameBoardView(gameBoardController));
         }
         return getUniqueGameBoardView();
     }
 
-    public GameBoardView(GameBoardController gameBoardController, JFrame owner){
+    public GameBoardView(GameBoardController gameBoardController){
         super();
 
         setStringDisplayLength(0);

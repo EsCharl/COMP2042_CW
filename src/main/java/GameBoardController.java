@@ -12,6 +12,8 @@ public class GameBoardController {
 
     private boolean showPauseMenu;
 
+    private Timer gameTimer;
+
     GameBoardView gameBoardView;
     GameBoardModel gameBoardModel;
     GameScore gameScore;
@@ -47,7 +49,7 @@ public class GameBoardController {
         gameScore = GameScore.singletonGameScore();
         setShowPauseMenu(false);
 
-        gameBoardView = GameBoardView.singletonGameBoardView(this, owner);
+        gameBoardView = GameBoardView.singletonGameBoardView(this);
 
         //initialize the first level
         startGame();
@@ -93,7 +95,7 @@ public class GameBoardController {
      * this method is used to set the debug console visible on the window and let the game.
      */
     public void displayDebugConsole() {
-        gameBoardModel.getGameTimer().stop();
+        getGameTimer().stop();
         getDebugConsole().setVisible(true);
     }
 
@@ -124,7 +126,7 @@ public class GameBoardController {
         getWall().nextLevel();
         gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
 
-        gameBoardModel.setGameTimer(new Timer(10, e ->{
+        gameBoardModel.gameBoardController.setGameTimer(new Timer(10, e ->{
             getWall().getMovements().entitiesMovements();
             getWall().getMovements().findImpacts();
             gameBoardModel.setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
@@ -132,22 +134,22 @@ public class GameBoardController {
                 if(getWall().ballEnd()){
                     getWall().wallReset();
                     gameBoardModel.setMessage("Game over");
-                    gameBoardModel.getGameTimer().stop();
+                    getGameTimer().stop();
                     gameScore.restartTimer();
                 }
                 getWall().positionsReset();
-                gameBoardModel.getGameTimer().stop();
+                getGameTimer().stop();
                 gameScore.pauseTimer();
             }
             else if(getWall().isDone()){
                 if(getWall().hasLevel()){
                     gameBoardModel.setMessage("Go to Next Level");
-                    gameBoardModel.getGameTimer().stop();
+                    getGameTimer().stop();
                     restartGameStatus();
                 }
                 else{
                     gameBoardModel.setMessage("ALL WALLS DESTROYED");
-                    gameBoardModel.getGameTimer().stop();
+                    getGameTimer().stop();
                 }
 
                 gameScore.pauseTimer();
@@ -186,7 +188,7 @@ public class GameBoardController {
     }
 
     public void lostFocusTriggered(){
-        gameBoardModel.getGameTimer().stop();
+        getGameTimer().stop();
 
         gameBoardModel.setMessage("Focus Lost");
         gameBoardViewUpdate();
@@ -257,5 +259,23 @@ public class GameBoardController {
         getWall().positionsReset();
         getWall().wallReset();
         getWall().nextLevel();
+    }
+
+    /**
+     * this method is used to get the gameTimer variable.
+     *
+     * @return returns a Timer datatype of gameTimer variable.
+     */
+    public Timer getGameTimer() {
+        return gameTimer;
+    }
+
+    /**
+     * this method is used to set the gameTimer variable.
+     *
+     * @param gameTimer this is the Timer datatype which will be used to set the gameTimer variable.
+     */
+    public void setGameTimer(Timer gameTimer) {
+        this.gameTimer = gameTimer;
     }
 }

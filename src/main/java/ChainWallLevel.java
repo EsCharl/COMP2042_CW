@@ -3,8 +3,7 @@ import java.awt.*;
 /**
  * this class is used to create one of the levels.
  */
-public class ChainWallLevel extends WallLevelAbstractions implements WallLevelTemplates{
-
+public class ChainWallLevel extends FullWallRowsLevels implements WallLevelTemplates{
 
     /**
      * this method is one of the template used for the wall (level). this creates a level which looks like a chessboard.

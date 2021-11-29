@@ -117,12 +117,12 @@ public class Wall {
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
         LevelFactory levelFactory = new LevelFactory();
-        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.CLAY, WallLevelAbstractions.CLAY);
-        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.CLAY, WallLevelAbstractions.CEMENT);
-        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.CLAY, WallLevelAbstractions.STEEL);
-        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.STEEL, WallLevelAbstractions.CEMENT);
-        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelAbstractions.REINFORCED_STEEL, WallLevelAbstractions.STEEL);
-        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio,WallLevelAbstractions.REINFORCED_STEEL, WallLevelAbstractions.STEEL);
+        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.CLAY);
+        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.CEMENT);
+        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.STEEL);
+        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.STEEL, FullWallRowsLevels.CEMENT);
+        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.REINFORCED_STEEL, FullWallRowsLevels.STEEL);
+        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.REINFORCED_STEEL, FullWallRowsLevels.STEEL);
         return tmp;
     }
 

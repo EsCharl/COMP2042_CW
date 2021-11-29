@@ -3,7 +3,7 @@ import java.awt.*;
 /**
  * this abstract class is used to call methods which are used in multiple classes.
  */
-public abstract class WallLevelAbstractions {
+public abstract class FullWallRowsLevels {
     public static final int CLAY = 1;
     public static final int STEEL = 2;
     public static final int CEMENT = 3;
