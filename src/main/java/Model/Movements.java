@@ -121,7 +121,7 @@ public class Movements {
      * @return this returns a boolean value if it touches or doesn't touch the side of the game window
      */
     private boolean impactSideBorder(){
-        return ((getGame().getBall().getCenterPosition().getX() < getGame().getBorderArea().getX()) ||(getGame().getBall().getCenterPosition().getX() > (getGame().getBorderArea().getX() + getGame().getBorderArea().getWidth())));
+        return ((getGame().getBall().getLeft().getX() < getGame().getBorderArea().getX()) ||(getGame().getBall().getRight().getX() > (getGame().getBorderArea().getX() + getGame().getBorderArea().getWidth())));
     }
 
     /**
@@ -139,7 +139,7 @@ public class Movements {
             getGame().getBall().reverseX();
         }
 
-        if(getGame().getBall().getCenterPosition().getY() < getGame().getBorderArea().getY()){
+        if(getGame().getBall().getUp().getY() < getGame().getBorderArea().getY()){
             getGame().getBall().reverseY();
         }
         else if(getGame().getBall().getCenterPosition().getY() > getGame().getBorderArea().getY() + getGame().getBorderArea().getHeight()){

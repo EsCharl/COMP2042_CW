@@ -76,9 +76,9 @@ public class ReinforcedSteelBrick extends Brick{
     }
 
     /**
-     * this method is used to get the graphic of the brick.
+     * this method is used to get the shape graphic of the brick.
      *
-     * @return the graphic of the brick
+     * @return the shape graphic of the brick
      */
     @Override
     public Shape getBrick() {

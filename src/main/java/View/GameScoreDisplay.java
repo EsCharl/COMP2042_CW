@@ -22,6 +22,7 @@ public class GameScoreDisplay {
 
         Container cp = frame.getContentPane();
         JTextPane pane = new JTextPane();
+        pane.setEditable(false);
         SimpleAttributeSet attributeSet = new SimpleAttributeSet();
         StyleConstants.setBold(attributeSet, true);
 
@@ -30,8 +31,7 @@ public class GameScoreDisplay {
         pane.setText(String.format("%-20s %s\n\n", "Name", "Time"));
 
         attributeSet = new SimpleAttributeSet();
-        StyleConstants.setForeground(attributeSet, Color.RED);
-        StyleConstants.setBackground(attributeSet, Color.GREEN);
+        setTextStyle(attributeSet,Color.RED,Color.GREEN);
 
         Document doc = pane.getStyledDocument();
         for (int i = 0 ; i < sorted.size(); i++){
@@ -44,5 +44,17 @@ public class GameScoreDisplay {
         cp.add(scrollPane, BorderLayout.CENTER);
 
         frame.setVisible(true);
+    }
+
+    /**
+     * this method is used to set the text property, namely the background color of the text and the color of the text.
+     *
+     * @param attributeSet this is the attribute set where text style is going to be set.
+     * @param foreground this is the color of the foreground of the text.
+     * @param background this is the color of the background of the text.
+     */
+    private void setTextStyle(SimpleAttributeSet attributeSet, Color foreground, Color background) {
+        StyleConstants.setForeground(attributeSet, foreground);
+        StyleConstants.setBackground(attributeSet, background);
     }
 }
