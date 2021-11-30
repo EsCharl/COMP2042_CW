@@ -31,7 +31,7 @@ public class GameBoardController {
     private DebugConsole debugConsole;
 
     private static GameBoardController uniqueGameBoardController;
-    GameScoreDisplay gameScoreDisplay;
+    private GameScoreDisplay gameScoreDisplay;
 
     /**
      * this method is used to create and return the one and only game board controller object. (singleton)
@@ -64,7 +64,7 @@ public class GameBoardController {
         setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
         getGameBoardView().setMessage("");
 
-        gameScoreDisplay = new GameScoreDisplay();
+        setGameScoreDisplay(new GameScoreDisplay());
 
         //initialize the first level
         startGame();
@@ -128,7 +128,7 @@ public class GameBoardController {
         try {
             ArrayList<String> sorted = getGameScore().getHighScore();
             getGameScore().updateSaveFile(sorted);
-            gameScoreDisplay.highScorePanel(sorted);
+            getGameScoreDisplay().highScorePanel(sorted);
         } catch (IOException | BadLocationException | URISyntaxException ex) {
             ex.printStackTrace();
         }
@@ -178,6 +178,10 @@ public class GameBoardController {
 
             getGameBoardView().updateGameBoardView();
         }));
+    }
+
+    public void changePlayer(){
+        game.setPlayerWidth(300);
     }
 
     /**
@@ -428,5 +432,13 @@ public class GameBoardController {
      */
     public static int getDEF_HEIGHT(){
         return DEF_HEIGHT;
+    }
+
+    public GameScoreDisplay getGameScoreDisplay() {
+        return gameScoreDisplay;
+    }
+
+    public void setGameScoreDisplay(GameScoreDisplay gameScoreDisplay) {
+        this.gameScoreDisplay = gameScoreDisplay;
     }
 }

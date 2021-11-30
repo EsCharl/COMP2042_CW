@@ -11,12 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Brick/ReinforcedSteelBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Movements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Movements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameScoreDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameScoreDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Movements.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Movements.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameScoreDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/GameScoreDisplay.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +60,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />

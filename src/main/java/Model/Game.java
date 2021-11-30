@@ -18,6 +18,9 @@ public class Game {
     public static final int BALL_COUNT = 3;
     private final int LEVELS_COUNT = 6;
 
+    private final int playerWidth = 150;
+    private final int playerHeight = 10;
+
     private Rectangle borderArea;
 
     private Brick[] bricks;
@@ -78,7 +81,7 @@ public class Game {
 
         movements.setRandomBallSpeed();
 
-        setPlayer(Player.singletonPlayer((Point) ballPos.clone(),150,10, drawArea));
+        setPlayer(Player.singletonPlayer((Point) ballPos.clone(), getPlayerWidth(), getPlayerHeight(), drawArea));
 
         setBorderArea(drawArea);
     }
@@ -400,5 +403,13 @@ public class Game {
      */
     public void setMovements(Movements movements) {
         this.movements = movements;
+    }
+
+    public int getPlayerWidth() {
+        return playerWidth;
+    }
+
+    public int getPlayerHeight() {
+        return playerHeight;
     }
 }
