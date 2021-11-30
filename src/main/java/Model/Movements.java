@@ -130,17 +130,40 @@ public class Movements {
     public void findImpacts(){
         if(getGame().getPlayer().impact(getGame().getBall())){
             getGame().getBall().reverseY();
+            if(getRnd().nextBoolean() && getGame().getBall().getYSpeed() > -4){
+                getGame().getBall().setYSpeed(getGame().getBall().getYSpeed()-1);
+            }
+            else if(getRnd().nextBoolean() && getGame().getBall().getYSpeed() < -1){
+                getGame().getBall().setYSpeed(getGame().getBall().getYSpeed()+1);
+            }
         }
+
         else if(impactWall()){
             getGame().setBrickCount(getGame().getBrickCount()-1);
         }
 
         if(impactSideBorder()) {
             getGame().getBall().reverseX();
+            if(getRnd().nextBoolean() && (getGame().getBall().getXSpeed() < -4 || getGame().getBall().getXSpeed() < 4) ){
+                if(getGame().getBall().getXSpeed() < 0)
+                    getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()-1);
+                else
+                    getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()+1);
+            }else if((getGame().getBall().getXSpeed() > 1 || getGame().getBall().getXSpeed() < -1) && getRnd().nextBoolean()){
+                if(getGame().getBall().getXSpeed() < -1)
+                    getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()+1);
+                else
+                    getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()-1);
+            }
         }
 
         if(getGame().getBall().getUp().getY() < getGame().getBorderArea().getY()){
             getGame().getBall().reverseY();
+
+            if(getRnd().nextBoolean() && getGame().getBall().getYSpeed() < 4)
+                getGame().getBall().setYSpeed(getGame().getBall().getYSpeed()+1);
+            else if(getRnd().nextBoolean() && getGame().getBall().getYSpeed() > 1)
+                getGame().getBall().setYSpeed(getGame().getBall().getYSpeed()-1);
         }
         else if(getGame().getBall().getCenterPosition().getY() > getGame().getBorderArea().getY() + getGame().getBorderArea().getHeight()){
             getGame().setBallCount(getGame().getBallCount() - 1);
