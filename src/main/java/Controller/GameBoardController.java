@@ -8,6 +8,7 @@ import View.GameScoreDisplay;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
-public class GameBoardController {
+public class GameBoardController implements KeyListener, MouseListener, MouseMotionListener {
 
     private final static int DEF_WIDTH = 600;
     private final static int DEF_HEIGHT = 450;
@@ -63,6 +64,10 @@ public class GameBoardController {
 
         setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
         getGameBoardView().setMessage("");
+
+        gameBoardView.addKeyListener(this);
+        gameBoardView.addMouseListener(this);
+        gameBoardView.addMouseMotionListener(this);
 
         setGameScoreDisplay(new GameScoreDisplay());
 
@@ -124,7 +129,7 @@ public class GameBoardController {
     /**
      * this method is used to save the game score.
      */
-    void saveScoreLevel() {
+    private void saveScoreLevel() {
         try {
             ArrayList<String> sorted = getGameScore().getHighScore();
             getGameScore().updateSaveFile(sorted);
@@ -137,7 +142,7 @@ public class GameBoardController {
     /**
      * this method is used to start the game.
      */
-    void startGame() {
+    private void startGame() {
         getGame().nextLevel();
         getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
 
@@ -178,10 +183,6 @@ public class GameBoardController {
 
             getGameBoardView().updateGameBoardView();
         }));
-    }
-
-    public void changePlayer(){
-        game.setPlayerWidth(300);
     }
 
     /**
@@ -440,5 +441,166 @@ public class GameBoardController {
 
     public void setGameScoreDisplay(GameScoreDisplay gameScoreDisplay) {
         this.gameScoreDisplay = gameScoreDisplay;
+    }
+
+    /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It iS activated when a key is typed from the keyboard.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+    }
+
+    /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is activated when a key is pressed from the keyboard. This is used to control the user experience for the game.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        switch(keyEvent.getKeyCode()){
+            case KeyEvent.VK_A:
+                moveLeftButtonTriggered();
+                break;
+            case KeyEvent.VK_D:
+                moveRightButtonTriggered();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                pauseButtonTriggered();
+                break;
+            case KeyEvent.VK_SPACE:
+                startPauseButtonTriggered();
+                break;
+            case KeyEvent.VK_F1:
+                if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
+                    debugConsoleButtonClicked();
+                }
+            default:
+                playerStopMoving();
+        }
+    }
+
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is pressed.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is released.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse enters a component.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse exits a component.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
+    }
+
+    /**
+     * this is initially a MouseMotionListener Interface class method, and it is being implemented. It is called when a mouse pressed on a component and dragged.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+
+    }
+
+    /**
+     * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse button is clicked. this is used to select the options that are shown during the pause menu is shown.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        if(!isShowPauseMenu())
+            return;
+        if(gameBoardView.getContinueButtonRect().contains(mouseGetPointEvent(mouseEvent))){
+            setShowPauseMenu(false);
+            gameBoardView.updateGameBoardView();
+        }
+        else if(gameBoardView.getRestartButtonRect().contains(mouseGetPointEvent(mouseEvent))){
+            restartLevelTriggered();
+        }
+        else if(gameBoardView.getExitButtonRect().contains(mouseGetPointEvent(mouseEvent))){
+            System.exit(0);
+        }
+    }
+
+    /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is called when a key is released from the keyboard. this is used to stop the paddle from moving.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+        playerStopMoving();
+    }
+
+    /**
+     * this method is used to check if the mouse is on the button.
+     *
+     * @param p this takes the event generated by the mouse.
+     * @return returns true if the mouse is on the button.
+     */
+    public boolean checkIfMouseMovedToButton(Point p){
+        return (gameBoardView.getExitButtonRect().contains(p) || gameBoardView.getRestartButtonRect().contains(p) || gameBoardView.getContinueButtonRect().contains(p));
+    }
+
+    public Point mouseGetPointEvent(MouseEvent mouseEvent){
+        return mouseEvent.getPoint();
+    }
+
+    /**
+     * this method is used to change the look of the cursor.
+     *
+     * @param Cursor the cursor state change to.
+     */
+    public void setCursorLook(Cursor Cursor) {
+        gameBoardView.setCursor(Cursor);
+    }
+
+    /**
+     * this is initially a MouseMotionListener Interface class method, and it is being implemented. It is called when a mouse moved onto a component but no buttons are pushed. In this case it will change the cursor when the mouse is on the button.
+     *
+     * @param mouseEvent this records the input from the mouse.
+     */
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+        if(gameBoardView.getExitButtonRect() != null && isShowPauseMenu()) {
+            if (checkIfMouseMovedToButton(mouseGetPointEvent(mouseEvent)))
+                setCursorLook(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            else {
+                setCursorLook(Cursor.getDefaultCursor());
+            }
+        }
+        else{
+            setCursorLook(Cursor.getDefaultCursor());
+        }
     }
 }
