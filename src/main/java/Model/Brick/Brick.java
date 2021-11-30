@@ -24,8 +24,8 @@ abstract public class Brick  {
 
     Shape brickFace;
 
-    private Color border;
-    private Color inner;
+    private Color borderColor;
+    private Color innerColor;
 
     private int maxStrength;
     private int currentStrength;
@@ -92,7 +92,7 @@ abstract public class Brick  {
      * @return returns the Color of the border of the brick.
      */
     public Color getBorderColor(){
-        return  border;
+        return borderColor;
     }
 
     /**
@@ -101,7 +101,7 @@ abstract public class Brick  {
      * @return returns the Color of the internal of the brick.
      */
     public Color getInnerColor(){
-        return inner;
+        return innerColor;
     }
 
     /**
@@ -191,7 +191,7 @@ abstract public class Brick  {
      * @param border this is the color of the border for the brick.
      */
     public void setBorderColor(Color border) {
-        this.border = border;
+        this.borderColor = border;
     }
 
     /**
@@ -200,7 +200,7 @@ abstract public class Brick  {
      * @param inner this method is used to set the inner color of the brick.
      */
     public void setInnerColor(Color inner) {
-        this.inner = inner;
+        this.innerColor = inner;
     }
 
     /**

@@ -13,13 +13,11 @@ import java.util.Random;
 /**
  * this class is used to generate the level and maintain some game condition.
  */
-public class Wall {
+public class Game {
 
     public static final int BALL_COUNT = 3;
     private final int LEVELS_COUNT = 6;
-    private final int MAX_BALL_SPEED = 5;
 
-    private Random rnd;
     private Rectangle borderArea;
 
     private Brick[] bricks;
@@ -36,7 +34,7 @@ public class Wall {
     private int ballCount;
     private boolean ballLost;
 
-    private static Wall uniqueWall;
+    private static Game uniqueGame;
 
     /**
      * this method is used to create a Model.Wall object based on the Singleton design pattern.
@@ -47,9 +45,9 @@ public class Wall {
      * @param brickDimensionRatio this is for the ratio for the brick dimension.
      * @param ballPos this is the ball position.
      */
-    public static Wall singletonWall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+    public static Game singletonWall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
         if(getUniqueWall() == null){
-            setUniqueWall(new Wall(drawArea, brickCount, lineCount, brickDimensionRatio, ballPos));
+            setUniqueWall(new Game(drawArea, brickCount, lineCount, brickDimensionRatio, ballPos));
         }
         return getUniqueWall();
     }
@@ -63,11 +61,10 @@ public class Wall {
      * @param brickDimensionRatio this is for the ratio for the brick dimension.
      * @param ballPos this is the ball position.
      */
-    private Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+    private Game(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
         setMovements(Movements.singletonMovements(this));
 
-        setRnd(new Random());
         setStartPoint(new Point(ballPos));
 
         setBrickLevels(makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio));
@@ -79,29 +76,11 @@ public class Wall {
 
         makeBall(ballPos);
 
-        setRandomBallSpeed();
+        movements.setRandomBallSpeed();
 
         setPlayer(Player.singletonPlayer((Point) ballPos.clone(),150,10, drawArea));
 
         setBorderArea(drawArea);
-    }
-
-    /**
-     * this method is used to set the random speed on both x-axis and y-axis for the ball.
-     */
-    private void setRandomBallSpeed(){
-        int speedX,speedY;
-
-        // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
-        do {
-            speedX = getRnd().nextBoolean() ? getRnd().nextInt(MAX_BALL_SPEED) : -getRnd().nextInt(MAX_BALL_SPEED);
-        } while (speedX == 0);
-
-        do{
-            speedY = -getRnd().nextInt(MAX_BALL_SPEED);
-        }while(speedY == 0);
-
-        getBall().setSpeed(speedX,speedY);
     }
 
     /**
@@ -110,7 +89,7 @@ public class Wall {
      * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
      */
     private void makeBall(Point2D ballPos){
-        ball = RubberBall.singletonRubberBall(ballPos);
+        ball = new RubberBall(ballPos);
     }
 
     /**
@@ -168,7 +147,7 @@ public class Wall {
         getPlayer().resetPosition(getStartPoint());
         getBall().moveTo(getStartPoint());
 
-        setRandomBallSpeed();
+        movements.setRandomBallSpeed();
 
         setBallLost(false);
     }
@@ -248,17 +227,17 @@ public class Wall {
      *
      * @return this returns the one and only wall object.
      */
-    private static Wall getUniqueWall() {
-        return uniqueWall;
+    private static Game getUniqueWall() {
+        return uniqueGame;
     }
 
     /**
      * this method is used to set the one and only wall object and enable it to be reused in the future. Singleton design.
      *
-     * @param uniqueWall this is the variable used to set the wall object into a variable.
+     * @param uniqueGame this is the variable used to set the wall object into a variable.
      */
-    private static void setUniqueWall(Wall uniqueWall) {
-        Wall.uniqueWall = uniqueWall;
+    private static void setUniqueWall(Game uniqueGame) {
+        Game.uniqueGame = uniqueGame;
     }
 
     /**
@@ -343,24 +322,6 @@ public class Wall {
     }
 
     /**
-     * this method is used to get a random number generator object. (used for the setting of the random ball speed).
-     *
-     * @return returns a random number generator object.
-     */
-    public Random getRnd() {
-        return rnd;
-    }
-
-    /**
-     * this is used to set the random number generator object into a variable for future uses.
-     *
-     * @param rnd this is the random object used to be setted for future use.
-     */
-    public void setRnd(Random rnd) {
-        this.rnd = rnd;
-    }
-
-    /**
      * this method is used to get the border area of the game.
      *
      * @return this returns a rectangle which is the border area in a rectangular shape.
@@ -424,7 +385,7 @@ public class Wall {
     }
 
     /**
-     * this method is used to get the movements object which handles all the entity movements.
+     * this method is used to check if a movements object which handles all the entity movements. if it is then it will return a game object (singleton design).
      *
      * @return it returns a movements object.
      */

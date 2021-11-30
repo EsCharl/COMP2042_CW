@@ -19,7 +19,7 @@ import java.io.IOException;
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final String GREETINGS = "Welcome to:";
-    private static final String GAME_TITLE = "Model.Brick.Brick Destroy";
+    private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
     private static final String START_TEXT = "Start";
     private static final String EXIT_TEXT = "Exit";

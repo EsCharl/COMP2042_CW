@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.GameBoardController;
+import View.GameScoreDisplay;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -31,6 +32,11 @@ public class GameScore {
 
     private static GameScore uniqueGameScore;
 
+    /**
+     * this method is used to create the one and only game score object based on singleton design.
+     *
+     * @return it returns the one and only game score object.
+     */
     public static GameScore singletonGameScore(){
         if(getUniqueGameScore() == null){
             setUniqueGameScore(new GameScore());
@@ -38,47 +44,13 @@ public class GameScore {
         return getUniqueGameScore();
     }
 
+    /**
+     * this constructor is to create an object and set the variable that count is used to record the time score to 0.
+     */
     private GameScore(){
         setStartTime(0);
         setTotalTime(0);
         setPauseTime(0);
-    }
-
-    /**
-     * This method creates a high score panel to show the scores after each game.
-     *
-     * @param sorted takes in the arraylist of string from getHighScore method to display on the panel.
-     * @throws BadLocationException just incase if the insertion of the string into the pop up is an error.
-     */
-    public void highScorePanel(ArrayList<String> sorted) throws BadLocationException {
-        JFrame frame=new JFrame("HIGH SCORE");
-        frame.setLayout(new FlowLayout());
-        frame.setSize(500,400);
-
-        Container cp = frame.getContentPane();
-        JTextPane pane = new JTextPane();
-        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
-        StyleConstants.setBold(attributeSet, true);
-
-        // Set the attributes before adding text
-        pane.setCharacterAttributes(attributeSet, true);
-        pane.setText(String.format("%-20s %s\n\n", "Name", "Time"));
-
-        attributeSet = new SimpleAttributeSet();
-        StyleConstants.setForeground(attributeSet, Color.RED);
-        StyleConstants.setBackground(attributeSet, Color.GREEN);
-
-        Document doc = pane.getStyledDocument();
-        for (int i = 0 ; i < sorted.size(); i++){
-            String[] list = sorted.get(i).split(",",2);
-            String name = list[0];
-            String time = list[1];
-            doc.insertString(doc.getLength(),String.format("%-20s %s\n",name, time), attributeSet);
-        }
-        JScrollPane scrollPane = new JScrollPane(pane);
-        cp.add(scrollPane, BorderLayout.CENTER);
-
-        frame.setVisible(true);
     }
 
     /**
@@ -251,10 +223,20 @@ public class GameScore {
         this.pauseTime = pauseTime;
     }
 
+    /**
+     * this method is used to check if the game score is created. if it is then it will return the game score object (singleton design).
+     *
+     * @return returns a game score object if it is present.
+     */
     public static GameScore getUniqueGameScore() {
         return uniqueGameScore;
     }
 
+    /**
+     * this method is used to set a game score object into a variable for future reference. (singleton design).
+     *
+     * @param uniqueGameScore this is the game score used to set into a variable.
+     */
     public static void setUniqueGameScore(GameScore uniqueGameScore) {
         GameScore.uniqueGameScore = uniqueGameScore;
     }

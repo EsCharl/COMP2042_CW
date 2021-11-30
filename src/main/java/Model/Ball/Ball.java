@@ -11,36 +11,36 @@ abstract public class Ball {
 
     private Shape ballFace;
 
-    private Point2D center;
+    private Point2D centerPosition;
 
-    public Point2D up;
-    public Point2D down;
-    public Point2D left;
-    public Point2D right;
+    private Point2D up;
+    private Point2D down;
+    private Point2D left;
+    private Point2D right;
 
     private Color borderBallColor;
     private Color innerBallColor;
 
-    private int speedX;
-    private int speedY;
+    private int xSpeed;
+    private int ySpeed;
 
     /**
      * this is the constructor used to create a ball object.
      *
-     * @param center this is the position where the ball is to be formed.
+     * @param centerPosition this is the position where the ball is to be formed.
      * @param diameterA this is the diameter of the ball based on x-axis
      * @param diameterB this is the diameter of the ball based on y-axis.
      * @param inner this is the Color for the inside of the ball.
      * @param border this is the Color for the border of the ball.
      */
-    public Ball(Point2D center,int diameterA,int diameterB,Color inner,Color border){
-        this.center = center;
+    public Ball(Point2D centerPosition,int diameterA,int diameterB,Color inner,Color border){
+        setCenterPosition(centerPosition);
 
         createDirectionalPoint2D();
 
         setDirectionalPoints(diameterA, diameterB);
 
-        setBallFace(makeBall(center,diameterA,diameterB));
+        setBallFace(makeBall(centerPosition,diameterA,diameterB));
         setColorOfBall(inner, border);
         setSpeed(0,0);
     }
@@ -60,10 +60,10 @@ abstract public class Ball {
      * this method is used to create the direction pointer2D objects.
      */
     private void createDirectionalPoint2D(){
-        up = new Point2D.Double();
-        down = new Point2D.Double();
-        left = new Point2D.Double();
-        right = new Point2D.Double();
+        setUp(new Point2D.Double());
+        setDown(new Point2D.Double());
+        setLeft(new Point2D.Double());
+        setRight(new Point2D.Double());
     }
 
     protected abstract Shape makeBall(Point2D center,int diameterA,int diameterB);
@@ -72,7 +72,7 @@ abstract public class Ball {
      * this method is used to move the ball.
      */
     public void move(){
-        center.setLocation((center.getX() + getSpeedX()),(center.getY() + getSpeedY()));
+        centerPosition.setLocation((centerPosition.getX() + getXSpeed()),(centerPosition.getY() + getYSpeed()));
 
         setDisplayBallFace();
 
@@ -83,7 +83,7 @@ abstract public class Ball {
      * this method is used to set the ball face graphically.
      */
     private void setDisplayBallFace(){
-        getRectangularShape().setFrame((center.getX() -(getRectangularShape().getWidth() / 2)),(center.getY() - (getRectangularShape().getHeight() / 2)),getRectangularShape().getWidth(),getRectangularShape().getHeight());
+        getRectangularShape().setFrame((centerPosition.getX() -(getRectangularShape().getWidth() / 2)),(centerPosition.getY() - (getRectangularShape().getHeight() / 2)),getRectangularShape().getWidth(),getRectangularShape().getHeight());
 
         setBallFace(getRectangularShape());
     }
@@ -105,7 +105,7 @@ abstract public class Ball {
      * @param s speed on the x-axis.
      */
     public void setXSpeed(int s){
-        this.speedX = s;
+        this.xSpeed = s;
     }
 
     /**
@@ -114,21 +114,21 @@ abstract public class Ball {
      * @param s speed on the y-axis.
      */
     public void setYSpeed(int s){
-        this.speedY = s;
+        this.ySpeed = s;
     }
 
     /**
      * this method is used to reverse the direction where the ball is going on the x-axis.
      */
     public void reverseX(){
-        setXSpeed(-this.getSpeedX());
+        setXSpeed(-this.getXSpeed());
     }
 
     /**
      * this method is used to reverse the direction where the ball is going on the y-axis.
      */
     public void reverseY(){
-        setYSpeed(-this.getSpeedY());
+        setYSpeed(-this.getYSpeed());
     }
 
     /**
@@ -154,8 +154,8 @@ abstract public class Ball {
      *
      * @return it returns a Point2D format of the position of the ball.
      */
-    public Point2D getPosition(){
-        return this.center;
+    public Point2D getCenterPosition(){
+        return this.centerPosition;
     }
 
     /**
@@ -173,7 +173,7 @@ abstract public class Ball {
      * @param p the position in Point format where the ball is going to.
      */
     public void moveTo(Point p){
-        center.setLocation(p);
+        getCenterPosition().setLocation(p);
 
         setDisplayBallFace();
     }
@@ -194,11 +194,11 @@ abstract public class Ball {
      * @param height the height of the ball.
      */
     private void setDirectionalPoints(double width,double height){
-        getUp().setLocation(center.getX(),center.getY()-(height / 2));
-        getDown().setLocation(center.getX(),center.getY()+(height / 2));
+        getUp().setLocation(getCenterPosition().getX(), getCenterPosition().getY()-(height / 2));
+        getDown().setLocation(getCenterPosition().getX(), getCenterPosition().getY()+(height / 2));
 
-        getLeft().setLocation(center.getX()-(width / 2),center.getY());
-        getRight().setLocation(center.getX()+(width / 2),center.getY());
+        getLeft().setLocation(getCenterPosition().getX()-(width / 2), getCenterPosition().getY());
+        getRight().setLocation(getCenterPosition().getX()+(width / 2), getCenterPosition().getY());
     }
 
     /**
@@ -206,8 +206,8 @@ abstract public class Ball {
      *
      * @return an integer of the speed of the ball on the x-axis.
      */
-    public int getSpeedX(){
-        return this.speedX;
+    public int getXSpeed(){
+        return this.xSpeed;
     }
 
     /**
@@ -215,8 +215,8 @@ abstract public class Ball {
      *
      * @return an integer of the speed of the ball on the y-axis.
      */
-    public int getSpeedY(){
-        return this.speedY;
+    public int getYSpeed(){
+        return this.ySpeed;
     }
 
     /**
@@ -280,5 +280,25 @@ abstract public class Ball {
      */
     public Point2D getRight() {
         return right;
+    }
+
+    public void setUp(Point2D up) {
+        this.up = up;
+    }
+
+    public void setDown(Point2D down) {
+        this.down = down;
+    }
+
+    public void setLeft(Point2D left) {
+        this.left = left;
+    }
+
+    public void setRight(Point2D right) {
+        this.right = right;
+    }
+
+    public void setCenterPosition(Point2D centerPosition) {
+        this.centerPosition = centerPosition;
     }
 }

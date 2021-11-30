@@ -74,7 +74,7 @@ public class Player {
      * @return returns true if the ball comes in contact with the paddle, false if it doesn't
      */
     public boolean impact(Ball b){
-        return playerFace.contains(b.getPosition()) && playerFace.contains(b.down) ;
+        return playerFace.contains(b.getCenterPosition()) && playerFace.contains(b.getDown()) ;
     }
 
     /**

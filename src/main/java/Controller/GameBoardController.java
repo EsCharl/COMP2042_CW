@@ -1,8 +1,9 @@
 package Controller;
 
 import Model.GameScore;
-import Model.Wall;
+import Model.Game;
 import View.GameBoardView;
+import View.GameScoreDisplay;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -16,20 +17,21 @@ import java.util.ArrayList;
  */
 public class GameBoardController {
 
-    public final static int DEF_WIDTH = 600;
-    public final static int DEF_HEIGHT = 450;
+    private final static int DEF_WIDTH = 600;
+    private final static int DEF_HEIGHT = 450;
 
     private boolean showPauseMenu;
     private boolean canGetTime;
 
     private Timer gameTimer;
 
-    GameBoardView gameBoardView;
-    GameScore gameScore;
-    private Wall wall;
+    private GameBoardView gameBoardView;
+    private GameScore gameScore;
+    private Game game;
     private DebugConsole debugConsole;
 
     private static GameBoardController uniqueGameBoardController;
+    GameScoreDisplay gameScoreDisplay;
 
     /**
      * this method is used to create and return the one and only game board controller object. (singleton)
@@ -38,7 +40,7 @@ public class GameBoardController {
      */
     public static GameBoardController singletonGameBoardController(JFrame owner){
         if(getUniqueGameBoardController() == null){
-            setUniqueGameBoard(new GameBoardController(owner));
+            setUniqueGameBoardController(new GameBoardController(owner));
         }
         return getUniqueGameBoardController();
     }
@@ -52,15 +54,17 @@ public class GameBoardController {
 
         setCanGetTime(false);
 
-        setWall(Wall.singletonWall(new Rectangle(0,0, DEF_WIDTH, DEF_HEIGHT),30,3,6/2,new Point(300,430)));
+        setGame(Game.singletonWall(new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT()),30,3,6/2,new Point(300,430)));
 
-        setDebugConsole(DebugConsole.singletonDebugConsole(owner, getWall()));
+        setDebugConsole(DebugConsole.singletonDebugConsole(owner, getGame()));
 
-        gameScore = GameScore.singletonGameScore();
+        setGameScore(GameScore.singletonGameScore());
         setShowPauseMenu(false);
 
-        gameBoardView = GameBoardView.singletonGameBoardView(this, getWall());
-        gameBoardView.setMessage("");
+        setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
+        getGameBoardView().setMessage("");
+
+        gameScoreDisplay = new GameScoreDisplay();
 
         //initialize the first level
         startGame();
@@ -89,7 +93,7 @@ public class GameBoardController {
      *
      * @return returns the GameBoard Object.
      */
-    private static GameBoardController getUniqueGameBoardController() {
+    public static GameBoardController getUniqueGameBoardController() {
         return uniqueGameBoardController;
     }
 
@@ -98,7 +102,7 @@ public class GameBoardController {
      *
      * @param uniqueGameBoardController this is the GameBoard object used to set the uniqueGameBoard variable.
      */
-    private static void setUniqueGameBoard(GameBoardController uniqueGameBoardController) {
+    public static void setUniqueGameBoardController(GameBoardController uniqueGameBoardController) {
         GameBoardController.uniqueGameBoardController = uniqueGameBoardController;
     }
 
@@ -114,7 +118,7 @@ public class GameBoardController {
      * this method is used to stop the player movement.
      */
     public void playerStopMoving() {
-        getWall().getPlayer().stop();
+        getGame().getPlayer().stop();
     }
 
     /**
@@ -122,9 +126,9 @@ public class GameBoardController {
      */
     void saveScoreLevel() {
         try {
-            ArrayList<String> sorted = gameScore.getHighScore();
-            gameScore.updateSaveFile(sorted);
-            gameScore.highScorePanel(sorted);
+            ArrayList<String> sorted = getGameScore().getHighScore();
+            getGameScore().updateSaveFile(sorted);
+            gameScoreDisplay.highScorePanel(sorted);
         } catch (IOException | BadLocationException | URISyntaxException ex) {
             ex.printStackTrace();
         }
@@ -134,45 +138,45 @@ public class GameBoardController {
      * this method is used to start the game.
      */
     void startGame() {
-        getWall().nextLevel();
-        gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
+        getGame().nextLevel();
+        getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
 
         setGameTimer(new Timer(10, e ->{
-            getWall().getMovements().entitiesMovements();
-            getWall().getMovements().findImpacts();
-            gameBoardView.setMessage(String.format("Bricks: %d Balls %d", getWall().getBrickCount(), getWall().getBallCount()));
-            if(getWall().isBallLost()){
-                if(getWall().ballEnd()){
-                    getWall().wallReset();
-                    gameBoardView.setMessage("Game over");
+            getGame().getMovements().entitiesMovements();
+            getGame().getMovements().findImpacts();
+            getGameBoardView().setMessage(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getBallCount()));
+            if(getGame().isBallLost()){
+                if(getGame().ballEnd()){
+                    getGame().wallReset();
+                    getGameBoardView().setMessage("Game over");
                     getGameTimer().stop();
-                    gameScore.restartTimer();
+                    getGameScore().restartTimer();
                 }
-                getWall().positionsReset();
+                getGame().positionsReset();
                 getGameTimer().stop();
-                gameScore.pauseTimer();
+                getGameScore().pauseTimer();
             }
-            else if(getWall().isDone()){
-                if(getWall().hasLevel()){
-                    gameBoardView.setMessage("Go to Next Level");
+            else if(getGame().isDone()){
+                if(getGame().hasLevel()){
+                    getGameBoardView().setMessage("Go to Next Level");
                     getGameTimer().stop();
                     restartGameStatus();
                 }
                 else{
-                    gameBoardView.setMessage("ALL WALLS DESTROYED");
+                    getGameBoardView().setMessage("ALL WALLS DESTROYED");
                     getGameTimer().stop();
                 }
 
-                gameScore.pauseTimer();
+                getGameScore().pauseTimer();
 
                 //for save file saving and high score pop up
                 saveScoreLevel();
 
-                gameScore.restartTimer();
+                getGameScore().restartTimer();
             }
-            gameScore.setLevelFilePathName("/scores/Level"+ getWall().getCurrentLevel()+".txt");
+            getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
 
-            gameBoardView.updateGameBoardView();
+            getGameBoardView().updateGameBoardView();
         }));
     }
 
@@ -181,53 +185,68 @@ public class GameBoardController {
      *
      * @return returns a Model.Wall datatype of wall variable.
      */
-    public Wall getWall() {
-        return wall;
+    public Game getGame() {
+        return game;
     }
 
     /**
      * this method is used to set the wall variable
      *
-     * @param wall this is the Model.Wall datatype which will be used to set the wall variable.
+     * @param game this is the Model.Wall datatype which will be used to set the wall variable.
      */
-    public void setWall(Wall wall) {
-        this.wall = wall;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
+    /**
+     * this method is used when the user tabbed out or proceeds to a new level.
+     */
     public void lostFocusTriggered(){
         getGameTimer().stop();
 
-        gameBoardView.setMessage("Focus Lost");
-        gameBoardView.updateGameBoardView();
+        getGameBoardView().setMessage("Focus Lost");
+        getGameBoardView().updateGameBoardView();
 
         if(isCanGetTime()){
             pauseGame();
         }
     }
 
+    /**
+     * this method is used when the user selects restart option in the pause menu.
+     */
     public void restartLevelTriggered(){
-        gameBoardView.setMessage("Restarting Game...");
-        gameScore.restartTimer();
-        getWall().positionsReset();
-        getWall().wallReset();
+        getGameBoardView().setMessage("Restarting Game...");
+        getGameScore().restartTimer();
+        getGame().positionsReset();
+        getGame().wallReset();
         setShowPauseMenu(false);
-        gameBoardView.updateGameBoardView();
+        getGameBoardView().updateGameBoardView();
     }
 
+    /**
+     * this method is used when the user used the move left button (A) during the gameplay to move left.
+     */
     public void moveLeftButtonTriggered(){
         playerMoveLeft();
     }
 
+    /**
+     * this method is used when the user used the move right button (D) during the gameplay to move right.
+     */
     public void moveRightButtonTriggered(){
         playerMoveRight();
     }
 
+    /**
+     * this method is used when the pause button (esc) is pressed during the gameplay.
+     */
     public void pauseButtonTriggered(){
         pauseMenuButtonClicked();
     }
 
     /**
-     * this method is used to create the
+     * this method is used to show a debug console when the button (Alt + Shift + F1) is clicked.
      */
     public void debugConsoleButtonClicked() {
         setShowPauseMenu(true);
@@ -259,9 +278,9 @@ public class GameBoardController {
      * this method is used to restart the game status.
      */
     public void restartGameStatus() {
-        getWall().positionsReset();
-        getWall().wallReset();
-        getWall().nextLevel();
+        getGame().positionsReset();
+        getGame().wallReset();
+        getGame().nextLevel();
     }
 
     /**
@@ -299,7 +318,7 @@ public class GameBoardController {
      */
     public void pauseMenuButtonClicked() {
         setShowPauseMenu(!isShowPauseMenu());
-        gameBoardView.updateGameBoardView();
+        getGameBoardView().updateGameBoardView();
         if (getGameTimer().isRunning()){
             stopGame();
         }
@@ -309,21 +328,21 @@ public class GameBoardController {
      * this method is used to move the player to the left.
      */
     public void playerMoveLeft() {
-        getWall().getPlayer().moveLeft();
+        getGame().getPlayer().moveLeft();
     }
 
     /**
      * this method is used to move the player to the right.
      */
     public void playerMoveRight() {
-        getWall().getPlayer().movRight();
+        getGame().getPlayer().movRight();
     }
 
     /**
      * this method is used to pause the game that is using the space button.
      */
     public void pauseGame() {
-        gameScore.pauseTimer();
+        getGameScore().pauseTimer();
         setCanGetTime(false);
     }
 
@@ -331,7 +350,7 @@ public class GameBoardController {
      * this method is used to resume the game.
      */
     public void resumeGame() {
-        gameScore.startTimer();
+        getGameScore().startTimer();
         getGameTimer().start();
         setCanGetTime(true);
     }
@@ -362,4 +381,52 @@ public class GameBoardController {
         this.canGetTime = canGetTime;
     }
 
+    public GameBoardView getGameBoardView() {
+        return gameBoardView;
+    }
+
+    /**
+     * this method is used to set a game board view into a variable for future reference.
+     *
+     * @param gameBoardView this returns a game board view object.
+     */
+    public void setGameBoardView(GameBoardView gameBoardView) {
+        this.gameBoardView = gameBoardView;
+    }
+
+    /**
+     * this method is used to get a game score object which is used for getting the game score and saving it.
+     *
+     * @return this returns a game score object.
+     */
+    public GameScore getGameScore() {
+        return gameScore;
+    }
+
+    /**
+     * this method is used to set a game score object into a variable for future reference.
+     *
+     * @param gameScore this is the game score object used to set into a variable.
+     */
+    public void setGameScore(GameScore gameScore) {
+        this.gameScore = gameScore;
+    }
+
+    /**
+     * this method is used to get the definite width of the game board and the wall level width generation.
+     *
+     * @return it returns an integer to be used for the width of the game board and wall level.
+     */
+    public static int getDEF_WIDTH(){
+        return DEF_WIDTH;
+    }
+
+    /**
+     * this method is used to get the definite height of the game board and the wall level height generation
+     *
+     * @return it returns an integer to be used for the height of the game board and wall level.
+     */
+    public static int getDEF_HEIGHT(){
+        return DEF_HEIGHT;
+    }
 }

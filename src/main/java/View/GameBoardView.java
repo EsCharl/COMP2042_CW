@@ -4,7 +4,7 @@ import Controller.GameBoardController;
 import Model.Ball.Ball;
 import Model.Brick.Brick;
 import Model.Player;
-import Model.Wall;
+import Model.Game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ import java.awt.font.FontRenderContext;
  */
 public class GameBoardView extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
 
-    private final int TEXT_SIZE = 30;
+    private final int PAUSE_MENU_TEXT_SIZE = 30;
 
     private final String CONTINUE_TEXT = "Continue";
     private final String RESTART_TEXT = "Restart";
@@ -29,33 +29,34 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
     private String message;
 
-    GameBoardController gameBoardController;
-    Wall wall;
+    private GameBoardController gameBoardController;
+    private Game game;
 
     private Font menuFont;
 
-    private static final Color BG_COLOR = Color.WHITE;
-    private static final Color MENU_COLOR = new Color(0,255,0);
+    private final Color GAMEBOARD_BACKGROUND_COLOR = Color.WHITE;
+    private final Color PAUSE_MENU_STRING_COLOR = new Color(0,255,0);
+    private final Color GAMEBOARD_STRING_COLOR = Color.BLUE;
 
     private int stringDisplayLength;
 
     private static GameBoardView uniqueGameBoardView;
 
-    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController, Wall wall){
+    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController, Game game){
         if(getUniqueGameBoardView() == null){
-            setUniqueGameBoardView(new GameBoardView(gameBoardController, wall));
+            setUniqueGameBoardView(new GameBoardView(gameBoardController, game));
         }
         return getUniqueGameBoardView();
     }
 
-    public GameBoardView(GameBoardController gameBoardController, Wall wall){
+    public GameBoardView(GameBoardController gameBoardController, Game game){
         super();
 
         setStringDisplayLength(0);
 
-        this.wall = wall;
+        setGame(game);
 
-        setPreferredSize(new Dimension(GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT));
+        setPreferredSize(new Dimension(GameBoardController.getDEF_WIDTH(), GameBoardController.getDEF_HEIGHT()));
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(this);
@@ -64,7 +65,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
         setGameBoardController(gameBoardController);
 
-        setMenuFont(new Font("Monospaced",Font.PLAIN,TEXT_SIZE));
+        setMenuFont(new Font("Monospaced",Font.PLAIN, getPAUSE_MENU_TEXT_SIZE()));
     }
 
     /**
@@ -81,7 +82,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         g2d.setComposite(ac);
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0,0, GameBoardController.DEF_WIDTH, GameBoardController.DEF_HEIGHT);
+        g2d.fillRect(0,0, GameBoardController.getDEF_WIDTH(), GameBoardController.getDEF_HEIGHT());
 
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
@@ -94,7 +95,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
      */
     void clear(Graphics2D g2d){
         Color tmp = g2d.getColor();
-        g2d.setColor(BG_COLOR);
+        g2d.setColor(getGAMEBOARD_BACKGROUND_COLOR());
         g2d.fillRect(0,0, getWidth(), getHeight());
         g2d.setColor(tmp);
     }
@@ -159,24 +160,24 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
      *
      * @param g2d this is the object to draw the pause menu.
      */
-    void drawPauseMenu(Graphics2D g2d){
+    void drawPauseMenuContents(Graphics2D g2d){
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
 
 
         g2d.setFont(getMenuFont());
-        g2d.setColor(MENU_COLOR);
+        g2d.setColor(getPAUSE_MENU_STRING_COLOR());
 
         if(getStringDisplayLength() == 0){
             FontRenderContext frc = g2d.getFontRenderContext();
-            setStringDisplayLength(getMenuFont().getStringBounds(PAUSE_TEXT,frc).getBounds().width);
+            setStringDisplayLength(getMenuFont().getStringBounds(getPAUSE_TEXT(),frc).getBounds().width);
         }
 
         // get the position of top center.
         int x = (getWidth() - getStringDisplayLength()) / 2;
         int y = getHeight() / 10;
 
-        g2d.drawString(PAUSE_TEXT,x,y);
+        g2d.drawString(getPAUSE_TEXT(),x,y);
 
         x = getWidth() / 8;
         y = getHeight() / 4;
@@ -184,31 +185,31 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
         if(getContinueButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            setContinueButtonRect(getMenuFont().getStringBounds(CONTINUE_TEXT,frc).getBounds());
+            setContinueButtonRect(getMenuFont().getStringBounds(getCONTINUE_TEXT(),frc).getBounds());
             getContinueButtonRect().setLocation(x,y- getContinueButtonRect().height);
         }
 
-        g2d.drawString(CONTINUE_TEXT,x,y);
+        g2d.drawString(getCONTINUE_TEXT(),x,y);
 
         y *= 2;
 
         if(getRestartButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            setRestartButtonRect(getMenuFont().getStringBounds(RESTART_TEXT,frc).getBounds());
+            setRestartButtonRect(getMenuFont().getStringBounds(getRESTART_TEXT(),frc).getBounds());
             getRestartButtonRect().setLocation(x,y- getRestartButtonRect().height);
         }
 
-        g2d.drawString(RESTART_TEXT,x,y);
+        g2d.drawString(getRESTART_TEXT(),x,y);
 
         y *= 3.0/2;
 
         if(getExitButtonRect() == null){
             FontRenderContext frc = g2d.getFontRenderContext();
-            setExitButtonRect(getMenuFont().getStringBounds(EXIT_TEXT,frc).getBounds());
+            setExitButtonRect(getMenuFont().getStringBounds(getEXIT_TEXT(),frc).getBounds());
             getExitButtonRect().setLocation(x,y- getExitButtonRect().height);
         }
 
-        g2d.drawString(EXIT_TEXT,x,y);
+        g2d.drawString(getEXIT_TEXT(),x,y);
 
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);
@@ -219,9 +220,9 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
      *
      * @param g2d this is the object used to draw the menu.
      */
-    void drawMenu(Graphics2D g2d){
+    void drawPauseMenu(Graphics2D g2d){
         obscureGameBoard(g2d);
-        drawPauseMenu(g2d);
+        drawPauseMenuContents(g2d);
     }
 
     /**
@@ -323,19 +324,19 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
 
         clear(g2d);
 
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(getGAMEBOARD_STRING_COLOR());
         g2d.drawString(getMessage(),250,225);
 
-        drawBall(wall.getBall(),g2d);
+        drawBall(getGame().getBall(),g2d);
 
-        for(Brick b : wall.getBricks())
+        for(Brick b : getGame().getBricks())
             if(!b.isBroken())
                 drawBrick(b,g2d);
 
-        drawPlayer(wall.getPlayer(),g2d);
+        drawPlayer(getGame().getPlayer(),g2d);
 
         if(getGameBoardController().isShowPauseMenu())
-            drawMenu(g2d);
+            drawPauseMenu(g2d);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -499,7 +500,7 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
      */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        if(getExitButtonRect() != null && gameBoardController.isShowPauseMenu()) {
+        if(getExitButtonRect() != null && getGameBoardController().isShowPauseMenu()) {
             if (checkIfMouseMovedToButton(mouseGetPointEvent(mouseEvent)))
                 setCursorLook(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             else {
@@ -529,11 +530,11 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         this.gameBoardController = gameBoardController;
     }
 
-    private static GameBoardView getUniqueGameBoardView() {
+    public static GameBoardView getUniqueGameBoardView() {
         return uniqueGameBoardView;
     }
 
-    private static void setUniqueGameBoardView(GameBoardView uniqueGameBoardView) {
+    public static void setUniqueGameBoardView(GameBoardView uniqueGameBoardView) {
         GameBoardView.uniqueGameBoardView = uniqueGameBoardView;
     }
 
@@ -553,5 +554,85 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
      */
     public String getMessage() {
         return message;
+    }
+
+    /**
+     * this method is used to get the text size which is a constant value. This is used to set the string text sizes.
+     *
+     * @return a text size in integer which is used to set the string size.
+     */
+    public int getPAUSE_MENU_TEXT_SIZE() {
+        return PAUSE_MENU_TEXT_SIZE;
+    }
+
+    /**
+     * this method is used to get the continue text which is used to display as an option for the user to select in order to continue the game.
+     *
+     * @return this string returned is the string used to display on the pause menu screen.
+     */
+    public String getCONTINUE_TEXT() {
+        return CONTINUE_TEXT;
+    }
+
+    /**
+     * this method is used to get the restart text which is used to display as an option for the user to select in order to restart the level.
+     *
+     * @return this string returned is the string used to display on the pause menu screen.
+     */
+    public String getRESTART_TEXT() {
+        return RESTART_TEXT;
+    }
+
+    /**
+     * this method is used to get the exit text which is used to display as an option for the user to select in order to exit the game.
+     *
+     * @return this string returned is the string used to display on the pause menu screen.
+     */
+    public String getEXIT_TEXT() {
+        return EXIT_TEXT;
+    }
+
+    /**
+     * this method is used to get the pause text which is used to display on the pause menu to indicate that the user is in the pause menu state.
+     *
+     * @return this is the pause text used to display on the pause menu to indicate to the user he is in the pause menu state.
+     */
+    public String getPAUSE_TEXT() {
+        return PAUSE_TEXT;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    /**
+     * this method is used to get the color used to set into the game board background.
+     *
+     * @return this is the color used to set on the background of the game board.
+     */
+    public Color getGAMEBOARD_BACKGROUND_COLOR() {
+        return GAMEBOARD_BACKGROUND_COLOR;
+    }
+
+    /**
+     * this method is used to get the pause menu string color which is used to display the color of the string during the pause menu state.
+     *
+     * @return this is the color used to set the string text on the pause menu.
+     */
+    public Color getPAUSE_MENU_STRING_COLOR() {
+        return PAUSE_MENU_STRING_COLOR;
+    }
+
+    /**
+     * this method is used to get the string color for the gameboard to display the status of the game. namely, the ball count, brick count.
+     *
+     * @return this returns the color used to set the string color on the gameboard.
+     */
+    public Color getGAMEBOARD_STRING_COLOR() {
+        return GAMEBOARD_STRING_COLOR;
     }
 }

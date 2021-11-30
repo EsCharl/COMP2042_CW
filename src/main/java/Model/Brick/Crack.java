@@ -248,26 +248,56 @@ public class Crack{
         this.steps = steps;
     }
 
-    public int getLEFT() {
+    /**
+     * this method is used to get a constant integer value for the left direction.
+     *
+     * @return this returns a constant integer value for the left direction.
+     */
+    public static int getLEFT() {
         return LEFT;
     }
 
-    public int getRIGHT() {
+    /**
+     * this method is used to get a constant integer value for the right direction.
+     *
+     * @return this returns a constant integer value for the right direction.
+     */
+    public static int getRIGHT() {
         return RIGHT;
     }
 
-    public int getUP() {
+    /**
+     * this method is used to get a constant integer value for the up direction.
+     *
+     * @return this returns a constant integer value for the up direction.
+     */
+    public static int getUP() {
         return UP;
     }
 
-    public int getDOWN() {
+    /**
+     * this method is used to get a constant integer value for the down direction.
+     *
+     * @return this returns a constant integer value for the down direction.
+     */
+    public static int getDOWN() {
         return DOWN;
     }
 
+    /**
+     * this method is used to get a constant integer value for the vertical axis.
+     *
+     * @return this returns a constant integer value for the vertical axis.
+     */
     public int getVERTICAL() {
         return VERTICAL;
     }
 
+    /**
+     * this method is used to get a constant integer value for the horizontal axis.
+     *
+     * @return this returns a constant integer value for the horizontal axis.
+     */
     public int getHORIZONTAL() {
         return HORIZONTAL;
     }

@@ -13,8 +13,8 @@ import java.awt.event.WindowFocusListener;
 public class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
-    private final int MAIN_MENU_WIDTH = 450;
-    private final int MAIN_MENU_HEIGHT = 300;
+    private final int HOME_MENU_WIDTH = 450;
+    private final int HOME_MENU_HEIGHT = 300;
 
     private GameBoardController gameBoardController;
     private HomeMenu homeMenu;
@@ -44,8 +44,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         this.setLayout(new BorderLayout());
 
-        setGameBoard(GameBoardController.singletonGameBoardController(this));
-        setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(MAIN_MENU_WIDTH,MAIN_MENU_HEIGHT)));
+        setGameBoardController(GameBoardController.singletonGameBoardController(this));
+        setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(getHOME_MENU_WIDTH(), getHOME_MENU_HEIGHT())));
 
         this.add(getHomeMenu(),BorderLayout.CENTER);
 
@@ -71,7 +71,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void enableGameBoard(){
         this.dispose();
         this.remove(getHomeMenu());
-        this.add(getGameBoard().gameBoardView,BorderLayout.CENTER);
+        this.add(getGameBoardController().getGameBoardView(),BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
@@ -148,39 +148,88 @@ public class GameFrame extends JFrame implements WindowFocusListener {
      *
      * @return it returns a game board object.
      */
-    public GameBoardController getGameBoard() {
+    public GameBoardController getGameBoardController() {
         return gameBoardController;
     }
 
     /**
+     * this method is used to set a game board controller object into a variable for future references.
      *
-     * @param gameBoardController
+     * @param gameBoardController this is the game board controller object used to set into a variable for future references.
      */
-    public void setGameBoard(GameBoardController gameBoardController) {
+    public void setGameBoardController(GameBoardController gameBoardController) {
         this.gameBoardController = gameBoardController;
     }
 
+    /**
+     * this method is used to get the home menu object which is used to display the home menu/ main menu window.
+     *
+     * @return this is the home menu object which is returned.
+     */
     public HomeMenu getHomeMenu() {
         return homeMenu;
     }
 
+    /**
+     * this method is used to set the home menu object into a variable for future reference.
+     *
+     * @param homeMenu is the home menu object used to set into a variable for future use.
+     */
     public void setHomeMenu(HomeMenu homeMenu) {
         this.homeMenu = homeMenu;
     }
 
+    /**
+     * this method is used to set if the user is gaming or not (focused on the game).
+     *
+     * @return this is the boolean value to see if the user is focused on the game or not.
+     */
     public boolean isGaming() {
         return gaming;
     }
 
+    /**
+     * this method is used to set if the user is playing (focused on the game or not).
+     *
+     * @param gaming this is the boolean value used to set if the user is gaming or not.
+     */
     public void setGaming(boolean gaming) {
         this.gaming = gaming;
     }
 
+    /**
+     * this method is used to get the one and only game frame object. based on singleton design pattern.
+     *
+     * @return this is the one and only game frame object that is returned.
+     */
     public static GameFrame getUniqueGameFrame() {
         return uniqueGameFrame;
     }
 
+    /**
+     * this method is used to set a game frame object into a variable for future reference.
+     *
+     * @param uniqueGameFrame this is the game frame object used to set it into a variable for future reference.
+     */
     public static void setUniqueGameFrame(GameFrame uniqueGameFrame) {
         GameFrame.uniqueGameFrame = uniqueGameFrame;
+    }
+
+    /**
+     * this method is used to get the home menu window width (a constant).
+     *
+     * @return this is an integer value which is the home menu window width.
+     */
+    public int getHOME_MENU_WIDTH() {
+        return HOME_MENU_WIDTH;
+    }
+
+    /**
+     * this method is used to get the home menu window height (a constant).
+     *
+     * @return this is an integer value which is the home menu height.
+     */
+    public int getHOME_MENU_HEIGHT() {
+        return HOME_MENU_HEIGHT;
     }
 }
