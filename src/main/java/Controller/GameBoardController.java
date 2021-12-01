@@ -128,7 +128,7 @@ public class GameBoardController {
         try {
             ArrayList<String> sorted = getGameScore().getHighScore();
             getGameScore().updateSaveFile(sorted);
-            gameScoreDisplay.highScorePanel(sorted);
+            gameScoreDisplay.highScorePanel(sorted,getGameScore().getTimerString());
         } catch (IOException | BadLocationException | URISyntaxException ex) {
             ex.printStackTrace();
         }

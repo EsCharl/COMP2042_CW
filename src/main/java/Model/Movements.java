@@ -144,17 +144,18 @@ public class Movements {
 
         if(impactSideBorder()) {
             getGame().getBall().reverseX();
-            if(getRnd().nextBoolean() && (getGame().getBall().getXSpeed() < -4 || getGame().getBall().getXSpeed() < 4) ){
+            if(getRnd().nextBoolean() && (getGame().getBall().getXSpeed() > -4 && getGame().getBall().getXSpeed() < 4) ){
                 if(getGame().getBall().getXSpeed() < 0)
                     getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()-1);
                 else
                     getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()+1);
-            }else if((getGame().getBall().getXSpeed() > 1 || getGame().getBall().getXSpeed() < -1) && getRnd().nextBoolean()){
+            }else if(getRnd().nextBoolean()){
                 if(getGame().getBall().getXSpeed() < -1)
                     getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()+1);
-                else
+                else if(getGame().getBall().getXSpeed() > 1)
                     getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()-1);
             }
+            System.out.println(getGame().getBall().getXSpeed()+ "," + getGame().getBall().getYSpeed());
         }
 
         if(getGame().getBall().getUp().getY() < getGame().getBorderArea().getY()){

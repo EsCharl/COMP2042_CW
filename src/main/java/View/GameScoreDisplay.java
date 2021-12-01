@@ -15,7 +15,7 @@ public class GameScoreDisplay {
      * @param sorted takes in the arraylist of string from getHighScore method to display on the panel.
      * @throws BadLocationException just incase if the insertion of the string into the pop up is an error.
      */
-    public void highScorePanel(ArrayList<String> sorted) throws BadLocationException {
+    public void highScorePanel(ArrayList<String> sorted, String playerTime) throws BadLocationException {
         JFrame frame=new JFrame("HIGH SCORE");
         frame.setLayout(new FlowLayout());
         frame.setSize(500,400);
@@ -38,7 +38,12 @@ public class GameScoreDisplay {
             String[] list = sorted.get(i).split(",",2);
             String name = list[0];
             String time = list[1];
-            doc.insertString(doc.getLength(),String.format("%-20s %s\n",name, time), attributeSet);
+            if(playerTime.equals(time) && System.getProperty("user.name").equals(name)){
+                setTextStyle(attributeSet,Color.BLACK,Color.YELLOW);
+                doc.insertString(doc.getLength(),String.format("%-20s %s\n",name, time), attributeSet);
+                setTextStyle(attributeSet,Color.RED,Color.GREEN);
+            }else
+                 doc.insertString(doc.getLength(),String.format("%-20s %s\n",name, time), attributeSet);
         }
         JScrollPane scrollPane = new JScrollPane(pane);
         cp.add(scrollPane, BorderLayout.CENTER);
