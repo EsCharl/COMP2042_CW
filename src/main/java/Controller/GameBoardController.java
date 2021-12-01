@@ -8,6 +8,7 @@ import View.GameScoreDisplay;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
-public class GameBoardController {
+public class GameBoardController implements KeyListener {
 
     private final static int DEF_WIDTH = 600;
     private final static int DEF_HEIGHT = 450;
@@ -25,7 +26,7 @@ public class GameBoardController {
 
     private Timer gameTimer;
 
-    private GameBoardView gameBoardView;
+    public GameBoardView gameBoardView;
     private GameScore gameScore;
     private Game game;
     private DebugConsole debugConsole;
@@ -63,6 +64,8 @@ public class GameBoardController {
 
         setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
         getGameBoardView().setMessage("");
+
+        gameBoardView.addKeyListener(this);
 
         setGameScoreDisplay(new GameScoreDisplay());
 
@@ -124,7 +127,7 @@ public class GameBoardController {
     /**
      * this method is used to save the game score.
      */
-    void saveScoreLevel() {
+    private void saveScoreLevel() {
         try {
             ArrayList<String> sorted = getGameScore().getHighScore();
             getGameScore().updateSaveFile(sorted);
@@ -137,7 +140,7 @@ public class GameBoardController {
     /**
      * this method is used to start the game.
      */
-    void startGame() {
+    private void startGame() {
         getGame().nextLevel();
         getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
 
@@ -437,4 +440,53 @@ public class GameBoardController {
     public void setGameScoreDisplay(GameScoreDisplay gameScoreDisplay) {
         this.gameScoreDisplay = gameScoreDisplay;
     }
+
+    /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It iS activated when a key is typed from the keyboard.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+    }
+
+    /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is activated when a key is pressed from the keyboard. This is used to control the user experience for the game.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        switch(keyEvent.getKeyCode()){
+            case KeyEvent.VK_A:
+                moveLeftButtonTriggered();
+                break;
+            case KeyEvent.VK_D:
+                moveRightButtonTriggered();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                pauseButtonTriggered();
+                break;
+            case KeyEvent.VK_SPACE:
+                startPauseButtonTriggered();
+                break;
+            case KeyEvent.VK_F1:
+                if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
+                    debugConsoleButtonClicked();
+                }
+            default:
+                playerStopMoving();
+        }
+    }
+
+    /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is called when a key is released from the keyboard. this is used to stop the paddle from moving.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+        playerStopMoving();
+    }
+
 }

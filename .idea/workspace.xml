@@ -17,7 +17,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Brick/Crack.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" afxterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/DebugConsoleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Controller/DebugConsoleTest.class" afterDir="false" />
     </list>
