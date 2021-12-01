@@ -282,22 +282,47 @@ abstract public class Ball {
         return right;
     }
 
+    /**
+     * this method is used to set the up position of the ball into a variable.
+     *
+     * @param up this is the Point2D value used to set into the variable.
+     */
     public void setUp(Point2D up) {
         this.up = up;
     }
 
+    /**
+     * this method is used to set the down position of the ball into a variable.
+     *
+     * @param down this is the Point2D value used to set into the variable.
+     */
     public void setDown(Point2D down) {
         this.down = down;
     }
 
+    /**
+     * this method is used to set the left position of the ball into a variable.
+     *
+     * @param left this is the Point2D value used to set into the variable.
+     */
     public void setLeft(Point2D left) {
         this.left = left;
     }
 
+    /**
+     * this method is used to set the right position of the ball into a variable.
+     *
+     * @param right this is the Point2D value used to set into the variable.
+     */
     public void setRight(Point2D right) {
         this.right = right;
     }
 
+    /**
+     * thie method is used to set the center position of the ball into a variable.
+     *
+     * @param centerPosition this is the Point2D value used to set into the variable.
+     */
     public void setCenterPosition(Point2D centerPosition) {
         this.centerPosition = centerPosition;
     }

@@ -15,15 +15,15 @@ public class Crack{
     public static final int UP = 30;
     public static final int DOWN = 40;
 
-    private int VERTICAL = 100;
-    private int HORIZONTAL = 200;
+    private final int VERTICAL = 100;
+    private final int HORIZONTAL = 200;
 
     private GeneralPath crackPath;
 
     private int crackDepth;
     private int steps;
 
-    private static Random rnd = new Random();
+    private final static Random rnd = new Random();
 
     /**
      * this is the constructor used to create the crack object.
@@ -103,7 +103,7 @@ public class Crack{
      * @return it returns a random position between Point1 and Point2
      */
     private Point getEndRandomPointHorizontal(Point oppositeOfCollisionCornerPoint1, Point oppositeOfCollisionCornerPoint2){
-        return makeRandomPointBetween(oppositeOfCollisionCornerPoint1,oppositeOfCollisionCornerPoint2,HORIZONTAL);
+        return makeRandomPointBetween(oppositeOfCollisionCornerPoint1,oppositeOfCollisionCornerPoint2,getHORIZONTAL());
     }
 
     /**
@@ -114,7 +114,7 @@ public class Crack{
      * @return it returns a random position between Point1 and Point2
      */
     private Point getEndRandomPointVertical(Point oppositeOfCollisionCornerPoint1, Point oppositeOfCollisionCornerPoint2){
-        return makeRandomPointBetween(oppositeOfCollisionCornerPoint1,oppositeOfCollisionCornerPoint2,VERTICAL);
+        return makeRandomPointBetween(oppositeOfCollisionCornerPoint1,oppositeOfCollisionCornerPoint2,getVERTICAL());
     }
 
     /**

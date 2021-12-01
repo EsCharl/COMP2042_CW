@@ -75,7 +75,8 @@ public class GameScore {
      * this method is used to get the scores from the save file and the player score (in terms of time) and rank them.
      *
      * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
-     * @throws FileNotFoundException just in case if the save file is missing.
+     * @throws IOException this is an exception used when there is a problem with the input and output file.
+     * @throws URISyntaxException this exception is used to check if there is a problem in the string could not be parsed as URI reference.
      */
     public ArrayList<String> getHighScore() throws IOException, URISyntaxException {
 
@@ -100,10 +101,8 @@ public class GameScore {
             if ((getTotalTime() < total_millisecond) && !placed){
                 Completed.add(System.getProperty("user.name") + ',' + getTimerString());
                 placed = true;
-                Completed.add(name + ',' + time);
-            }else{
-                Completed.add(name + ',' + time);
             }
+            Completed.add(name + ',' + time);
         }
         if(!placed){
             Completed.add(System.getProperty("user.name") + ',' + getTimerString());
