@@ -234,7 +234,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is used by the View.DebugPanel class to skip the level which will restart the timer and generate the next level.
+     * this is used by the View.DebugPanel class to skip the level which will restart the timer and show the next level.
      */
     public void skipLevelTriggered(){
         getGameScore().restartTimer();

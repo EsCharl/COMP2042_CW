@@ -11,12 +11,18 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/Movements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Movements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameScoreDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameScoreDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Movements.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Movements.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameScoreDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/GameScoreDisplay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -93,10 +99,12 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="Controller" />
+      <recent name="Model" />
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GraphicsMain">
+  <component name="RunManager" selected="JUnit.DebugConsoleTest.resetBallCountTriggered">
     <configuration name="GraphicsMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GraphicsMain" />
       <module name="COMP2042_CW" />
@@ -104,18 +112,83 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="COMP2042_CW-1.0-SNAPSHOT.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" />
-      <method v="2" />
+    <configuration name="DebugConsoleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Controller" />
+      <option name="MAIN_CLASS_NAME" value="Controller.DebugConsoleTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DebugConsoleTest.resetBallCountTriggered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Controller" />
+      <option name="MAIN_CLASS_NAME" value="Controller.DebugConsoleTest" />
+      <option name="METHOD_NAME" value="resetBallCountTriggered" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameTest.nextLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.GameTest" />
+      <option name="METHOD_NAME" value="nextLevel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameTest.positionsReset" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.GameTest" />
+      <option name="METHOD_NAME" value="positionsReset" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.GameTest.positionsReset" />
+      <item itemvalue="JUnit.GameTest.nextLevel" />
       <item itemvalue="Application.GraphicsMain" />
-      <item itemvalue="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar" />
+      <item itemvalue="JUnit.DebugConsoleTest" />
+      <item itemvalue="JUnit.DebugConsoleTest.resetBallCountTriggered" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DebugConsoleTest.resetBallCountTriggered" />
+        <item itemvalue="JUnit.DebugConsoleTest" />
         <item itemvalue="Application.GraphicsMain" />
-        <item itemvalue="JAR Application.COMP2042_CW-1.0-SNAPSHOT.jar" />
+        <item itemvalue="JUnit.GameTest.positionsReset" />
+        <item itemvalue="JUnit.GameTest.nextLevel" />
       </list>
     </recent_temporary>
   </component>

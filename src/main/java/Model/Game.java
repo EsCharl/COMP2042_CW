@@ -8,15 +8,16 @@ import Model.Levels.LevelFactory;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.Random;
 
 /**
  * this class is used to generate the level and maintain some game condition.
  */
 public class Game {
 
-    public static final int BALL_COUNT = 3;
-    private final int LEVELS_COUNT = 6;
+    private final int MAX_BALL_COUNT = 3;
+    private final int LEVELS_AMOUNT = 6;
+    private final int PLAYER_WIDTH = 150;
+    private final int PLAYER_HEIGHT = 10;
 
     private Rectangle borderArea;
 
@@ -45,11 +46,11 @@ public class Game {
      * @param brickDimensionRatio this is for the ratio for the brick dimension.
      * @param ballPos this is the ball position.
      */
-    public static Game singletonWall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
-        if(getUniqueWall() == null){
-            setUniqueWall(new Game(drawArea, brickCount, lineCount, brickDimensionRatio, ballPos));
+    public static Game singletonGame(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+        if(getUniqueGame() == null){
+            setUniqueGame(new Game(drawArea, brickCount, lineCount, brickDimensionRatio, ballPos));
         }
-        return getUniqueWall();
+        return getUniqueGame();
     }
 
     /**
@@ -71,14 +72,14 @@ public class Game {
 
         setCurrentLevel(0);
 
-        setBallCount(BALL_COUNT);
+        setBallCount(getMAX_BALL_COUNT());
         setBallLost(false);
 
         makeBall(ballPos);
 
-        movements.setRandomBallSpeed();
+        getMovements().setRandomBallSpeed();
 
-        setPlayer(Player.singletonPlayer((Point) ballPos.clone(),150,10, drawArea));
+        setPlayer(Player.singletonPlayer((Point) ballPos.clone(),getPLAYER_WIDTH(),getPLAYER_HEIGHT(), drawArea));
 
         setBorderArea(drawArea);
     }
@@ -102,7 +103,7 @@ public class Game {
      * @return the levels that are generated in the form of 2 dimension brick array.
      */
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
-        Brick[][] tmp = new Brick[LEVELS_COUNT][];
+        Brick[][] tmp = new Brick[getLEVELS_AMOUNT()][];
         LevelFactory levelFactory = new LevelFactory();
         tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.CLAY);
         tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.CEMENT);
@@ -147,7 +148,7 @@ public class Game {
         getPlayer().resetPosition(getStartPoint());
         getBall().moveTo(getStartPoint());
 
-        movements.setRandomBallSpeed();
+        getMovements().setRandomBallSpeed();
 
         setBallLost(false);
     }
@@ -159,7 +160,7 @@ public class Game {
         for(Brick b : getBricks())
             b.repair();
         setBrickCount(getBricks().length);
-        setBallCount(BALL_COUNT);
+        setBallCount(getMAX_BALL_COUNT());
     }
 
     /**
@@ -167,7 +168,7 @@ public class Game {
      *
      * @return returns a boolean value if there is or isn't any more tries allowed for the player.
      */
-    public boolean ballEnd(){
+    public boolean isGameOver(){
         return getBallCount() == 0;
     }
 
@@ -176,7 +177,7 @@ public class Game {
      *
      * @return returns a boolean value if the level is completed or isn't completed.
      */
-    public boolean isDone(){
+    public boolean isLevelComplete(){
         return getBrickCount() == 0;
     }
 
@@ -219,7 +220,7 @@ public class Game {
      * this method is used to reset the ball count (tries count) to 3.
      */
     public void resetBallCount(){
-        setBallCount(BALL_COUNT);
+        setBallCount(getMAX_BALL_COUNT());
     }
 
     /**
@@ -227,7 +228,7 @@ public class Game {
      *
      * @return this returns the one and only wall object.
      */
-    private static Game getUniqueWall() {
+    private static Game getUniqueGame() {
         return uniqueGame;
     }
 
@@ -236,7 +237,7 @@ public class Game {
      *
      * @param uniqueGame this is the variable used to set the wall object into a variable.
      */
-    private static void setUniqueWall(Game uniqueGame) {
+    private static void setUniqueGame(Game uniqueGame) {
         Game.uniqueGame = uniqueGame;
     }
 
@@ -400,5 +401,50 @@ public class Game {
      */
     public void setMovements(Movements movements) {
         this.movements = movements;
+    }
+
+    /**
+     * this method is used to get the levels that are going to be created.
+     *
+     * @return this is the value of the level amount
+     */
+    public int getLEVELS_AMOUNT() {
+        return LEVELS_AMOUNT;
+    }
+
+    /**
+     * this method is used to get the maximum ball count (bries) for each level.
+     *
+     * @return this returns the maximum tries that is allowed for each level.
+     */
+    public int getMAX_BALL_COUNT() {
+        return MAX_BALL_COUNT;
+    }
+
+    /**
+     * this method is used to get the player width. which is used to determine the width of the paddle.
+     *
+     * @return this is the integer value which is used to determine the width of the paddle (player).
+     */
+    public int getPLAYER_WIDTH() {
+        return PLAYER_WIDTH;
+    }
+
+    /**
+     * this method is used to get the player height. which is used to determine the height of the paddle.
+     *
+     * @return this is the integer value which is used to determine the height of the paddle (player).
+     */
+    public int getPLAYER_HEIGHT() {
+        return PLAYER_HEIGHT;
+    }
+
+    /**
+     * this method is used to set the ball object into a variable for future reference.
+     *
+     * @param ball this is the ball object used to be set into a variable.
+     */
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 }

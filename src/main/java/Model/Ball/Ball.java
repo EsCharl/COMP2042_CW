@@ -72,7 +72,7 @@ abstract public class Ball {
      * this method is used to move the ball.
      */
     public void move(){
-        centerPosition.setLocation((centerPosition.getX() + getXSpeed()),(centerPosition.getY() + getYSpeed()));
+        getCenterPosition().setLocation((getCenterPosition().getX() + getXSpeed()),(getCenterPosition().getY() + getYSpeed()));
 
         setDisplayBallFace();
 
@@ -83,7 +83,7 @@ abstract public class Ball {
      * this method is used to set the ball face graphically.
      */
     private void setDisplayBallFace(){
-        getRectangularShape().setFrame((centerPosition.getX() -(getRectangularShape().getWidth() / 2)),(centerPosition.getY() - (getRectangularShape().getHeight() / 2)),getRectangularShape().getWidth(),getRectangularShape().getHeight());
+        getRectangularShape().setFrame((getCenterPosition().getX() -(getRectangularShape().getWidth() / 2)),(getCenterPosition().getY() - (getRectangularShape().getHeight() / 2)),getRectangularShape().getWidth(),getRectangularShape().getHeight());
 
         setBallFace(getRectangularShape());
     }

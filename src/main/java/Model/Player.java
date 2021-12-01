@@ -10,16 +10,16 @@ import java.awt.*;
 public class Player {
 
 
-    public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
-    public static final Color INNER_COLOR = Color.GREEN;
+    private final Color BORDER_COLOR = Color.GREEN.darker().darker();
+    private final Color INNER_COLOR = Color.GREEN;
 
-    private static final int DEF_MOVE_AMOUNT = 5;
+    private final int DEF_MOVE_AMOUNT = 5;
 
     private Rectangle playerFace;
-    private Point ballPoint;
+    private Point playerCenterPosition;
     private int moveAmount;
-    private int min;
-    private int max;
+    private int lowestXCoordinate;
+    private int largestXCoordinate;
 
     private static Player uniquePlayer;
 
@@ -33,17 +33,17 @@ public class Player {
     /**
      * this method is used to create a player object.
      *
-     * @param ballPoint this is the position of the ball.
+     * @param playerCenterPosition this is the position of the ball.
      * @param width this is the width of the paddle which the user will be controlling.
      * @param height this will the height of the paddle which the user will be controlling.
-     * @param container this is the information of the rectangle which will be used to be created.
+     * @param playerRectangle this is the information of the rectangle which will be used to be created.
      */
-    private Player(Point ballPoint,int width,int height,Rectangle container) {
-        this.ballPoint = ballPoint;
-        moveAmount = 0;
-        playerFace = makeRectangle(width, height);
-        min = container.x + (width / 2);
-        max = min + container.width - width;
+    private Player(Point playerCenterPosition, int width, int height, Rectangle playerRectangle) {
+        setPlayerCenterPosition(playerCenterPosition);
+        setMoveAmount(0);
+        setPlayerFace(makeRectangle(width, height));
+        setLowestXCoordinate(playerRectangle.x + (width / 2));
+        setLargestXCoordinate(getLowestXCoordinate() + playerRectangle.width - width);
     }
 
     /**
@@ -64,7 +64,7 @@ public class Player {
      * @return it returns a point where the paddle is to be created.
      */
     private Point createRectanglePoint(int width){
-        return new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
+        return new Point((int)(getPlayerCenterPosition().getX() - (width / 2)),(int) getPlayerCenterPosition().getY());
     }
 
     /**
@@ -74,47 +74,47 @@ public class Player {
      * @return returns true if the ball comes in contact with the paddle, false if it doesn't
      */
     public boolean impact(Ball b){
-        return playerFace.contains(b.getCenterPosition()) && playerFace.contains(b.getDown()) ;
+        return getPlayerFace().contains(b.getCenterPosition()) && getPlayerFace().contains(b.getDown()) ;
     }
 
     /**
      * this method is used to move the paddle (player).
      */
     public void move(){
-        if(moveToX() < min || moveToX() > max)
+        if(moveToX() < getLowestXCoordinate() || moveToX() > getLargestXCoordinate())
             return;
-        ballPoint.setLocation(moveToX(),ballPoint.getY());
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        getPlayerCenterPosition().setLocation(moveToX(), getPlayerCenterPosition().getY());
+        getPlayerFace().setLocation(getPlayerCenterPosition().x - (int)getPlayerFace().getWidth()/2, getPlayerCenterPosition().y);
     }
 
     /**
-     * this method is used to get the supposing final position in the X-axis.
+     * this method is used to get the supposing final position for the player in the X-axis.
      *
      * @return it returns the location where the paddle is supposed to go.
      */
     private double moveToX(){
-        return ballPoint.getX() + moveAmount;
+        return getPlayerCenterPosition().getX() + getMoveAmount();
     }
 
     /**
      * this method is used to set the move amount to the left direction which will be used to move the paddle.
      */
     public void moveLeft(){
-        moveAmount = -DEF_MOVE_AMOUNT;
+        setMoveAmount(-getDEF_MOVE_AMOUNT());
     }
 
     /**
      * this method is used to set the move amount to the right direction which will be used to mve the paddle.
      */
     public void movRight(){
-        moveAmount = DEF_MOVE_AMOUNT;
+        setMoveAmount(getDEF_MOVE_AMOUNT());
     }
 
     /**
      * this method is used to stop the movement of the paddle by setting the move amount to 0.
      */
     public void stop(){
-        moveAmount = 0;
+        setMoveAmount(0);
     }
 
     /**
@@ -122,7 +122,7 @@ public class Player {
      *
      * @return it returns the shape of the paddle.
      */
-    public Shape getPlayerFace(){
+    public Rectangle getPlayerFace(){
         return  playerFace;
     }
 
@@ -132,8 +132,8 @@ public class Player {
      * @param p this is the Point position where the ball is to be set.
      */
     public void resetPosition(Point p){
-        ballPoint.setLocation(p);
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        getPlayerCenterPosition().setLocation(p);
+        getPlayerFace().setLocation(getPlayerCenterPosition().x - (int)getPlayerFace().getWidth()/2, getPlayerCenterPosition().y);
     }
 
     /**
@@ -152,5 +152,113 @@ public class Player {
      */
     private static void setUniquePlayer(Player uniquePlayer) {
         Player.uniquePlayer = uniquePlayer;
+    }
+
+    /**
+     * this method is used to get the player border Color which is used to draw on the screen (Gameboard view).
+     *
+     * @return this returns the border color of the player.
+     */
+    public Color getBORDER_COLOR() {
+        return BORDER_COLOR;
+    }
+
+    /**
+     * this method is used to get the player inner Color which is used to draw on the screen (Gameboard view).
+     *
+     * @return this returns the inner color of the player.
+     */
+    public Color getINNER_COLOR() {
+        return INNER_COLOR;
+    }
+
+    /**
+     * this method is used to set the player face into a variable for setting the location of the player to update the view. (gameboard view).
+     *
+     * @param playerFace this is the rectangle object which is the player face to be set into a variable.
+     */
+    public void setPlayerFace(Rectangle playerFace) {
+        this.playerFace = playerFace;
+    }
+
+    /**
+     * this method is used to get the center position of the player. which is used to draw the paddle.
+     *
+     * @return this returns the position of the player in Point datatype.
+     */
+    public Point getPlayerCenterPosition() {
+        return playerCenterPosition;
+    }
+
+    /**
+     * this method is used to set the center position of the player.
+     *
+     * @param playerCenterPosition this is the Point datatype used to set the location of the paddle.
+     */
+    public void setPlayerCenterPosition(Point playerCenterPosition) {
+        this.playerCenterPosition = playerCenterPosition;
+    }
+
+    /**
+     * this method is used to the move amount which the player could move based on a tick from the gameTimer (thread).
+     *
+     * @return this is the move amount allowed by the player per tick.
+     */
+    public int getMoveAmount() {
+        return moveAmount;
+    }
+
+    /**
+     * this method is used to set the movement amount where the player could move.
+     *
+     * @param moveAmount this is the integer used to set the player movement speed.
+     */
+    public void setMoveAmount(int moveAmount) {
+        this.moveAmount = moveAmount;
+    }
+
+    /**
+     * this method is used to get the lowest x-axis coordinate that the player could go.
+     *
+     * @return this returns the lowest x coordinate that the player could go.
+     */
+    public int getLowestXCoordinate() {
+        return lowestXCoordinate;
+    }
+
+    /**
+     * this method is used to set the lowest X-axis coordinate that the player could go.
+     *
+     * @param min this is the integer value used to set the lowest x coordinate that the player could go.
+     */
+    public void setLowestXCoordinate(int min) {
+        this.lowestXCoordinate = min;
+    }
+
+    /**
+     * this method is used to get the largest x-axis coordinate that the player could go.
+     *
+     * @return this returns the largest x coordinate that the player could go.
+     */
+    public int getLargestXCoordinate() {
+        return largestXCoordinate;
+    }
+
+    /**
+     * this method is used to set the largest x-axis coordinate that the player could go.
+     *
+     * @param max this is the integer value used to set the largest x coordinate that the player could go.
+     */
+    public void setLargestXCoordinate(int max) {
+        this.largestXCoordinate = max;
+    }
+
+    /**
+     * this method is used to get the amount of distance (pixel) that the player could move.
+     *
+     * @return this returns a constant value that is used to move the player movement.
+     */
+    public int getDEF_MOVE_AMOUNT() {
+        return DEF_MOVE_AMOUNT;
     }
 }

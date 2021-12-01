@@ -31,7 +31,7 @@ public class GameBoardController {
     private DebugConsole debugConsole;
 
     private static GameBoardController uniqueGameBoardController;
-    GameScoreDisplay gameScoreDisplay;
+    private GameScoreDisplay gameScoreDisplay;
 
     /**
      * this method is used to create and return the one and only game board controller object. (singleton)
@@ -54,7 +54,7 @@ public class GameBoardController {
 
         setCanGetTime(false);
 
-        setGame(Game.singletonWall(new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT()),30,3,6/2,new Point(300,430)));
+        setGame(Game.singletonGame(new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT()),30,3,6/2,new Point(300,430)));
 
         setDebugConsole(DebugConsole.singletonDebugConsole(owner, getGame()));
 
@@ -64,7 +64,7 @@ public class GameBoardController {
         setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
         getGameBoardView().setMessage("");
 
-        gameScoreDisplay = new GameScoreDisplay();
+        setGameScoreDisplay(new GameScoreDisplay());
 
         //initialize the first level
         startGame();
@@ -128,7 +128,7 @@ public class GameBoardController {
         try {
             ArrayList<String> sorted = getGameScore().getHighScore();
             getGameScore().updateSaveFile(sorted);
-            gameScoreDisplay.highScorePanel(sorted,getGameScore().getTimerString());
+            getGameScoreDisplay().highScorePanel(sorted,getGameScore().getTimerString());
         } catch (IOException | BadLocationException | URISyntaxException ex) {
             ex.printStackTrace();
         }
@@ -146,7 +146,7 @@ public class GameBoardController {
             getGame().getMovements().findImpacts();
             getGameBoardView().setMessage(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getBallCount()));
             if(getGame().isBallLost()){
-                if(getGame().ballEnd()){
+                if(getGame().isGameOver()){
                     getGame().wallReset();
                     getGameBoardView().setMessage("Game over");
                     getGameTimer().stop();
@@ -156,7 +156,7 @@ public class GameBoardController {
                 getGameTimer().stop();
                 getGameScore().pauseTimer();
             }
-            else if(getGame().isDone()){
+            else if(getGame().isLevelComplete()){
                 if(getGame().hasLevel()){
                     getGameBoardView().setMessage("Go to Next Level");
                     getGameTimer().stop();
@@ -428,5 +428,13 @@ public class GameBoardController {
      */
     public static int getDEF_HEIGHT(){
         return DEF_HEIGHT;
+    }
+
+    public GameScoreDisplay getGameScoreDisplay() {
+        return gameScoreDisplay;
+    }
+
+    public void setGameScoreDisplay(GameScoreDisplay gameScoreDisplay) {
+        this.gameScoreDisplay = gameScoreDisplay;
     }
 }

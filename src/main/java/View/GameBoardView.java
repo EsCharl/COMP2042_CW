@@ -146,10 +146,10 @@ public class GameBoardView extends JComponent implements KeyListener, MouseListe
         Color tmp = g2d.getColor();
 
         Shape s = p.getPlayerFace();
-        g2d.setColor(Player.INNER_COLOR);
+        g2d.setColor(p.getINNER_COLOR());
         g2d.fill(s);
 
-        g2d.setColor(Player.BORDER_COLOR);
+        g2d.setColor(p.getBORDER_COLOR());
         g2d.draw(s);
 
         g2d.setColor(tmp);

@@ -120,7 +120,7 @@ public class Movements {
      *
      * @return this returns a boolean value if it touches or doesn't touch the side of the game window
      */
-    private boolean impactSideBorder(){
+    public boolean impactSideBorder(){
         return ((getGame().getBall().getLeft().getX() < getGame().getBorderArea().getX()) ||(getGame().getBall().getRight().getX() > (getGame().getBorderArea().getX() + getGame().getBorderArea().getWidth())));
     }
 
@@ -155,7 +155,6 @@ public class Movements {
                 else if(getGame().getBall().getXSpeed() > 1)
                     getGame().getBall().setXSpeed(getGame().getBall().getXSpeed()-1);
             }
-            System.out.println(getGame().getBall().getXSpeed()+ "," + getGame().getBall().getYSpeed());
         }
 
         if(getGame().getBall().getUp().getY() < getGame().getBorderArea().getY()){
@@ -175,7 +174,7 @@ public class Movements {
     /**
      * this method is used to set the random speed on both x-axis and y-axis for the ball.
      */
-    void setRandomBallSpeed(){
+    public void setRandomBallSpeed(){
         int speedX,speedY;
 
         // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
