@@ -115,7 +115,6 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
         g2d.setColor(brick.getBorderColor());
         g2d.draw(brick.getBrick());
 
-
         g2d.setColor(tmp);
     }
 

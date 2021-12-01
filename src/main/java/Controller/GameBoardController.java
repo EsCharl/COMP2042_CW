@@ -65,7 +65,7 @@ public class GameBoardController implements KeyListener {
         setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
         getGameBoardView().setMessage("");
 
-        gameBoardView.addKeyListener(this);
+        getGameBoardView().addKeyListener(this);
 
         setGameScoreDisplay(new GameScoreDisplay());
 
@@ -228,30 +228,9 @@ public class GameBoardController implements KeyListener {
     }
 
     /**
-     * this method is used when the user used the move left button (A) during the gameplay to move left.
-     */
-    public void moveLeftButtonTriggered(){
-        playerMoveLeft();
-    }
-
-    /**
-     * this method is used when the user used the move right button (D) during the gameplay to move right.
-     */
-    public void moveRightButtonTriggered(){
-        playerMoveRight();
-    }
-
-    /**
-     * this method is used when the pause button (esc) is pressed during the gameplay.
-     */
-    public void pauseButtonTriggered(){
-        pauseMenuButtonClicked();
-    }
-
-    /**
      * this method is used to show a debug console when the button (Alt + Shift + F1) is clicked.
      */
-    public void debugConsoleButtonClicked() {
+    private void debugConsoleButtonClicked() {
         setShowPauseMenu(true);
         if(isCanGetTime()){
             pauseGame();
@@ -459,13 +438,13 @@ public class GameBoardController implements KeyListener {
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_A:
-                moveLeftButtonTriggered();
+                playerMoveLeft();
                 break;
             case KeyEvent.VK_D:
-                moveRightButtonTriggered();
+                playerMoveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
-                pauseButtonTriggered();
+                pauseMenuButtonClicked();
                 break;
             case KeyEvent.VK_SPACE:
                 startPauseButtonTriggered();

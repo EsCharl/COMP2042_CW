@@ -38,22 +38,21 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle startButton;
     private Rectangle exitButton;
 
-    private BasicStroke borderStoke;
-    private BasicStroke borderStoke_noDashes;
+    private BasicStroke borderStroke;
+    private BasicStroke borderStroke_noDashes;
 
     private Font greetingsFont;
     private Font gameTitleFont;
-    private Font creditsFont;
+    private Font gameVersionFont;
     private Font buttonFont;
 
-    private GameFrame owner;
+    private GameFrame gameFrame;
 
     private boolean startClicked;
     private boolean menuClicked;
 
     // for the images
     private static final String MAIN_IMAGE_FILE_NAME = "/mainimage.png";
-    private static final String INFO_IMAGE_FILE_NAME = "/Info.png";
 
     // for the info button
     private Rectangle infoButton;
@@ -64,13 +63,13 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     /**
      * this method is used to create and return one and only one home menu object.
      *
-     * @param owner this is the game frame object used to create the object.
+     * @param gameFrame this is the game frame object used to create the object.
      * @param area this is the size area of which the Home menu will be drawn.
      * @return it returns a home menu object.
      */
-    public static HomeMenu singletonHomeMenu(GameFrame owner, Dimension area){
+    public static HomeMenu singletonHomeMenu(GameFrame gameFrame, Dimension area){
         if(getUniqueHomeMenu() == null){
-            setUniqueHomeMenu(new HomeMenu(owner,area));
+            setUniqueHomeMenu(new HomeMenu(gameFrame,area));
         }
         return getUniqueHomeMenu();
     }
@@ -127,12 +126,12 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      * this is the method used to create and instantiate the styling variables.
      */
     private void createStylingObjects(){
-        setBorderStoke(new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0));
-        setBorderStoke_noDashes(new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+        setBorderStroke(new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,0,DASHES,0));
+        setBorderStroke_noDashes(new BasicStroke(BORDER_SIZE,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
 
         setGreetingsFont(new Font("Noto Mono",Font.PLAIN,25));
         setGameTitleFont(new Font("Noto Mono",Font.BOLD,40));
-        setCreditsFont(new Font("Monospaced",Font.PLAIN,10));
+        setGameVersionFont(new Font("Monospaced",Font.PLAIN,10));
         setButtonFont(new Font("Monospaced",Font.PLAIN,getStartButton().height-2));
     }
 
@@ -211,9 +210,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         Stroke tmp = g2d.getStroke();
 
-        drawBorderPattern(g2d, getBorderStoke_noDashes(), DASH_BORDER_COLOR);
+        drawBorderPattern(g2d, getBorderStroke_noDashes(), DASH_BORDER_COLOR);
 
-        drawBorderPattern(g2d, getBorderStoke(), BORDER_COLOR);
+        drawBorderPattern(g2d, getBorderStroke(), BORDER_COLOR);
 
         g2d.setStroke(tmp);
 
@@ -246,7 +245,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         Rectangle2D greetingsRect = getStringBounds(frc, getGreetingsFont(), GREETINGS);
         Rectangle2D gameTitleRect = getStringBounds(frc, getGameTitleFont(), GAME_TITLE);
-        Rectangle2D creditsRect = getStringBounds(frc, getCreditsFont(), CREDITS);
+        Rectangle2D creditsRect = getStringBounds(frc, getGameVersionFont(), CREDITS);
 
         int sX,sY;
 
@@ -263,7 +262,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         sX = (int)(getMenuFace().getWidth() - creditsRect.getWidth()) / 2;
         sY += (int) creditsRect.getHeight() * 1.1;
 
-        drawMenuText(g2d, sX, sY, getCreditsFont(), CREDITS);
+        drawMenuText(g2d, sX, sY, getGameVersionFont(), CREDITS);
     }
 
     /**
@@ -419,18 +418,14 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if(getStartButton().contains(p)){
-           getOwner().enableGameBoard();
+           getGameFrame().enableGameBoard();
         }
         else if(getExitButton().contains(p)){
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
         }
         else if(getInfoButton().contains(p)){
-            try {
-                this.DisplayInfo();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            getGameFrame().displayInfoClicked();
         }
     }
 
@@ -586,116 +581,217 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     }
 
     /**
-     * this method is used to create another window which contains the image to show the instruction on how to play this game.
+     * this method is used to get the one and only home menu object. singleton design.
      *
-     * @throws IOException this is used if the image could not be loaded.
+     * @return this returns the one and only home menu object.
      */
-    public void DisplayInfo() throws IOException{
-        BufferedImage display = ImageIO.read(HomeMenu.class.getResource(INFO_IMAGE_FILE_NAME));
-        ImageIcon icon = new ImageIcon(display);
-        JFrame frame=new JFrame();
-        frame.setTitle(INFO_TEXT);
-        frame.setLayout(new FlowLayout());
-        frame.setSize(500,400);
-        JLabel lbl=new JLabel();
-        lbl.setIcon(icon);
-        frame.add(lbl);
-        frame.setVisible(true);
-    }
-
     public static HomeMenu getUniqueHomeMenu() {
         return uniqueHomeMenu;
     }
 
+    /**
+     * this method is used to set the home menu object into a variable for future reference. singleton design.
+     *
+     * @param uniqueHomeMenu this is the home menu object used to set into a variable.
+     */
     public static void setUniqueHomeMenu(HomeMenu uniqueHomeMenu) {
         HomeMenu.uniqueHomeMenu = uniqueHomeMenu;
     }
 
+    /**
+     * this method is used to get the menu face which is used to get the menu face which is used to get the size of the menu and use it to scale the button size.
+     *
+     * @return this returns a menu face object.
+     */
     public Rectangle getMenuFace() {
         return menuFace;
     }
 
+    /**
+     * this method is used to set a menu face object into a variable for future reference.
+     *
+     * @param menuFace this is the menu face object used to store into the variable.
+     */
     public void setMenuFace(Rectangle menuFace) {
         this.menuFace = menuFace;
     }
 
+    /**
+     * this method is used to get the start button which is a rectangle.
+     *
+     * @return this returns a start button rectangle object.
+     */
     public Rectangle getStartButton() {
         return startButton;
     }
 
+    /**
+     * this method is used to set a rectangle to be the start button object.
+     *
+     * @param startButton this is the rectangle object used to set into a variable.
+     */
     public void setStartButton(Rectangle startButton) {
         this.startButton = startButton;
     }
 
+    /**
+     * this method is used to get a rectangle which is for the exit button.
+     *
+     * @return this returns a rectangle object which is the exit button.
+     */
     public Rectangle getExitButton() {
         return exitButton;
     }
 
+    /**
+     * this method is used to set a rectangle to be the exit button.
+     *
+     * @param exitButton this is the rectangle object used to set it to be the exit button.
+     */
     public void setExitButton(Rectangle exitButton) {
         this.exitButton = exitButton;
     }
 
+    /**
+     * this method is used to get the info button rectangle object.
+     *
+     * @return this returns a rectangle object which is the info button.
+     */
     public Rectangle getInfoButton() {
         return infoButton;
     }
 
+    /**
+     * this method is used to set a rectangle object to be the info button.
+     *
+     * @param infoButton this is the rectangle object used to set to be the info button.
+     */
     public void setInfoButton(Rectangle infoButton) {
         this.infoButton = infoButton;
     }
 
+    /**
+     * this method is used to get the font used to greet the player/user.
+     *
+     * @return this returns a font used for the string to greet the player/user.
+     */
     public Font getGreetingsFont() {
         return greetingsFont;
     }
 
+    /**
+     * this method is used to set a font used to greet the player/user.
+     *
+     * @param greetingsFont this is the font used to be set for the string which greets the player/user.
+     */
     public void setGreetingsFont(Font greetingsFont) {
         this.greetingsFont = greetingsFont;
     }
 
+    /**
+     * this method is used to get the font used to set the string font of the game title.
+     *
+     * @return this returns a font which is used to set the string font of the game title.
+     */
     public Font getGameTitleFont() {
         return gameTitleFont;
     }
 
+    /**
+     * this method is used to set a font for the game title string.
+     *
+     * @param gameTitleFont this is the font used to set for the game title string.
+     */
     public void setGameTitleFont(Font gameTitleFont) {
         this.gameTitleFont = gameTitleFont;
     }
 
-    public Font getCreditsFont() {
-        return creditsFont;
+    /**
+     * this method is used to get a font which is going to be used for the game version string.
+     *
+     * @return this returns a string used for the game version string.
+     */
+    public Font getGameVersionFont() {
+        return gameVersionFont;
     }
 
-    public void setCreditsFont(Font creditsFont) {
-        this.creditsFont = creditsFont;
+    /**
+     * this method is used to set a font for the game version string which is to be displayed on the screen
+     *
+     * @param gameVersionFont this is the font used to set for the string font.
+     */
+    public void setGameVersionFont(Font gameVersionFont) {
+        this.gameVersionFont = gameVersionFont;
     }
 
+    /**
+     * this method is used to get a font for the String in the button.
+     *
+     * @return this is the font used to display the string in the button.
+     */
     public Font getButtonFont() {
         return buttonFont;
     }
 
+    /**
+     * this method is used to set a font for the string in the button.
+     *
+     * @param buttonFont this is the font used to set the font used in the string.
+     */
     public void setButtonFont(Font buttonFont) {
         this.buttonFont = buttonFont;
     }
 
-    public BasicStroke getBorderStoke() {
-        return borderStoke;
+    /**
+     * this method is used to get one of the rendering attribute for the outlines of the menu.
+     *
+     * @return this returns a basic stroke object which is to be used for the outlines of the menu.
+     */
+    public BasicStroke getBorderStroke() {
+        return borderStroke;
     }
 
-    public void setBorderStoke(BasicStroke borderStoke) {
-        this.borderStoke = borderStoke;
+    /**
+     * this method is used to set the one of the rendering attribute used on the menu.
+     *
+     * @param borderStroke this is the basic stroke object used to style the border of the menu.
+     */
+    public void setBorderStroke(BasicStroke borderStroke) {
+        this.borderStroke = borderStroke;
     }
 
-    public BasicStroke getBorderStoke_noDashes() {
-        return borderStoke_noDashes;
+    /**
+     * this method is used to get one of the rendering attribute for the outlines of the menu.
+     *
+     * @return this returns a basic stroke object which is to be used for the outlines of the menu.
+     */
+    public BasicStroke getBorderStroke_noDashes() {
+        return borderStroke_noDashes;
+    }
+    /**
+     * this method is used to set the one of the rendering attribute used on the menu.
+     *
+     * @param borderStroke_noDashes this is the basic stroke object used to style the border of the menu.
+     */
+    public void setBorderStroke_noDashes(BasicStroke borderStroke_noDashes) {
+        this.borderStroke_noDashes = borderStroke_noDashes;
     }
 
-    public void setBorderStoke_noDashes(BasicStroke borderStoke_noDashes) {
-        this.borderStoke_noDashes = borderStoke_noDashes;
+    /**
+     * this method is used to get to send user input back to the game frame (controller) based on visual.
+     *
+     * @return this returns the game frame object used to send user input based on visual.
+     */
+    public GameFrame getGameFrame() {
+        return gameFrame;
     }
 
-    public GameFrame getOwner() {
-        return owner;
-    }
-
-    public void setGameFrame(GameFrame owner) {
-        this.owner = owner;
+    /**
+     * this method is used to set the game frame object into a variable for future referencing.
+     *
+     * @param gameFrame this is the game frame object used to set into a variable for future referencing.
+     */
+    public void setGameFrame(GameFrame gameFrame) {
+        this.gameFrame = gameFrame;
     }
 }

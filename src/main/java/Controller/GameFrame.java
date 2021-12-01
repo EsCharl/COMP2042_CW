@@ -1,11 +1,15 @@
 package Controller;
 
 import View.HomeMenu;
+import View.InfoScreen;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  *  this class handles the frames that are shown in the game and the logic that comes with it.
@@ -18,6 +22,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private GameBoardController gameBoardController;
     private HomeMenu homeMenu;
+    private InfoScreen infoScreen;
 
     private boolean gaming;
 
@@ -46,6 +51,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         setGameBoardController(GameBoardController.singletonGameBoardController(this));
         setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(getHOME_MENU_WIDTH(), getHOME_MENU_HEIGHT())));
+        setInfoScreen(new InfoScreen());
 
         this.add(getHomeMenu(),BorderLayout.CENTER);
 
@@ -76,6 +82,14 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
         this.addWindowFocusListener(this);
+    }
+
+    public void displayInfoClicked(){
+        try {
+            getInfoScreen().DisplayInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -231,5 +245,23 @@ public class GameFrame extends JFrame implements WindowFocusListener {
      */
     public int getHOME_MENU_HEIGHT() {
         return HOME_MENU_HEIGHT;
+    }
+
+    /**
+     * this method is used to get the info screen object which is used to display on how to play the game.
+     *
+     * @return this returns a info screen object used to show the user how to play the game.
+     */
+    public InfoScreen getInfoScreen() {
+        return infoScreen;
+    }
+
+    /**
+     * this method is used to set an info screen object into a variable for future referencing.
+     *
+     * @param infoScreen this is the info screen object used to set into a variable.
+     */
+    public void setInfoScreen(InfoScreen infoScreen) {
+        this.infoScreen = infoScreen;
     }
 }

@@ -11,15 +11,18 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/COMP2042_CW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMP2042_CW.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Brick/Crack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Brick/Crack.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" afxterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/DebugConsoleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Controller/DebugConsoleTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Model/GameScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Model/GameScoreTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -66,7 +69,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -75,6 +78,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources\scores" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -101,7 +105,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.GameScoreTest.updateSaveFile">
+  <component name="RunManager" selected="Application.GraphicsMain">
     <configuration name="GraphicsMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GraphicsMain" />
       <module name="COMP2042_CW" />
@@ -181,8 +185,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GameScoreTest.updateSaveFile" />
         <item itemvalue="Application.GraphicsMain" />
+        <item itemvalue="JUnit.GameScoreTest.updateSaveFile" />
         <item itemvalue="JUnit.GameScoreTest.pauseTimer" />
         <item itemvalue="JUnit.GameScoreTest" />
         <item itemvalue="JUnit.GameScoreTest.getTimerString" />

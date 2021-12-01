@@ -19,9 +19,6 @@ public class Game {
     private final int PLAYER_WIDTH = 150;
     private final int PLAYER_HEIGHT = 10;
 
-    private final int playerWidth = 150;
-    private final int playerHeight = 10;
-
     private Rectangle borderArea;
 
     private Brick[] bricks;
@@ -449,13 +446,5 @@ public class Game {
      */
     public void setBall(Ball ball) {
         this.ball = ball;
-    }
-    
-    public int getPlayerWidth() {
-        return playerWidth;
-    }
-
-    public int getPlayerHeight() {
-        return playerHeight;
     }
 }
