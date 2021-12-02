@@ -11,14 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/InfoScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/InfoScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/DebugConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/DebugConsole.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/DebugConsoleTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/DebugConsoleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
