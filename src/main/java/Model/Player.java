@@ -30,6 +30,8 @@ public class Player {
 
     private final Color BORDER_COLOR = Color.GREEN.darker().darker();
     private final Color INNER_COLOR = Color.GREEN;
+    private final int PLAYER_WIDTH = 150;
+    private final int PLAYER_HEIGHT = 10;
 
     private final int DEF_MOVE_AMOUNT = 5;
 
@@ -41,9 +43,9 @@ public class Player {
 
     private static Player uniquePlayer;
 
-    public static Player singletonPlayer(Point ballPoint,int width,int height,Rectangle container){
+    public static Player singletonPlayer(Point ballPoint,Rectangle container){
         if(getUniquePlayer() == null){
-            setUniquePlayer(new Player(ballPoint, width, height, container));
+            setUniquePlayer(new Player(ballPoint, container));
         }
         return getUniquePlayer();
     }
@@ -52,16 +54,14 @@ public class Player {
      * this method is used to create a player object.
      *
      * @param playerCenterPosition this is the position of the ball.
-     * @param width this is the width of the paddle which the user will be controlling.
-     * @param height this will the height of the paddle which the user will be controlling.
-     * @param playerRectangle this is the information of the rectangle which will be used to be created.
+     * @param playArea this is the information of the play area which will be used to calculate where the player will be created.
      */
-    private Player(Point playerCenterPosition, int width, int height, Rectangle playerRectangle) {
+    private Player(Point playerCenterPosition, Rectangle playArea) {
         setPlayerCenterPosition(playerCenterPosition);
         setMoveAmount(0);
-        setPlayerFace(makeRectangle(width, height));
-        setLowestXCoordinate(playerRectangle.x + (width / 2));
-        setLargestXCoordinate(getLowestXCoordinate() + playerRectangle.width - width);
+        setPlayerFace(makeRectangle(PLAYER_WIDTH, PLAYER_HEIGHT));
+        setLowestXCoordinate(playArea.x + (PLAYER_WIDTH / 2));
+        setLargestXCoordinate(getLowestXCoordinate() + playArea.width - PLAYER_WIDTH);
     }
 
     /**

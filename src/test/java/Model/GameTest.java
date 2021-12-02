@@ -11,13 +11,13 @@ class GameTest {
     Rectangle area = new Rectangle(300,450);
     Game game = Game.singletonGame(area,30,3,6/2,new Point(300,430));
 
-    @Test
-    void positionsReset() {
-        Object ballPosition = game.getBall().getCenterPosition().clone();
-        game.getBall().moveTo(new Point(1,1));
-        game.positionsReset();
-        assertTrue(game.getBall().getCenterPosition().equals(ballPosition));
-    }
+//    @Test
+//    void positionsReset() {
+//        Object ballPosition = game.getBall().getCenterPosition().clone();
+//        game.getBall().moveTo(new Point(1,1));
+//        game.positionsReset();
+//        assertTrue(game.getBall().getCenterPosition().equals(ballPosition));
+//    }
 
     @Test
     void singletonGame(){

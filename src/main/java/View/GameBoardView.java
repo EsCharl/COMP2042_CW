@@ -184,13 +184,13 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
         g2d.setColor(getGAMEBOARD_STRING_COLOR());
         g2d.drawString(getMessage(),250,225);
 
-        drawBall(getGame().getBall(),g2d);
+        drawBall(getGameBoardController().getBall(),g2d);
 
         for(Brick b : getGame().getBricks())
             if(!b.isBroken())
                 drawBrick(b,g2d);
 
-        drawPlayer(getGame().getPlayer(),g2d);
+        drawPlayer(getGameBoardController().getPlayer(),g2d);
 
         if(getGameBoardController().isShowPauseMenu())
             drawPauseMenu(g2d);

@@ -26,7 +26,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -67,7 +66,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         this.setLayout(new BorderLayout());
 
-        setGameBoardController(GameBoardController.singletonGameBoardController(this));
+        setGameBoardController(GameBoardController.singletonGameBoardController());
         setHomeMenu(HomeMenu.singletonHomeMenu(this,new Dimension(getHOME_MENU_WIDTH(), getHOME_MENU_HEIGHT())));
         setInfoScreen(new InfoScreen());
 

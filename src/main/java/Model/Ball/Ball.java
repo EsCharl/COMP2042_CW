@@ -21,11 +21,14 @@ package Model.Ball;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
+import java.util.Random;
 
 /**
  * this is an abstract class which is used for the rubber ball implementation.
  */
 abstract public class Ball {
+
+    private final int MAX_BALL_SPEED = 5;
 
     private Shape ballFace;
 
@@ -35,6 +38,8 @@ abstract public class Ball {
     private Point2D down;
     private Point2D left;
     private Point2D right;
+
+    private Random rnd;
 
     private Color borderBallColor;
     private Color innerBallColor;
@@ -54,13 +59,15 @@ abstract public class Ball {
     public Ball(Point2D centerPosition,int diameterA,int diameterB,Color inner,Color border){
         setCenterPosition(centerPosition);
 
+        setRnd(new Random());
+        setRandomBallSpeed();
+
         createDirectionalPoint2D();
 
         setDirectionalPoints(diameterA, diameterB);
 
         setBallFace(makeBall(centerPosition,diameterA,diameterB));
         setColorOfBall(inner, border);
-        setSpeed(0,0);
     }
 
     /**
@@ -115,6 +122,51 @@ abstract public class Ball {
     public void setSpeed(int x,int y){
         setXSpeed(x);
         setYSpeed(y);
+    }
+
+    /**
+     * this method is used to set the random speed on both x-axis and y-axis for the ball.
+     */
+    public void setRandomBallSpeed(){
+        int speedX,speedY;
+
+        // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
+        do {
+            speedX = getRnd().nextBoolean() ? getRnd().nextInt(getMAX_BALL_SPEED()) : -getRnd().nextInt(getMAX_BALL_SPEED());
+        } while (speedX == 0);
+
+        do{
+            speedY = -getRnd().nextInt(getMAX_BALL_SPEED());
+        }while(speedY == 0);
+
+        setSpeed(speedX,speedY);
+    }
+
+    /**
+     * this method is used to get a random value set for the ball.
+     *
+     * @return this returns a random object for the random value for the ball speed.
+     */
+    public Random getRnd() {
+        return rnd;
+    }
+
+    /**
+     * this method is used to set a random object used to set into a variable for future reference.
+     *
+     * @param rnd this is a random object used to set into a variable.
+     */
+    public void setRnd(Random rnd) {
+        this.rnd = rnd;
+    }
+
+    /**
+     * this method is used to get the maximum speed that a ball can go in both axis.
+     *
+     * @return this returns a constant which is the maximum ball speed in each axis.
+     */
+    public int getMAX_BALL_SPEED() {
+        return MAX_BALL_SPEED;
     }
 
     /**

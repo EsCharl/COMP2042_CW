@@ -18,22 +18,35 @@
 
 package Controller;
 
+import Model.Ball.Ball;
+import Model.Ball.RubberBall;
+import Model.Brick.Brick;
+import Model.Brick.Crack;
 import Model.GameScore;
 import Model.Game;
+import Model.Player;
+import View.DebugConsole;
 import View.GameBoardView;
 import View.GameScoreDisplay;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
 public class GameBoardController {
+
+    private final int UP_IMPACT = 100;
+    private final int DOWN_IMPACT = 200;
+    private final int LEFT_IMPACT = 300;
+    private final int RIGHT_IMPACT = 400;
 
     private final static int DEF_WIDTH = 600;
     private final static int DEF_HEIGHT = 450;
@@ -47,6 +60,10 @@ public class GameBoardController {
     private GameScore gameScore;
     private Game game;
     private DebugConsole debugConsole;
+    private Player player;
+    private Ball ball;
+    private Random rnd;
+
 
     private static GameBoardController uniqueGameBoardController;
     private GameScoreDisplay gameScoreDisplay;
@@ -54,11 +71,10 @@ public class GameBoardController {
     /**
      * this method is used to create and return the one and only game board controller object. (singleton)
      *
-     * @param owner this takes in the JFrame for the game board view object.
      */
-    public static GameBoardController singletonGameBoardController(JFrame owner){
+    public static GameBoardController singletonGameBoardController(){
         if(getUniqueGameBoardController() == null){
-            setUniqueGameBoardController(new GameBoardController(owner));
+            setUniqueGameBoardController(new GameBoardController());
         }
         return getUniqueGameBoardController();
     }
@@ -66,13 +82,15 @@ public class GameBoardController {
     /**
      * this constructor is used to create a game board object.
      *
-     * @param owner this takes in the JFrame for the game board view object.
      */
-    private GameBoardController(JFrame owner){
+    private GameBoardController(){
+        setRnd(new Random());
 
         setCanGetTime(false);
 
-        setGame(Game.singletonGame(new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT()),30,3,6/2,new Point(300,430)));
+        Rectangle playArea = new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT());
+
+        setGame(Game.singletonGame(playArea,30,3,6/2,new Point(300,430)));
 
         setDebugConsole(new DebugConsole(getGame(), this));
 
@@ -84,8 +102,130 @@ public class GameBoardController {
 
         setGameScoreDisplay(new GameScoreDisplay());
 
+        setPlayer(Player.singletonPlayer(new Point(300,430), playArea));
+
+        makeBall(new Point(300,430));
+
         //initialize the first level
         startGame();
+    }
+
+    /**
+     * this method is used to get the ball object to check the position of the ball, collision, and set the speed.
+     *
+     * @return this returns a ball object
+     */
+    public Ball getBall() {
+        return ball;
+    }
+
+    /**
+     * this method is used to create a ball object (rubber ball).
+     *
+     * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
+     */
+    private void makeBall(Point2D ballPos){
+        ball = new RubberBall(ballPos);
+    }
+
+    /**
+     * this is to check if the ball comes in contact with any side of the brick.
+     *
+     * @return returns a boolean value if or if it doesn't touch any entity.
+     */
+    boolean impactWall(){
+        for(Brick b : getGame().getBricks()){
+            if(b.findImpact(getBall()) == getUP_IMPACT()){
+                getBall().reverseY();
+                return b.setImpact(getBall().getDown(), Crack.getUP());
+            }
+            else if (b.findImpact(getBall()) == getDOWN_IMPACT()){
+                getBall().reverseY();
+                return b.setImpact(getBall().getUp(),Crack.getDOWN());
+            }
+            else if(b.findImpact(getBall()) == getLEFT_IMPACT()){
+                getBall().reverseX();
+                return b.setImpact(getBall().getRight(),Crack.getRIGHT());
+            }
+            else if(b.findImpact(getBall()) == getRIGHT_IMPACT()){
+                getBall().reverseX();
+                return b.setImpact(getBall().getLeft(), Crack.getLEFT());
+            }
+        }
+        return false;
+    }
+
+    /**
+     * this method is used to check if there is an impact for the ball with any entity, the sides of the screen. which will cause a reaction to the game.
+     */
+    public void findImpacts(){
+        if(getPlayer().impact(getBall())){
+            getBall().reverseY();
+            if(getRnd().nextBoolean() && getBall().getYSpeed() > -4){
+                setBallYSpeedValue(getBall().getYSpeed()-1);
+            }
+            else if(getRnd().nextBoolean() && getBall().getYSpeed() < -1){
+                setBallYSpeedValue(getBall().getYSpeed()+1);
+            }
+        }
+
+        else if(impactWall()){
+            getGame().setBrickCount(getGame().getBrickCount()-1);
+        }
+
+        if(((getBall().getLeft().getX() < getGame().getBorderArea().getX()) ||(getBall().getRight().getX() > (getGame().getBorderArea().getX() + getGame().getBorderArea().getWidth())))) {
+            getBall().reverseX();
+            if(getRnd().nextBoolean() && (getBall().getXSpeed() > -4 && getBall().getXSpeed() < 4) ){
+                if(getBall().getXSpeed() < 0)
+                    setBallXSpeedValue(getBall().getXSpeed()-1);
+                else
+                    setBallXSpeedValue(getBall().getXSpeed()+1);
+            }else if(getRnd().nextBoolean()){
+                if(getBall().getXSpeed() < -1)
+                    setBallXSpeedValue(getBall().getXSpeed()+1);
+                else if(getBall().getXSpeed() > 1)
+                    setBallXSpeedValue(getBall().getXSpeed()-1);
+            }
+        }
+
+        if(getBall().getUp().getY() < getGame().getBorderArea().getY()){
+            getBall().reverseY();
+
+            if(getRnd().nextBoolean() && getBall().getYSpeed() < 4)
+                setBallYSpeedValue(getBall().getYSpeed()+1);
+            else if(getRnd().nextBoolean() && getBall().getYSpeed() > 1)
+                setBallYSpeedValue(getBall().getYSpeed()-1);
+        }
+        else if(getBall().getUp().getY() > getGame().getBorderArea().getY() + getGame().getBorderArea().getHeight()){
+            getGame().setBallCount(getGame().getBallCount() - 1);
+            getGame().setBallLost(true);
+        }
+    }
+
+    /**
+     * This method is used for the movement of the player (paddle) and the ball.
+     */
+    public void entitiesMovements(){
+        getPlayer().move();
+        getBall().move();
+    }
+
+    /**
+     * this method is used to get the player object for the game.
+     *
+     * @return this returns the player object.
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * this method is used to set the player object.
+     *
+     * @param player this is the player object used to set into an object.
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     /**
@@ -136,7 +276,7 @@ public class GameBoardController {
      * this method is used to stop the player movement.
      */
     public void playerStopMoving() {
-        getGame().getPlayer().stop();
+        getPlayer().stop();
     }
 
     /**
@@ -160,8 +300,8 @@ public class GameBoardController {
         getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
 
         setGameTimer(new Timer(10, e ->{
-            getGame().getMovements().entitiesMovements();
-            getGame().getMovements().findImpacts();
+            entitiesMovements();
+            findImpacts();
             getGameBoardView().setMessage(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getBallCount()));
             if(getGame().isBallLost()){
                 if(getGame().isGameOver()){
@@ -170,7 +310,7 @@ public class GameBoardController {
                     getGameTimer().stop();
                     getGameScore().restartTimer();
                 }
-                getGame().positionsReset();
+                positionsReset();
                 getGameTimer().stop();
                 getGameScore().pauseTimer();
             }
@@ -196,6 +336,42 @@ public class GameBoardController {
 
             getGameBoardView().updateGameBoardView();
         }));
+    }
+
+    /**
+     * this is used to reset the ball and the player to the starting position and giving it a random speed for the ball.
+     */
+    public void positionsReset(){
+        getPlayer().resetPosition(getGame().getStartPoint());
+        getBall().moveTo(getGame().getStartPoint());
+
+        getBall().setRandomBallSpeed();
+
+        getGame().setBallLost(false);
+    }
+
+    public Random getRnd() {
+        return rnd;
+    }
+
+    public void setRnd(Random rnd) {
+        this.rnd = rnd;
+    }
+
+    public int getUP_IMPACT() {
+        return UP_IMPACT;
+    }
+
+    public int getDOWN_IMPACT() {
+        return DOWN_IMPACT;
+    }
+
+    public int getLEFT_IMPACT() {
+        return LEFT_IMPACT;
+    }
+
+    public int getRIGHT_IMPACT() {
+        return RIGHT_IMPACT;
     }
 
     /**
@@ -236,7 +412,7 @@ public class GameBoardController {
     public void restartLevelTriggered(){
         getGameBoardView().setMessage("Restarting Game...");
         getGameScore().restartTimer();
-        getGame().positionsReset();
+        positionsReset();
         getGame().wallReset();
         setShowPauseMenu(false);
         getGameBoardView().updateGameBoardView();
@@ -254,18 +430,18 @@ public class GameBoardController {
     }
 
     /**
-     * this method is used to get the Controller.DebugConsole object.
+     * this method is used to get the View.DebugConsole object.
      *
-     * @return returns the Controller.DebugConsole object.
+     * @return returns the View.DebugConsole object.
      */
     public DebugConsole getDebugConsole() {
         return debugConsole;
     }
 
     /**
-     * this method is used to set the Controller.DebugConsole object.
+     * this method is used to set the View.DebugConsole object.
      *
-     * @param debugConsole this is the Controller.DebugConsole object used to set into the variable.
+     * @param debugConsole this is the View.DebugConsole object used to set into the variable.
      */
     public void setDebugConsole(DebugConsole debugConsole) {
         this.debugConsole = debugConsole;
@@ -275,7 +451,7 @@ public class GameBoardController {
      * this method is used to restart the game status.
      */
     public void restartGameStatus() {
-        getGame().positionsReset();
+        positionsReset();
         getGame().wallReset();
         getGame().nextLevel();
     }
@@ -325,14 +501,14 @@ public class GameBoardController {
      * this method is used to move the player to the left.
      */
     public void playerMoveLeft() {
-        getGame().getPlayer().moveLeft();
+        getPlayer().moveLeft();
     }
 
     /**
      * this method is used to move the player to the right.
      */
     public void playerMoveRight() {
-        getGame().getPlayer().movRight();
+        getPlayer().movRight();
     }
 
     /**
@@ -439,10 +615,10 @@ public class GameBoardController {
      * this is used by the View.DebugPanel class to skip the level which will restart the timer and show the next level.
      */
     public void skipLevelTriggered(){
-        debugConsole.getGameScore().restartTimer();
-        debugConsole.getGame().positionsReset();
-        debugConsole.getGame().wallReset();
-        debugConsole.getGame().nextLevel();
+        getGameScore().restartTimer();
+        positionsReset();
+        getGame().wallReset();
+        getGame().nextLevel();
     }
 
     /**
@@ -450,8 +626,8 @@ public class GameBoardController {
      *
      * @param speed this is the integer value used to set the y speed of the ball.
      */
-    public void ballYSpeedValue(int speed){
-        getGame().setBallYSpeed(speed);
+    public void setBallYSpeedValue(int speed){
+        getBall().setYSpeed(speed);
     }
 
     /**
@@ -459,14 +635,14 @@ public class GameBoardController {
      *
      * @param speed this is the integer value used to set the x speed of the ball.
      */
-    public void ballXSpeedValue(int speed){
-        getGame().setBallXSpeed(speed);
+    public void setBallXSpeedValue(int speed){
+        getBall().setXSpeed(speed);
     }
 
     /**
      * this method is called to reset the ball count based on a value fixed by the Game class (a constant value).
      */
     public void resetBallCountTriggered(){
-        debugConsole.getGame().resetBallCount();
+        getGame().resetBallCount();
     }
 }
