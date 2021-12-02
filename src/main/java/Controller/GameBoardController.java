@@ -34,7 +34,7 @@ import java.util.ArrayList;
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
-public class GameBoardController implements KeyListener {
+public class GameBoardController {
 
     private final static int DEF_WIDTH = 600;
     private final static int DEF_HEIGHT = 450;
@@ -82,8 +82,6 @@ public class GameBoardController implements KeyListener {
 
         setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
         getGameBoardView().setMessage("");
-
-        getGameBoardView().addKeyListener(this);
 
         setGameScoreDisplay(new GameScoreDisplay());
 
@@ -248,7 +246,7 @@ public class GameBoardController implements KeyListener {
     /**
      * this method is used to show a debug console when the button (Alt + Shift + F1) is clicked.
      */
-    private void debugConsoleButtonClicked() {
+    public void debugConsoleButtonClicked() {
         setShowPauseMenu(true);
         if(isCanGetTime()){
             pauseGame();
@@ -437,53 +435,4 @@ public class GameBoardController implements KeyListener {
     public void setGameScoreDisplay(GameScoreDisplay gameScoreDisplay) {
         this.gameScoreDisplay = gameScoreDisplay;
     }
-
-    /**
-     * this is initially a KeyListener Interface class method, and it is being implemented. It iS activated when a key is typed from the keyboard.
-     *
-     * @param keyEvent this records the input from the keyboard.
-     */
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-    }
-
-    /**
-     * this is initially a KeyListener Interface class method, and it is being implemented. It is activated when a key is pressed from the keyboard. This is used to control the user experience for the game.
-     *
-     * @param keyEvent this records the input from the keyboard.
-     */
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        switch(keyEvent.getKeyCode()){
-            case KeyEvent.VK_A:
-                playerMoveLeft();
-                break;
-            case KeyEvent.VK_D:
-                playerMoveRight();
-                break;
-            case KeyEvent.VK_ESCAPE:
-                pauseMenuButtonClicked();
-                break;
-            case KeyEvent.VK_SPACE:
-                startPauseButtonTriggered();
-                break;
-            case KeyEvent.VK_F1:
-                if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
-                    debugConsoleButtonClicked();
-                }
-            default:
-                playerStopMoving();
-        }
-    }
-
-    /**
-     * this is initially a KeyListener Interface class method, and it is being implemented. It is called when a key is released from the keyboard. this is used to stop the paddle from moving.
-     *
-     * @param keyEvent this records the input from the keyboard.
-     */
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        playerStopMoving();
-    }
-
 }
