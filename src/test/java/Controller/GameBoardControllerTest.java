@@ -14,7 +14,7 @@ class GameBoardControllerTest {
     Rectangle area = new Rectangle(300,450);
     Game game = Game.singletonGame(area,30,3,6/2,new Point(300,430));
     JFrame jFrame = new JFrame();
-    GameBoardController gameBoardController = GameBoardController.singletonGameBoardController(jFrame);
+    GameBoardController gameBoardController = GameBoardController.singletonGameBoardController();
     GameScore gameScore = GameScore.singletonGameScore();
 
     @Test
@@ -26,9 +26,10 @@ class GameBoardControllerTest {
         Object ballPosition = game.getBall().getCenterPosition().clone();
         game.nextLevel();
         gameBoardController.skipLevelTriggered();
-        assertFalse(ballPosition.equals(game.getBall().getCenterPosition()));
-        assertTrue(currentLevel != game.getCurrentLevel());
-        assertTrue(getBeforeTotalTime != gameScore.getTotalTime());
+        assertAll(  ()-> assertFalse(ballPosition.equals(game.getBall().getCenterPosition())),
+                    ()-> assertTrue(currentLevel != game.getCurrentLevel()),
+                    ()-> assertTrue(getBeforeTotalTime != gameScore.getTotalTime())
+        );
     }
 
     @Test

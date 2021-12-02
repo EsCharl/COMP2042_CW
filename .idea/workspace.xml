@@ -11,6 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/View/InfoScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/InfoScreen.java" afterDir="false" />
@@ -19,6 +20,14 @@
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/DebugConsoleTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Controller/DebugConsoleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/GameBoardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Controller/GameBoardControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +118,53 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GameBoardControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Controller" />
+      <option name="MAIN_CLASS_NAME" value="Controller.GameBoardControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameBoardControllerTest.resetBallCountTriggered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Controller" />
+      <option name="MAIN_CLASS_NAME" value="Controller.GameBoardControllerTest" />
+      <option name="METHOD_NAME" value="resetBallCountTriggered" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameBoardControllerTest.skipLevelTriggered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Controller" />
+      <option name="MAIN_CLASS_NAME" value="Controller.GameBoardControllerTest" />
+      <option name="METHOD_NAME" value="skipLevelTriggered" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameScoreTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW" />
       <extension name="coverage">
@@ -124,68 +180,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameScoreTest.getTimerString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Model" />
-      <option name="MAIN_CLASS_NAME" value="Model.GameScoreTest" />
-      <option name="METHOD_NAME" value="getTimerString" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameScoreTest.pauseTimer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Model" />
-      <option name="MAIN_CLASS_NAME" value="Model.GameScoreTest" />
-      <option name="METHOD_NAME" value="pauseTimer" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameScoreTest.updateSaveFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Model" />
-      <option name="MAIN_CLASS_NAME" value="Model.GameScoreTest" />
-      <option name="METHOD_NAME" value="updateSaveFile" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.GraphicsMain" />
-      <item itemvalue="JUnit.GameScoreTest.getTimerString" />
       <item itemvalue="JUnit.GameScoreTest" />
-      <item itemvalue="JUnit.GameScoreTest.pauseTimer" />
-      <item itemvalue="JUnit.GameScoreTest.updateSaveFile" />
+      <item itemvalue="JUnit.GameBoardControllerTest.skipLevelTriggered" />
+      <item itemvalue="JUnit.GameBoardControllerTest.resetBallCountTriggered" />
+      <item itemvalue="JUnit.GameBoardControllerTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.GraphicsMain" />
-        <item itemvalue="JUnit.GameScoreTest.updateSaveFile" />
-        <item itemvalue="JUnit.GameScoreTest.pauseTimer" />
+        <item itemvalue="JUnit.GameBoardControllerTest" />
+        <item itemvalue="JUnit.GameBoardControllerTest.resetBallCountTriggered" />
+        <item itemvalue="JUnit.GameBoardControllerTest.skipLevelTriggered" />
         <item itemvalue="JUnit.GameScoreTest" />
-        <item itemvalue="JUnit.GameScoreTest.getTimerString" />
       </list>
     </recent_temporary>
   </component>

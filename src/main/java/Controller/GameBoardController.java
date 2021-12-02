@@ -54,11 +54,10 @@ public class GameBoardController {
     /**
      * this method is used to create and return the one and only game board controller object. (singleton)
      *
-     * @param owner this takes in the JFrame for the game board view object.
      */
-    public static GameBoardController singletonGameBoardController(JFrame owner){
+    public static GameBoardController singletonGameBoardController(){
         if(getUniqueGameBoardController() == null){
-            setUniqueGameBoardController(new GameBoardController(owner));
+            setUniqueGameBoardController(new GameBoardController());
         }
         return getUniqueGameBoardController();
     }
@@ -66,9 +65,8 @@ public class GameBoardController {
     /**
      * this constructor is used to create a game board object.
      *
-     * @param owner this takes in the JFrame for the game board view object.
      */
-    private GameBoardController(JFrame owner){
+    private GameBoardController(){
 
         setCanGetTime(false);
 
