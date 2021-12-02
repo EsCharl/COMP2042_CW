@@ -26,10 +26,7 @@ import java.awt.*;
  * this abstract class is used to call methods which are used in multiple classes.
  */
 public abstract class FullWallRowsLevels {
-    public static final int CLAY = 1;
-    public static final int STEEL = 2;
-    public static final int CEMENT = 3;
-    public static final int REINFORCED_STEEL = 4;
+
 
     /**
      * this method is used to create a brick array which is used to store the bricks for the level templates
@@ -51,13 +48,13 @@ public abstract class FullWallRowsLevels {
      */
     Brick makeBrick(Point point, Dimension size, int type){
         switch(type){
-            case(CLAY):
+            case(WallLevelTemplates.CLAY):
                 return new ClayBrick(point, size);
-            case(STEEL):
+            case(WallLevelTemplates.STEEL):
                 return new SteelBrick(point, size);
-            case(CEMENT):
+            case(WallLevelTemplates.CEMENT):
                 return new CementBrick(point, size);
-            case(REINFORCED_STEEL):
+            case(WallLevelTemplates.REINFORCED_STEEL):
                 return new ReinforcedSteelBrick(point, size);
             default:
                 throw new IllegalArgumentException(String.format("Unknown Type:%d\n",type));

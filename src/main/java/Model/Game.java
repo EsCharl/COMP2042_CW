@@ -18,14 +18,11 @@
 
 package Model;
 
-import Model.Ball.Ball;
-import Model.Ball.RubberBall;
 import Model.Brick.Brick;
-import Model.Levels.FullWallRowsLevels;
 import Model.Levels.LevelFactory;
+import Model.Levels.WallLevelTemplates;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 /**
  * this class is used to generate the level and maintain some game condition.
@@ -34,16 +31,11 @@ public class Game {
 
     private final int MAX_BALL_COUNT = 3;
     private final int LEVELS_AMOUNT = 6;
-    private final int PLAYER_WIDTH = 150;
-    private final int PLAYER_HEIGHT = 10;
 
     private Rectangle borderArea;
 
     private Brick[] bricks;
-    private Ball ball;
-    private Player player;
 
-    private Movements movements;
 
     private Brick[][] brickLevels;
     private int currentLevel;
@@ -82,8 +74,6 @@ public class Game {
      */
     private Game(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
-        setMovements(Movements.singletonMovements(this));
-
         setStartPoint(new Point(ballPos));
 
         setBrickLevels(makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio));
@@ -93,23 +83,11 @@ public class Game {
         setBallCount(getMAX_BALL_COUNT());
         setBallLost(false);
 
-        makeBall(ballPos);
-
-        getMovements().setRandomBallSpeed();
-
-        setPlayer(Player.singletonPlayer((Point) ballPos.clone(),getPLAYER_WIDTH(),getPLAYER_HEIGHT(), drawArea));
 
         setBorderArea(drawArea);
     }
 
-    /**
-     * this method is used to create a ball object (rubber ball).
-     *
-     * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
-     */
-    private void makeBall(Point2D ballPos){
-        ball = new RubberBall(ballPos);
-    }
+
 
     /**
      * this is used to generate the levels to be placed in a brick array.
@@ -123,12 +101,12 @@ public class Game {
     private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[getLEVELS_AMOUNT()][];
         LevelFactory levelFactory = new LevelFactory();
-        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.CLAY);
-        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.CEMENT);
-        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.CLAY, FullWallRowsLevels.STEEL);
-        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.STEEL, FullWallRowsLevels.CEMENT);
-        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.REINFORCED_STEEL, FullWallRowsLevels.STEEL);
-        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, FullWallRowsLevels.REINFORCED_STEEL, FullWallRowsLevels.STEEL);
+        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CLAY);
+        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CEMENT);
+        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.STEEL);
+        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.STEEL, WallLevelTemplates.CEMENT);
+        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.REINFORCED_STEEL, WallLevelTemplates.STEEL);
+        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
         return tmp;
     }
 
@@ -159,17 +137,7 @@ public class Game {
         return ballLost;
     }
 
-    /**
-     * this is used to reset the ball and the player to the starting position and giving it a random speed for the ball.
-     */
-    public void positionsReset(){
-        getPlayer().resetPosition(getStartPoint());
-        getBall().moveTo(getStartPoint());
 
-        getMovements().setRandomBallSpeed();
-
-        setBallLost(false);
-    }
 
     /**
      * this is used to reset the wall (bricks) and the ball count (tries).
@@ -214,24 +182,6 @@ public class Game {
      */
     public boolean hasLevel(){
         return getCurrentLevel() < getBrickLevels().length;
-    }
-
-    /**
-     * this method is used to set the ball speed in x-axis.
-     *
-     * @param s this is the parameter (in integer) used to set the ball speed in x-axis.
-     */
-    public void setBallXSpeed(int s){
-        getBall().setXSpeed(s);
-    }
-
-    /**
-     * this method os used to set the ball speed in the y-axis.
-     *
-     * @param s this is the parameter (in integer) used to set the ball speed in y-axis.
-     */
-    public void setBallYSpeed(int s){
-        getBall().setYSpeed(s);
     }
 
     /**
@@ -377,51 +327,6 @@ public class Game {
     }
 
     /**
-     * this method is used to get the ball object to check the position of the ball, collision, and set the speed.
-     *
-     * @return this returns a ball object
-     */
-    public Ball getBall() {
-        return ball;
-    }
-
-    /**
-     * this method is used to get the player object for the game.
-     *
-     * @return this returns the player object.
-     */
-    public Player getPlayer() {
-        return player;
-    }
-
-    /**
-     * this method is used to set the player object.
-     *
-     * @param player this is the player object used to set into an object.
-     */
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    /**
-     * this method is used to check if a movements object which handles all the entity movements. if it is then it will return a game object (singleton design).
-     *
-     * @return it returns a movements object.
-     */
-    public Movements getMovements() {
-        return movements;
-    }
-
-    /**
-     * this method is used to set the movement object into a variable for easy referencing.
-     *
-     * @param movements this is the movements object used to be called down the line.
-     */
-    public void setMovements(Movements movements) {
-        this.movements = movements;
-    }
-
-    /**
      * this method is used to get the levels that are going to be created.
      *
      * @return this is the value of the level amount
@@ -437,32 +342,5 @@ public class Game {
      */
     public int getMAX_BALL_COUNT() {
         return MAX_BALL_COUNT;
-    }
-
-    /**
-     * this method is used to get the player width. which is used to determine the width of the paddle.
-     *
-     * @return this is the integer value which is used to determine the width of the paddle (player).
-     */
-    public int getPLAYER_WIDTH() {
-        return PLAYER_WIDTH;
-    }
-
-    /**
-     * this method is used to get the player height. which is used to determine the height of the paddle.
-     *
-     * @return this is the integer value which is used to determine the height of the paddle (player).
-     */
-    public int getPLAYER_HEIGHT() {
-        return PLAYER_HEIGHT;
-    }
-
-    /**
-     * this method is used to set the ball object into a variable for future reference.
-     *
-     * @param ball this is the ball object used to be set into a variable.
-     */
-    public void setBall(Ball ball) {
-        this.ball = ball;
     }
 }

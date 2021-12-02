@@ -21,6 +21,7 @@ package Model.Ball;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.util.Random;
 
 /**
  * this class is for the rubber ball, an extension from ball abstract class.
@@ -29,8 +30,10 @@ public class RubberBall extends Ball {
 
 
     private static final int DEF_DIAMETER = 10;
+
     private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
+
 
     /**
      * this constructor is used to create a rubber ball.

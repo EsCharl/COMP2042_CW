@@ -16,8 +16,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Controller;
+package View;
 
+import Controller.GameBoardController;
 import Model.Ball.Ball;
 import Model.GameScore;
 import Model.Game;
@@ -54,8 +55,6 @@ public class DebugConsole extends JDialog implements WindowListener{
     private static final String TITLE = "Debug Console";
 
     private JPanel jPanel;
-    private Game game;
-    private GameScore gameScore;
 
     private GameBoardController gameBoardController;
 
@@ -75,9 +74,6 @@ public class DebugConsole extends JDialog implements WindowListener{
 
         addTextSpeedCategory(getjPanel());
 
-        setGameScore(GameScore.singletonGameScore());
-
-        setGame(game);
         initialize();
 
         this.add(getjPanel(),BorderLayout.CENTER);
@@ -161,49 +157,13 @@ public class DebugConsole extends JDialog implements WindowListener{
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball b = getGame().getBall();
+        Ball b = getGameBoardController().getBall();
         setViewValues(b.getXSpeed(),b.getYSpeed());
     }
 
     @Override
     public void windowDeactivated(WindowEvent windowEvent) {
 
-    }
-
-    /**
-     * this method is used to get a game object which contains all the information for the game to progress.
-     *
-     * @return this returns a game object.
-     */
-    public Game getGame() {
-        return game;
-    }
-
-    /**
-     * this method is used to set a game object into a variable for future referencing.
-     *
-     * @param game this is the game object used to set into a variable
-     */
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    /**
-     * this method is used to get a game score object which is used to handle the scoring mechanism of the game.
-     *
-     * @return this is the game score object which is being returned.
-     */
-    public GameScore getGameScore() {
-        return gameScore;
-    }
-
-    /**
-     * this method is used to set a game score object into a variable for future reference.
-     *
-     * @param gameScore this is the game score object used to set into a variable.
-     */
-    public void setGameScore(GameScore gameScore) {
-        this.gameScore = gameScore;
     }
 
     /**
@@ -231,8 +191,8 @@ public class DebugConsole extends JDialog implements WindowListener{
         setSkipLevelButton(makeButton(getSKIP_LEVEL_TEXT(), e -> getGameBoardController().skipLevelTriggered()));
         setResetBallsButton(makeButton(getRESET_BALLS_TEXT(), e -> getGameBoardController().resetBallCountTriggered()));
 
-        setBallXSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_X(), getMAX_POSITIVE_SPEED_X(), e -> getGameBoardController().ballXSpeedValue(getBallXSpeedSlider().getValue())));
-        setBallYSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_Y(), getMAX_POSITIVE_SPEED_Y(), e -> getGameBoardController().ballYSpeedValue(getBallYSpeedSlider().getValue())));
+        setBallXSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_X(), getMAX_POSITIVE_SPEED_X(), e -> getGameBoardController().setBallXSpeedValue(getBallXSpeedSlider().getValue())));
+        setBallYSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_Y(), getMAX_POSITIVE_SPEED_Y(), e -> getGameBoardController().setBallYSpeedValue(getBallYSpeedSlider().getValue())));
 
         jPanel.add(getSkipLevelButton());
         jPanel.add(getResetBallsButton());
