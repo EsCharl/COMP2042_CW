@@ -29,6 +29,24 @@ public class InfoScreen {
     private final String TITLE = "HOW TO PLAY";
 
     private final String INFO_IMAGE_FILE_NAME = "/Info.png";
+    private JFrame frame;
+
+    public InfoScreen(){
+        BufferedImage display = null;
+        try {
+            display = ImageIO.read(HomeMenu.class.getResource(getINFO_IMAGE_FILE_NAME()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ImageIcon icon = new ImageIcon(display);
+        frame=new JFrame();
+        frame.setTitle(getTITLE());
+        frame.setLayout(new FlowLayout());
+        frame.setSize(500,400);
+        JLabel lbl=new JLabel();
+        lbl.setIcon(icon);
+        frame.add(lbl);
+    }
 
     /**
      * this method is used to create another window which contains the image to show the instruction on how to play this game.
@@ -36,15 +54,6 @@ public class InfoScreen {
      * @throws IOException this is used if the image could not be loaded.
      */
     public void DisplayInfo() throws IOException{
-        BufferedImage display = ImageIO.read(HomeMenu.class.getResource(getINFO_IMAGE_FILE_NAME()));
-        ImageIcon icon = new ImageIcon(display);
-        JFrame frame=new JFrame();
-        frame.setTitle(getTITLE());
-        frame.setLayout(new FlowLayout());
-        frame.setSize(500,400);
-        JLabel lbl=new JLabel();
-        lbl.setIcon(icon);
-        frame.add(lbl);
         frame.setVisible(true);
     }
 

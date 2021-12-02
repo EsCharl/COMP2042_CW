@@ -9,12 +9,12 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DebugConsoleTest {
+class GameBoardControllerTest {
 
     Rectangle area = new Rectangle(300,450);
     Game game = Game.singletonGame(area,30,3,6/2,new Point(300,430));
     JFrame jFrame = new JFrame();
-    DebugConsole debugConsole = DebugConsole.singletonDebugConsole(jFrame, game);
+    GameBoardController gameBoardController = GameBoardController.singletonGameBoardController(jFrame);
     GameScore gameScore = GameScore.singletonGameScore();
 
     @Test
@@ -25,7 +25,7 @@ class DebugConsoleTest {
         long getBeforeTotalTime = gameScore.getTotalTime();
         Object ballPosition = game.getBall().getCenterPosition().clone();
         game.nextLevel();
-        debugConsole.skipLevelTriggered();
+        gameBoardController.skipLevelTriggered();
         assertFalse(ballPosition.equals(game.getBall().getCenterPosition()));
         assertTrue(currentLevel != game.getCurrentLevel());
         assertTrue(getBeforeTotalTime != gameScore.getTotalTime());

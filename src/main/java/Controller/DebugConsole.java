@@ -53,49 +53,34 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     private static final String TITLE = "Debug Console";
 
-    private JFrame frameOwner;
     private JPanel jPanel;
     private Game game;
     private GameScore gameScore;
 
-    private static DebugConsole uniqueDebugConsole;
-
-    /**
-     * this method returns the one and only debug console object. singleton design pattern.
-     *
-     * @param frameOwner this is the JFrame object which the debug console will appear.
-     * @param game this is the game object used to get and change the game variables.
-     * @return this returns the one and only debug console object.
-     */
-    public static DebugConsole singletonDebugConsole(JFrame frameOwner, Game game){
-        if(getUniqueDebugConsole() == null){
-            setUniqueDebugConsole(new DebugConsole(frameOwner, game));
-        }
-        return getUniqueDebugConsole();
-    }
+    private GameBoardController gameBoardController;
 
     /**
      * this constructor is used for showing a console in the middle of the game window.
      *
-     * @param frameOwner a graphical frame that is going to be used.
      * @param game the game level that is generated, the status of the game.
      */
-    private DebugConsole(JFrame frameOwner, Game game){
-        jPanel = new JPanel();
+    public DebugConsole(Game game, GameBoardController gameBoardController){
+        setGameBoardController(gameBoardController);
 
-        setDebugPanelLook(jPanel);
+        setjPanel(new JPanel());
 
-        debugFunctions(jPanel);
+        setDebugPanelLook(getjPanel());
 
-        addTextSpeedCategory(jPanel);
+        debugFunctions(getjPanel());
+
+        addTextSpeedCategory(getjPanel());
 
         setGameScore(GameScore.singletonGameScore());
 
         setGame(game);
-        setFrameOwner(frameOwner);
         initialize();
 
-        this.add(jPanel,BorderLayout.CENTER);
+        this.add(getjPanel(),BorderLayout.CENTER);
 
         this.pack();
     }
@@ -125,7 +110,7 @@ public class DebugConsole extends JDialog implements WindowListener{
      * @return returns an X coordinate on where the debug console is to be set.
      */
     private int getSetDebugConsoleXCoordinate(){
-        return ((getFrameOwner().getWidth() - this.getWidth()) / 2) + getFrameOwner().getX();
+        return ((Toolkit.getDefaultToolkit().getScreenSize().width - this.getWidth()) / 2);
     }
 
     /**
@@ -134,9 +119,8 @@ public class DebugConsole extends JDialog implements WindowListener{
      * @return returns an X coordinate on where the debug console is to be set.
      */
     private int getSetDebugConsoleYCoordinate(){
-        return ((getFrameOwner().getHeight() - this.getHeight()) / 2) + getFrameOwner().getY();
+        return ((Toolkit.getDefaultToolkit().getScreenSize().height - this.getHeight()) / 2);
     }
-
 
     @Override
     public void windowOpened(WindowEvent windowEvent) {
@@ -187,24 +171,6 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
     /**
-     * this is method is used to get the JFrame object which is used to display the debug console.
-     *
-     * @return this returns the JFrame object.
-     */
-    public JFrame getFrameOwner() {
-        return frameOwner;
-    }
-
-    /**
-     * this method is used to set a JFrame object into a variable for future reference.
-     *
-     * @param frameOwner this is the JFrame used to set into a variable.
-     */
-    public void setFrameOwner(JFrame frameOwner) {
-        this.frameOwner = frameOwner;
-    }
-
-    /**
      * this method is used to get a game object which contains all the information for the game to progress.
      *
      * @return this returns a game object.
@@ -220,59 +186,6 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    /**
-     * this method is used to get the one and only Controller.DebugConsole object
-     *
-     * @return uniqueDebugConsole returns a Controller.DebugConsole object.
-     */
-    public static DebugConsole getUniqueDebugConsole() {
-        return uniqueDebugConsole;
-    }
-
-    /**
-     * this method is used to get the one and only Controller.DebugConsole object
-     *
-     * @param uniqueDebugConsole returns a Controller.DebugConsole object.
-     */
-    public static void setUniqueDebugConsole(DebugConsole uniqueDebugConsole) {
-        DebugConsole.uniqueDebugConsole = uniqueDebugConsole;
-    }
-
-    /**
-     * this method is used to set the ball X speed value.
-     *
-     * @param speed this is the integer value used to set the x speed of the ball.
-     */
-    public void ballXSpeedValue(int speed){
-        getGame().setBallXSpeed(speed);
-    }
-
-    /**
-     * this method is used to set the ball y speed value.
-     *
-     * @param speed this is the integer value used to set the y speed of the ball.
-     */
-    public void ballYSpeedValue(int speed){
-        getGame().setBallYSpeed(speed);
-    }
-
-    /**
-     * this is used by the View.DebugPanel class to skip the level which will restart the timer and show the next level.
-     */
-    public void skipLevelTriggered(){
-        getGameScore().restartTimer();
-        getGame().positionsReset();
-        getGame().wallReset();
-        getGame().nextLevel();
-    }
-
-    /**
-     * this method is called to reset the ball count based on a value fixed by the Game class (a constant value).
-     */
-    public void resetBallCountTriggered(){
-        getGame().resetBallCount();
     }
 
     /**
@@ -315,11 +228,11 @@ public class DebugConsole extends JDialog implements WindowListener{
      * this method is used to create the functions of the debug panel and to display them.
      */
     private void debugFunctions(JPanel jPanel) {
-        setSkipLevelButton(makeButton(getSKIP_LEVEL_TEXT(), e -> skipLevelTriggered()));
-        setResetBallsButton(makeButton(getRESET_BALLS_TEXT(), e -> resetBallCountTriggered()));
+        setSkipLevelButton(makeButton(getSKIP_LEVEL_TEXT(), e -> getGameBoardController().skipLevelTriggered()));
+        setResetBallsButton(makeButton(getRESET_BALLS_TEXT(), e -> getGameBoardController().resetBallCountTriggered()));
 
-        setBallXSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_X(), getMAX_POSITIVE_SPEED_X(), e -> ballXSpeedValue(getBallXSpeedSlider().getValue())));
-        setBallYSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_Y(), getMAX_POSITIVE_SPEED_Y(), e -> ballYSpeedValue(getBallYSpeedSlider().getValue())));
+        setBallXSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_X(), getMAX_POSITIVE_SPEED_X(), e -> getGameBoardController().ballXSpeedValue(getBallXSpeedSlider().getValue())));
+        setBallYSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_Y(), getMAX_POSITIVE_SPEED_Y(), e -> getGameBoardController().ballYSpeedValue(getBallYSpeedSlider().getValue())));
 
         jPanel.add(getSkipLevelButton());
         jPanel.add(getResetBallsButton());
@@ -532,5 +445,41 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     public String getBALL_Y_AXIS_SPEED_TEXT() {
         return BALL_Y_AXIS_SPEED_TEXT;
+    }
+
+    /**
+     * this method is used to get the panel which is used to add the sliders, button and label.
+     *
+     * @return this returns the JPanel used to add the sliders, button and label.
+     */
+    public JPanel getjPanel() {
+        return jPanel;
+    }
+
+    /**
+     * this method is used to set a JPanel object into a variable for future reference.
+     *
+     * @param jPanel this is the JPanel object used to set into a variable.
+     */
+    public void setjPanel(JPanel jPanel) {
+        this.jPanel = jPanel;
+    }
+
+    /**
+     * this method is used to get the game board object which is used to get the game board controller (Controller) to process the user input.
+     *
+     * @return this returns the game board controller used to process the user input.
+     */
+    public GameBoardController getGameBoardController() {
+        return gameBoardController;
+    }
+
+    /**
+     * this method is used to set the game board object which is going to be referenced in the future.
+     *
+     * @param gameBoardController this is the game board object used to set into a variable.
+     */
+    public void setGameBoardController(GameBoardController gameBoardController) {
+        this.gameBoardController = gameBoardController;
     }
 }

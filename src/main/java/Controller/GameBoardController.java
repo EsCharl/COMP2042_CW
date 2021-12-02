@@ -26,7 +26,6 @@ import View.GameScoreDisplay;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -75,7 +74,7 @@ public class GameBoardController {
 
         setGame(Game.singletonGame(new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT()),30,3,6/2,new Point(300,430)));
 
-        setDebugConsole(DebugConsole.singletonDebugConsole(owner, getGame()));
+        setDebugConsole(new DebugConsole(getGame(), this));
 
         setGameScore(GameScore.singletonGameScore());
         setShowPauseMenu(false);
@@ -434,5 +433,40 @@ public class GameBoardController {
 
     public void setGameScoreDisplay(GameScoreDisplay gameScoreDisplay) {
         this.gameScoreDisplay = gameScoreDisplay;
+    }
+
+    /**
+     * this is used by the View.DebugPanel class to skip the level which will restart the timer and show the next level.
+     */
+    public void skipLevelTriggered(){
+        debugConsole.getGameScore().restartTimer();
+        debugConsole.getGame().positionsReset();
+        debugConsole.getGame().wallReset();
+        debugConsole.getGame().nextLevel();
+    }
+
+    /**
+     * this method is used to set the ball y speed value.
+     *
+     * @param speed this is the integer value used to set the y speed of the ball.
+     */
+    public void ballYSpeedValue(int speed){
+        getGame().setBallYSpeed(speed);
+    }
+
+    /**
+     * this method is used to set the ball X speed value.
+     *
+     * @param speed this is the integer value used to set the x speed of the ball.
+     */
+    public void ballXSpeedValue(int speed){
+        getGame().setBallXSpeed(speed);
+    }
+
+    /**
+     * this method is called to reset the ball count based on a value fixed by the Game class (a constant value).
+     */
+    public void resetBallCountTriggered(){
+        debugConsole.getGame().resetBallCount();
     }
 }
