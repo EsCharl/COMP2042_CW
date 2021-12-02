@@ -21,10 +21,11 @@ package Controller;
 import Model.Ball.Ball;
 import Model.GameScore;
 import Model.Game;
-import View.DebugPanel;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -32,11 +33,28 @@ import java.awt.event.WindowListener;
  * Objective of this class is to create the console
  */
 public class DebugConsole extends JDialog implements WindowListener{
+    private final Color BACKGROUND_COLOR = Color.WHITE;
+
+    private final String RESET_BALLS_TEXT = "Reset Balls";
+    private final String SKIP_LEVEL_TEXT = "Skip Level";
+    private final String BALL_X_AXIS_SPEED_TEXT = "Ball x-axis speed";
+    private final String BALL_Y_AXIS_SPEED_TEXT = "Ball y-axis speed";
+
+    private final int MAX_POSITIVE_SPEED_X = 4;
+    private final int MAX_NEGATIVE_SPEED_X = -4;
+    private final int MAX_POSITIVE_SPEED_Y = 4;
+    private final int MAX_NEGATIVE_SPEED_Y = -4;
+
+    private JButton skipLevelButton;
+    private JButton resetBallsButton;
+
+    private JSlider ballXSpeedSlider;
+    private JSlider ballYSpeedSlider;
 
     private static final String TITLE = "Debug Console";
 
     private JFrame frameOwner;
-    private DebugPanel debugPanel;
+    private JPanel jPanel;
     private Game game;
     private GameScore gameScore;
 
@@ -63,14 +81,21 @@ public class DebugConsole extends JDialog implements WindowListener{
      * @param game the game level that is generated, the status of the game.
      */
     private DebugConsole(JFrame frameOwner, Game game){
+        jPanel = new JPanel();
+
+        setDebugPanelLook(jPanel);
+
+        debugFunctions(jPanel);
+
+        addTextSpeedCategory(jPanel);
+
         setGameScore(GameScore.singletonGameScore());
 
         setGame(game);
         setFrameOwner(frameOwner);
         initialize();
 
-        setDebugPanel(DebugPanel.singletonDebugPanel(this));
-        this.add(getDebugPanel(),BorderLayout.CENTER);
+        this.add(jPanel,BorderLayout.CENTER);
 
         this.pack();
     }
@@ -153,7 +178,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
         Ball b = getGame().getBall();
-        getDebugPanel().setViewValues(b.getXSpeed(),b.getYSpeed());
+        setViewValues(b.getXSpeed(),b.getYSpeed());
     }
 
     @Override
@@ -177,24 +202,6 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     public void setFrameOwner(JFrame frameOwner) {
         this.frameOwner = frameOwner;
-    }
-
-    /**
-     * this method is used to get a debug panel which contains the user inputs needed for processing.
-     *
-     * @return this is the debug panel object that is being returned.
-     */
-    public DebugPanel getDebugPanel() {
-        return debugPanel;
-    }
-
-    /**
-     * this method is used to set a debug panel object into a variable for future reference.
-     *
-     * @param debugPanel this is the debug panel object used to set into a variable.
-     */
-    public void setDebugPanel(DebugPanel debugPanel) {
-        this.debugPanel = debugPanel;
     }
 
     /**
@@ -284,5 +291,246 @@ public class DebugConsole extends JDialog implements WindowListener{
      */
     public void setGameScore(GameScore gameScore) {
         this.gameScore = gameScore;
+    }
+
+    /**
+     * this method is to add the speed category into the Debug Panel.
+     */
+    private void addTextSpeedCategory(JPanel jPanel) {
+        jPanel.add(createJLabelCentered(getBALL_X_AXIS_SPEED_TEXT()));
+        jPanel.add(createJLabelCentered(getBALL_Y_AXIS_SPEED_TEXT()));
+    }
+
+    /**
+     * this method is used to create a JLabel and set a text into it.
+     *
+     * @param setText the text used to set the string into the JLabel.
+     * @return returns a new JLabel object.
+     */
+    private JLabel createJLabelCentered(String setText) {
+        return new JLabel(setText, SwingConstants.CENTER);
+    }
+
+    /**
+     * this method is used to create the functions of the debug panel and to display them.
+     */
+    private void debugFunctions(JPanel jPanel) {
+        setSkipLevelButton(makeButton(getSKIP_LEVEL_TEXT(), e -> skipLevelTriggered()));
+        setResetBallsButton(makeButton(getRESET_BALLS_TEXT(), e -> resetBallCountTriggered()));
+
+        setBallXSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_X(), getMAX_POSITIVE_SPEED_X(), e -> ballXSpeedValue(getBallXSpeedSlider().getValue())));
+        setBallYSpeedSlider(makeSlider(getMAX_NEGATIVE_SPEED_Y(), getMAX_POSITIVE_SPEED_Y(), e -> ballYSpeedValue(getBallYSpeedSlider().getValue())));
+
+        jPanel.add(getSkipLevelButton());
+        jPanel.add(getResetBallsButton());
+
+        jPanel.add(getBallXSpeedSlider());
+        jPanel.add(getBallYSpeedSlider());
+    }
+
+    /**
+     * this method creates a square which will specify the number of inputs allowed.
+     */
+    private void setDebugPanelLook(JPanel jPanel){
+        jPanel.setBackground(getBACKGROUND_COLOR());
+        jPanel.setLayout(new GridLayout(3,2));
+    }
+
+    /**
+     *  This method is used to create a button for the console which is used to change the level or the speed of the ball.
+     *
+     * @param title the title is the name listen inside the button.
+     * @param e this allows that when the button is clicked it will be a true.
+     * @return a button for the game console
+     */
+    private JButton makeButton(String title, ActionListener e){
+        JButton out = new JButton(title);
+        out.addActionListener(e);
+        return out;
+    }
+
+    /**
+     * this method is used to create a slider for the intent of changing the value.
+     *
+     * @param min   the lowest possible value that it can go for the slider
+     * @param max   the highest possible value that it can go for the slider
+     * @param e     this detects if there is a change of value
+     * @return      this returns a slider for the console
+     */
+    private JSlider makeSlider(int min, int max, ChangeListener e){
+        JSlider out = new JSlider(min,max);
+        out.setMajorTickSpacing(1);
+        out.setSnapToTicks(true);
+        out.setPaintTicks(true);
+        out.addChangeListener(e);
+
+        out.setPaintTicks(true);
+        out.setPaintTrack(true);
+        out.setPaintLabels(true);
+        return out;
+    }
+
+    /**
+     * This method used for changing the value of the ball speed.
+     *
+     * @param x this takes in the value that the ball supposed to go in the x-axis and set it for the ball
+     * @param y this takes in the value that the ball supposed to go in the y-axis and set it for the ball
+     */
+    public void setViewValues(int x, int y){
+        getBallXSpeedSlider().setValue(x);
+        getBallYSpeedSlider().setValue(y);
+    }
+
+    /**
+     * this method is used to get the max positive speed on the x-axis for the ball.
+     *
+     * @return this returns a max positive speed for the ball on the x-axis;
+     */
+    public int getMAX_POSITIVE_SPEED_X() {
+        return MAX_POSITIVE_SPEED_X;
+    }
+
+    /**
+     * this method is used to get the max negative speed on the x-axis for the ball.
+     *
+     * @return this returns a max negative speed for the ball on the x-axis.
+     */
+    public int getMAX_NEGATIVE_SPEED_X() {
+        return MAX_NEGATIVE_SPEED_X;
+    }
+
+    /**
+     * this method is used to get the max positive speed on the y-axis for the ball.
+     *
+     * @return this returns a max positive speed for the ball on the y-axis;
+     */
+    public int getMAX_POSITIVE_SPEED_Y() {
+        return MAX_POSITIVE_SPEED_Y;
+    }
+
+    /**
+     * this method is used to get the max negative speed on the y-axis for the ball.
+     *
+     * @return this returns a max negative speed for the ball on the y-axis.
+     */
+    public int getMAX_NEGATIVE_SPEED_Y() {
+        return MAX_NEGATIVE_SPEED_Y;
+    }
+
+    /**
+     * this method is used to get a button object which is called the skip level button.
+     *
+     * @return it returns a skip level button.
+     */
+    public JButton getSkipLevelButton() {
+        return skipLevelButton;
+    }
+
+    /**
+     * this method is used to set a button object for the skip level button which is used to future references.
+     *
+     * @param skipLevelButton this is the skip level button used to set into a variable for future reference.
+     */
+    public void setSkipLevelButton(JButton skipLevelButton) {
+        this.skipLevelButton = skipLevelButton;
+    }
+
+    /**
+     * this method is used to get a button object for the reset balls button.
+     *
+     * @return it returns a reset ball button.
+     */
+    public JButton getResetBallsButton() {
+        return resetBallsButton;
+    }
+
+    /**
+     * this method is used to set a button object for the reset balls button.
+     *
+     * @param resetBallsButton this is the button object used to set a button for the reset balls button.
+     */
+    public void setResetBallsButton(JButton resetBallsButton) {
+        this.resetBallsButton = resetBallsButton;
+    }
+
+    /**
+     * this method is used to get a slider which is the x-axis speed for the ball slider.
+     *
+     * @return this returns a slider for the x speed of the ball.
+     */
+    public JSlider getBallXSpeedSlider() {
+        return ballXSpeedSlider;
+    }
+
+    /**
+     * this method is used to set a slider object for the x-axis speed for the ball slider.
+     *
+     * @param ballXSpeedSlider this is the slider used to set into a variable that is in control of the ball x speed.
+     */
+    public void setBallXSpeedSlider(JSlider ballXSpeedSlider) {
+        this.ballXSpeedSlider = ballXSpeedSlider;
+    }
+
+    /**
+     * this method is used to get a slider object for the y-axis speed for the ball slider.
+     *
+     * @return this returns a slider for the y speed of the ball.
+     */
+    public JSlider getBallYSpeedSlider() {
+        return ballYSpeedSlider;
+    }
+
+    /**
+     * this method is used to set a slider object for the y-axis speed for the ball slider.
+     *
+     * @param ballYSpeedSlider this is the slider used to set into a variable that is in control of the ball y speed.
+     */
+    public void setBallYSpeedSlider(JSlider ballYSpeedSlider) {
+        this.ballYSpeedSlider = ballYSpeedSlider;
+    }
+
+    /**
+     * this method is used to get a constant background color for the debug panel.
+     *
+     * @return this is the constant background color which it is being returned.
+     */
+    public Color getBACKGROUND_COLOR() {
+        return BACKGROUND_COLOR;
+    }
+
+    /**
+     * this method is used to get the reset balls text to be displayed on the reset balls button.
+     *
+     * @return this returns a string which is for the reset ball button.
+     */
+    public String getRESET_BALLS_TEXT() {
+        return RESET_BALLS_TEXT;
+    }
+
+    /**
+     * this method is used to get the skip level text which is used to be displayed on the skip level button.
+     *
+     * @return this returns a string which is for the skip level button.
+     */
+    public String getSKIP_LEVEL_TEXT() {
+        return SKIP_LEVEL_TEXT;
+    }
+
+    /**
+     * this method is used to get the ball x-axis speed text which is being displayed on the debug panel to indicate which slider is for which axis of the ball speed.
+     *
+     * @return this returns a string which is used to be displayed on the debug panel right under the x-axis slider.
+     */
+    public String getBALL_X_AXIS_SPEED_TEXT() {
+        return BALL_X_AXIS_SPEED_TEXT;
+    }
+
+    /**
+     * this method is used to get the ball y-axis speed text which is being displayed on the debug panel to indicate which slider is for which axis of the ball speed.
+     *
+     * @return this returns a string which is used to be displayed on the debug panel right under the y-axis slider.
+     */
+    public String getBALL_Y_AXIS_SPEED_TEXT() {
+        return BALL_Y_AXIS_SPEED_TEXT;
     }
 }

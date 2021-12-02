@@ -10,9 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardPauseView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/DebugPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/DebugConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/DebugConsole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,11 +36,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Game.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Brick/CementBrick.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/Controller/DebugConsole.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Brick/Brick.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/View/GameBoardView.java" root0="FORCE_HIGHLIGHTING" />
