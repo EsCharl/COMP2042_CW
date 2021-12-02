@@ -53,6 +53,7 @@ public class GameBoardController {
 
     private boolean showPauseMenu;
     private boolean canGetTime;
+    private boolean botMode;
 
     private Timer gameTimer;
 
@@ -63,7 +64,6 @@ public class GameBoardController {
     private Player player;
     private Ball ball;
     private Random rnd;
-
 
     private static GameBoardController uniqueGameBoardController;
     private GameScoreDisplay gameScoreDisplay;
@@ -88,6 +88,8 @@ public class GameBoardController {
 
         setCanGetTime(false);
 
+        setBotMode(false);
+
         Rectangle playArea = new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT());
 
         setGame(Game.singletonGame(playArea,30,3,6/2,new Point(300,430)));
@@ -111,6 +113,73 @@ public class GameBoardController {
     }
 
     /**
+     * this method is used to start the game.
+     */
+    private void startGame() {
+        getGame().nextLevel();
+        getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
+
+        setGameTimer(new Timer(10, e ->{
+            entitiesMovements();
+            findImpacts();
+            getGameBoardView().setMessage(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getBallCount()));
+            if(getGame().isBallLost()){
+                if(getGame().isGameOver()){
+                    getGame().wallReset();
+                    getGameBoardView().setMessage("Game over");
+                    getGameTimer().stop();
+                    getGameScore().restartTimer();
+                }
+                positionsReset();
+                getGameTimer().stop();
+                getGameScore().pauseTimer();
+            }
+            else if(getGame().isLevelComplete()){
+                if(getGame().hasLevel()){
+                    getGameBoardView().setMessage("Go to Next Level");
+                    getGameTimer().stop();
+                    restartGameStatus();
+                }
+                else{
+                    getGameBoardView().setMessage("ALL WALLS DESTROYED");
+                    getGameTimer().stop();
+                }
+
+                getGameScore().pauseTimer();
+
+                //for save file saving and high score pop up
+                saveScoreLevel();
+
+                getGameScore().restartTimer();
+            }
+            getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
+
+            automation();
+
+            getGameBoardView().updateGameBoardView();
+        }));
+    }
+
+    /**
+     * this method is used to let the bot control the paddle instead of the player playing it.
+     */
+    public void automation(){
+        if(isBotMode()){
+            if(getBall().getCenterPosition().getX() > getPlayer().getPlayerCenterPosition().getX())
+                playerMoveRight();
+            else
+                playerMoveLeft();
+        }
+    }
+
+    /**
+     * this method toggles between bot mode or player mode.
+     */
+    public void toggleAI(){
+        setBotMode(!isBotMode());
+    }
+
+    /**
      * this method is used to get the ball object to check the position of the ball, collision, and set the speed.
      *
      * @return this returns a ball object
@@ -125,7 +194,16 @@ public class GameBoardController {
      * @param ballPos this is the position (in the format of Point2D) of the ball that is going to be generated.
      */
     private void makeBall(Point2D ballPos){
-        ball = new RubberBall(ballPos);
+        setBall(new RubberBall(ballPos));
+    }
+
+    /**
+     * this method is used to set the ball object for future reference.
+     *
+     * @param ball this is the ball object used to set into a variable.
+     */
+    public void setBall(Ball ball){
+        this.ball = ball;
     }
 
     /**
@@ -292,51 +370,7 @@ public class GameBoardController {
         }
     }
 
-    /**
-     * this method is used to start the game.
-     */
-    private void startGame() {
-        getGame().nextLevel();
-        getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
 
-        setGameTimer(new Timer(10, e ->{
-            entitiesMovements();
-            findImpacts();
-            getGameBoardView().setMessage(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getBallCount()));
-            if(getGame().isBallLost()){
-                if(getGame().isGameOver()){
-                    getGame().wallReset();
-                    getGameBoardView().setMessage("Game over");
-                    getGameTimer().stop();
-                    getGameScore().restartTimer();
-                }
-                positionsReset();
-                getGameTimer().stop();
-                getGameScore().pauseTimer();
-            }
-            else if(getGame().isLevelComplete()){
-                if(getGame().hasLevel()){
-                    getGameBoardView().setMessage("Go to Next Level");
-                    getGameTimer().stop();
-                    restartGameStatus();
-                }
-                else{
-                    getGameBoardView().setMessage("ALL WALLS DESTROYED");
-                    getGameTimer().stop();
-                }
-
-                getGameScore().pauseTimer();
-
-                //for save file saving and high score pop up
-                saveScoreLevel();
-
-                getGameScore().restartTimer();
-            }
-            getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
-
-            getGameBoardView().updateGameBoardView();
-        }));
-    }
 
     /**
      * this is used to reset the ball and the player to the starting position and giving it a random speed for the ball.
@@ -644,5 +678,23 @@ public class GameBoardController {
      */
     public void resetBallCountTriggered(){
         getGame().resetBallCount();
+    }
+
+    /**
+     * this method is used to check if the bot mode (AI) is activated for the bot to play in behalf of the player.
+     *
+     * @return this returns a boolean value to see if the game is enabled for the bot to play.
+     */
+    public boolean isBotMode() {
+        return botMode;
+    }
+
+    /**
+     * this method is used to change between the player mode and AI mode.
+     *
+     * @param botMode this is the boolean value to set if it's player mode (false) or AI mode (true).
+     */
+    public void setBotMode(boolean botMode) {
+        this.botMode = botMode;
     }
 }

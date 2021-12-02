@@ -644,6 +644,9 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
             case KeyEvent.VK_SPACE:
                 getGameBoardController().startPauseButtonTriggered();
                 break;
+            case KeyEvent.VK_H:
+                getGameBoardController().toggleAI();
+                break;
             case KeyEvent.VK_F1:
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
                     getGameBoardController().debugConsoleButtonClicked();
