@@ -18,6 +18,7 @@
 
 package Model;
 
+import Controller.GameBoardController;
 import Model.Brick.Brick;
 import Model.Levels.LevelFactory;
 import Model.Levels.WallLevelTemplates;
@@ -36,7 +37,6 @@ public class Game {
 
     private Brick[] bricks;
 
-
     private Brick[][] brickLevels;
     private int currentLevel;
 
@@ -46,6 +46,7 @@ public class Game {
     private boolean ballLost;
 
     private static Game uniqueGame;
+
 
     /**
      * this method is used to create a Model.Wall object based on the Singleton design pattern.
@@ -86,8 +87,6 @@ public class Game {
 
         setBorderArea(drawArea);
     }
-
-
 
     /**
      * this is used to generate the levels to be placed in a brick array.
@@ -136,8 +135,6 @@ public class Game {
     public boolean isBallLost(){
         return ballLost;
     }
-
-
 
     /**
      * this is used to reset the wall (bricks) and the ball count (tries).
@@ -343,4 +340,5 @@ public class Game {
     public int getMAX_BALL_COUNT() {
         return MAX_BALL_COUNT;
     }
+
 }

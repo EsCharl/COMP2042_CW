@@ -12,9 +12,19 @@
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GraphicsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GraphicsMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/DebugConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/DebugConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/DebugConsole.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +40,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -42,7 +52,6 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Game.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Brick/CementBrick.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/Model/Brick/Brick.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/View/GameBoardView.java" root0="FORCE_HIGHLIGHTING" />

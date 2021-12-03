@@ -81,7 +81,7 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
 
         setGame(game);
 
-        setPreferredSize(new Dimension(GameBoardController.getDEF_WIDTH(), GameBoardController.getDEF_HEIGHT()));
+        setPreferredSize(new Dimension(gameBoardController.getDEF_WIDTH(), gameBoardController.getDEF_HEIGHT()));
         setFocusable(true);
         requestFocusInWindow();
 
@@ -212,7 +212,7 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
         g2d.setComposite(ac);
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0,0, GameBoardController.getDEF_WIDTH(), GameBoardController.getDEF_HEIGHT());
+        g2d.fillRect(0,0, gameBoardController.getDEF_WIDTH(), gameBoardController.getDEF_HEIGHT());
 
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);

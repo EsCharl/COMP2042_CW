@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Controller.GameFrame;
+import Controller.GameBoardController;
 
 import java.awt.*;
 
@@ -26,7 +26,7 @@ import java.awt.*;
 public class GraphicsMain {
 
     public static void main(String[] args){
-        EventQueue.invokeLater(() -> GameFrame.singletonGameFrame().initialize());
+        EventQueue.invokeLater(() -> GameBoardController.singletonGameBoardController().initialize());
     }
 
 }

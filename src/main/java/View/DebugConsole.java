@@ -61,9 +61,8 @@ public class DebugConsole extends JDialog implements WindowListener{
     /**
      * this constructor is used for showing a console in the middle of the game window.
      *
-     * @param game the game level that is generated, the status of the game.
      */
-    public DebugConsole(Game game, GameBoardController gameBoardController){
+    public DebugConsole(GameBoardController gameBoardController){
         setGameBoardController(gameBoardController);
 
         setjPanel(new JPanel());

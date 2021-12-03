@@ -18,7 +18,7 @@
 
 package View;
 
-import Controller.GameFrame;
+import Controller.GameBoardController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -64,7 +64,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Font gameVersionFont;
     private Font buttonFont;
 
-    private GameFrame gameFrame;
+    private GameBoardController gameBoardController;
 
     private boolean startClicked;
     private boolean menuClicked;
@@ -81,13 +81,13 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     /**
      * this method is used to create and return one and only one home menu object.
      *
-     * @param gameFrame this is the game frame object used to create the object.
+     * @param gameBoardController this is the game frame object used to create the object.
      * @param area this is the size area of which the Home menu will be drawn.
      * @return it returns a home menu object.
      */
-    public static HomeMenu singletonHomeMenu(GameFrame gameFrame, Dimension area){
+    public static HomeMenu singletonHomeMenu(GameBoardController gameBoardController,Dimension area){
         if(getUniqueHomeMenu() == null){
-            setUniqueHomeMenu(new HomeMenu(gameFrame,area));
+            setUniqueHomeMenu(new HomeMenu(gameBoardController,area));
         }
         return getUniqueHomeMenu();
     }
@@ -95,10 +95,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     /**
      * this constructor creates the home menu object.
      *
-     * @param gameFrame this takes in the game frame which is also a frame that is shown on the start page when the game is started
+     * @param gameBoardController this takes in the game frame which is also a frame that is shown on the start page when the game is started
      * @param area is the information that is used to create the window in terms of the dimensions.
      */
-    private HomeMenu(GameFrame gameFrame, Dimension area){
+    private HomeMenu(GameBoardController gameBoardController, Dimension area){
 
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -106,7 +106,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        setGameFrame(gameFrame);
+        setGameBoardController(gameBoardController);
 
         setMenuFace(new Rectangle(new Point(0,0),area));
 
@@ -436,14 +436,14 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
         if(getStartButton().contains(p)){
-           getGameFrame().enableGameBoard();
+           getGameBoardController().enableGameBoard();
         }
         else if(getExitButton().contains(p)){
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
         }
         else if(getInfoButton().contains(p)){
-            getGameFrame().displayInfoClicked();
+            getGameBoardController().displayInfoClicked();
         }
     }
 
@@ -800,16 +800,16 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      *
      * @return this returns the game frame object used to send user input based on visual.
      */
-    public GameFrame getGameFrame() {
-        return gameFrame;
+    public GameBoardController getGameBoardController() {
+        return gameBoardController;
     }
 
     /**
      * this method is used to set the game frame object into a variable for future referencing.
      *
-     * @param gameFrame this is the game frame object used to set into a variable for future referencing.
+     * @param gameBoardController this is the game frame object used to set into a variable for future referencing.
      */
-    public void setGameFrame(GameFrame gameFrame) {
-        this.gameFrame = gameFrame;
+    public void setGameBoardController(GameBoardController gameBoardController) {
+        this.gameBoardController = gameBoardController;
     }
 }

@@ -18,20 +18,18 @@
 
 package Controller;
 
+import Model.*;
 import Model.Ball.Ball;
 import Model.Ball.RubberBall;
 import Model.Brick.Brick;
 import Model.Brick.Crack;
-import Model.GameScore;
-import Model.Game;
-import Model.Player;
-import View.DebugConsole;
-import View.GameBoardView;
-import View.GameScoreDisplay;
+import View.*;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -41,32 +39,41 @@ import java.util.Random;
 /**
  *  this is a class that handles the gaming part of the program. which includes the pause feature
  */
-public class GameBoardController {
+public class GameBoardController extends JFrame implements WindowFocusListener {
 
     private final int UP_IMPACT = 100;
     private final int DOWN_IMPACT = 200;
     private final int LEFT_IMPACT = 300;
     private final int RIGHT_IMPACT = 400;
 
-    private final static int DEF_WIDTH = 600;
-    private final static int DEF_HEIGHT = 450;
+    private final int DEF_WIDTH = 600;
+    private final int DEF_HEIGHT = 450;
 
-    private boolean showPauseMenu;
     private boolean canGetTime;
-    private boolean botMode;
+
+    private static final String DEF_TITLE = "Brick Destroy";
+    private final int HOME_MENU_WIDTH = 450;
+    private final int HOME_MENU_HEIGHT = 300;
 
     private Timer gameTimer;
 
     public GameBoardView gameBoardView;
     private GameScore gameScore;
-    private Game game;
+    public Game game;
     private DebugConsole debugConsole;
     private Player player;
     private Ball ball;
     private Random rnd;
 
+    private boolean showPauseMenu;
+    private boolean botMode;
+    private boolean gaming;
+
     private static GameBoardController uniqueGameBoardController;
     private GameScoreDisplay gameScoreDisplay;
+
+    private HomeMenu homeMenu;
+    private InfoScreen infoScreen;
 
     /**
      * this method is used to create and return the one and only game board controller object. (singleton)
@@ -84,20 +91,35 @@ public class GameBoardController {
      *
      */
     private GameBoardController(){
+        super();
+
+        setGaming(false);
+        setBotMode(false);
+        setShowPauseMenu(false);
+
+        setHomeMenu(HomeMenu.singletonHomeMenu(this, new Dimension(getHOME_MENU_WIDTH(), getHOME_MENU_HEIGHT())));
+
+        setInfoScreen(new InfoScreen());
+
+        this.setLayout(new BorderLayout());
+
+        this.add(getHomeMenu(),BorderLayout.CENTER);
+
+        this.setUndecorated(true);
+
+        this.setResizable(false);
+
         setRnd(new Random());
 
         setCanGetTime(false);
-
-        setBotMode(false);
 
         Rectangle playArea = new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT());
 
         setGame(Game.singletonGame(playArea,30,3,6/2,new Point(300,430)));
 
-        setDebugConsole(new DebugConsole(getGame(), this));
+        setDebugConsole(new DebugConsole(this));
 
         setGameScore(GameScore.singletonGameScore());
-        setShowPauseMenu(false);
 
         setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
         getGameBoardView().setMessage("");
@@ -110,6 +132,103 @@ public class GameBoardController {
 
         //initialize the first level
         startGame();
+    }
+
+    /**
+     * this method is used to show the game window.
+     */
+    public void initialize(){
+        this.setTitle(DEF_TITLE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.pack();
+        this.autoLocate();
+        this.setVisible(true);
+    }
+
+    /**
+     * this method is used to dispose the home menu and create the game board on the screen.
+     */
+    public void enableGameBoard(){
+        this.dispose();
+        this.remove(getHomeMenu());
+        this.add(getGameBoardView(),BorderLayout.CENTER);
+        this.setUndecorated(false);
+        initialize();
+
+        this.addWindowFocusListener(this);
+    }
+
+    public void displayInfoClicked(){
+        try {
+            getInfoScreen().DisplayInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *this method is used to set the location of the game frame in the middle of the screen.
+     */
+    private void autoLocate(){
+        this.setLocation(getGameFrameXCoordinate(getDisplayScreenSize()),getGameFrameYCoordinate(getDisplayScreenSize()));
+    }
+
+    /**
+     * this method is used to get the screen size of the user device display.
+     *
+     * @return returns the dimension of the user screen size.
+     */
+    private Dimension getDisplayScreenSize(){
+        return Toolkit.getDefaultToolkit().getScreenSize();
+    }
+
+    /**
+     * this method is used to get the middle of the x coordinate based on the size provided.
+     *
+     * @param size this is the size dimension used to get the middle of the size.
+     * @return this returns an integer which is the middle of the size provided based on x coordinate.
+     */
+    private int getGameFrameXCoordinate(Dimension size){
+        return (size.width - this.getWidth()) / 2;
+    }
+
+    /**
+     * this method is used to get the middle of the y coordinate based on the size provided.
+     *
+     * @param size this is the size dimension used to get the middle of the size.
+     * @return this returns an integegr which is the middle of the size provided based on y coordinate.
+     */
+    private int getGameFrameYCoordinate(Dimension size){
+        return (size.height - this.getHeight()) / 2;
+    }
+
+    /**
+     * this is used to gain the focus of the game window and set the gaming to be true, this will also ensure all keyboard events are being registered to the game. and set the gaming variable to true.
+     *
+     * @param windowEvent this returns the status of the window.
+     */
+    @Override
+    public void windowGainedFocus(WindowEvent windowEvent) {
+        /*
+            the first time the frame loses focus is because
+            it has been disposed to install the GameBoard,
+            so went it regains the focus it's ready to play.
+            of course calling a method such as 'onLostFocus'
+            is useful only if the GameBoard as been displayed
+            at least once
+         */
+        setGaming(true);
+    }
+
+    /**
+     * this method is used to ensure that the focus is not on the game when the gaming is set to false, this will also ensure the keyboard events will not be registered to the game.
+     *
+     * @param windowEvent this returns the status of the window.
+     */
+    @Override
+    public void windowLostFocus(WindowEvent windowEvent) {
+        if(isGaming())
+            lostFocusTriggered();
     }
 
     /**
@@ -126,7 +245,7 @@ public class GameBoardController {
             if(getGame().isBallLost()){
                 if(getGame().isGameOver()){
                     getGame().wallReset();
-                    getGameBoardView().setMessage("Game over");
+                    getGameBoardView().setMessage("Game over. Time spent in this level: " + getGameScore().getTimerString());
                     getGameTimer().stop();
                     getGameScore().restartTimer();
                 }
@@ -304,24 +423,6 @@ public class GameBoardController {
      */
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    /**
-     * this method is used to see if the game is in pause menu.
-     *
-     * @return returns true if it is.
-     */
-    public boolean isShowPauseMenu() {
-        return showPauseMenu;
-    }
-
-    /**
-     * this method is used to set the show pause menu variable, which is used to record if the game is in pause.
-     *
-     * @param showPauseMenu this is used to change the status of the variable.
-     */
-    public void setShowPauseMenu(boolean showPauseMenu) {
-        this.showPauseMenu = showPauseMenu;
     }
 
     /**
@@ -619,24 +720,6 @@ public class GameBoardController {
         this.gameScore = gameScore;
     }
 
-    /**
-     * this method is used to get the definite width of the game board and the wall level width generation.
-     *
-     * @return it returns an integer to be used for the width of the game board and wall level.
-     */
-    public static int getDEF_WIDTH(){
-        return DEF_WIDTH;
-    }
-
-    /**
-     * this method is used to get the definite height of the game board and the wall level height generation
-     *
-     * @return it returns an integer to be used for the height of the game board and wall level.
-     */
-    public static int getDEF_HEIGHT(){
-        return DEF_HEIGHT;
-    }
-
     public GameScoreDisplay getGameScoreDisplay() {
         return gameScoreDisplay;
     }
@@ -680,6 +763,57 @@ public class GameBoardController {
         getGame().resetBallCount();
     }
 
+    public int getHOME_MENU_WIDTH() {
+        return HOME_MENU_WIDTH;
+    }
+
+    public int getHOME_MENU_HEIGHT() {
+        return HOME_MENU_HEIGHT;
+    }
+
+    public HomeMenu getHomeMenu() {
+        return homeMenu;
+    }
+
+    public void setHomeMenu(HomeMenu homeMenu) {
+        this.homeMenu = homeMenu;
+    }
+
+    public InfoScreen getInfoScreen() {
+        return infoScreen;
+    }
+
+    public void setInfoScreen(InfoScreen infoScreen) {
+        this.infoScreen = infoScreen;
+    }
+
+    /**
+     * this method is used to see if the game is in pause menu.
+     *
+     * @return returns true if it is.
+     */
+    public boolean isShowPauseMenu() {
+        return showPauseMenu;
+    }
+
+    /**
+     * this method is used to set the show pause menu variable, which is used to record if the game is in pause.
+     *
+     * @param showPauseMenu this is used to change the status of the variable.
+     */
+    public void setShowPauseMenu(boolean showPauseMenu) {
+        this.showPauseMenu = showPauseMenu;
+    }
+
+    /**
+     * this method is used to change between the player mode and AI mode.
+     *
+     * @param botMode this is the boolean value to set if it's player mode (false) or AI mode (true).
+     */
+    public void setBotMode(boolean botMode) {
+        this.botMode = botMode;
+    }
+
     /**
      * this method is used to check if the bot mode (AI) is activated for the bot to play in behalf of the player.
      *
@@ -690,11 +824,38 @@ public class GameBoardController {
     }
 
     /**
-     * this method is used to change between the player mode and AI mode.
+     * this method is used to set if the user is playing (focused on the game or not).
      *
-     * @param botMode this is the boolean value to set if it's player mode (false) or AI mode (true).
+     * @param gaming this is the boolean value used to set if the user is gaming or not.
      */
-    public void setBotMode(boolean botMode) {
-        this.botMode = botMode;
+    public void setGaming(boolean gaming) {
+        this.gaming = gaming;
+    }
+
+    /**
+     * this method is used to set if the user is gaming or not (focused on the game).
+     *
+     * @return this is the boolean value to see if the user is focused on the game or not.
+     */
+    public boolean isGaming() {
+        return gaming;
+    }
+
+    /**
+     * this method is used to get the definite width of the game board and the wall level width generation.
+     *
+     * @return it returns an integer to be used for the width of the game board and wall level.
+     */
+    public int getDEF_WIDTH(){
+        return DEF_WIDTH;
+    }
+
+    /**
+     * this method is used to get the definite height of the game board and the wall level height generation
+     *
+     * @return it returns an integer to be used for the height of the game board and wall level.
+     */
+    public int getDEF_HEIGHT(){
+        return DEF_HEIGHT;
     }
 }
