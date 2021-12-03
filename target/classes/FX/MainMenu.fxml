@@ -1,18 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<StackPane fx:id="parentcontainer" stylesheets="@../CSS/MainMenu.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FX.MainMenuController">
-    <VBox alignment="CENTER" prefHeight="300.0" prefWidth="450.0" spacing="10" style="-fx-background-image: ../images/mainimage.png;">
-        <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-        </padding>
+<StackPane fx:id="parentcontainer" stylesheets="@../CSS/MainMenu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="FX.MainMenuController">
+    <GridPane prefHeight="300" prefWidth="450">
+        <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <Text styleClass="greetings" text="Welcome to:" textAlignment="CENTER">
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin></Text>
+            <Text styleClass="title" text="Brick Destroy">
+            <VBox.margin>
+               <Insets bottom="20.0" />
+            </VBox.margin></Text>
+            <Text styleClass="credits" text="Version 1.0" />
+        </VBox>
 
-        <Button fx:id="info" mnemonicParsing="false" onAction="#onInfoButtonClick" prefHeight="27.0" prefWidth="89.0" style="-fx-background-color: 20; -fx-border-color: blue;" text="INFO" />
-       <Button fx:id="start" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="25.0" prefWidth="91.0" text="START GAME" />
-       <Button fx:id="exit" mnemonicParsing="false" onAction="#onExitButton" prefHeight="25.0" prefWidth="91.0" text="Exit" />
-    </VBox>
+        <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+           <Button fx:id="info" mnemonicParsing="false" onAction="#onInfoButtonClick" prefHeight="27.0" prefWidth="95.0" styleClass="info" text="INFO" textAlignment="CENTER">
+               <cursor>
+                   <Cursor fx:constant="HAND" />
+               </cursor>
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+           </Button>
+           <Button fx:id="start" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="25.0" prefWidth="95.0" styleClass="start" text="START GAME">
+               <cursor>
+                   <Cursor fx:constant="HAND" />
+               </cursor>
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+           </Button>
+           <Button fx:id="exit" mnemonicParsing="false" onAction="#onExitButton" prefHeight="25.0" prefWidth="95.0" styleClass="exit" text="Exit">
+               <cursor>
+                   <Cursor fx:constant="HAND" />
+               </cursor>
+           </Button>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+        </VBox>
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints />
+         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
 </StackPane>

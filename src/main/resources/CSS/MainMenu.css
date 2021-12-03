@@ -2,7 +2,44 @@
     -fx-background-image: url("../images/mainimage.png");
 }
 
-.button{
-    -fx-background-color: 20;
+.greetings{
+    -fx-font-family: serif;
+    -fx-font-size: 25;
+    -fx-font-weight: 500;
+    -fx-fill: blue;
+}
+
+.title{
+    -fx-font-family: serif;
+    -fx-font-size: 40;
+    -fx-font-weight: 700;
+    -fx-fill: blue;
+}
+
+.credits{
+    -fx-font-family: monospaced;
+    -fx-font-size: 10;
+    -fx-font-weight: 500;
+    -fx-fill: blue;
+}
+
+.info{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
     -fx-border-color: blue;
+    -fx-text-fill: blue;
+}
+
+.start{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
+    -fx-border-color: blue;
+    -fx-text-fill: blue;
+}
+
+.exit{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
+    -fx-border-color: blue;
+    -fx-text-fill: blue;
 }
