@@ -41,39 +41,22 @@ import java.util.Random;
  */
 public class GameBoardController extends JFrame implements WindowFocusListener {
 
-    private final int UP_IMPACT = 100;
-    private final int DOWN_IMPACT = 200;
-    private final int LEFT_IMPACT = 300;
-    private final int RIGHT_IMPACT = 400;
-
-    private final int DEF_WIDTH = 600;
-    private final int DEF_HEIGHT = 450;
-
-    private boolean canGetTime;
-
     private static final String DEF_TITLE = "Brick Destroy";
-    private final int HOME_MENU_WIDTH = 450;
-    private final int HOME_MENU_HEIGHT = 300;
 
-    private Timer gameTimer;
-
-    public GameBoardView gameBoardView;
+    private GameBoardView gameBoardView;
     private GameScore gameScore;
-    public Game game;
+    private Game game;
     private DebugConsole debugConsole;
     private Player player;
     private Ball ball;
     private Random rnd;
 
-    private boolean showPauseMenu;
-    private boolean botMode;
-    private boolean gaming;
-
-    private static GameBoardController uniqueGameBoardController;
     private GameScoreDisplay gameScoreDisplay;
 
     private HomeMenu homeMenu;
     private InfoScreen infoScreen;
+
+    private static GameBoardController uniqueGameBoardController;
 
     /**
      * this method is used to create and return the one and only game board controller object. (singleton)
@@ -88,16 +71,11 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
 
     /**
      * this constructor is used to create a game board object.
-     *
      */
     private GameBoardController(){
         super();
 
-        setGaming(false);
-        setBotMode(false);
-        setShowPauseMenu(false);
-
-        setHomeMenu(HomeMenu.singletonHomeMenu(this, new Dimension(getHOME_MENU_WIDTH(), getHOME_MENU_HEIGHT())));
+        setHomeMenu(HomeMenu.singletonHomeMenu(this));
 
         setInfoScreen(new InfoScreen());
 
@@ -111,22 +89,18 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
 
         setRnd(new Random());
 
-        setCanGetTime(false);
-
-        Rectangle playArea = new Rectangle(0,0, getDEF_WIDTH(), getDEF_HEIGHT());
-
-        setGame(Game.singletonGame(playArea,30,3,6/2,new Point(300,430)));
+        setGame(Game.singletonGame(30,3,6/2,new Point(300,430)));
 
         setDebugConsole(new DebugConsole(this));
 
         setGameScore(GameScore.singletonGameScore());
 
-        setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame()));
+        setGameBoardView(GameBoardView.singletonGameBoardView(this, getGame(), getGame().getGAME_WINDOW_WIDTH(), getGame().getGAME_WINDOW_HEIGHT()));
         getGameBoardView().setMessage("");
 
         setGameScoreDisplay(new GameScoreDisplay());
 
-        setPlayer(Player.singletonPlayer(new Point(300,430), playArea));
+        setPlayer(Player.singletonPlayer(new Point(300,430), getGame().getPlayArea()));
 
         makeBall(new Point(300,430));
 
@@ -217,7 +191,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
             is useful only if the GameBoard as been displayed
             at least once
          */
-        setGaming(true);
+        getGame().setGaming(true);
     }
 
     /**
@@ -227,7 +201,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      */
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
-        if(isGaming())
+        if(getGame().isGaming())
             lostFocusTriggered();
     }
 
@@ -238,7 +212,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
         getGame().nextLevel();
         getGameScore().setLevelFilePathName("/scores/Level"+ getGame().getCurrentLevel()+".txt");
 
-        setGameTimer(new Timer(10, e ->{
+        getGame().setGameTimer(new Timer(10, e ->{
             entitiesMovements();
             findImpacts();
             getGameBoardView().setMessage(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getBallCount()));
@@ -246,22 +220,22 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
                 if(getGame().isGameOver()){
                     getGame().wallReset();
                     getGameBoardView().setMessage("Game over. Time spent in this level: " + getGameScore().getTimerString());
-                    getGameTimer().stop();
+                    getGame().getGameTimer().stop();
                     getGameScore().restartTimer();
                 }
                 positionsReset();
-                getGameTimer().stop();
+                getGame().getGameTimer().stop();
                 getGameScore().pauseTimer();
             }
             else if(getGame().isLevelComplete()){
                 if(getGame().hasLevel()){
                     getGameBoardView().setMessage("Go to Next Level");
-                    getGameTimer().stop();
+                    getGame().getGameTimer().stop();
                     restartGameStatus();
                 }
                 else{
                     getGameBoardView().setMessage("ALL WALLS DESTROYED");
-                    getGameTimer().stop();
+                    getGame().getGameTimer().stop();
                 }
 
                 getGameScore().pauseTimer();
@@ -283,7 +257,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      * this method is used to let the bot control the paddle instead of the player playing it.
      */
     public void automation(){
-        if(isBotMode()){
+        if(getGame().isBotMode()){
             if(getBall().getCenterPosition().getX() > getPlayer().getPlayerCenterPosition().getX())
                 playerMoveRight();
             else
@@ -295,7 +269,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      * this method toggles between bot mode or player mode.
      */
     public void toggleAI(){
-        setBotMode(!isBotMode());
+        getGame().setBotMode(!getGame().isBotMode());
     }
 
     /**
@@ -332,19 +306,19 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      */
     boolean impactWall(){
         for(Brick b : getGame().getBricks()){
-            if(b.findImpact(getBall()) == getUP_IMPACT()){
+            if(b.findImpact(getBall()) == getGame().getUP_IMPACT()){
                 getBall().reverseY();
                 return b.setImpact(getBall().getDown(), Crack.getUP());
             }
-            else if (b.findImpact(getBall()) == getDOWN_IMPACT()){
+            else if (b.findImpact(getBall()) == getGame().getDOWN_IMPACT()){
                 getBall().reverseY();
                 return b.setImpact(getBall().getUp(),Crack.getDOWN());
             }
-            else if(b.findImpact(getBall()) == getLEFT_IMPACT()){
+            else if(b.findImpact(getBall()) == getGame().getLEFT_IMPACT()){
                 getBall().reverseX();
                 return b.setImpact(getBall().getRight(),Crack.getRIGHT());
             }
-            else if(b.findImpact(getBall()) == getRIGHT_IMPACT()){
+            else if(b.findImpact(getBall()) == getGame().getRIGHT_IMPACT()){
                 getBall().reverseX();
                 return b.setImpact(getBall().getLeft(), Crack.getLEFT());
             }
@@ -447,7 +421,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      * this method is used to set the debug console visible on the window and let the game.
      */
     public void displayDebugConsole() {
-        getGameTimer().stop();
+        game.getGameTimer().stop();
         getDebugConsole().setVisible(true);
     }
 
@@ -471,8 +445,6 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
         }
     }
 
-
-
     /**
      * this is used to reset the ball and the player to the starting position and giving it a random speed for the ball.
      */
@@ -491,22 +463,6 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
 
     public void setRnd(Random rnd) {
         this.rnd = rnd;
-    }
-
-    public int getUP_IMPACT() {
-        return UP_IMPACT;
-    }
-
-    public int getDOWN_IMPACT() {
-        return DOWN_IMPACT;
-    }
-
-    public int getLEFT_IMPACT() {
-        return LEFT_IMPACT;
-    }
-
-    public int getRIGHT_IMPACT() {
-        return RIGHT_IMPACT;
     }
 
     /**
@@ -531,12 +487,12 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      * this method is used when the user tabbed out or proceeds to a new level.
      */
     public void lostFocusTriggered(){
-        getGameTimer().stop();
+        game.getGameTimer().stop();
 
         getGameBoardView().setMessage("Focus Lost");
         getGameBoardView().updateGameBoardView();
 
-        if(isCanGetTime()){
+        if(gameScore.isCanGetTime()){
             pauseGame();
         }
     }
@@ -549,7 +505,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
         getGameScore().restartTimer();
         positionsReset();
         getGame().wallReset();
-        setShowPauseMenu(false);
+        game.setShowPauseMenu(false);
         getGameBoardView().updateGameBoardView();
     }
 
@@ -557,8 +513,8 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      * this method is used to show a debug console when the button (Alt + Shift + F1) is clicked.
      */
     public void debugConsoleButtonClicked() {
-        setShowPauseMenu(true);
-        if(isCanGetTime()){
+        game.setShowPauseMenu(true);
+        if(gameScore.isCanGetTime()){
             pauseGame();
         }
         displayDebugConsole();
@@ -592,29 +548,11 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
     }
 
     /**
-     * this method is used to get the gameTimer variable.
-     *
-     * @return returns a Timer datatype of gameTimer variable.
-     */
-    public Timer getGameTimer() {
-        return gameTimer;
-    }
-
-    /**
-     * this method is used to set the gameTimer variable.
-     *
-     * @param gameTimer this is the Timer datatype which will be used to set the gameTimer variable.
-     */
-    public void setGameTimer(Timer gameTimer) {
-        this.gameTimer = gameTimer;
-    }
-
-    /**
      * this method is used to toggle between start and pause of the game.
      */
     public void startPauseButtonTriggered() {
-        if(!isShowPauseMenu())
-            if(getGameTimer().isRunning()){
+        if(!game.isShowPauseMenu())
+            if(game.getGameTimer().isRunning()){
                 stopGame();
             }else{
                 resumeGame();
@@ -625,9 +563,9 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      * this method is used to set the game into a pause state.
      */
     public void pauseMenuButtonClicked() {
-        setShowPauseMenu(!isShowPauseMenu());
+        game.setShowPauseMenu(!game.isShowPauseMenu());
         getGameBoardView().updateGameBoardView();
-        if (getGameTimer().isRunning()){
+        if (game.getGameTimer().isRunning()){
             stopGame();
         }
     }
@@ -651,7 +589,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      */
     public void pauseGame() {
         getGameScore().pauseTimer();
-        setCanGetTime(false);
+        gameScore.setCanGetTime(false);
     }
 
     /**
@@ -659,8 +597,8 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      */
     public void resumeGame() {
         getGameScore().startTimer();
-        getGameTimer().start();
-        setCanGetTime(true);
+        game.getGameTimer().start();
+        gameScore.setCanGetTime(true);
     }
 
     /**
@@ -668,27 +606,14 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
      */
     public void stopGame() {
         pauseGame();
-        getGameTimer().stop();
+        game.getGameTimer().stop();
     }
 
     /**
-     * this method is used to check if it can get the time to set it to a scoring variable.
+     * this method is used to get the game board view object which is used to display the game.
      *
-     * @return it returns true based on the variable value.
+     * @return this returns a game board view object.
      */
-    public boolean isCanGetTime() {
-        return canGetTime;
-    }
-
-    /**
-     * this method is used to set the variable if it can get the time to set to a scoring variable.
-     *
-     * @param canGetTime this is the variable used to set if it can take the time for the scoring.
-     */
-    public void setCanGetTime(boolean canGetTime) {
-        this.canGetTime = canGetTime;
-    }
-
     public GameBoardView getGameBoardView() {
         return gameBoardView;
     }
@@ -763,14 +688,6 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
         getGame().resetBallCount();
     }
 
-    public int getHOME_MENU_WIDTH() {
-        return HOME_MENU_WIDTH;
-    }
-
-    public int getHOME_MENU_HEIGHT() {
-        return HOME_MENU_HEIGHT;
-    }
-
     public HomeMenu getHomeMenu() {
         return homeMenu;
     }
@@ -785,77 +702,5 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
 
     public void setInfoScreen(InfoScreen infoScreen) {
         this.infoScreen = infoScreen;
-    }
-
-    /**
-     * this method is used to see if the game is in pause menu.
-     *
-     * @return returns true if it is.
-     */
-    public boolean isShowPauseMenu() {
-        return showPauseMenu;
-    }
-
-    /**
-     * this method is used to set the show pause menu variable, which is used to record if the game is in pause.
-     *
-     * @param showPauseMenu this is used to change the status of the variable.
-     */
-    public void setShowPauseMenu(boolean showPauseMenu) {
-        this.showPauseMenu = showPauseMenu;
-    }
-
-    /**
-     * this method is used to change between the player mode and AI mode.
-     *
-     * @param botMode this is the boolean value to set if it's player mode (false) or AI mode (true).
-     */
-    public void setBotMode(boolean botMode) {
-        this.botMode = botMode;
-    }
-
-    /**
-     * this method is used to check if the bot mode (AI) is activated for the bot to play in behalf of the player.
-     *
-     * @return this returns a boolean value to see if the game is enabled for the bot to play.
-     */
-    public boolean isBotMode() {
-        return botMode;
-    }
-
-    /**
-     * this method is used to set if the user is playing (focused on the game or not).
-     *
-     * @param gaming this is the boolean value used to set if the user is gaming or not.
-     */
-    public void setGaming(boolean gaming) {
-        this.gaming = gaming;
-    }
-
-    /**
-     * this method is used to set if the user is gaming or not (focused on the game).
-     *
-     * @return this is the boolean value to see if the user is focused on the game or not.
-     */
-    public boolean isGaming() {
-        return gaming;
-    }
-
-    /**
-     * this method is used to get the definite width of the game board and the wall level width generation.
-     *
-     * @return it returns an integer to be used for the width of the game board and wall level.
-     */
-    public int getDEF_WIDTH(){
-        return DEF_WIDTH;
-    }
-
-    /**
-     * this method is used to get the definite height of the game board and the wall level height generation
-     *
-     * @return it returns an integer to be used for the height of the game board and wall level.
-     */
-    public int getDEF_HEIGHT(){
-        return DEF_HEIGHT;
     }
 }

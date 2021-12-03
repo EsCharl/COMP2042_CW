@@ -12,20 +12,24 @@
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GraphicsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GraphicsMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/DebugConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/DebugConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/HomeMenuInformation.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/View/DebugConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/DebugConsole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/HomeMenuInformation.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/GameBoardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Controller/GameBoardControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Model/GameScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Model/GameScoreTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Model/GameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Model/GameTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Model/GameScoreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Model/GameScoreTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Model/GameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Model/GameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +44,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -162,7 +166,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameScoreTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameTest.singletonGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW" />
       <extension name="coverage">
         <pattern>
@@ -171,26 +175,27 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="Model" />
-      <option name="MAIN_CLASS_NAME" value="Model.GameScoreTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="Model.GameTest" />
+      <option name="METHOD_NAME" value="singletonGame" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.GraphicsMain" />
-      <item itemvalue="JUnit.GameScoreTest" />
       <item itemvalue="JUnit.GameBoardControllerTest.skipLevelTriggered" />
       <item itemvalue="JUnit.GameBoardControllerTest.resetBallCountTriggered" />
       <item itemvalue="JUnit.GameBoardControllerTest" />
+      <item itemvalue="JUnit.GameTest.singletonGame" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.GraphicsMain" />
+        <item itemvalue="JUnit.GameTest.singletonGame" />
         <item itemvalue="JUnit.GameBoardControllerTest" />
         <item itemvalue="JUnit.GameBoardControllerTest.resetBallCountTriggered" />
         <item itemvalue="JUnit.GameBoardControllerTest.skipLevelTriggered" />
-        <item itemvalue="JUnit.GameScoreTest" />
       </list>
     </recent_temporary>
   </component>

@@ -43,6 +43,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private static final String EXIT_TEXT = "Exit";
     private static final String INFO_TEXT = "Info";
 
+    private static final int HOME_MENU_WIDTH = 450;
+    private static final int HOME_MENU_HEIGHT = 300;
+
     private static final Color BG_COLOR = Color.GREEN.darker();
     private static final Color BORDER_COLOR = new Color(200,8,21); //Venetian Red
     private static final Color DASH_BORDER_COLOR = new  Color(255, 216, 0);//school bus yellow
@@ -82,12 +85,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      * this method is used to create and return one and only one home menu object.
      *
      * @param gameBoardController this is the game frame object used to create the object.
-     * @param area this is the size area of which the Home menu will be drawn.
      * @return it returns a home menu object.
      */
-    public static HomeMenu singletonHomeMenu(GameBoardController gameBoardController,Dimension area){
+    public static HomeMenu singletonHomeMenu(GameBoardController gameBoardController){
         if(getUniqueHomeMenu() == null){
-            setUniqueHomeMenu(new HomeMenu(gameBoardController,area));
+            setUniqueHomeMenu(new HomeMenu(gameBoardController));
         }
         return getUniqueHomeMenu();
     }
@@ -96,9 +98,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      * this constructor creates the home menu object.
      *
      * @param gameBoardController this takes in the game frame which is also a frame that is shown on the start page when the game is started
-     * @param area is the information that is used to create the window in terms of the dimensions.
      */
-    private HomeMenu(GameBoardController gameBoardController, Dimension area){
+    private HomeMenu(GameBoardController gameBoardController){
 
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -107,6 +108,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         this.addMouseMotionListener(this);
 
         setGameBoardController(gameBoardController);
+
+        Dimension area = new Dimension(getHOME_MENU_WIDTH(), getHOME_MENU_HEIGHT());
 
         setMenuFace(new Rectangle(new Point(0,0),area));
 
@@ -811,5 +814,13 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
      */
     public void setGameBoardController(GameBoardController gameBoardController) {
         this.gameBoardController = gameBoardController;
+    }
+
+    public int getHOME_MENU_HEIGHT() {
+        return HOME_MENU_HEIGHT;
+    }
+
+    public int getHOME_MENU_WIDTH() {
+        return HOME_MENU_WIDTH;
     }
 }

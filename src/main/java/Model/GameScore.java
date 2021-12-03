@@ -45,6 +45,8 @@ public class GameScore {
     private long totalTime;
     private long pauseTime;
 
+    private boolean canGetTime;
+
     //for the level saving
     private String levelFilePathName;
 
@@ -69,6 +71,7 @@ public class GameScore {
         setStartTime(0);
         setTotalTime(0);
         setPauseTime(0);
+        setCanGetTime(false);
     }
 
     /**
@@ -256,5 +259,23 @@ public class GameScore {
      */
     public static void setUniqueGameScore(GameScore uniqueGameScore) {
         GameScore.uniqueGameScore = uniqueGameScore;
+    }
+
+    /**
+     * this method is used to set the variable if it can get the time to set to a scoring variable.
+     *
+     * @param canGetTime this is the variable used to set if it can take the time for the scoring.
+     */
+    public void setCanGetTime(boolean canGetTime) {
+        this.canGetTime = canGetTime;
+    }
+
+    /**
+     * this method is used to check if it can get the time to set it to a scoring variable.
+     *
+     * @return it returns true based on the variable value.
+     */
+    public boolean isCanGetTime() {
+        return canGetTime;
     }
 }

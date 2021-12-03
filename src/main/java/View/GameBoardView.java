@@ -46,6 +46,8 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
     private final String PAUSE_TEXT = "Pause Menu";
 
     private int stringDisplayLength;
+    private int windowWidth;
+    private int windowHeight;
     private final int PAUSE_MENU_TEXT_SIZE = 30;
 
     private Font menuFont;
@@ -55,21 +57,20 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
     private GameBoardController gameBoardController;
     private Game game;
 
-
     private final Color GAMEBOARD_BACKGROUND_COLOR = Color.WHITE;
     private final Color GAMEBOARD_STRING_COLOR = Color.BLUE;
 
 
     private static GameBoardView uniqueGameBoardView;
 
-    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController, Game game){
+    public static GameBoardView singletonGameBoardView(GameBoardController gameBoardController, Game game, int windowWidth, int windowHeight){
         if(getUniqueGameBoardView() == null){
-            setUniqueGameBoardView(new GameBoardView(gameBoardController, game));
+            setUniqueGameBoardView(new GameBoardView(gameBoardController, game, windowWidth, windowHeight));
         }
         return getUniqueGameBoardView();
     }
 
-    public GameBoardView(GameBoardController gameBoardController, Game game){
+    public GameBoardView(GameBoardController gameBoardController, Game game, int windowWidth, int windowHeight){
         super();
 
         this.addKeyListener(this);
@@ -81,15 +82,13 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
 
         setGame(game);
 
-        setPreferredSize(new Dimension(gameBoardController.getDEF_WIDTH(), gameBoardController.getDEF_HEIGHT()));
+        setPreferredSize(new Dimension(windowWidth, windowHeight));
         setFocusable(true);
         requestFocusInWindow();
 
         setGameBoardController(gameBoardController);
 
     }
-
-
 
     /**
      * This is for clearing the screen by setting the whole window to be set into the background colour.
@@ -157,12 +156,6 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
         g2d.setColor(tmp);
     }
 
-
-
-
-
-
-
     /**
      * this method is used to update the game board view to update the screen.
      */
@@ -192,7 +185,7 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
 
         drawPlayer(getGameBoardController().getPlayer(),g2d);
 
-        if(getGameBoardController().isShowPauseMenu())
+        if(getGameBoardController().getGame().isShowPauseMenu())
             drawPauseMenu(g2d);
 
         Toolkit.getDefaultToolkit().sync();
@@ -212,7 +205,7 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
         g2d.setComposite(ac);
 
         g2d.setColor(Color.BLACK);
-        g2d.fillRect(0,0, gameBoardController.getDEF_WIDTH(), gameBoardController.getDEF_HEIGHT());
+        g2d.fillRect(0,0, getWindowWidth(), getWindowHeight());
 
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
@@ -453,6 +446,48 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
     }
 
     /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is activated when a key is pressed from the keyboard. This is used to control the user experience for the game.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        switch(keyEvent.getKeyCode()){
+            case KeyEvent.VK_A:
+                getGameBoardController().playerMoveLeft();
+                break;
+            case KeyEvent.VK_D:
+                getGameBoardController().playerMoveRight();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                getGameBoardController().pauseMenuButtonClicked();
+                break;
+            case KeyEvent.VK_SPACE:
+                getGameBoardController().startPauseButtonTriggered();
+                break;
+            case KeyEvent.VK_H:
+                getGameBoardController().toggleAI();
+                break;
+            case KeyEvent.VK_F1:
+                if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
+                    getGameBoardController().debugConsoleButtonClicked();
+                }
+            default:
+                getGameBoardController().playerStopMoving();
+        }
+    }
+
+    /**
+     * this is initially a KeyListener Interface class method, and it is being implemented. It is called when a key is released from the keyboard. this is used to stop the paddle from moving.
+     *
+     * @param keyEvent this records the input from the keyboard.
+     */
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+        getGameBoardController().playerStopMoving();
+    }
+
+    /**
      * this is initially a MouseListener Interface class method, and it is being implemented. It is called when a mouse enters a component.
      *
      * @param mouseEvent this records the input from the mouse.
@@ -489,10 +524,10 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
      */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        if(!gameBoardController.isShowPauseMenu())
+        if(!gameBoardController.getGame().isShowPauseMenu())
             return;
         if(getContinueButtonRect().contains(mouseEvent.getPoint())){
-            gameBoardController.setShowPauseMenu(false);
+            gameBoardController.getGame().setShowPauseMenu(false);
             updateGameBoardView();
         }
         else if(getRestartButtonRect().contains(mouseEvent.getPoint())){
@@ -519,7 +554,7 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
      */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        if(getExitButtonRect() != null && gameBoardController.isShowPauseMenu()) {
+        if(getExitButtonRect() != null && gameBoardController.getGame().isShowPauseMenu()) {
             if (checkIfMouseMovedToButton(mouseEvent.getPoint()))
                 setCursorLook(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             else {
@@ -585,8 +620,6 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
         return message;
     }
 
-
-
     public Game getGame() {
         return game;
     }
@@ -603,8 +636,6 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
     public Color getGAMEBOARD_BACKGROUND_COLOR() {
         return GAMEBOARD_BACKGROUND_COLOR;
     }
-
-
 
     /**
      * this method is used to get the string color for the gameboard to display the status of the game. namely, the ball count, brick count.
@@ -625,44 +656,38 @@ public class GameBoardView extends JComponent implements MouseListener, MouseMot
     }
 
     /**
-     * this is initially a KeyListener Interface class method, and it is being implemented. It is activated when a key is pressed from the keyboard. This is used to control the user experience for the game.
+     * this is used to get the window width for the game board.
      *
-     * @param keyEvent this records the input from the keyboard.
+     * @return this is the width of the game board.
      */
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        switch(keyEvent.getKeyCode()){
-            case KeyEvent.VK_A:
-                getGameBoardController().playerMoveLeft();
-                break;
-            case KeyEvent.VK_D:
-                getGameBoardController().playerMoveRight();
-                break;
-            case KeyEvent.VK_ESCAPE:
-                getGameBoardController().pauseMenuButtonClicked();
-                break;
-            case KeyEvent.VK_SPACE:
-                getGameBoardController().startPauseButtonTriggered();
-                break;
-            case KeyEvent.VK_H:
-                getGameBoardController().toggleAI();
-                break;
-            case KeyEvent.VK_F1:
-                if(keyEvent.isAltDown() && keyEvent.isShiftDown()){
-                    getGameBoardController().debugConsoleButtonClicked();
-                }
-            default:
-                getGameBoardController().playerStopMoving();
-        }
+    public int getWindowWidth() {
+        return windowWidth;
     }
 
     /**
-     * this is initially a KeyListener Interface class method, and it is being implemented. It is called when a key is released from the keyboard. this is used to stop the paddle from moving.
+     * this is used to set the window height for the game board.
      *
-     * @param keyEvent this records the input from the keyboard.
+     * @return this is the height of the game board.
      */
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        getGameBoardController().playerStopMoving();
+    public void setWindowWidth(int windowWidth) {
+        this.windowWidth = windowWidth;
+    }
+
+    /**
+     * this is used to get the window height for the game board.
+     *
+     * @return this is the height of the game board.
+     */
+    public int getWindowHeight() {
+        return windowHeight;
+    }
+
+    /**
+     * this is used to get the window height for the game board.
+     *
+     * @return this is the height of the game board.
+     */
+    public void setWindowHeight(int windowHeight) {
+        this.windowHeight = windowHeight;
     }
 }

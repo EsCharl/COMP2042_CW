@@ -18,11 +18,11 @@
 
 package Model;
 
-import Controller.GameBoardController;
 import Model.Brick.Brick;
 import Model.Levels.LevelFactory;
 import Model.Levels.WallLevelTemplates;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -32,6 +32,16 @@ public class Game {
 
     private final int MAX_BALL_COUNT = 3;
     private final int LEVELS_AMOUNT = 6;
+
+    private final int UP_IMPACT = 100;
+    private final int DOWN_IMPACT = 200;
+    private final int LEFT_IMPACT = 300;
+    private final int RIGHT_IMPACT = 400;
+
+    private final int GAME_WINDOW_WIDTH = 600;
+    private final int GAME_WINDOW_HEIGHT = 450;
+
+    private Timer gameTimer;
 
     private Rectangle borderArea;
 
@@ -47,19 +57,23 @@ public class Game {
 
     private static Game uniqueGame;
 
+    private Rectangle playArea;
+
+    private boolean showPauseMenu;
+    private boolean botMode;
+    private boolean gaming;
 
     /**
      * this method is used to create a Model.Wall object based on the Singleton design pattern.
      *
-     * @param drawArea this is the area of the game will be held.
      * @param brickCount this is the amount of brick for the wall.
      * @param lineCount this is for how many lines (rows) of bricks are in the level.
      * @param brickDimensionRatio this is for the ratio for the brick dimension.
      * @param ballPos this is the ball position.
      */
-    public static Game singletonGame(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+    public static Game singletonGame(int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
         if(getUniqueGame() == null){
-            setUniqueGame(new Game(drawArea, brickCount, lineCount, brickDimensionRatio, ballPos));
+            setUniqueGame(new Game(brickCount, lineCount, brickDimensionRatio, ballPos));
         }
         return getUniqueGame();
     }
@@ -67,25 +81,28 @@ public class Game {
     /**
      * this constructor is used to generate an object which is the wall used for the levels.
      *
-     * @param drawArea this is the area of the game will be held.
      * @param brickCount this is the amount of brick for the wall.
      * @param lineCount this is for how many lines (rows) of bricks are in the level.
      * @param brickDimensionRatio this is for the ratio for the brick dimension.
      * @param ballPos this is the ball position.
      */
-    private Game(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+    private Game(int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
         setStartPoint(new Point(ballPos));
+        setGaming(false);
+        setBotMode(false);
+        setShowPauseMenu(false);
 
-        setBrickLevels(makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio));
+        setPlayArea(new Rectangle(0,0, getGAME_WINDOW_WIDTH(), getGAME_WINDOW_HEIGHT()));
+
+        setBrickLevels(makeLevels(getPlayArea(),brickCount,lineCount,brickDimensionRatio));
 
         setCurrentLevel(0);
 
         setBallCount(getMAX_BALL_COUNT());
         setBallLost(false);
 
-
-        setBorderArea(drawArea);
+        setBorderArea(getPlayArea());
     }
 
     /**
@@ -341,4 +358,137 @@ public class Game {
         return MAX_BALL_COUNT;
     }
 
+    /**
+     * this method is used to get the definite height of the game board and the wall level height generation
+     *
+     * @return it returns an integer to be used for the height of the game board and wall level.
+     */
+    public int getGAME_WINDOW_HEIGHT(){
+        return GAME_WINDOW_HEIGHT;
+    }
+
+    /**
+     * this method is used to get the definite width of the game board and the wall level width generation.
+     *
+     * @return it returns an integer to be used for the width of the game board and wall level.
+     */
+    public int getGAME_WINDOW_WIDTH(){
+        return GAME_WINDOW_WIDTH;
+    }
+
+    /**
+     * this method is used to get a constant where the brick is getting collided (upside).
+     *
+     * @return this is the integer constant which indicates that the brick is getting collided on the upside.
+     */
+    public int getUP_IMPACT() {
+        return UP_IMPACT;
+    }
+
+    /**
+     * this method is used to get a constant where the brick is getting collided (downside).
+     *
+     * @return this is the integer constant which indicates that the brick is getting collided on the downside.
+     */
+    public int getDOWN_IMPACT() {
+        return DOWN_IMPACT;
+    }
+
+    /**
+     * this method is used to get a constant where the brick is getting collided (left side).
+     *
+     * @return this is the integer constant which indicates that the brick is getting collided on the left side.
+     */
+    public int getLEFT_IMPACT() {
+        return LEFT_IMPACT;
+    }
+
+    /**
+     * this method is used to get a constant where the brick is getting collided (right side).
+     *
+     * @return this is the integer constant which indicates that the brick is getting collided on the right side.
+     */
+    public int getRIGHT_IMPACT() {
+        return RIGHT_IMPACT;
+    }
+
+    /**
+     * this method is used to get the gameTimer variable.
+     *
+     * @return returns a Timer datatype of gameTimer variable.
+     */
+    public Timer getGameTimer() {
+        return gameTimer;
+    }
+
+    /**
+     * this method is used to set the gameTimer variable.
+     *
+     * @param gameTimer this is the Timer datatype which will be used to set the gameTimer variable.
+     */
+    public void setGameTimer(Timer gameTimer) {
+        this.gameTimer = gameTimer;
+    }
+
+    /**
+     * this method is used to see if the game is in pause menu.
+     *
+     * @return returns true if it is.
+     */
+    public boolean isShowPauseMenu() {
+        return showPauseMenu;
+    }
+
+    /**
+     * this method is used to check if the bot mode (AI) is activated for the bot to play in behalf of the player.
+     *
+     * @return this returns a boolean value to see if the game is enabled for the bot to play.
+     */
+    public boolean isBotMode() {
+        return botMode;
+    }
+
+    /**
+     * this method is used to set if the user is gaming or not (focused on the game).
+     *
+     * @return this is the boolean value to see if the user is focused on the game or not.
+     */
+    public boolean isGaming() {
+        return gaming;
+    }
+
+    /**
+     * this method is used to set if the user is playing (focused on the game or not).
+     *
+     * @param gaming this is the boolean value used to set if the user is gaming or not.
+     */
+    public void setGaming(boolean gaming) {
+        this.gaming = gaming;
+    }
+
+    /**
+     * this method is used to set the show pause menu variable, which is used to record if the game is in pause.
+     *
+     * @param showPauseMenu this is used to change the status of the variable.
+     */
+    public void setShowPauseMenu(boolean showPauseMenu) {
+        this.showPauseMenu = showPauseMenu;
+    }
+
+    /**
+     * this method is used to change between the player mode and AI mode.
+     *
+     * @param botMode this is the boolean value to set if it's player mode (false) or AI mode (true).
+     */
+    public void setBotMode(boolean botMode) {
+        this.botMode = botMode;
+    }
+
+    public Rectangle getPlayArea() {
+        return playArea;
+    }
+
+    public void setPlayArea(Rectangle playArea) {
+        this.playArea = playArea;
+    }
 }

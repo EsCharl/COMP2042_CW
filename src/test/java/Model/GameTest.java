@@ -8,8 +8,7 @@ import java.awt.geom.Point2D;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
-    Rectangle area = new Rectangle(300,450);
-    Game game = Game.singletonGame(area,30,3,6/2,new Point(300,430));
+    Game game = Game.singletonGame(30,3,6/2,new Point(300,430));
 
 //    @Test
 //    void positionsReset() {
@@ -21,8 +20,8 @@ class GameTest {
 
     @Test
     void singletonGame(){
-        Rectangle totallyDifferentArea = new Rectangle(500,600);
-        assertTrue(game.equals(Game.singletonGame(totallyDifferentArea,30,3,6/2,new Point(400,200))));
+        int totallyDifferentLineCount = 0;
+        assertTrue(game.equals(Game.singletonGame(30,totallyDifferentLineCount,6/2,new Point(400,200))));
     }
 
     @Test
