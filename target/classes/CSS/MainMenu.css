@@ -1,0 +1,8 @@
+#parentcontainer{
+    -fx-background-image: url("../images/mainimage.png");
+}
+
+.button{
+    -fx-background-color: 20;
+    -fx-border-color: blue;
+}
