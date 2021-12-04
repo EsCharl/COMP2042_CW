@@ -1,4 +1,4 @@
-package FX;
+package FX.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,7 @@ public class InfoMenuController {
      */
     @FXML
     public void DisplayMainMenu() throws IOException {
-        loader = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        loader = FXMLLoader.load(getClass().getResource("/FX/MainMenu.fxml"));
         Stage stage = (Stage) mainmenu.getScene().getWindow();
         stage.setScene(new Scene(loader));
     }

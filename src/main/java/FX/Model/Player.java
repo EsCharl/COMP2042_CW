@@ -30,7 +30,6 @@ import java.awt.geom.Point2D;
  */
 public class Player {
 
-
     private final Color BORDER_COLOR = Color.GREEN.darker().darker();
     private final Color INNER_COLOR = Color.GREEN;
     private final int PLAYER_WIDTH = 150;

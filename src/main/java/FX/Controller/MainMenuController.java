@@ -1,11 +1,13 @@
-package FX;
+package FX.Controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -19,22 +21,12 @@ public class MainMenuController {
      */
     @FXML
     protected void onInfoButtonClick() {
-        changeScene("Info.fxml", info);
-    }
-
-    /**
-     * this method is used to change the scene based on the fxml file provided.
-     *
-     * @param fxml this is the fxml file.
-     * @param button this is the button where it will be used to get the stage.
-     */
-    private void changeScene(String fxml, Button button) {
         try {
-            loader = FXMLLoader.load(getClass().getResource(fxml));
+            loader = FXMLLoader.load(getClass().getResource("/FX/Info.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Stage stage = (Stage) button.getScene().getWindow();
+        Stage stage = (Stage) info.getScene().getWindow();
         stage.setScene(new Scene(loader));
     }
 
@@ -43,7 +35,18 @@ public class MainMenuController {
      */
     @FXML
     protected void onPlayButtonClick() {
-        changeScene("GameState.fxml", start);
+        Stage stage = (Stage) start.getScene().getWindow();
+        stage.close();
+
+        try {
+            loader = FXMLLoader.load(getClass().getResource("/FX/GameState.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(loader));
+        newStage.setResizable(false);
+        newStage.show();
     }
 
     /**
