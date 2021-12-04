@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="parentcontainer" stylesheets="@../CSS/MainMenu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="FX.Controller.MainMenuController">
+<StackPane fx:id="parentcontainer" stylesheets="@../CSS/MainMenu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="FX.MainMenuController">
     <GridPane prefHeight="300" prefWidth="450">
         <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
             <padding>

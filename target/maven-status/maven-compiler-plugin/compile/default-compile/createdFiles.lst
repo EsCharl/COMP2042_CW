@@ -1,4 +1,5 @@
-FX\GameStart.class
-FX\InfoMenu.class
-module-info.class
 FX\MainMenuController.class
+FX\Model\Player.class
+module-info.class
+FX\GameStart.class
+FX\Model\Game.class
