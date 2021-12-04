@@ -1,12 +1,10 @@
-package FX;
+package FX.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,22 +16,25 @@ public class MainMenuController {
     /**
      * this method is used to change the scene to the info scene which shows the user on how to play the game.
      *
-     * @throws IOException this is incase there is an issue with the input/ output of the file.
      */
     @FXML
-    protected void onInfoButtonClick() throws IOException {
-        changeScene("Info.fxml");
+    protected void onInfoButtonClick() {
+        changeScene("Info.fxml", info);
     }
 
     /**
      * this method is used to change the scene based on the fxml file provided.
      *
      * @param fxml this is the fxml file.
-     * @throws IOException
+     * @param button this is the button where it will be used to get the stage.
      */
-    private void changeScene(String fxml) throws IOException {
-        loader = FXMLLoader.load(getClass().getResource(fxml));
-        Stage stage = (Stage) info.getScene().getWindow();
+    private void changeScene(String fxml, Button button) {
+        try {
+            loader = FXMLLoader.load(getClass().getResource(fxml));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) button.getScene().getWindow();
         stage.setScene(new Scene(loader));
     }
 
@@ -42,7 +43,7 @@ public class MainMenuController {
      */
     @FXML
     protected void onPlayButtonClick() {
-//        changeScene();
+        changeScene("GameState.fxml", start);
     }
 
     /**

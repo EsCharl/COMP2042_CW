@@ -5,7 +5,7 @@
 .greetings{
     -fx-font-family: serif;
     -fx-font-size: 25;
-    -fx-font-weight: 500;
+    -fx-font-weight: 400;
     -fx-fill: blue;
 }
 
@@ -19,7 +19,7 @@
 .credits{
     -fx-font-family: monospaced;
     -fx-font-size: 10;
-    -fx-font-weight: 500;
+    -fx-font-weight: 400;
     -fx-fill: blue;
 }
 
