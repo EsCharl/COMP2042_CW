@@ -14,32 +14,25 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class GameStateController implements Initializable {
@@ -47,14 +40,14 @@ public class GameStateController implements Initializable {
     private Game game;
     private GameScore gameScore;
     private GraphicsContext graphicsContext;
+    private GameScoreDisplay gameScoreDisplay;
     private final Color stringColor = Color.BLUE;
     private AnimationTimer animationTimer;
+    private Scene scene;
+
     @FXML private Canvas gameBoard;
     @FXML private AnchorPane anchorPane;
-    Image backgroundImage;
-    Scene scene;
 
-    private GameScoreDisplay gameScoreDisplay;
 
     boolean toggle = true;
 
@@ -62,9 +55,12 @@ public class GameStateController implements Initializable {
 
         game = Game.singletonGame();
         gameScore = GameScore.singletonGameScore();
+        gameScoreDisplay = new GameScoreDisplay();
 
         game.setBrickLevels(makeLevels(game.getPlayArea(),30,3,6/2));
-        startGame();
+
+        game.nextLevel();
+        gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
     }
 
     @FXML
@@ -78,7 +74,7 @@ public class GameStateController implements Initializable {
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                graphicsContext.clearRect(0,0,600,450);
+                graphicsContext.drawImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/GameImage.png"))),0,0);
 
                 graphicsContext.setLineWidth(2);
 
@@ -130,11 +126,6 @@ public class GameStateController implements Initializable {
         animationTimer.start();
 
         anchorPane.requestFocus();
-    }
-
-    private void startGame(){
-        game.nextLevel();
-        gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
     }
 
     private void pauseButtonClicked(){
