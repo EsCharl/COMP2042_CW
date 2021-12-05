@@ -16,8 +16,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package FX.Model.Brick;
+package FX.Model.Entities.Brick;
 
+import FX.Model.Entities.RectangularEntities;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -28,7 +29,7 @@ import java.util.Random;
 /**
  * This class is an abstract class which is going to be used for implementation. (Model.Brick.CementBrick, Model.Brick.ClayBrick, Model.Brick.SteelBrick, Model.Brick.ReinforcedSteelBrick)
  */
-abstract public class Brick {
+abstract public class Brick extends RectangularEntities {
 
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
@@ -60,6 +61,7 @@ abstract public class Brick {
      * @param strength the strength of the brick. (how many hits can it take before it break)
      */
     public Brick(Point2D pos, Dimension2D size, Color border, Color inner, int strength){
+        super((int)pos.getX(),(int)pos.getY(),border,inner,(int)size.getWidth(),(int)size.getHeight());
         setRnd(new Random());
         setBroken(false);
         setBrickFace(makeBrickFace(pos,size));

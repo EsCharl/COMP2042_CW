@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package FX.Model.Ball;
+package FX.Model.Entities.Ball;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -45,6 +45,7 @@ abstract public class Ball {
 
     private int xSpeed;
     private int ySpeed;
+    private int radius;
 
     /**
      * this is the constructor used to create a ball object.
@@ -56,6 +57,8 @@ abstract public class Ball {
      */
     public Ball(Point2D centerPosition,int radius,Color inner,Color border){
         setCenterPosition(centerPosition);
+
+        setRadius(radius);
 
         setRnd(new Random());
         setRandomBallSpeed();
@@ -348,5 +351,13 @@ abstract public class Ball {
      */
     public void setCenterPosition(Point2D centerPosition) {
         this.centerPosition = centerPosition;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 }

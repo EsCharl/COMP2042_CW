@@ -1,13 +1,11 @@
 package FX.Controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -34,18 +32,16 @@ public class MainMenuController {
      * this method is used when the user choose to start the game on the main menu.
      */
     @FXML
-    protected void onPlayButtonClick() {
+    protected void onPlayButtonClick() throws IOException {
         Stage stage = (Stage) start.getScene().getWindow();
-        stage.close();
+        stage.hide();
 
-        try {
-            loader = FXMLLoader.load(getClass().getResource("/FX/GameState.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loader = FXMLLoader.load(getClass().getResource("/FX/GameState.fxml"));
+
         Stage newStage = new Stage();
         newStage.setScene(new Scene(loader));
         newStage.setResizable(false);
+        newStage.setTitle("Brick Destroy");
         newStage.show();
     }
 

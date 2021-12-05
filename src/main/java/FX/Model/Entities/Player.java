@@ -16,24 +16,23 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package FX.Model;
+package FX.Model.Entities;
 
-import FX.Model.Ball.Ball;
+import FX.Model.Entities.Ball.Ball;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.awt.geom.Point2D;
 
 
 /**
  * this class is used for the user to move the player.
  */
-public class Player {
+public class Player extends RectangularEntities {
 
-    private final Color BORDER_COLOR = Color.GREEN.darker().darker();
-    private final Color INNER_COLOR = Color.GREEN;
-    private final int PLAYER_WIDTH = 150;
-    private final int PLAYER_HEIGHT = 10;
+    private static final Color BORDER_COLOR = Color.GREEN.darker().darker();
+    private static final Color INNER_COLOR = Color.GREEN;
+    private static final int PLAYER_WIDTH = 150;
+    private static final int PLAYER_HEIGHT = 10;
 
     private final int DEF_MOVE_AMOUNT = 5;
 
@@ -55,14 +54,15 @@ public class Player {
     /**
      * this method is used to create a player object.
      *
-     * @param playerCenterPosition this is the position of the ball.
+     * @param playerTopLeftPosition this is the top left position of the player (paddle).
      * @param playArea this is the information of the play area which will be used to calculate where the player will be created.
      */
-    private Player(Point2D playerCenterPosition, Rectangle playArea) {
-        setPlayerCenterPosition(playerCenterPosition);
+    private Player(Point2D playerTopLeftPosition, Rectangle playArea) {
+        super((int)playerTopLeftPosition.getX(),(int)playerTopLeftPosition.getY(),BORDER_COLOR,INNER_COLOR,PLAYER_WIDTH, PLAYER_HEIGHT);
+        setPlayerCenterPosition(playerTopLeftPosition);
         setMoveAmount(0);
         setPlayerFace(makeRectangle(PLAYER_WIDTH, PLAYER_HEIGHT));
-        setLowestXCoordinate((int)playArea.getX() + (PLAYER_WIDTH / 2));
+        setLowestXCoordinate((int)playArea.getX());
         setLargestXCoordinate(getLowestXCoordinate() + (int)playArea.getWidth() - PLAYER_WIDTH);
     }
 
@@ -93,7 +93,6 @@ public class Player {
     public void move(){
         if(moveToX() < getLowestXCoordinate() || moveToX() > getLargestXCoordinate())
             return;
-        getPlayerCenterPosition().setLocation(moveToX(), getPlayerCenterPosition().getY());
         setLocation((int)(getPlayerCenterPosition().getX() - getPlayerFace().getWidth()/2), (int)getPlayerCenterPosition().getY());
     }
 
@@ -121,7 +120,7 @@ public class Player {
     /**
      * this method is used to set the move amount to the right direction which will be used to mve the paddle.
      */
-    public void movRight(){
+    public void moveRight(){
         setMoveAmount(getDEF_MOVE_AMOUNT());
     }
 
@@ -142,16 +141,6 @@ public class Player {
     }
 
     /**
-     * this method is used to set the paddle (player) and the ball point (center) to the starting position.
-     *
-     * @param p this is the Point position where the ball is to be set.
-     */
-    public void resetPosition(Point2D p){
-        getPlayerCenterPosition().setLocation(p);
-        setLocation((int)(getPlayerCenterPosition().getX() - getPlayerFace().getWidth()/2), (int)getPlayerCenterPosition().getY());
-    }
-
-    /**
      * this method is used to get the one and only player object.
      *
      * @return it returns a player object after the method singletonPlayer is called.
@@ -167,24 +156,6 @@ public class Player {
      */
     private static void setUniquePlayer(Player uniquePlayer) {
         Player.uniquePlayer = uniquePlayer;
-    }
-
-    /**
-     * this method is used to get the player border Color which is used to draw on the screen (Gameboard view).
-     *
-     * @return this returns the border color of the player.
-     */
-    public Color getBORDER_COLOR() {
-        return BORDER_COLOR;
-    }
-
-    /**
-     * this method is used to get the player inner Color which is used to draw on the screen (Gameboard view).
-     *
-     * @return this returns the inner color of the player.
-     */
-    public Color getINNER_COLOR() {
-        return INNER_COLOR;
     }
 
     /**

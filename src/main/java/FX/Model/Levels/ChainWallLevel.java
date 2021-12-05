@@ -18,7 +18,7 @@
 
 package FX.Model.Levels;
 
-import FX.Model.Brick.Brick;
+import FX.Model.Entities.Brick.Brick;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;

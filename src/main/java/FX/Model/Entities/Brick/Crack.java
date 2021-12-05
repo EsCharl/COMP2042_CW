@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package FX.Model.Brick;
+package FX.Model.Entities.Brick;
 
 import javafx.geometry.Point2D;
 import javafx.scene.shape.LineTo;

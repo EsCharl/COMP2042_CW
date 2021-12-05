@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package FX.Model.Brick;
+package FX.Model.Entities.Brick;
 
 
 import javafx.geometry.Dimension2D;
@@ -30,11 +30,11 @@ import javafx.scene.shape.Rectangle;
 public class ReinforcedSteelBrick extends Brick{
 
     private static final Color DEF_INNER = Color.BLUE;
-    private static final Color DEF_BORDER = new Color(203, 203, 201,0);
+    private static final Color DEF_BORDER = Color.rgb(203, 203, 201,0);
     private static final int REINFORCED_STEEL_STRENGTH = 2;
     private static final double STEEL_PROBABILITY = 0.3;
 
-    private FX.Model.Brick.Crack crack;
+    private FX.Model.Entities.Brick.Crack crack;
     private Rectangle brickFace;
 
     private boolean hit;
@@ -46,7 +46,7 @@ public class ReinforcedSteelBrick extends Brick{
      */
     public ReinforcedSteelBrick(Point2D point, Dimension2D size) {
         super(point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH);
-        crack = new FX.Model.Brick.Crack(DEF_CRACK_DEPTH,DEF_STEPS);
+        crack = new FX.Model.Entities.Brick.Crack(DEF_CRACK_DEPTH,DEF_STEPS);
         brickFace = super.brickFace;
     }
 

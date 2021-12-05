@@ -16,30 +16,29 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package FX.Model.Brick;
+package FX.Model.Entities.Ball;
 
-import javafx.geometry.Dimension2D;
+
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 /**
- * this class is for the clay brick for the wall.
+ * this class is for the rubber ball, an extension from ball abstract class.
  */
-public class ClayBrick extends Brick {
+public class RubberBall extends Ball {
 
-    private static final Color DEF_INNER = new Color(178, 34, 34,0).darker();
-    private static final Color DEF_BORDER = Color.GRAY;
-    private static final int CLAY_STRENGTH = 1;
 
+    private static final int DEF_RADIUS = 5;
+
+    private static final Color DEF_INNER_COLOR = Color.rgb(255, 219, 88,0);
+    private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
     /**
-     * this constructor is used to create a clay brick object.
+     * this constructor is used to create a rubber ball.
      *
-     * @param point the position where the brick is going to be formed.
-     * @param size the size of the brick.
+     * @param center this is the position where the ball is created.
      */
-    public ClayBrick(Point2D point, Dimension2D size){
-        super(point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
+    public RubberBall(Point2D center){
+        super(center,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
     }
-
 }

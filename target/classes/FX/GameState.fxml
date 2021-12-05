@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="FX.Controller.GameStateController">
+<AnchorPane fx:id="anchorPane" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FX.Controller.GameStateController">
    <children>
-      <Label layoutX="286.0" layoutY="217.0" text="Label" textFill="BLUE" />
+      <Canvas fx:id="gameBoard" height="450.0" layoutX="3.0" width="600.0" />
    </children>
 </AnchorPane>

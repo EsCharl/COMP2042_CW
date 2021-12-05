@@ -18,7 +18,7 @@
 
 package FX.Model;
 
-import FX.Model.Brick.Brick;
+import FX.Model.Entities.Brick.Brick;
 import FX.Model.Levels.LevelFactory;
 import FX.Model.Levels.WallLevelTemplates;
 import javafx.geometry.Point2D;
