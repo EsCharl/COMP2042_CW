@@ -39,6 +39,7 @@ public class GameScore {
 
     //for the level saving
     private String levelFilePathName;
+    private ArrayList<String> lastLevelCompletionRecord;
 
     private static GameScore uniqueGameScore;
 
@@ -62,6 +63,23 @@ public class GameScore {
         setTotalTime(0);
         setPauseTime(0);
         setCanGetTime(false);
+    }
+
+    /**
+     * this method is used to get the record on the last level that is completed to be displayed on a new window.
+     * @return
+     */
+    public ArrayList<String> getLastLevelCompletionRecord() {
+        return lastLevelCompletionRecord;
+    }
+
+    /**
+     * this method is used to set the record into an arraylist for future reference.
+     *
+     * @param lastLevelCompletionRecord this is the array list of records being saved into a variable for displaying in the new window.
+     */
+    public void setLastLevelCompletionRecord(ArrayList<String> lastLevelCompletionRecord) {
+        this.lastLevelCompletionRecord = lastLevelCompletionRecord;
     }
 
     /**

@@ -23,7 +23,6 @@ public class DebugConsoleController implements Initializable {
 
     public DebugConsoleController(){
         game = Game.singletonGame();
-
     }
 
     @FXML

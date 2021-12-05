@@ -64,7 +64,6 @@ public class Game {
     private Player player;
     private Ball ball;
 
-
     private Rectangle playArea;
 
     private boolean showPauseMenu;
@@ -107,18 +106,9 @@ public class Game {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public Ball getBall() {
         return ball;
     }
-
-    public void setBall(Ball ball) {
-        this.ball = ball;
-    }
-
     /**
      * this is used to get the total amount of bricks still in the level
      *

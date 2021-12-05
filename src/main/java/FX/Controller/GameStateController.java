@@ -9,6 +9,7 @@ import FX.Model.Entities.Player;
 
 import FX.Model.Levels.LevelFactory;
 import FX.Model.Levels.WallLevelTemplates;
+import FX.View.GameScoreDisplay;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,14 +24,22 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameStateController implements Initializable {
@@ -44,6 +53,8 @@ public class GameStateController implements Initializable {
     @FXML private AnchorPane anchorPane;
     Image backgroundImage;
     Scene scene;
+
+    private GameScoreDisplay gameScoreDisplay;
 
     boolean toggle = true;
 
@@ -96,7 +107,6 @@ public class GameStateController implements Initializable {
                     }else if(keyEvent.getCode().equals(KeyCode.D)){
                         game.getPlayer().moveRight();
                     }else if(keyEvent.getCode().equals(KeyCode.SPACE)){
-                        System.out.println("hi");
                         togglePauseContinueGame();
                     }else if(keyEvent.getCode().equals(KeyCode.F1) && keyEvent.isAltDown() && keyEvent.isShiftDown()){
                         showDebugConsole();
@@ -104,6 +114,16 @@ public class GameStateController implements Initializable {
                         game.getPlayer().stop();
                     }
                 });
+
+                if(game.isLevelComplete()){
+                    try {
+                        gameScore.setLastLevelCompletionRecord(gameScore.getHighScore());
+                        gameScore.updateSaveFile(gameScore.getLastLevelCompletionRecord());
+                    } catch (IOException | URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                    gameScoreDisplay.generateLevelCompleteWindow(gameScore.getLastLevelCompletionRecord(), gameScore.getTimerString());
+                }
             }
         };
 
