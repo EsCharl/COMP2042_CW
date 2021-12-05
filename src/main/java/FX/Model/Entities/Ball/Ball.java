@@ -20,7 +20,6 @@ package FX.Model.Entities.Ball;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 import java.util.Random;
 
@@ -31,7 +30,7 @@ abstract public class Ball {
 
     private final int MAX_BALL_SPEED = 5;
 
-    private Point2D centerPosition;
+    private Point2D fixedStartTopLeftPosition;
 
     private Random rnd;
 
@@ -44,17 +43,19 @@ abstract public class Ball {
 
     private int xCoordinate;
     private int yCoordinate;
+    private int centerXCoordinate;
+    private int centerYCoordinate;
 
     /**
      * this is the constructor used to create a ball object.
      *
-     * @param centerPosition this is the position where the ball is to be formed.
+     * @param centerPosition this is the position where the ball is to be formed on the top left of the ball.
      * @param radius this is the diameter of the ball based on x-axis
      * @param inner this is the Color for the inside of the ball.
      * @param border this is the Color for the border of the ball.
      */
     public Ball(Point2D centerPosition,int radius,Color inner,Color border){
-        setCenterPosition(centerPosition);
+        setFixedStartTopLeftPosition(centerPosition);
 
         setRadius(radius);
 
@@ -197,8 +198,8 @@ abstract public class Ball {
      *
      * @return it returns a Point2D format of the position of the ball.
      */
-    public Point2D getCenterPosition(){
-        return this.centerPosition;
+    public Point2D getFixedStartTopLeftPosition(){
+        return this.fixedStartTopLeftPosition;
     }
 
     /**
@@ -218,6 +219,7 @@ abstract public class Ball {
     public int getYSpeed(){
         return this.ySpeed;
     }
+
 
     /**
      * this method is used to set the border color of the ball.
@@ -240,10 +242,10 @@ abstract public class Ball {
     /**
      * thie method is used to set the center position of the ball into a variable.
      *
-     * @param centerPosition this is the Point2D value used to set into the variable.
+     * @param fixedStartTopLeftPosition this is the Point2D value used to set into the variable.
      */
-    public void setCenterPosition(Point2D centerPosition) {
-        this.centerPosition = centerPosition;
+    public void setFixedStartTopLeftPosition(Point2D fixedStartTopLeftPosition) {
+        this.fixedStartTopLeftPosition = fixedStartTopLeftPosition;
     }
 
     public int getRadius() {
