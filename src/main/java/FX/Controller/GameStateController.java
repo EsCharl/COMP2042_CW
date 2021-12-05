@@ -59,18 +59,17 @@ public class GameStateController implements Initializable {
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-//                graphicsContext.setStroke(Color.WHITE);
-//                graphicsContext.fillRect(0,0,600,450);
+                graphicsContext.clearRect(0,0,600,450);
 
-                graphicsContext.setStroke(stringColor);
+                graphicsContext.setFill(stringColor);
                 graphicsContext.fillText(String.format("Bricks: %d Balls %d", game.getBrickCount(), game.getBallCount()), 250, 225);
 
                 for (int i = 0; i < game.getBrickCount(); i++){
-                    graphicsContext.setStroke(game.getBricks()[i].getBorderColor());
+                    graphicsContext.setFill(game.getBricks()[i].getInnerColor());
                     graphicsContext.fillRect(game.getBricks()[i].getPositionX(),game.getBricks()[i].getPositionY(),game.getBricks()[i].getWidth(),game.getBricks()[i].getHeight());
 
-                    graphicsContext.setStroke(game.getBricks()[i].getInnerColor());
-                    graphicsContext.fillRect(game.getBricks()[i].getPositionX(),game.getBricks()[i].getPositionY(),game.getBricks()[i].getWidth(),game.getBricks()[i].getHeight());
+                    graphicsContext.setStroke(game.getBricks()[i].getBorderColor());
+                    graphicsContext.strokeRect(game.getBricks()[i].getPositionX()-1,game.getBricks()[i].getPositionY()-1,game.getBricks()[i].getWidth()+2,game.getBricks()[i].getHeight()+2);
                 }
 
                 drawBall(ball);
@@ -105,23 +104,22 @@ public class GameStateController implements Initializable {
     }
 
     private void drawBall(Ball ball){
-        graphicsContext.setStroke(ball.getBorderBallColor());
-        graphicsContext.fillOval(ball.getCenterPosition().getX(), ball.getCenterPosition().getY(), ball.getRadius(), ball.getRadius());
+        graphicsContext.setFill(ball.getBorderBallColor());
+        graphicsContext.fillOval(ball.getxCoordinate(), ball.getyCoordinate(), ball.getRadius(), ball.getRadius());
 
         graphicsContext.setStroke(ball.getInnerBallColor());
-        graphicsContext.strokeOval(ball.getCenterPosition().getX(), ball.getCenterPosition().getY(), ball.getRadius(), ball.getRadius());
+        graphicsContext.strokeOval(ball.getxCoordinate()-1, ball.getyCoordinate()-1, ball.getRadius()+2, ball.getRadius()+2);
     }
 
     private void drawPlayer(Player player) {
-        graphicsContext.setStroke(player.getBorderColor());
+        graphicsContext.setFill(player.getBorderColor());
         graphicsContext.fillRect(player.getPositionX(),player.getPositionY(),player.getWidth(),player.getHeight());
 
         graphicsContext.setStroke(player.getInnerColor());
-        graphicsContext.fillRect(player.getPositionX(),player.getPositionY(),player.getWidth(),player.getHeight());
+        graphicsContext.strokeRect(player.getPositionX()-1,player.getPositionY()-1,player.getWidth()+2,player.getHeight()+2);
     }
 
     public void togglePauseContinueGame(){
-        System.out.println("hello");
         if(toggle){
             animationTimer.stop();
             toggle = false;

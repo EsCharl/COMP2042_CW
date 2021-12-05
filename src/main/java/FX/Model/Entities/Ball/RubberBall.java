@@ -28,9 +28,9 @@ import javafx.scene.paint.Color;
 public class RubberBall extends Ball {
 
 
-    private static final int DEF_RADIUS = 5;
+    private static final int DEF_RADIUS = 10;
 
-    private static final Color DEF_INNER_COLOR = Color.rgb(255, 219, 88,0);
+    private static final Color DEF_INNER_COLOR = Color.rgb(255, 219, 88,1);
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
     /**

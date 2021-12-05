@@ -78,16 +78,6 @@ public class Player extends RectangularEntities {
     }
 
     /**
-     * this is used to check if there is an impact between the paddle and the ball.
-     *
-     * @param b the ball object which is used to detect if it collides with the paddle.
-     * @return returns true if the ball comes in contact with the paddle, false if it doesn't
-     */
-    public boolean impact(Ball b){
-        return getPlayerFace().contains(b.getCenterPosition()) && getPlayerFace().contains(b.getDown()) ;
-    }
-
-    /**
      * this method is used to move the paddle (player).
      */
     public void move(){

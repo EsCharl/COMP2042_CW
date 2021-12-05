@@ -33,11 +33,6 @@ abstract public class Ball {
 
     private Point2D centerPosition;
 
-    private Point2D up;
-    private Point2D down;
-    private Point2D left;
-    private Point2D right;
-
     private Random rnd;
 
     private Color borderBallColor;
@@ -46,6 +41,9 @@ abstract public class Ball {
     private int xSpeed;
     private int ySpeed;
     private int radius;
+
+    private int xCoordinate;
+    private int yCoordinate;
 
     /**
      * this is the constructor used to create a ball object.
@@ -60,32 +58,30 @@ abstract public class Ball {
 
         setRadius(radius);
 
+        setxCoordinate((int)centerPosition.getX());
+        setyCoordinate((int)centerPosition.getY());
+
         setRnd(new Random());
         setRandomBallSpeed();
 
-        createDirectionalPoint2D(radius);
-        setColorOfBall(inner, border);
-    }
-
-    /**
-     * This method is used to set the color of the ball.
-     *
-     * @param inner the inner color of the ball that is used to be set for the ball inner color.
-     * @param border the border color of the ball that is used to be set for the ball border color.
-     */
-    private void setColorOfBall(Color inner,Color border){
         setBorderBallColor(border);
         setInnerBallColor(inner);
     }
 
-    /**
-     * this method is used to create the direction pointer2D objects.
-     */
-    private void createDirectionalPoint2D(int radius){
-        setUp(new Point2D(0,radius));
-        setDown(new Point2D(0,-radius));
-        setLeft(new Point2D(-radius,0));
-        setRight(new Point2D(radius,0));
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
     }
 
     /**
@@ -97,39 +93,6 @@ abstract public class Ball {
     public void setSpeed(int x,int y){
         setXSpeed(x);
         setYSpeed(y);
-    }
-
-    /**
-     * this method is used to create a shape of the ball.
-     *
-     * @param center this is the position where the ball is formed
-     * @param radius this is the radius of the ball
-     * @return it returns a shape of the ball on a position specified in center.
-     */
-    protected Circle makeBall(Point2D center, int radius) {
-        return new Circle(getRubberBallLeftXCoordinate(center, radius), getRubberBallTopYCoordinate(center, radius),radius);
-    }
-
-    /**
-     * this method is used to get the left side of the rubber ball x - axis.
-     *
-     * @param center this is the point2D of the center of the ball.
-     * @param horizontalDiameter this is the Horizontal diameter of the ball.
-     * @return returns a double value which is the value of the x - coordinate for the left side of the ball.
-     */
-    private double getRubberBallLeftXCoordinate(Point2D center, int horizontalDiameter){
-        return center.getX() - (horizontalDiameter / 2);
-    }
-
-    /**
-     * this method is used to get the up side of the rubber ball y-axis.
-     *
-     * @param center this is the point2D of the center of the Ball.
-     * @param verticalDiameter this is the vertical diameter of the ball.
-     * @return this returns a double value where the y - coordinate for the top side of the ball.
-     */
-    private double getRubberBallTopYCoordinate(Point2D center, int verticalDiameter){
-        return center.getY() - (verticalDiameter / 2);
     }
 
     /**
@@ -227,6 +190,8 @@ abstract public class Ball {
         return this.innerBallColor;
     }
 
+
+
     /**
      * this is used to get the position of the ball.
      *
@@ -270,78 +235,6 @@ abstract public class Ball {
      */
     public void setInnerBallColor(Color inner) {
         this.innerBallColor = inner;
-    }
-
-    /**
-     * this method is used to get the ball upwards position in point 2D.
-     *
-     * @return this returns a point2D object for the upside of the ball.
-     */
-    public Point2D getUp() {
-        return up;
-    }
-
-    /**
-     * this method is used to get the ball downwards position in point 2D.
-     *
-     * @return this returns a point2D object for the downside of the ball.
-     */
-    public Point2D getDown() {
-        return down;
-    }
-
-    /**
-     * this method is used to get the ball left position in point 2D.
-     *
-     * @return this returns a point2D object for the left side of the ball.
-     */
-    public Point2D getLeft() {
-        return left;
-    }
-
-    /**
-     * this method is used to get the ball right position in point 2D.
-     *
-     * @return this returns a point2D object for the right side of the ball.
-     */
-    public Point2D getRight() {
-        return right;
-    }
-
-    /**
-     * this method is used to set the up position of the ball into a variable.
-     *
-     * @param up this is the Point2D value used to set into the variable.
-     */
-    public void setUp(Point2D up) {
-        this.up = up;
-    }
-
-    /**
-     * this method is used to set the down position of the ball into a variable.
-     *
-     * @param down this is the Point2D value used to set into the variable.
-     */
-    public void setDown(Point2D down) {
-        this.down = down;
-    }
-
-    /**
-     * this method is used to set the left position of the ball into a variable.
-     *
-     * @param left this is the Point2D value used to set into the variable.
-     */
-    public void setLeft(Point2D left) {
-        this.left = left;
-    }
-
-    /**
-     * this method is used to set the right position of the ball into a variable.
-     *
-     * @param right this is the Point2D value used to set into the variable.
-     */
-    public void setRight(Point2D right) {
-        this.right = right;
     }
 
     /**

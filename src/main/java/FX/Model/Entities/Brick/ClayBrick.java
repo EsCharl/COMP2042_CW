@@ -27,7 +27,7 @@ import javafx.scene.paint.Color;
  */
 public class ClayBrick extends Brick {
 
-    private static final Color DEF_INNER = Color.rgb(178, 34, 34,0).darker();
+    private static final Color DEF_INNER = Color.rgb(178, 34, 34,1).darker();
     private static final Color DEF_BORDER = Color.GRAY;
     private static final int CLAY_STRENGTH = 1;
 

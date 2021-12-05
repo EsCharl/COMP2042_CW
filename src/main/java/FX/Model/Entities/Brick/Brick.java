@@ -65,8 +65,6 @@ abstract public class Brick extends RectangularEntities {
         setRnd(new Random());
         setBroken(false);
         setBrickFace(makeBrickFace(pos,size));
-        setBorderColor(border);
-        setInnerColor(inner);
         setMaxStrength(strength);
         setCurrentStrength(strength);
     }
@@ -104,27 +102,6 @@ abstract public class Brick extends RectangularEntities {
     public Rectangle getBrick(){
         return brickFace;
     }
-
-
-    /**
-     * this method is used to get the border color of the brick.
-     *
-     * @return returns the Color of the border of the brick.
-     */
-    public Color getBorderColor(){
-        return borderColor;
-    }
-
-    /**
-     * this method is used to get the internal color of he brick.
-     *
-     * @return returns the Color of the internal of the brick.
-     */
-    public Color getInnerColor(){
-        return innerColor;
-    }
-
-
 
     /**
      * this method is used to return the brick if it is broken or not.
@@ -176,24 +153,6 @@ abstract public class Brick extends RectangularEntities {
      */
     public void setBrickFace(Rectangle brickFace) {
         this.brickFace = brickFace;
-    }
-
-    /**
-     * this method is used to set the brick border color.
-     *
-     * @param border this is the color of the border for the brick.
-     */
-    public void setBorderColor(Color border) {
-        this.borderColor = border;
-    }
-
-    /**
-     * this method is used to set the inner color of the brick.
-     *
-     * @param inner this method is used to set the inner color of the brick.
-     */
-    public void setInnerColor(Color inner) {
-        this.innerColor = inner;
     }
 
     /**
