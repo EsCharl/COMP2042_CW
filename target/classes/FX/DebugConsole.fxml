@@ -2,13 +2,13 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="500.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="FX.Controller.DebugConsoleController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FX.Controller.DebugConsoleController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -19,27 +19,27 @@
     <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="skipLevel" mnemonicParsing="false" prefHeight="60.0" prefWidth="300.0" text="Skip Level">
+      <Button fx:id="skipLevel" mnemonicParsing="false" onAction="#skipLevelButtonClicked" prefHeight="60.0" prefWidth="300.0" text="Skip Level">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="resetBall" mnemonicParsing="false" prefHeight="60.0" prefWidth="300.0" text="Reset Balls" GridPane.columnIndex="1">
+      <Button fx:id="resetBall" mnemonicParsing="false" onAction="#resetBallButtonClicked" prefHeight="60.0" prefWidth="300.0" text="Reset Balls" GridPane.columnIndex="1">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Slider fx:id="xSpeedSlider" majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="1">
+      <Slider majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" onDragDetected="#xSpeedSliderMoved" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="1" fx:id="xSpeedSlider">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Slider>
-      <Slider fx:id="ySpeedSlider" majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Slider fx:id="ySpeedSlider" majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" onDragDetected="#ySpeedSliderMoved" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Slider>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ball x-axis speed" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ball y-axis speed" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Label fx:id="textXSpeed" text="Ball x-axis speed" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Label fx:id="textYSpeed" text="Ball y-axis speed" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

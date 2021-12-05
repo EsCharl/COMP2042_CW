@@ -2,10 +2,13 @@ package FX.Controller;
 
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Ball.RubberBall;
+import FX.Model.Entities.Brick.Brick;
 import FX.Model.Game;
 import FX.Model.GameScore;
 import FX.Model.Entities.Player;
 
+import FX.Model.Levels.LevelFactory;
+import FX.Model.Levels.WallLevelTemplates;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +25,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -33,9 +37,6 @@ public class GameStateController implements Initializable {
 
     private Game game;
     private GameScore gameScore;
-    private Player player;
-    private Ball ball;
-
     private GraphicsContext graphicsContext;
     private final Color stringColor = Color.BLUE;
     private AnimationTimer animationTimer;
@@ -48,11 +49,10 @@ public class GameStateController implements Initializable {
 
     public GameStateController() {
 
-        game = Game.singletonGame(30,3,6/2,new Point2D(300,430));
+        game = Game.singletonGame();
         gameScore = GameScore.singletonGameScore();
-        player = Player.singletonPlayer(new Point2D(225,430), game.getPlayArea());
-        ball = new RubberBall(new Point2D(300,425));
 
+        game.setBrickLevels(makeLevels(game.getPlayArea(),30,3,6/2));
         startGame();
     }
 
@@ -82,22 +82,26 @@ public class GameStateController implements Initializable {
                     graphicsContext.strokeRect(game.getBricks()[i].getPositionX()-1,game.getBricks()[i].getPositionY()-1,game.getBricks()[i].getWidth()+2,game.getBricks()[i].getHeight()+2);
                 }
 
-                drawBall(ball);
-                drawPlayer(player);
+                drawBall(game.getBall());
+                drawPlayer(game.getPlayer());
 
                 scene = anchorPane.getScene();
 
                 scene.setOnKeyPressed(keyEvent ->{
-                    if(keyEvent.getCode().equals(KeyCode.A)){
-                        player.moveLeft();
+                    if(keyEvent.getCode().equals(KeyCode.ESCAPE)){
+                        pauseButtonClicked();
+                    }
+                    else if(keyEvent.getCode().equals(KeyCode.A)){
+                        game.getPlayer().moveLeft();
                     }else if(keyEvent.getCode().equals(KeyCode.D)){
-                        player.moveRight();
+                        game.getPlayer().moveRight();
                     }else if(keyEvent.getCode().equals(KeyCode.SPACE)){
+                        System.out.println("hi");
                         togglePauseContinueGame();
                     }else if(keyEvent.getCode().equals(KeyCode.F1) && keyEvent.isAltDown() && keyEvent.isShiftDown()){
                         showDebugConsole();
                     }else{
-                        player.stop();
+                        game.getPlayer().stop();
                     }
                 });
             }
@@ -111,6 +115,31 @@ public class GameStateController implements Initializable {
     private void startGame(){
         game.nextLevel();
         gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
+    }
+
+    private void pauseButtonClicked(){
+
+    }
+
+    /**
+     * this is used to generate the levels to be placed in a brick array.
+     *
+     * @param drawArea this is the area where the bricks will be drawn.
+     * @param brickCount this is the amount bricks that will be generated in the level.
+     * @param lineCount this is the total amount of rows of bricks that is allowed.
+     * @param brickDimensionRatio this is the ratio for the bricks.
+     * @return the levels that are generated in the form of 2 dimension brick array.
+     */
+    private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio){
+        Brick[][] tmp = new Brick[game.getLEVELS_AMOUNT()][];
+        LevelFactory levelFactory = new LevelFactory();
+        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CLAY);
+        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CEMENT);
+        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.STEEL);
+        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.STEEL, WallLevelTemplates.CEMENT);
+        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.REINFORCED_STEEL, WallLevelTemplates.STEEL);
+        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
+        return tmp;
     }
 
     private void drawBall(Ball ball){

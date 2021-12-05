@@ -18,7 +18,10 @@
 
 package FX.Model;
 
+import FX.Model.Entities.Ball.Ball;
+import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
+import FX.Model.Entities.Player;
 import FX.Model.Levels.LevelFactory;
 import FX.Model.Levels.WallLevelTemplates;
 import javafx.geometry.Point2D;
@@ -47,12 +50,20 @@ public class Game {
     private Brick[][] brickLevels;
     private int currentLevel;
 
-    private Point2D startPoint;
+    private final int playerTopLeftXStartPoint = 225;
+    private final int playerTopLeftYStartPoint = 430;
+
+    private final int ballTopLeftXStartPoint = 300;
+    private final int ballTopLeftYStartPoint = 425;
+
     private int brickCount;
     private int ballCount;
     private boolean ballLost;
 
     private static Game uniqueGame;
+    private Player player;
+    private Ball ball;
+
 
     private Rectangle playArea;
 
@@ -62,37 +73,24 @@ public class Game {
 
     /**
      * this method is used to create a Model.Wall object based on the Singleton design pattern.
-     *
-     * @param brickCount this is the amount of brick for the wall.
-     * @param lineCount this is for how many lines (rows) of bricks are in the level.
-     * @param brickDimensionRatio this is for the ratio for the brick dimension.
-     * @param ballPos this is the ball position.
      */
-    public static Game singletonGame(int brickCount, int lineCount, double brickDimensionRatio, Point2D ballPos){
+    public static Game singletonGame(){
         if(getUniqueGame() == null){
-            setUniqueGame(new Game(brickCount, lineCount, brickDimensionRatio, ballPos));
+            setUniqueGame(new Game());
         }
         return getUniqueGame();
     }
 
     /**
      * this constructor is used to generate an object which is the wall used for the levels.
-     *
-     * @param brickCount this is the amount of brick for the wall.
-     * @param lineCount this is for how many lines (rows) of bricks are in the level.
-     * @param brickDimensionRatio this is for the ratio for the brick dimension.
-     * @param ballPos this is the ball position.
      */
-    private Game(int brickCount, int lineCount, double brickDimensionRatio, Point2D ballPos){
+    private Game(){
 
-        setStartPoint(ballPos);
         setGaming(false);
         setBotMode(false);
         setShowPauseMenu(false);
 
         setPlayArea(new Rectangle(0,0, getGAME_WINDOW_WIDTH(), getGAME_WINDOW_HEIGHT()));
-
-        setBrickLevels(makeLevels(getPlayArea(),brickCount,lineCount,brickDimensionRatio));
 
         setCurrentLevel(0);
 
@@ -100,27 +98,25 @@ public class Game {
         setBallLost(false);
 
         setBorderArea(getPlayArea());
+
+        player = Player.singletonPlayer(new Point2D(playerTopLeftXStartPoint,playerTopLeftYStartPoint), getPlayArea());
+        ball = new RubberBall(new Point2D(ballTopLeftXStartPoint,ballTopLeftYStartPoint));
     }
 
-    /**
-     * this is used to generate the levels to be placed in a brick array.
-     *
-     * @param drawArea this is the area where the bricks will be drawn.
-     * @param brickCount this is the amount bricks that will be generated in the level.
-     * @param lineCount this is the total amount of rows of bricks that is allowed.
-     * @param brickDimensionRatio this is the ratio for the bricks.
-     * @return the levels that are generated in the form of 2 dimension brick array.
-     */
-    private Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
-        Brick[][] tmp = new Brick[getLEVELS_AMOUNT()][];
-        LevelFactory levelFactory = new LevelFactory();
-        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CLAY);
-        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CEMENT);
-        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.STEEL);
-        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.STEEL, WallLevelTemplates.CEMENT);
-        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.REINFORCED_STEEL, WallLevelTemplates.STEEL);
-        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
-        return tmp;
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
     }
 
     /**
@@ -254,24 +250,6 @@ public class Game {
      */
     public void setCurrentLevel(int level) {
         this.currentLevel = level;
-    }
-
-    /**
-     * this method is used get the start point for both ball and the player (paddle).
-     *
-     * @return this returns A point which is the start location.
-     */
-    public Point2D getStartPoint() {
-        return startPoint;
-    }
-
-    /**
-     * this method is used to set the starting point for both the ball and player (paddle).
-     *
-     * @param startPoint this is the point position used to set the position.
-     */
-    public void setStartPoint(Point2D startPoint) {
-        this.startPoint = startPoint;
     }
 
     /**
