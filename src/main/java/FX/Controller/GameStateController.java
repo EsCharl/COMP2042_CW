@@ -127,10 +127,10 @@ public class GameStateController implements Initializable {
                     toggle = false;
                 }
 
+                automation();
+
                 game.getBall().move();
                 game.getPlayer().move();
-
-                automation();
 
                 findImpacts();
 
@@ -159,20 +159,20 @@ public class GameStateController implements Initializable {
         }
         else if(userInput.contains(KeyCode.D)){
             game.getPlayer().setMoveAmount(game.getPlayer().getDEF_MOVE_AMOUNT());
-        }else if(userInput.contains(KeyCode.H)){
-            game.setBotMode(!game.isBotMode());
         }
     }
 
     private void nonMovementKeyHandler(){
         if(userInput.contains(KeyCode.ESCAPE)){
-            pauseButtonClicked();
+            showPauseMenu();
         }else if(userInput.contains(KeyCode.SPACE)){
             togglePauseContinueGame();
-        }else if(userInput.contains(KeyCode.F1) && userInput.contains(KeyCode.SHIFT) && userInput.contains(KeyCode.F1)){
+        }else if(userInput.contains(KeyCode.F1) && userInput.contains(KeyCode.SHIFT) && userInput.contains(KeyCode.ALT)){
             animationTimer.stop();
             toggle = false;
             showDebugConsole();
+        }else if(userInput.contains(KeyCode.H)){
+            game.setBotMode(!game.isBotMode());
         }
     }
 
@@ -180,12 +180,13 @@ public class GameStateController implements Initializable {
      * this method is used to let the bot control the paddle instead of the player playing it.
      */
     public void automation(){
-        System.out.println(game.isBotMode());
         if(game.isBotMode()){
-            if(game.getBall().getBounds().getMinX() > game.getPlayer().getBounds().getMinX() + game.getPlayer().getWidth()/2)
+            if(game.getBall().getBounds().getMinX() > game.getPlayer().getBounds().getMinX() + game.getPlayer().getBounds().getWidth()/2){
                 game.getPlayer().setMoveAmount(game.getPlayer().getDEF_MOVE_AMOUNT());
-            else
+            }
+            else{
                 game.getPlayer().setMoveAmount(-game.getPlayer().getDEF_MOVE_AMOUNT());
+            }
         }
     }
 
@@ -193,7 +194,7 @@ public class GameStateController implements Initializable {
      * this method is used to check if there is an impact for the ball with any entity or the sides of the screen. which will cause a reaction to the ball and the brick.
      */
     public void findImpacts(){
-        if(game.getBall().getBounds().intersects(game.getPlayer().getBounds())){
+        if(impact(game.getBall(),game.getPlayer())){
             game.getBall().setYSpeed(-game.getBall().getYSpeed());
             if(getRnd().nextBoolean() && game.getBall().getYSpeed() > -4){
                 game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
@@ -207,18 +208,23 @@ public class GameStateController implements Initializable {
             game.setBrickCount(game.getBrickCount()-1);
         }
 
-        if((game.getBall().getBounds().getMinX() < scene.getX()) ||(game.getBall().getBounds().getMaxX() > (scene.getX() + scene.getWidth()))) {
-            game.getBall().setXSpeed(-game.getBall().getXSpeed());
-            if(getRnd().nextBoolean() && (game.getBall().getXSpeed() > -4 && game.getBall().getXSpeed() < 4) ){
-                if(game.getBall().getXSpeed() < 0)
-                    game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
-                else
+        if((game.getBall().getBounds().getMinX() < scene.getX())) {
+            if (game.getBall().getXSpeed() < 0){
+                game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                if(getRnd().nextBoolean() && game.getBall().getXSpeed() < 4){
                     game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
-            }else if(getRnd().nextBoolean()){
-                if(game.getBall().getXSpeed() < -1)
-                    game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
-                else if(game.getBall().getXSpeed() > 1)
+                }else if(getRnd().nextBoolean() && game.getBall().getXSpeed() > 1){
                     game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
+                }
+            }
+        }else if(game.getBall().getBounds().getMaxX() > (scene.getX() + scene.getWidth())){
+            if (game.getBall().getXSpeed() > 0){
+                game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                if(getRnd().nextBoolean() && (game.getBall().getXSpeed() > -4)){
+                    game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
+                }else if(getRnd().nextBoolean() && game.getBall().getXSpeed() < -1){
+                    game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
+                }
             }
         }
 
@@ -240,7 +246,7 @@ public class GameStateController implements Initializable {
     }
 
     private boolean impact(Ball ball, Entities object){
-        if(ball.getBounds().equals(object.getBounds())){
+        if(ball.getBounds().intersects(object.getBounds())){
             return true;
         }
         return false;
@@ -253,28 +259,24 @@ public class GameStateController implements Initializable {
      */
     boolean impactWall(){
         for(Brick b : game.getBricks()){
-            if(b.findImpact(game.getBall()) == game.getUP_IMPACT()){
+            if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
                 game.getBall().setYSpeed(-game.getBall().getYSpeed());
                 return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
             }
-            else if (b.findImpact(game.getBall()) == game.getDOWN_IMPACT()){
+            else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
                 game.getBall().setYSpeed(-game.getBall().getYSpeed());
                 return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()),Crack.getDOWN());
             }
-            else if(b.findImpact(game.getBall()) == game.getLEFT_IMPACT()){
+            else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                 game.getBall().setXSpeed(-game.getBall().getXSpeed());
                 return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()),Crack.getRIGHT());
             }
-            else if(b.findImpact(game.getBall()) == game.getRIGHT_IMPACT()){
+            else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                 game.getBall().setXSpeed(-game.getBall().getXSpeed());
                 return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
             }
         }
         return false;
-    }
-
-    private void pauseButtonClicked(){
-
     }
 
     private void drawBall(Ball ball){

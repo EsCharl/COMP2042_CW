@@ -35,11 +35,6 @@ public class Game {
     private final int MAX_BALL_COUNT = 3;
     private final int LEVELS_AMOUNT = 6;
 
-    private final int UP_IMPACT = 100;
-    private final int DOWN_IMPACT = 200;
-    private final int LEFT_IMPACT = 300;
-    private final int RIGHT_IMPACT = 400;
-
     private final int GAME_WINDOW_WIDTH = 600;
     private final int GAME_WINDOW_HEIGHT = 450;
 
@@ -340,42 +335,6 @@ public class Game {
      */
     public int getGAME_WINDOW_WIDTH(){
         return GAME_WINDOW_WIDTH;
-    }
-
-    /**
-     * this method is used to get a constant where the brick is getting collided (upside).
-     *
-     * @return this is the integer constant which indicates that the brick is getting collided on the upside.
-     */
-    public int getUP_IMPACT() {
-        return UP_IMPACT;
-    }
-
-    /**
-     * this method is used to get a constant where the brick is getting collided (downside).
-     *
-     * @return this is the integer constant which indicates that the brick is getting collided on the downside.
-     */
-    public int getDOWN_IMPACT() {
-        return DOWN_IMPACT;
-    }
-
-    /**
-     * this method is used to get a constant where the brick is getting collided (left side).
-     *
-     * @return this is the integer constant which indicates that the brick is getting collided on the left side.
-     */
-    public int getLEFT_IMPACT() {
-        return LEFT_IMPACT;
-    }
-
-    /**
-     * this method is used to get a constant where the brick is getting collided (right side).
-     *
-     * @return this is the integer constant which indicates that the brick is getting collided on the right side.
-     */
-    public int getRIGHT_IMPACT() {
-        return RIGHT_IMPACT;
     }
 
     /**

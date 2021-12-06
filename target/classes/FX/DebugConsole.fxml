@@ -29,12 +29,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Slider majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" onDragDetected="#xSpeedSliderMoved" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="1" fx:id="xSpeedSlider">
+      <Slider majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" onDragDetected="#xSpeedSliderMoved" onDragDone="#xSpeedSliderMoved" onDragDropped="#xSpeedSliderMoved" onDragEntered="#xSpeedSliderMoved" onDragExited="#xSpeedSliderMoved" onDragOver="#xSpeedSliderMoved" onMouseDragEntered="#xSpeedSliderMoved" onMouseDragExited="#xSpeedSliderMoved" onMouseDragOver="#xSpeedSliderMoved" onMouseDragReleased="#xSpeedSliderMoved" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.rowIndex="1" fx:id="xSpeedSlider">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Slider>
-      <Slider fx:id="ySpeedSlider" majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" onDragDetected="#ySpeedSliderMoved" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Slider fx:id="ySpeedSlider" majorTickUnit="1.0" max="4.0" min="-4.0" minorTickCount="0" onDragDetected="#ySpeedSliderMoved" onDragDone="#ySpeedSliderMoved" onDragDropped="#ySpeedSliderMoved" onDragEntered="#ySpeedSliderMoved" onDragExited="#ySpeedSliderMoved" onDragOver="#ySpeedSliderMoved" onMouseDragEntered="#ySpeedSliderMoved" onMouseDragExited="#ySpeedSliderMoved" onMouseDragOver="#ySpeedSliderMoved" onMouseDragReleased="#ySpeedSliderMoved" prefHeight="60.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

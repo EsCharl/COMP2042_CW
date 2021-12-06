@@ -35,11 +35,6 @@ abstract public class Brick extends Entities {
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
 
-    public static final int UP_IMPACT = 100;
-    public static final int DOWN_IMPACT = 200;
-    public static final int LEFT_IMPACT = 300;
-    public static final int RIGHT_IMPACT = 400;
-
     private static Random rnd;
 
     Rectangle brickFace;
@@ -65,26 +60,6 @@ abstract public class Brick extends Entities {
         setBrickFace(makeBrickFace(pos,size));
         setMaxStrength(strength);
         setCurrentStrength(strength);
-    }
-
-    /**
-     * this method is used to get the direction of impact where the ball comes in contact with the brick,
-     *
-     * @param b the ball object.
-     * @return an Integer where the impact direction is decided based on a constant integer.
-     */
-    public final int findImpact(Ball b){
-        if(isBroken())
-            return 0;
-        if (getBounds().contains(b.getBounds().getMaxX(),b.getBounds().getMinY()+b.getBounds().getHeight()/2))
-            return LEFT_IMPACT;
-        else if(getBounds().contains(b.getBounds().getMinX(),b.getBounds().getMinY()+b.getBounds().getHeight()/2))
-            return RIGHT_IMPACT;
-        else if(getBounds().contains(b.getBounds().getMinX()+b.getBounds().getWidth()/2,b.getBounds().getMinY()))
-            return DOWN_IMPACT;
-        else if(getBounds().contains(b.getBounds().getMinX()+b.getBounds().getWidth()/2,b.getBounds().getMaxY()))
-            return UP_IMPACT;
-        return 0;
     }
 
     /**
