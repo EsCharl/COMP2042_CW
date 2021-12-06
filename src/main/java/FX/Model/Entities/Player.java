@@ -69,9 +69,9 @@ public class Player extends Entities implements Movable {
      * this method is used to move the paddle (player).
      */
     public void move(){
-        if(moveToX() < getLowestXCoordinate() || moveToX() > getLargestXCoordinate())
+        if(getBounds().getMinX() + getMoveAmount() < getLowestXCoordinate() || getBounds().getMinX() + getMoveAmount() > getLargestXCoordinate())
             return;
-        setBounds(new BoundingBox(getBounds().getMinX() + moveAmount, getBounds().getMinY(), getBounds().getWidth(), getBounds().getHeight()));
+        setBounds(new BoundingBox(getBounds().getMinX() + getMoveAmount(), getBounds().getMinY(), getBounds().getWidth(), getBounds().getHeight()));
     }
 
     public void setLocation(int x, int y){
@@ -86,27 +86,6 @@ public class Player extends Entities implements Movable {
      */
     private double moveToX(){
         return getBounds().getMinX() + getMoveAmount();
-    }
-
-    /**
-     * this method is used to set the move amount to the left direction which will be used to move the paddle.
-     */
-    public void moveLeft(){
-        setMoveAmount(-getDEF_MOVE_AMOUNT());
-    }
-
-    /**
-     * this method is used to set the move amount to the right direction which will be used to mve the paddle.
-     */
-    public void moveRight(){
-        setMoveAmount(getDEF_MOVE_AMOUNT());
-    }
-
-    /**
-     * this method is used to stop the movement of the paddle by setting the move amount to 0.
-     */
-    public void stop(){
-        setMoveAmount(0);
     }
 
     /**

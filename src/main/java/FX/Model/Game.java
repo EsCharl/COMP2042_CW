@@ -52,7 +52,7 @@ public class Game {
     private final int playerTopLeftYStartPoint = 430;
 
     private final int ballTopLeftXStartPoint = 300;
-    private final int ballTopLeftYStartPoint = 425;
+    private final int ballTopLeftYStartPoint = 410;
 
     private int brickCount;
     private int ballCount;

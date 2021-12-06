@@ -96,24 +96,26 @@ public class GameStateController implements Initializable {
                 drawPlayer(game.getPlayer());
 
                 if(game.isBallLost()){
+                    gameScore.pauseTimer();
                     game.setBallLost(false);
                     toggle = false;
+                    if(game.isGameOver()){
+                        game.resetBallCount();
+                        gameText.setText("Game Over. Time spent in this level: " + gameScore.getTimerString());
+                    }
                     stop();
                 }
 
                 scene = anchorPane.getScene();
-
-                game.getPlayer().stop();
 
                 scene.setOnKeyPressed(keyEvent ->{
                     if(!userInput.contains(keyEvent.getCode()))
                         userInput.add(keyEvent.getCode());
                 });
 
-                scene.setOnKeyReleased(keyEvent -> {
-                    movementKeyHandler();
+                movementKeyHandler();
 
-                    System.out.println(userInput);
+                scene.setOnKeyReleased(keyEvent -> {
 
                     nonMovementKeyHandler();
                     while(userInput.contains(keyEvent.getCode()))
@@ -150,14 +152,15 @@ public class GameStateController implements Initializable {
     }
 
     private void movementKeyHandler(){
-        if(userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D)){
-            game.getPlayer().stop();
+        if((userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D)) || userInput.isEmpty()){
+            game.getPlayer().setMoveAmount(0);
         }else if(userInput.contains(KeyCode.A)){
-            game.getPlayer().moveLeft();
+            game.getPlayer().setMoveAmount(-game.getPlayer().getDEF_MOVE_AMOUNT());
         }
         else if(userInput.contains(KeyCode.D)){
-
-            game.getPlayer().moveRight();
+            game.getPlayer().setMoveAmount(game.getPlayer().getDEF_MOVE_AMOUNT());
+        }else if(userInput.contains(KeyCode.H)){
+            game.setBotMode(!game.isBotMode());
         }
     }
 
@@ -177,11 +180,12 @@ public class GameStateController implements Initializable {
      * this method is used to let the bot control the paddle instead of the player playing it.
      */
     public void automation(){
+        System.out.println(game.isBotMode());
         if(game.isBotMode()){
-            if(game.getBall().getBounds().getMinX() > game.getPlayer().getPlayerCenterPosition().getX())
-                game.getPlayer().moveRight();
+            if(game.getBall().getBounds().getMinX() > game.getPlayer().getBounds().getMinX() + game.getPlayer().getWidth()/2)
+                game.getPlayer().setMoveAmount(game.getPlayer().getDEF_MOVE_AMOUNT());
             else
-                game.getPlayer().moveLeft();
+                game.getPlayer().setMoveAmount(-game.getPlayer().getDEF_MOVE_AMOUNT());
         }
     }
 
@@ -189,7 +193,7 @@ public class GameStateController implements Initializable {
      * this method is used to check if there is an impact for the ball with any entity or the sides of the screen. which will cause a reaction to the ball and the brick.
      */
     public void findImpacts(){
-        if(impact(game.getBall(),game.getPlayer())){
+        if(game.getBall().getBounds().intersects(game.getPlayer().getBounds())){
             game.getBall().setYSpeed(-game.getBall().getYSpeed());
             if(getRnd().nextBoolean() && game.getBall().getYSpeed() > -4){
                 game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
@@ -228,6 +232,7 @@ public class GameStateController implements Initializable {
         }
         else if(game.getBall().getBounds().getMinY() > scene.getY() + scene.getHeight()){
             game.setBallCount(game.getBallCount() - 1);
+            game.getPlayer().resetPosition();
             game.getBall().resetPosition();
             game.getBall().setRandomBallSpeed();
             game.setBallLost(true);
@@ -280,6 +285,11 @@ public class GameStateController implements Initializable {
         graphicsContext.strokeOval(ball.getBounds().getMinX()-1, ball.getBounds().getMinY()-1, ball.getRadius()+2, ball.getRadius()+2);
     }
 
+    /**
+     * this method is used to draw the player object to the screen.
+     *
+     * @param player this is the player object which contains the information about the player position and size needed to draw the object.
+     */
     private void drawPlayer(Player player) {
         graphicsContext.setFill(player.getInnerColor());
         graphicsContext.fillRect(player.getBounds().getMinX(),player.getBounds().getMinY(),player.getWidth(),player.getHeight());
@@ -291,10 +301,12 @@ public class GameStateController implements Initializable {
     public void togglePauseContinueGame(){
         if(toggle){
             animationTimer.stop();
+            gameScore.pauseTimer();
             toggle = false;
         }
         else{
             animationTimer.start();
+            gameScore.startTimer();
             toggle = true;
         }
     }
