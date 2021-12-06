@@ -15,7 +15,7 @@ public class GameScoreDisplay {
 
         GridPane gridPane = new GridPane();
 
-        gridPane.getColumnConstraints().add(new ColumnConstraints(100));
+        gridPane.getColumnConstraints().add(new ColumnConstraints(200));
         gridPane.getColumnConstraints().add(new ColumnConstraints(50));
 
         gridPane.add(new Text("Name"),0,0);
@@ -28,10 +28,10 @@ public class GameScoreDisplay {
 
             if(levelPlayTime.equals(time) && System.getProperty("user.name").equals(name)){
                 Text playerName = new Text(System.getProperty("user.name"));
-                playerName.setFill(Color.YELLOW);
+                playerName.setFill(Color.DARKCYAN);
                 gridPane.add(playerName,0,i+1);
                 Text playerTime = new Text(time);
-                playerTime.setFill(Color.YELLOW);
+                playerTime.setFill(Color.DARKCYAN);
                 gridPane.add(playerTime,1,1+i);
             }else{
                 gridPane.add(new Text(name), 0,i+1);
@@ -39,6 +39,7 @@ public class GameScoreDisplay {
             }
         }
         levelCompleteWindow.setScene(new Scene(gridPane));
+        levelCompleteWindow.setTitle("Game Score");
         levelCompleteWindow.show();
     }
 }

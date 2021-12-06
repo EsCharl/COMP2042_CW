@@ -1,38 +1,38 @@
 package FX.Controller;
 
 import FX.Model.Entities.Ball.Ball;
-import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
+import FX.Model.Entities.Brick.Crack;
+import FX.Model.Entities.Entities;
 import FX.Model.Game;
 import FX.Model.GameScore;
 import FX.Model.Entities.Player;
 
-import FX.Model.Levels.LevelFactory;
-import FX.Model.Levels.WallLevelTemplates;
 import FX.View.GameScoreDisplay;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class GameStateController implements Initializable {
@@ -44,23 +44,30 @@ public class GameStateController implements Initializable {
     private final Color stringColor = Color.BLUE;
     private AnimationTimer animationTimer;
     private Scene scene;
+    private Random rnd;
+    private ArrayList userInput;
+
+    private Image backgroundImage;
 
     @FXML private Canvas gameBoard;
     @FXML private AnchorPane anchorPane;
+    @FXML private Text gameText;
 
 
     boolean toggle = true;
 
     public GameStateController() {
 
+        setRnd(new Random());
+        userInput = new ArrayList();
+
         game = Game.singletonGame();
         gameScore = GameScore.singletonGameScore();
         gameScoreDisplay = new GameScoreDisplay();
 
-        game.setBrickLevels(makeLevels(game.getPlayArea(),30,3,6/2));
-
         game.nextLevel();
         gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
+        backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/GameImage.png")));
     }
 
     @FXML
@@ -68,48 +75,62 @@ public class GameStateController implements Initializable {
 
         graphicsContext = gameBoard.getGraphicsContext2D();
 
-        System.out.println(anchorPane);
-        System.out.println(gameBoard);
-
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                graphicsContext.drawImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/GameImage.png"))),0,0);
+                graphicsContext.drawImage(backgroundImage,0,0);
 
                 graphicsContext.setLineWidth(2);
 
-                graphicsContext.setFill(stringColor);
-                graphicsContext.fillText(String.format("Bricks: %d Balls %d", game.getBrickCount(), game.getBallCount()), 250, 225);
+                gameText.setText(String.format("Bricks: %d Balls %d", game.getBrickCount(), game.getBallCount()));
 
                 for (int i = 0; i < game.getBrickCount(); i++){
-                    graphicsContext.setFill(game.getBricks()[i].getInnerColor());
-                    graphicsContext.fillRect(game.getBricks()[i].getPositionX(),game.getBricks()[i].getPositionY(),game.getBricks()[i].getWidth(),game.getBricks()[i].getHeight());
+                    graphicsContext.setFill(game.getBrickLevels()[game.getCurrentLevel()-1][i].getInnerColor());
+                    graphicsContext.fillRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight());
 
-                    graphicsContext.setStroke(game.getBricks()[i].getBorderColor());
-                    graphicsContext.strokeRect(game.getBricks()[i].getPositionX()-1,game.getBricks()[i].getPositionY()-1,game.getBricks()[i].getWidth()+2,game.getBricks()[i].getHeight()+2);
+                    graphicsContext.setStroke(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBorderColor());
+                    graphicsContext.strokeRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth()+2,game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight()+2);
                 }
 
                 drawBall(game.getBall());
                 drawPlayer(game.getPlayer());
 
+                if(game.isBallLost()){
+                    game.setBallLost(false);
+                    toggle = false;
+                    stop();
+                }
+
                 scene = anchorPane.getScene();
 
+                game.getPlayer().stop();
+
                 scene.setOnKeyPressed(keyEvent ->{
-                    if(keyEvent.getCode().equals(KeyCode.ESCAPE)){
-                        pauseButtonClicked();
-                    }
-                    else if(keyEvent.getCode().equals(KeyCode.A)){
-                        game.getPlayer().moveLeft();
-                    }else if(keyEvent.getCode().equals(KeyCode.D)){
-                        game.getPlayer().moveRight();
-                    }else if(keyEvent.getCode().equals(KeyCode.SPACE)){
-                        togglePauseContinueGame();
-                    }else if(keyEvent.getCode().equals(KeyCode.F1) && keyEvent.isAltDown() && keyEvent.isShiftDown()){
-                        showDebugConsole();
-                    }else{
-                        game.getPlayer().stop();
-                    }
+                    if(!userInput.contains(keyEvent.getCode()))
+                        userInput.add(keyEvent.getCode());
                 });
+
+                scene.setOnKeyReleased(keyEvent -> {
+                    movementKeyHandler();
+
+                    System.out.println(userInput);
+
+                    nonMovementKeyHandler();
+                    while(userInput.contains(keyEvent.getCode()))
+                        userInput.remove(0);
+                });
+
+                if(game.isGameOver()){
+                    stop();
+                    toggle = false;
+                }
+
+                game.getBall().move();
+                game.getPlayer().move();
+
+                automation();
+
+                findImpacts();
 
                 if(game.isLevelComplete()){
                     try {
@@ -128,45 +149,143 @@ public class GameStateController implements Initializable {
         anchorPane.requestFocus();
     }
 
+    private void movementKeyHandler(){
+        if(userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D)){
+            game.getPlayer().stop();
+        }else if(userInput.contains(KeyCode.A)){
+            game.getPlayer().moveLeft();
+        }
+        else if(userInput.contains(KeyCode.D)){
+
+            game.getPlayer().moveRight();
+        }
+    }
+
+    private void nonMovementKeyHandler(){
+        if(userInput.contains(KeyCode.ESCAPE)){
+            pauseButtonClicked();
+        }else if(userInput.contains(KeyCode.SPACE)){
+            togglePauseContinueGame();
+        }else if(userInput.contains(KeyCode.F1) && userInput.contains(KeyCode.SHIFT) && userInput.contains(KeyCode.F1)){
+            animationTimer.stop();
+            toggle = false;
+            showDebugConsole();
+        }
+    }
+
+    /**
+     * this method is used to let the bot control the paddle instead of the player playing it.
+     */
+    public void automation(){
+        if(game.isBotMode()){
+            if(game.getBall().getBounds().getMinX() > game.getPlayer().getPlayerCenterPosition().getX())
+                game.getPlayer().moveRight();
+            else
+                game.getPlayer().moveLeft();
+        }
+    }
+
+    /**
+     * this method is used to check if there is an impact for the ball with any entity or the sides of the screen. which will cause a reaction to the ball and the brick.
+     */
+    public void findImpacts(){
+        if(impact(game.getBall(),game.getPlayer())){
+            game.getBall().setYSpeed(-game.getBall().getYSpeed());
+            if(getRnd().nextBoolean() && game.getBall().getYSpeed() > -4){
+                game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
+            }
+            else if(getRnd().nextBoolean() && game.getBall().getYSpeed() < -1){
+                game.getBall().setYSpeed(game.getBall().getYSpeed()+1);
+            }
+        }
+
+        else if(impactWall()){
+            game.setBrickCount(game.getBrickCount()-1);
+        }
+
+        if((game.getBall().getBounds().getMinX() < scene.getX()) ||(game.getBall().getBounds().getMaxX() > (scene.getX() + scene.getWidth()))) {
+            game.getBall().setXSpeed(-game.getBall().getXSpeed());
+            if(getRnd().nextBoolean() && (game.getBall().getXSpeed() > -4 && game.getBall().getXSpeed() < 4) ){
+                if(game.getBall().getXSpeed() < 0)
+                    game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
+                else
+                    game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
+            }else if(getRnd().nextBoolean()){
+                if(game.getBall().getXSpeed() < -1)
+                    game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
+                else if(game.getBall().getXSpeed() > 1)
+                    game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
+            }
+        }
+
+        if(game.getBall().getBounds().getMinY() < scene.getY()){
+            game.getBall().setYSpeed(-game.getBall().getYSpeed());
+
+            if(getRnd().nextBoolean() && game.getBall().getYSpeed() < 4)
+                game.getBall().setYSpeed(game.getBall().getYSpeed()+1);
+            else if(getRnd().nextBoolean() && game.getBall().getYSpeed() > 1)
+                game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
+        }
+        else if(game.getBall().getBounds().getMinY() > scene.getY() + scene.getHeight()){
+            game.setBallCount(game.getBallCount() - 1);
+            game.getBall().resetPosition();
+            game.getBall().setRandomBallSpeed();
+            game.setBallLost(true);
+        }
+    }
+
+    private boolean impact(Ball ball, Entities object){
+        if(ball.getBounds().equals(object.getBounds())){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * this is to check if the ball comes in contact with any side of the brick.
+     *
+     * @return returns a boolean value if or if it doesn't touch any entity.
+     */
+    boolean impactWall(){
+        for(Brick b : game.getBricks()){
+            if(b.findImpact(game.getBall()) == game.getUP_IMPACT()){
+                game.getBall().setYSpeed(-game.getBall().getYSpeed());
+                return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
+            }
+            else if (b.findImpact(game.getBall()) == game.getDOWN_IMPACT()){
+                game.getBall().setYSpeed(-game.getBall().getYSpeed());
+                return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()),Crack.getDOWN());
+            }
+            else if(b.findImpact(game.getBall()) == game.getLEFT_IMPACT()){
+                game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()),Crack.getRIGHT());
+            }
+            else if(b.findImpact(game.getBall()) == game.getRIGHT_IMPACT()){
+                game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
+            }
+        }
+        return false;
+    }
+
     private void pauseButtonClicked(){
 
     }
 
-    /**
-     * this is used to generate the levels to be placed in a brick array.
-     *
-     * @param drawArea this is the area where the bricks will be drawn.
-     * @param brickCount this is the amount bricks that will be generated in the level.
-     * @param lineCount this is the total amount of rows of bricks that is allowed.
-     * @param brickDimensionRatio this is the ratio for the bricks.
-     * @return the levels that are generated in the form of 2 dimension brick array.
-     */
-    private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio){
-        Brick[][] tmp = new Brick[game.getLEVELS_AMOUNT()][];
-        LevelFactory levelFactory = new LevelFactory();
-        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CLAY);
-        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CEMENT);
-        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.STEEL);
-        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.STEEL, WallLevelTemplates.CEMENT);
-        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.REINFORCED_STEEL, WallLevelTemplates.STEEL);
-        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
-        return tmp;
-    }
-
     private void drawBall(Ball ball){
         graphicsContext.setFill(ball.getInnerBallColor());
-        graphicsContext.fillOval(ball.getxCoordinate(), ball.getyCoordinate(), ball.getRadius(), ball.getRadius());
+        graphicsContext.fillOval(ball.getBounds().getMinX(), ball.getBounds().getMinY(), ball.getRadius(), ball.getRadius());
 
         graphicsContext.setStroke(ball.getBorderBallColor());
-        graphicsContext.strokeOval(ball.getxCoordinate()-1, ball.getyCoordinate()-1, ball.getRadius()+2, ball.getRadius()+2);
+        graphicsContext.strokeOval(ball.getBounds().getMinX()-1, ball.getBounds().getMinY()-1, ball.getRadius()+2, ball.getRadius()+2);
     }
 
     private void drawPlayer(Player player) {
         graphicsContext.setFill(player.getInnerColor());
-        graphicsContext.fillRect(player.getPositionX(),player.getPositionY(),player.getWidth(),player.getHeight());
+        graphicsContext.fillRect(player.getBounds().getMinX(),player.getBounds().getMinY(),player.getWidth(),player.getHeight());
 
         graphicsContext.setStroke(player.getBorderColor());
-        graphicsContext.strokeRect(player.getPositionX()-1,player.getPositionY()-1,player.getWidth()+2,player.getHeight()+2);
+        graphicsContext.strokeRect(player.getBounds().getMinX()-1,player.getBounds().getMinY()-1,player.getWidth()+2,player.getHeight()+2);
     }
 
     public void togglePauseContinueGame(){
@@ -180,6 +299,14 @@ public class GameStateController implements Initializable {
         }
     }
 
+    public Random getRnd() {
+        return rnd;
+    }
+
+    public void setRnd(Random rnd) {
+        this.rnd = rnd;
+    }
+
     public void showDebugConsole(){
         Stage debugConsole = new Stage();
         Parent root = null;
@@ -191,6 +318,7 @@ public class GameStateController implements Initializable {
 
         debugConsole.setScene(new Scene(root));
         debugConsole.setTitle("Debug Console");
+        debugConsole.initOwner(anchorPane.getScene().getWindow());
         debugConsole.initModality(Modality.WINDOW_MODAL);
         debugConsole.showAndWait();
     }

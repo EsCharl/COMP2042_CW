@@ -2,9 +2,11 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="FX.Controller.GameStateController">
+<AnchorPane fx:id="anchorPane" maxHeight="450.0" maxWidth="600.0" minHeight="450.0" minWidth="600.0" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FX.Controller.GameStateController">
    <children>
-      <Canvas fx:id="gameBoard" height="450.0" layoutX="3.0" width="600.0" />
+      <Canvas fx:id="gameBoard" height="450.0" nodeOrientation="INHERIT" width="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Text fx:id="gameText" fill="BLUE" layoutX="255.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
    </children>
 </AnchorPane>

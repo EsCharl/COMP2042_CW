@@ -18,6 +18,9 @@
 
 package FX.Model.Entities.Ball;
 
+import FX.Model.Entities.Entities;
+import FX.Model.Entities.Movable;
+import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -26,11 +29,11 @@ import java.util.Random;
 /**
  * this is an abstract class which is used for the rubber ball implementation.
  */
-abstract public class Ball {
+abstract public class Ball extends Entities implements Movable {
 
     private final int MAX_BALL_SPEED = 5;
 
-    private Point2D fixedStartTopLeftPosition;
+    private Point2D startTopLeftPosition;
 
     private Random rnd;
 
@@ -41,11 +44,6 @@ abstract public class Ball {
     private int ySpeed;
     private int radius;
 
-    private int xCoordinate;
-    private int yCoordinate;
-    private int centerXCoordinate;
-    private int centerYCoordinate;
-
     /**
      * this is the constructor used to create a ball object.
      *
@@ -55,12 +53,10 @@ abstract public class Ball {
      * @param border this is the Color for the border of the ball.
      */
     public Ball(Point2D centerPosition,int radius,Color inner,Color border){
-        setFixedStartTopLeftPosition(centerPosition);
+        super(centerPosition, border,inner, 2*radius, 2*radius);
+        setStartTopLeftPosition(centerPosition);
 
         setRadius(radius);
-
-        setxCoordinate((int)centerPosition.getX());
-        setyCoordinate((int)centerPosition.getY());
 
         setRnd(new Random());
         setRandomBallSpeed();
@@ -69,20 +65,16 @@ abstract public class Ball {
         setInnerBallColor(inner);
     }
 
-    public int getxCoordinate() {
-        return xCoordinate;
-    }
-
-    public void setxCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
-    }
-
-    public int getyCoordinate() {
-        return yCoordinate;
-    }
-
-    public void setyCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
+    /**
+     * this method is used to move the ball (changing the variables to record where the ball is).
+     */
+    public void move(){
+//        setStartTopLeftPosition(getStartTopLeftPosition().add(getXSpeed(),getYSpeed()));
+//        setUp(getUp().add(getXSpeed(),getYSpeed()));
+//        setDown(getDown().add(getXSpeed(),getYSpeed()));
+//        setLeft(getLeft().add(getXSpeed(),getYSpeed()));
+//        setRight(getRight().add(getXSpeed(),getYSpeed()));
+        setBounds(new BoundingBox(getBounds().getMinX() + getXSpeed(), getBounds().getMinY() + getYSpeed(),2*getRadius(),2*getRadius()));
     }
 
     /**
@@ -102,13 +94,12 @@ abstract public class Ball {
     public void setRandomBallSpeed(){
         int speedX,speedY;
 
-        // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
         do {
-            speedX = getRnd().nextBoolean() ? getRnd().nextInt(getMAX_BALL_SPEED()) : -getRnd().nextInt(getMAX_BALL_SPEED());
+            speedX = getRnd().nextBoolean() ? getRnd().nextInt(MAX_BALL_SPEED) : -getRnd().nextInt(MAX_BALL_SPEED);
         } while (speedX == 0);
 
         do{
-            speedY = -getRnd().nextInt(getMAX_BALL_SPEED());
+            speedY = -getRnd().nextInt(MAX_BALL_SPEED);
         }while(speedY == 0);
 
         setSpeed(speedX,speedY);
@@ -133,12 +124,12 @@ abstract public class Ball {
     }
 
     /**
-     * this method is used to get the maximum speed that a ball can go in both axis.
+     * this method is used to get the point of drawing where it is the top left of the ball.
      *
-     * @return this returns a constant which is the maximum ball speed in each axis.
+     * @return this returns the drawing position of the ball which is the top left of the ball.
      */
-    public int getMAX_BALL_SPEED() {
-        return MAX_BALL_SPEED;
+    public Point2D getStartTopLeftPosition() {
+        return startTopLeftPosition;
     }
 
     /**
@@ -160,20 +151,6 @@ abstract public class Ball {
     }
 
     /**
-     * this method is used to reverse the direction where the ball is going on the x-axis.
-     */
-    public void reverseX(){
-        setXSpeed(-this.getXSpeed());
-    }
-
-    /**
-     * this method is used to reverse the direction where the ball is going on the y-axis.
-     */
-    public void reverseY(){
-        setYSpeed(-this.getYSpeed());
-    }
-
-    /**
      * this is to get the color of the border of the ball.
      *
      * @return it returns a color that is the color of the border of the ball.
@@ -189,17 +166,6 @@ abstract public class Ball {
      */
     public Color getInnerBallColor(){
         return this.innerBallColor;
-    }
-
-
-
-    /**
-     * this is used to get the position of the ball.
-     *
-     * @return it returns a Point2D format of the position of the ball.
-     */
-    public Point2D getFixedStartTopLeftPosition(){
-        return this.fixedStartTopLeftPosition;
     }
 
     /**
@@ -219,7 +185,6 @@ abstract public class Ball {
     public int getYSpeed(){
         return this.ySpeed;
     }
-
 
     /**
      * this method is used to set the border color of the ball.
@@ -242,16 +207,26 @@ abstract public class Ball {
     /**
      * thie method is used to set the center position of the ball into a variable.
      *
-     * @param fixedStartTopLeftPosition this is the Point2D value used to set into the variable.
+     * @param startTopLeftPosition this is the Point2D value used to set into the variable.
      */
-    public void setFixedStartTopLeftPosition(Point2D fixedStartTopLeftPosition) {
-        this.fixedStartTopLeftPosition = fixedStartTopLeftPosition;
+    public void setStartTopLeftPosition(Point2D startTopLeftPosition) {
+        this.startTopLeftPosition = startTopLeftPosition;
     }
 
+    /**
+     * this method is used to get the radius of the ball used for drawing the border of the ball.
+     *
+     * @return this returns the radius of the ball.
+     */
     public int getRadius() {
         return radius;
     }
 
+    /**
+     * this method is used to set the radius of the ball.
+     *
+     * @param radius this is the integer used to set the radius of the ball.
+     */
     public void setRadius(int radius) {
         this.radius = radius;
     }

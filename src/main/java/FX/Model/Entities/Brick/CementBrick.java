@@ -28,8 +28,8 @@ import javafx.scene.shape.Rectangle;
  */
 public class CementBrick extends Brick {
 
-    private static final Color DEF_INNER = Color.rgb(147, 147, 147,0);
-    private static final Color DEF_BORDER = Color.rgb(217, 199, 175,0);
+    private static final Color DEF_INNER = Color.rgb(147, 147, 147,1);
+    private static final Color DEF_BORDER = Color.rgb(217, 199, 175,1);
     private static final int CEMENT_STRENGTH = 2;
 
     private FX.Model.Entities.Brick.Crack crack;

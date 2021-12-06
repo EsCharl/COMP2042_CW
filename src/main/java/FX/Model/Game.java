@@ -43,8 +43,6 @@ public class Game {
     private final int GAME_WINDOW_WIDTH = 600;
     private final int GAME_WINDOW_HEIGHT = 450;
 
-    private Rectangle borderArea;
-
     private Brick[] bricks;
 
     private Brick[][] brickLevels;
@@ -96,10 +94,31 @@ public class Game {
         setBallCount(getMAX_BALL_COUNT());
         setBallLost(false);
 
-        setBorderArea(getPlayArea());
+        setBrickLevels(makeLevels(getPlayArea(),30,3,6/2));
 
         player = Player.singletonPlayer(new Point2D(playerTopLeftXStartPoint,playerTopLeftYStartPoint), getPlayArea());
         ball = new RubberBall(new Point2D(ballTopLeftXStartPoint,ballTopLeftYStartPoint));
+    }
+
+    /**
+     * this is used to generate the levels to be placed in a brick array.
+     *
+     * @param drawArea this is the area where the bricks will be drawn.
+     * @param brickCount this is the amount bricks that will be generated in the level.
+     * @param lineCount this is the total amount of rows of bricks that is allowed.
+     * @param brickDimensionRatio this is the ratio for the bricks.
+     * @return the levels that are generated in the form of 2 dimension brick array.
+     */
+    private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio){
+        Brick[][] tmp = new Brick[getLEVELS_AMOUNT()][];
+        LevelFactory levelFactory = new LevelFactory();
+        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CLAY);
+        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CEMENT);
+        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.STEEL);
+        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.STEEL, WallLevelTemplates.CEMENT);
+        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.REINFORCED_STEEL, WallLevelTemplates.STEEL);
+        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
+        return tmp;
     }
 
     public Player getPlayer() {
@@ -267,24 +286,6 @@ public class Game {
      */
     public void setBallLost(boolean ballLost) {
         this.ballLost = ballLost;
-    }
-
-    /**
-     * this method is used to get the border area of the game.
-     *
-     * @return this returns a rectangle which is the border area in a rectangular shape.
-     */
-    public Rectangle getBorderArea() {
-        return borderArea;
-    }
-
-    /**
-     * this returns a rectangle border area of the game.
-     *
-     * @param area this is the rectangle used to set the game area.
-     */
-    public void setBorderArea(Rectangle area) {
-        this.borderArea = area;
     }
 
     /**

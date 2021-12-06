@@ -18,7 +18,7 @@
 
 package FX.Model.Entities;
 
-import FX.Model.Entities.Ball.Ball;
+import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -27,7 +27,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * this class is used for the user to move the player.
  */
-public class Player extends RectangularEntities {
+public class Player extends Entities implements Movable {
 
     private static final Color BORDER_COLOR = Color.GREEN.darker().darker();
     private static final Color INNER_COLOR = Color.GREEN;
@@ -58,23 +58,11 @@ public class Player extends RectangularEntities {
      * @param playArea this is the information of the play area which will be used to calculate where the player will be created.
      */
     private Player(Point2D playerTopLeftPosition, Rectangle playArea) {
-        super((int)playerTopLeftPosition.getX(),(int)playerTopLeftPosition.getY(),BORDER_COLOR,INNER_COLOR,PLAYER_WIDTH, PLAYER_HEIGHT);
+        super(playerTopLeftPosition,BORDER_COLOR,INNER_COLOR,PLAYER_WIDTH, PLAYER_HEIGHT);
         setPlayerCenterPosition(playerTopLeftPosition);
         setMoveAmount(0);
-        setPlayerFace(makeRectangle(PLAYER_WIDTH, PLAYER_HEIGHT));
         setLowestXCoordinate((int)playArea.getX());
-        setLargestXCoordinate(getLowestXCoordinate() + (int)playArea.getWidth() - PLAYER_WIDTH);
-    }
-
-    /**
-     * this is used to create a rectangle shape which the user will use.
-     *
-     * @param width this is the width of the paddle.
-     * @param height this is the height of the paddle.
-     * @return it will return a rectangle shape.
-     */
-    private Rectangle makeRectangle(int width,int height){
-        return new Rectangle(getPlayerCenterPosition().getX(),getPlayerCenterPosition().getY(), width, height);
+        setLargestXCoordinate((int)playArea.getX() + (int)playArea.getWidth() - PLAYER_WIDTH);
     }
 
     /**
@@ -83,7 +71,7 @@ public class Player extends RectangularEntities {
     public void move(){
         if(moveToX() < getLowestXCoordinate() || moveToX() > getLargestXCoordinate())
             return;
-        setLocation((int)(getPlayerCenterPosition().getX() - getPlayerFace().getWidth()/2), (int)getPlayerCenterPosition().getY());
+        setBounds(new BoundingBox(getBounds().getMinX() + moveAmount, getBounds().getMinY(), getBounds().getWidth(), getBounds().getHeight()));
     }
 
     public void setLocation(int x, int y){
@@ -97,7 +85,7 @@ public class Player extends RectangularEntities {
      * @return it returns the location where the paddle is supposed to go.
      */
     private double moveToX(){
-        return getPlayerCenterPosition().getX() + getMoveAmount();
+        return getBounds().getMinX() + getMoveAmount();
     }
 
     /**

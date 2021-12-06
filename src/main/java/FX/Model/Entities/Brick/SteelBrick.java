@@ -27,7 +27,7 @@ import javafx.scene.paint.Color;
  */
 public class SteelBrick extends Brick {
 
-    private static final Color DEF_INNER = Color.rgb(203,203,203,0);
+    private static final Color DEF_INNER = Color.rgb(203,203,203,1);
     private static final Color DEF_BORDER = Color.BLACK;
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;

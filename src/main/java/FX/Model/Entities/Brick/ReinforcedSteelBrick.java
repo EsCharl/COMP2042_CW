@@ -30,7 +30,7 @@ import javafx.scene.shape.Rectangle;
 public class ReinforcedSteelBrick extends Brick{
 
     private static final Color DEF_INNER = Color.BLUE;
-    private static final Color DEF_BORDER = Color.rgb(203, 203, 201,0);
+    private static final Color DEF_BORDER = Color.rgb(203, 203, 201,1);
     private static final int REINFORCED_STEEL_STRENGTH = 2;
     private static final double STEEL_PROBABILITY = 0.3;
 

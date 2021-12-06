@@ -1,13 +1,11 @@
 package FX.Controller;
 
-import FX.Model.Entities.Ball.Ball;
-import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Game;
+import FX.Model.GameScore;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
@@ -15,19 +13,26 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DebugConsoleController implements Initializable {
-    @FXML private Button skipLevel, resetBall;
+
     @FXML private Slider xSpeedSlider, ySpeedSlider;
     @FXML private Label textXSpeed, textYSpeed;
 
     private Game game;
+    private GameScore gameScore;
 
     public DebugConsoleController(){
         game = Game.singletonGame();
+        gameScore = GameScore.singletonGameScore();
     }
 
     @FXML
     public void skipLevelButtonClicked(){
+        game.getPlayer().resetPosition();
+        game.getBall().resetPosition();
+        game.getBall().setRandomBallSpeed();
+        game.wallReset();
         game.setCurrentLevel(game.getCurrentLevel()+1);
+        gameScore.restartTimer();
     }
 
     @FXML
