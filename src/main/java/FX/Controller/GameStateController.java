@@ -20,11 +20,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -66,10 +64,6 @@ public class GameStateController implements Initializable {
         gameScore = GameScore.singletonGameScore();
         gameScoreDisplay = new GameScoreDisplay();
 
-        if (!game.isShowPauseMenu()){
-            game.nextLevel();
-        }
-
         game.setShowPauseMenu(false);
 
         gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
@@ -90,13 +84,7 @@ public class GameStateController implements Initializable {
 
                 gameText.setText(String.format("Bricks: %d Balls %d", game.getBrickCount(), game.getBallCount()));
 
-                for (int i = 0; i < game.getBrickCount(); i++){
-                    graphicsContext.setFill(game.getBrickLevels()[game.getCurrentLevel()-1][i].getInnerColor());
-                    graphicsContext.fillRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight());
-
-                    graphicsContext.setStroke(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBorderColor());
-                    graphicsContext.strokeRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth()+2,game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight()+2);
-                }
+                drawBricks();
 
                 drawBall(game.getBall());
                 drawPlayer(game.getPlayer());
@@ -161,6 +149,7 @@ public class GameStateController implements Initializable {
                     if(game.hasLevel()){
                         gameText.setText("Go to Next Level");
                         animationTimer.stop();
+                        game.nextLevel();
                     }
                     else{
                         gameText.setText("ALL WALLS DESTROYED");
@@ -168,6 +157,50 @@ public class GameStateController implements Initializable {
                     }
                     restartGameStatus();
                 }
+            }
+
+            /**
+             * this method is used to draw the Bricks.
+             */
+            private void drawBricks() {
+                for (int i = 0; i < game.getBrickLevels()[game.getCurrentLevel()].length; i++){
+                    System.out.println("test");
+                    if(!game.getBrickLevels()[game.getCurrentLevel()-1][i].isBroken()){
+                        graphicsContext.setFill(game.getBrickLevels()[game.getCurrentLevel()-1][i].getInnerColor());
+                        graphicsContext.fillRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight());
+
+                        graphicsContext.setStroke(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBorderColor());
+                        graphicsContext.strokeRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth()+2,game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight()+2);
+                    }else{
+                        System.out.println(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds());
+                    }
+                }
+            }
+
+            /**
+             * this method is used to draw the ball object on the screen.
+             *
+             * @param ball this is the ball object used to draw on the window.
+             */
+            private void drawBall(Ball ball){
+                graphicsContext.setFill(ball.getInnerBallColor());
+                graphicsContext.fillOval(ball.getBounds().getMinX(), ball.getBounds().getMinY(), ball.getRadius(), ball.getRadius());
+
+                graphicsContext.setStroke(ball.getBorderBallColor());
+                graphicsContext.strokeOval(ball.getBounds().getMinX()-1, ball.getBounds().getMinY()-1, ball.getRadius()+2, ball.getRadius()+2);
+            }
+
+            /**
+             * this method is used to draw the player object to the screen.
+             *
+             * @param player this is the player object which contains the information about the player position and size needed to draw the object.
+             */
+            private void drawPlayer(Player player) {
+                graphicsContext.setFill(player.getInnerColor());
+                graphicsContext.fillRect(player.getBounds().getMinX(),player.getBounds().getMinY(),player.getWidth(),player.getHeight());
+
+                graphicsContext.setStroke(player.getBorderColor());
+                graphicsContext.strokeRect(player.getBounds().getMinX()-1,player.getBounds().getMinY()-1,player.getWidth()+2,player.getHeight()+2);
             }
         };
 
@@ -245,7 +278,7 @@ public class GameStateController implements Initializable {
             game.setBrickCount(game.getBrickCount()-1);
         }
 
-        if((game.getBall().getBounds().getMinX() < scene.getX())) {
+        if((game.getBall().getBounds().getMinX() < gameBoard.getBoundsInLocal().getMinX())){
             if (game.getBall().getXSpeed() < 0){
                 game.getBall().setXSpeed(-game.getBall().getXSpeed());
                 if(getRnd().nextBoolean() && game.getBall().getXSpeed() < 4){
@@ -254,7 +287,7 @@ public class GameStateController implements Initializable {
                     game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
                 }
             }
-        }else if(game.getBall().getBounds().getMaxX() > (scene.getX() + scene.getWidth())){
+        }else if(game.getBall().getBounds().getMaxX() > gameBoard.getBoundsInLocal().getMaxX()){
             if (game.getBall().getXSpeed() > 0){
                 game.getBall().setXSpeed(-game.getBall().getXSpeed());
                 if(getRnd().nextBoolean() && (game.getBall().getXSpeed() > -4)){
@@ -265,7 +298,7 @@ public class GameStateController implements Initializable {
             }
         }
 
-        if(game.getBall().getBounds().getMinY() < scene.getY()){
+        if(game.getBall().getBounds().getMinY() < gameBoard.getBoundsInLocal().getMinY()){
             game.getBall().setYSpeed(-game.getBall().getYSpeed());
 
             if(getRnd().nextBoolean() && game.getBall().getYSpeed() < 4)
@@ -273,7 +306,7 @@ public class GameStateController implements Initializable {
             else if(getRnd().nextBoolean() && game.getBall().getYSpeed() > 1)
                 game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
         }
-        else if(game.getBall().getBounds().getMinY() > scene.getY() + scene.getHeight()){
+        else if(game.getBall().getBounds().getMaxY() > gameBoard.getBoundsInLocal().getMaxY()){
             game.setBallCount(game.getBallCount() - 1);
             game.getPlayer().resetPosition();
             game.getBall().resetPosition();
@@ -300,57 +333,34 @@ public class GameStateController implements Initializable {
      */
     private boolean impactWall(){
         for(Brick b : game.getBricks()){
-            if(b.getCurrentStrength() != 0){
+            if(!b.isBroken()){
                 if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
                     game.getBall().setYSpeed(-game.getBall().getYSpeed());
                     System.out.println(b.getBounds());
+                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
                 }
                 else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
                     game.getBall().setYSpeed(-game.getBall().getYSpeed());
                     System.out.println(b.getBounds());
+                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()),Crack.getDOWN());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     game.getBall().setXSpeed(-game.getBall().getXSpeed());
                     System.out.println(b.getBounds());
+                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()),Crack.getRIGHT());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     game.getBall().setXSpeed(-game.getBall().getXSpeed());
                     System.out.println(b.getBounds());
+                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
                 }
             }
-
         }
         return false;
-    }
-
-    /**
-     * this method is used to draw the ball object on the screen.
-     *
-     * @param ball this is the ball object used to draw on the window.
-     */
-    private void drawBall(Ball ball){
-        graphicsContext.setFill(ball.getInnerBallColor());
-        graphicsContext.fillOval(ball.getBounds().getMinX(), ball.getBounds().getMinY(), ball.getRadius(), ball.getRadius());
-
-        graphicsContext.setStroke(ball.getBorderBallColor());
-        graphicsContext.strokeOval(ball.getBounds().getMinX()-1, ball.getBounds().getMinY()-1, ball.getRadius()+2, ball.getRadius()+2);
-    }
-
-    /**
-     * this method is used to draw the player object to the screen.
-     *
-     * @param player this is the player object which contains the information about the player position and size needed to draw the object.
-     */
-    private void drawPlayer(Player player) {
-        graphicsContext.setFill(player.getInnerColor());
-        graphicsContext.fillRect(player.getBounds().getMinX(),player.getBounds().getMinY(),player.getWidth(),player.getHeight());
-
-        graphicsContext.setStroke(player.getBorderColor());
-        graphicsContext.strokeRect(player.getBounds().getMinX()-1,player.getBounds().getMinY()-1,player.getWidth()+2,player.getHeight()+2);
     }
 
     /**
@@ -416,8 +426,9 @@ public class GameStateController implements Initializable {
             e.printStackTrace();
         }
 
-        game.setShowPauseMenu(true);
-        Stage stage = (Stage) gameBoard.getScene().getWindow();
-        stage.setScene(new Scene(root));
+        if(!game.isShowPauseMenu()){
+            anchorPane.getChildren().add(root);
+            game.setShowPauseMenu(true);
+        }
     }
 }

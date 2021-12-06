@@ -91,6 +91,8 @@ public class Game {
 
         setBrickLevels(makeLevels(getPlayArea(),30,3,6/2));
 
+        nextLevel();
+
         player = Player.singletonPlayer(new Point2D(playerTopLeftXStartPoint,playerTopLeftYStartPoint), getPlayArea());
         ball = new RubberBall(new Point2D(ballTopLeftXStartPoint,ballTopLeftYStartPoint));
     }
