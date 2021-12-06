@@ -1,0 +1,24 @@
+.pause-title{
+    -fx-font-family: serif;
+    -fx-font-size: 30;
+    -fx-font-weight: 700;
+    -fx-fill: darkgreen;
+}
+
+.restart{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
+    -fx-text-fill: darkgreen;
+}
+
+.continue{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
+    -fx-text-fill: darkgreen;
+}
+
+.exit{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
+    -fx-text-fill: darkgreen;
+}

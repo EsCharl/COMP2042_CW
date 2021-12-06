@@ -41,7 +41,6 @@ public class GameStateController implements Initializable {
     private GameScore gameScore;
     private GraphicsContext graphicsContext;
     private GameScoreDisplay gameScoreDisplay;
-    private final Color stringColor = Color.BLUE;
     private AnimationTimer animationTimer;
     private Scene scene;
     private Random rnd;
@@ -122,11 +121,6 @@ public class GameStateController implements Initializable {
                         userInput.remove(0);
                 });
 
-                if(game.isGameOver()){
-                    stop();
-                    toggle = false;
-                }
-
                 automation();
 
                 game.getBall().move();
@@ -143,12 +137,30 @@ public class GameStateController implements Initializable {
                     }
                     gameScoreDisplay.generateLevelCompleteWindow(gameScore.getLastLevelCompletionRecord(), gameScore.getTimerString());
                 }
+
+                if(game.isLevelComplete()){
+                    if(game.hasLevel()){
+                        gameText.setText("Go to Next Level");
+                        animationTimer.stop();
+                    }
+                    else{
+                        gameText.setText("ALL WALLS DESTROYED");
+                        animationTimer.stop();
+                    }
+                    restartGameStatus();
+                }
             }
         };
 
         animationTimer.start();
 
         anchorPane.requestFocus();
+    }
+
+    private void restartGameStatus() {
+        game.getBall().resetPosition();
+        game.getPlayer().resetPosition();
+        game.getBall().setRandomBallSpeed();
     }
 
     private void movementKeyHandler(){
@@ -164,10 +176,12 @@ public class GameStateController implements Initializable {
 
     private void nonMovementKeyHandler(){
         if(userInput.contains(KeyCode.ESCAPE)){
+            gameScore.pauseTimer();
             showPauseMenu();
         }else if(userInput.contains(KeyCode.SPACE)){
             togglePauseContinueGame();
         }else if(userInput.contains(KeyCode.F1) && userInput.contains(KeyCode.SHIFT) && userInput.contains(KeyCode.ALT)){
+            gameScore.pauseTimer();
             animationTimer.stop();
             toggle = false;
             showDebugConsole();
@@ -338,6 +352,13 @@ public class GameStateController implements Initializable {
     }
 
     public void showPauseMenu(){
-
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/FX/PauseMenu.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) gameBoard.getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }

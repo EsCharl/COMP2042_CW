@@ -1,0 +1,5 @@
+.gametext{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
+    -fx-fill: blue;
+}
