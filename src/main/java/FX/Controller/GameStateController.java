@@ -163,16 +163,13 @@ public class GameStateController implements Initializable {
              * this method is used to draw the Bricks.
              */
             private void drawBricks() {
-                for (int i = 0; i < game.getBrickLevels()[game.getCurrentLevel()].length; i++){
-                    System.out.println("test");
+                for (int i = 0; i < game.getBrickLevels()[game.getCurrentLevel()-1].length; i++){
                     if(!game.getBrickLevels()[game.getCurrentLevel()-1][i].isBroken()){
                         graphicsContext.setFill(game.getBrickLevels()[game.getCurrentLevel()-1][i].getInnerColor());
                         graphicsContext.fillRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth(),game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight());
 
                         graphicsContext.setStroke(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBorderColor());
                         graphicsContext.strokeRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth()+2,game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight()+2);
-                    }else{
-                        System.out.println(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds());
                     }
                 }
             }
@@ -333,29 +330,22 @@ public class GameStateController implements Initializable {
      */
     private boolean impactWall(){
         for(Brick b : game.getBricks()){
+            System.out.println(b.getCurrentStrength() + "," + b.getBounds());
             if(!b.isBroken()){
                 if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
                     game.getBall().setYSpeed(-game.getBall().getYSpeed());
-                    System.out.println(b.getBounds());
-                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
                 }
                 else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
                     game.getBall().setYSpeed(-game.getBall().getYSpeed());
-                    System.out.println(b.getBounds());
-                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()),Crack.getDOWN());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     game.getBall().setXSpeed(-game.getBall().getXSpeed());
-                    System.out.println(b.getBounds());
-                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()),Crack.getRIGHT());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     game.getBall().setXSpeed(-game.getBall().getXSpeed());
-                    System.out.println(b.getBounds());
-                    System.out.println(game.getBall().getBounds());
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
                 }
             }

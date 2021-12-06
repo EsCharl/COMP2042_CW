@@ -31,7 +31,6 @@ public class ClayBrick extends Brick {
     private static final Color DEF_BORDER = Color.GRAY;
     private static final int CLAY_STRENGTH = 1;
 
-
     /**
      * this constructor is used to create a clay brick object.
      *
@@ -41,5 +40,4 @@ public class ClayBrick extends Brick {
     public ClayBrick(Point2D point, Dimension2D size){
         super(point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
     }
-
 }

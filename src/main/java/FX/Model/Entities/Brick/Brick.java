@@ -18,7 +18,6 @@
 
 package FX.Model.Entities.Brick;
 
-import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Entities;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;

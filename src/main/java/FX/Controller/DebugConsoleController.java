@@ -31,7 +31,7 @@ public class DebugConsoleController implements Initializable {
         game.getBall().resetPosition();
         game.getBall().setRandomBallSpeed();
         game.wallReset();
-        game.setCurrentLevel(game.getCurrentLevel()+1);
+        game.nextLevel();
         gameScore.restartTimer();
     }
 
