@@ -12,24 +12,14 @@
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/HomeMenuInformation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/RubberBall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Ball/RubberBall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/HomeMenuInformation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/RubberBall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Ball/RubberBall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Brick/Brick.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/GameBoardControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Controller/GameBoardControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Model/GameScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Model/GameScoreTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Model/GameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/test-classes/Model/GameTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Model/GameScoreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Model/GameScoreTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Model/GameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Model/GameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,6 +223,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/COMP2042_CW$GraphicsMain.ic" NAME="GraphicsMain Coverage Results" MODIFIED="1638453956905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/COMP2042_CW$GraphicsMain.ic" NAME="GraphicsMain Coverage Results" MODIFIED="1638769353573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

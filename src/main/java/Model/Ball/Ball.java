@@ -60,7 +60,6 @@ abstract public class Ball {
         setCenterPosition(centerPosition);
 
         setRnd(new Random());
-        setRandomBallSpeed();
 
         createDirectionalPoint2D();
 
@@ -101,16 +100,16 @@ abstract public class Ball {
 
         setDisplayBallFace();
 
-        setDirectionalPoints(getRectangularShape().getWidth(),getRectangularShape().getHeight());
+        setDirectionalPoints(getRectangularBallShape().getWidth(), getRectangularBallShape().getHeight());
     }
 
     /**
      * this method is used to set the ball face graphically.
      */
     private void setDisplayBallFace(){
-        getRectangularShape().setFrame((getCenterPosition().getX() -(getRectangularShape().getWidth() / 2)),(getCenterPosition().getY() - (getRectangularShape().getHeight() / 2)),getRectangularShape().getWidth(),getRectangularShape().getHeight());
+        getRectangularBallShape().setFrame((getCenterPosition().getX() -(getRectangularBallShape().getWidth() / 2)),(getCenterPosition().getY() - (getRectangularBallShape().getHeight() / 2)), getRectangularBallShape().getWidth(), getRectangularBallShape().getHeight());
 
-        setBallFace(getRectangularShape());
+        setBallFace(getRectangularBallShape());
     }
 
     /**
@@ -122,24 +121,6 @@ abstract public class Ball {
     public void setSpeed(int x,int y){
         setXSpeed(x);
         setYSpeed(y);
-    }
-
-    /**
-     * this method is used to set the random speed on both x-axis and y-axis for the ball.
-     */
-    public void setRandomBallSpeed(){
-        int speedX,speedY;
-
-        // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
-        do {
-            speedX = getRnd().nextBoolean() ? getRnd().nextInt(getMAX_BALL_SPEED()) : -getRnd().nextInt(getMAX_BALL_SPEED());
-        } while (speedX == 0);
-
-        do{
-            speedY = -getRnd().nextInt(getMAX_BALL_SPEED());
-        }while(speedY == 0);
-
-        setSpeed(speedX,speedY);
     }
 
     /**
@@ -253,7 +234,7 @@ abstract public class Ball {
      *
      * @return returns a rectangle with the shape of the ball.
      */
-    private RectangularShape getRectangularShape(){
+    private RectangularShape getRectangularBallShape(){
         return (RectangularShape) getBallFace();
     }
 

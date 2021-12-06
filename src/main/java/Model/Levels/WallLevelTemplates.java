@@ -26,10 +26,10 @@ import java.awt.*;
  * this interface is used to create multiple wall levels.
  */
 public interface WallLevelTemplates {
-    public static final int CLAY = 1;
-    public static final int STEEL = 2;
-    public static final int CEMENT = 3;
-    public static final int REINFORCED_STEEL = 4;
+    int CLAY = 1;
+    int STEEL = 2;
+    int CEMENT = 3;
+    int REINFORCED_STEEL = 4;
 
     /**
      * this abstraction method is used to be implemented in the child classes. for the wall levels.

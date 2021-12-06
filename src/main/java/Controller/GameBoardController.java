@@ -104,6 +104,8 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
 
         makeBall(new Point(300,430));
 
+        setRandomBallSpeed();
+
         //initialize the first level
         startGame();
     }
@@ -266,6 +268,24 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
     }
 
     /**
+     * this method is used to set the random speed on both x-axis and y-axis for the ball.
+     */
+    public void setRandomBallSpeed(){
+        int speedX,speedY;
+
+        // changes here, makes the maximum speed it can go on x-axis in between -max speed and max speed.
+        do {
+            speedX = getRnd().nextBoolean() ? getRnd().nextInt(getBall().getMAX_BALL_SPEED()) : -getRnd().nextInt(getBall().getMAX_BALL_SPEED());
+        } while (speedX == 0);
+
+        do{
+            speedY = -getRnd().nextInt(getBall().getMAX_BALL_SPEED());
+        }while(speedY == 0);
+
+        getBall().setSpeed(speedX,speedY);
+    }
+
+    /**
      * this method toggles between bot mode or player mode.
      */
     public void toggleAI(){
@@ -327,7 +347,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
     }
 
     /**
-     * this method is used to check if there is an impact for the ball with any entity, the sides of the screen. which will cause a reaction to the game.
+     * this method is used to check if there is an impact for the ball with any entity or the sides of the screen. which will cause a reaction to the ball and the brick.
      */
     public void findImpacts(){
         if(getPlayer().impact(getBall())){
@@ -452,7 +472,7 @@ public class GameBoardController extends JFrame implements WindowFocusListener {
         getPlayer().resetPosition(getGame().getStartPoint());
         getBall().moveTo(getGame().getStartPoint());
 
-        getBall().setRandomBallSpeed();
+        setRandomBallSpeed();
 
         getGame().setBallLost(false);
     }

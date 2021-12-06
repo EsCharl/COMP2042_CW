@@ -54,7 +54,6 @@ public class RubberBall extends Ball {
      */
     @Override
     protected Shape makeBall(Point2D center, int horizontalDiameter, int verticalDiameter) {
-
         return new Ellipse2D.Double(getRubberBallLeftXCoordinate(center, horizontalDiameter), getRubberBallTopYCoordinate(center, verticalDiameter),horizontalDiameter,verticalDiameter);
     }
 
