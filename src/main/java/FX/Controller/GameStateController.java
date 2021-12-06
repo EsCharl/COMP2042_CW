@@ -10,6 +10,8 @@ import FX.Model.Entities.Player;
 
 import FX.View.GameScoreDisplay;
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,7 +66,12 @@ public class GameStateController implements Initializable {
         gameScore = GameScore.singletonGameScore();
         gameScoreDisplay = new GameScoreDisplay();
 
-        game.nextLevel();
+        if (!game.isShowPauseMenu()){
+            game.nextLevel();
+        }
+
+        game.setShowPauseMenu(false);
+
         gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
         backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/GameImage.png")));
     }
@@ -101,22 +108,34 @@ public class GameStateController implements Initializable {
                     if(game.isGameOver()){
                         game.resetBallCount();
                         gameText.setText("Game Over. Time spent in this level: " + gameScore.getTimerString());
+                        gameScore.restartTimer();
                     }
                     stop();
                 }
 
                 scene = anchorPane.getScene();
 
+                Stage stage = (Stage) gameBoard.getScene().getWindow();
+
+                stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                        gameScore.pauseTimer();
+                        animationTimer.stop();
+                        toggle = false;
+                    }
+                });
+
                 scene.setOnKeyPressed(keyEvent ->{
                     if(!userInput.contains(keyEvent.getCode()))
                         userInput.add(keyEvent.getCode());
                 });
 
-                movementKeyHandler();
+                movementKeyHandler(userInput);
 
                 scene.setOnKeyReleased(keyEvent -> {
 
-                    nonMovementKeyHandler();
+                    nonMovementKeyHandler(userInput);
                     while(userInput.contains(keyEvent.getCode()))
                         userInput.remove(0);
                 });
@@ -163,8 +182,8 @@ public class GameStateController implements Initializable {
         game.getBall().setRandomBallSpeed();
     }
 
-    private void movementKeyHandler(){
-        if((userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D)) || userInput.isEmpty()){
+    private void movementKeyHandler(ArrayList userInput){
+        if(userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D) || userInput.isEmpty()){
             game.getPlayer().setMoveAmount(0);
         }else if(userInput.contains(KeyCode.A)){
             game.getPlayer().setMoveAmount(-game.getPlayer().getDEF_MOVE_AMOUNT());
@@ -174,9 +193,13 @@ public class GameStateController implements Initializable {
         }
     }
 
-    private void nonMovementKeyHandler(){
+    /**
+     * this method is used to deal with non movement features, like pause menu, show debug console, pause and resume of the game.
+     */
+    private void nonMovementKeyHandler(ArrayList userInput){
         if(userInput.contains(KeyCode.ESCAPE)){
             gameScore.pauseTimer();
+            animationTimer.stop();
             showPauseMenu();
         }else if(userInput.contains(KeyCode.SPACE)){
             togglePauseContinueGame();
@@ -259,11 +282,15 @@ public class GameStateController implements Initializable {
         }
     }
 
+    /**
+     * this method is used to check if there is a collision occurring between the ball and another object entity.
+     *
+     * @param ball this is the ball used to check if there is a collision.
+     * @param object this is the object used to see if it is going to get collided.
+     * @return this returns a boolean value if collision occur
+     */
     private boolean impact(Ball ball, Entities object){
-        if(ball.getBounds().intersects(object.getBounds())){
-            return true;
-        }
-        return false;
+        return ball.getBounds().intersects(object.getBounds());
     }
 
     /**
@@ -271,28 +298,40 @@ public class GameStateController implements Initializable {
      *
      * @return returns a boolean value if or if it doesn't touch any entity.
      */
-    boolean impactWall(){
+    private boolean impactWall(){
         for(Brick b : game.getBricks()){
-            if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
-                game.getBall().setYSpeed(-game.getBall().getYSpeed());
-                return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
+            if(b.getCurrentStrength() != 0){
+                if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
+                    game.getBall().setYSpeed(-game.getBall().getYSpeed());
+                    System.out.println(b.getBounds());
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
+                }
+                else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
+                    game.getBall().setYSpeed(-game.getBall().getYSpeed());
+                    System.out.println(b.getBounds());
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()),Crack.getDOWN());
+                }
+                else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
+                    game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                    System.out.println(b.getBounds());
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()),Crack.getRIGHT());
+                }
+                else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
+                    game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                    System.out.println(b.getBounds());
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
+                }
             }
-            else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
-                game.getBall().setYSpeed(-game.getBall().getYSpeed());
-                return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()),Crack.getDOWN());
-            }
-            else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
-                game.getBall().setXSpeed(-game.getBall().getXSpeed());
-                return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()),Crack.getRIGHT());
-            }
-            else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
-                game.getBall().setXSpeed(-game.getBall().getXSpeed());
-                return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
-            }
+
         }
         return false;
     }
 
+    /**
+     * this method is used to draw the ball object on the screen.
+     *
+     * @param ball this is the ball object used to draw on the window.
+     */
     private void drawBall(Ball ball){
         graphicsContext.setFill(ball.getInnerBallColor());
         graphicsContext.fillOval(ball.getBounds().getMinX(), ball.getBounds().getMinY(), ball.getRadius(), ball.getRadius());
@@ -314,6 +353,9 @@ public class GameStateController implements Initializable {
         graphicsContext.strokeRect(player.getBounds().getMinX()-1,player.getBounds().getMinY()-1,player.getWidth()+2,player.getHeight()+2);
     }
 
+    /**
+     * this method is used to toggle between pausing the game and proceeding th game
+     */
     public void togglePauseContinueGame(){
         if(toggle){
             animationTimer.stop();
@@ -327,14 +369,26 @@ public class GameStateController implements Initializable {
         }
     }
 
+    /**
+     * this method is used to get the random object used to have some randomness in the game.
+     * @return
+     */
     public Random getRnd() {
         return rnd;
     }
 
+    /**
+     * this method is used to set a random object used for randomness of the game.
+     *
+     * @param rnd this is the random object used to set into the variable.
+     */
     public void setRnd(Random rnd) {
         this.rnd = rnd;
     }
 
+    /**
+     * this method is used to show a debug console.
+     */
     public void showDebugConsole(){
         Stage debugConsole = new Stage();
         Parent root = null;
@@ -351,6 +405,9 @@ public class GameStateController implements Initializable {
         debugConsole.showAndWait();
     }
 
+    /**
+     * this method is used to show the pause menu on the screen.
+     */
     public void showPauseMenu(){
         Parent root = null;
         try {
@@ -358,6 +415,8 @@ public class GameStateController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        game.setShowPauseMenu(true);
         Stage stage = (Stage) gameBoard.getScene().getWindow();
         stage.setScene(new Scene(root));
     }

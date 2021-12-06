@@ -43,6 +43,8 @@ public class PauseMenuController {
         game.getBall().setRandomBallSpeed();
         gameScore.restartTimer();
         game.wallReset();
+
+        resumeButton();
     }
 
     @FXML
