@@ -29,6 +29,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class CementBrick extends Brick implements Crackable{
 
+    private static final String NAME = "Cement Brick";
     private static final Color DEF_INNER = Color.rgb(147, 147, 147,1);
     private static final Color DEF_BORDER = Color.rgb(217, 199, 175,1);
     private static final int CEMENT_STRENGTH = 2;
@@ -44,7 +45,7 @@ public class CementBrick extends Brick implements Crackable{
      * @param size this is the size of the cement brick.
      */
     public CementBrick(Point2D point, Dimension2D size){
-        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
+        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH,NAME);
         crack = new Crack();
         brickFace = super.brickFace;
     }

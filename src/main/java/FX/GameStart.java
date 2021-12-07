@@ -23,6 +23,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,6 +32,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class GameStart extends Application {
+    public static MediaPlayer audio;
 
     /**
      * this method is used to create a window and prepare and display the main menu.
@@ -66,6 +69,11 @@ public class GameStart extends Application {
      * @param args this is the default argument used in every main method.
      */
     public static void main(String[] args) {
+
+        Media media = new Media(GameStart.class.getResource("/Tunes/MainMenu+InfoScreen.wav").toExternalForm());
+        audio = new MediaPlayer(media);
+        audio.play();
+
         launch();
     }
 }

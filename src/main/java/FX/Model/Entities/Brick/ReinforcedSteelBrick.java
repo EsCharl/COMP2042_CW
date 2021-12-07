@@ -30,6 +30,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class ReinforcedSteelBrick extends Brick implements Crackable{
 
+    private static final String NAME = "Reinforced Steel Brick";
     private static final Color DEF_INNER = Color.BLUE;
     private static final Color DEF_BORDER = Color.rgb(203, 203, 201,1);
     private static final int REINFORCED_STEEL_STRENGTH = 2;
@@ -47,7 +48,7 @@ public class ReinforcedSteelBrick extends Brick implements Crackable{
      * @param size  this is for the size of the brick
      */
     public ReinforcedSteelBrick(Point2D point, Dimension2D size) {
-        super(point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH);
+        super(point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH,NAME);
         crack = new Crack();
         brickFace = super.brickFace;
     }

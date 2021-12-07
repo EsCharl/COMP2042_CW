@@ -37,6 +37,7 @@ abstract public class Brick extends Entities {
 
     private int maxStrength;
     private int currentStrength;
+    private String brickName;
 
     private boolean broken;
 
@@ -49,13 +50,32 @@ abstract public class Brick extends Entities {
      * @param inner the inside color of brick
      * @param strength the strength of the brick. (how many hits can it take before it break)
      */
-    public Brick(Point2D pos, Dimension2D size, Color border, Color inner, int strength){
+    public Brick(Point2D pos, Dimension2D size, Color border, Color inner, int strength,String brickName){
         super(pos,border,inner,(int)size.getWidth(),(int)size.getHeight());
         setRnd(new Random());
         setBroken(false);
         setBrickFace(makeBrickFace(pos,size));
         setMaxStrength(strength);
         setCurrentStrength(strength);
+        setBrickName(brickName);
+    }
+
+    /**
+     * this method is used to get the name of the brick which is going to be used to select which audio to be played during collision.
+     *
+     * @return this is the name of the brick being returned.
+     */
+    public String getBrickName() {
+        return brickName;
+    }
+
+    /**
+     * this method is used to set the brick name of the brick
+     *
+     * @param brickName this is the string used to set the name of the brick.
+     */
+    public void setBrickName(String brickName) {
+        this.brickName = brickName;
     }
 
     /**
