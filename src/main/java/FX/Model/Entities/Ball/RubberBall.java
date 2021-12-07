@@ -18,7 +18,6 @@
 
 package FX.Model.Entities.Ball;
 
-
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 

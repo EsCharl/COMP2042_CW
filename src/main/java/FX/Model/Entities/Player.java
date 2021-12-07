@@ -36,8 +36,6 @@ public class Player extends Entities implements Movable {
 
     private final int DEF_MOVE_AMOUNT = 5;
 
-    private Rectangle playerFace;
-    private Point2D playerCenterPosition;
     private int moveAmount;
     private int lowestXCoordinate;
     private int largestXCoordinate;
@@ -59,7 +57,6 @@ public class Player extends Entities implements Movable {
      */
     private Player(Point2D playerTopLeftPosition, Rectangle playArea) {
         super(playerTopLeftPosition,BORDER_COLOR,INNER_COLOR,PLAYER_WIDTH, PLAYER_HEIGHT);
-        setPlayerCenterPosition(playerTopLeftPosition);
         setMoveAmount(0);
         setLowestXCoordinate((int)playArea.getX());
         setLargestXCoordinate((int)playArea.getX() + (int)playArea.getWidth() - PLAYER_WIDTH);
@@ -90,15 +87,6 @@ public class Player extends Entities implements Movable {
      */
     private static void setUniquePlayer(Player uniquePlayer) {
         Player.uniquePlayer = uniquePlayer;
-    }
-
-    /**
-     * this method is used to set the center position of the player.
-     *
-     * @param playerCenterPosition this is the Point datatype used to set the location of the paddle.
-     */
-    public void setPlayerCenterPosition(Point2D playerCenterPosition) {
-        this.playerCenterPosition = playerCenterPosition;
     }
 
     /**

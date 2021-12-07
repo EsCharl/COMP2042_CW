@@ -39,17 +39,7 @@ public class SteelBrick extends Brick {
      * @param size this is for the size of the brick
      */
     public SteelBrick(Point2D point, Dimension2D size){
-        super(point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
-    }
-
-    /**
-     * this method is used to determine if the brick can be broken based on a probability.
-     */
-    @Override
-    public void impacted(){
-        if(getRnd().nextDouble() < STEEL_PROBABILITY){
-            super.impacted();
-        }
+        super(point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH,STEEL_PROBABILITY);
     }
 
 }

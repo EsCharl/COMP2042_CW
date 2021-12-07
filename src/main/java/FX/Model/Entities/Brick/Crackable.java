@@ -21,6 +21,18 @@ package FX.Model.Entities.Brick;
 import javafx.scene.shape.Path;
 
 public interface Crackable {
+
+    int LEFT = 10;
+    int RIGHT = 20;
+    int UP = 30;
+    int DOWN = 40;
+
+    int DEF_CRACK_DEPTH = 1;
+    int DEF_STEPS = 35;
+
+    int VERTICAL = 100;
+    int HORIZONTAL = 200;
+
     void setCrackPath(Path path);
 
     Path getCrackPath();

@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class PauseMenuController {
-    @FXML private Button exit, restart, resume;
+    @FXML private Button resume;
 
     private Game game;
     private GameScore gameScore;

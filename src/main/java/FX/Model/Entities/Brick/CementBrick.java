@@ -32,10 +32,9 @@ public class CementBrick extends Brick implements Crackable{
     private static final Color DEF_INNER = Color.rgb(147, 147, 147,1);
     private static final Color DEF_BORDER = Color.rgb(217, 199, 175,1);
     private static final int CEMENT_STRENGTH = 2;
+    private static final double CEMENT_PROBABILITY = 1;
 
     private Path crackPath;
-    private Crack crack;
-    private Rectangle brickFace;
 
     /**
      * this constructor is used to create a cement brick object.
@@ -44,39 +43,7 @@ public class CementBrick extends Brick implements Crackable{
      * @param size this is the size of the cement brick.
      */
     public CementBrick(Point2D point, Dimension2D size){
-        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
-        crack = new Crack();
-        brickFace = super.brickFace;
-    }
-
-    /**
-     * this method is used to determine whether the brick should be broken or draw a crack on the brick.
-     *
-     * @param point the point where the ball comes in contact to
-     * @param dir the direction where the ball comes in contact with the object.
-     * @return returns a boolean value negative if the brick is broken, true if it is not.
-     */
-    @Override
-    public boolean setImpact(Point2D point, int dir) {
-        if(super.isBroken())
-            return false;
-        super.impacted();
-        if(!super.isBroken()){
-            crack.prepareCrack(point,dir,this);
-//            updateBrick();
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * this method is used to get the shape information of the brick.
-     *
-     * @return the graphic of the brick
-     */
-    @Override
-    public Rectangle getBrick() {
-        return brickFace;
+        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH, CEMENT_PROBABILITY);
     }
 
     @Override
@@ -88,25 +55,4 @@ public class CementBrick extends Brick implements Crackable{
     public Path getCrackPath() {
         return crackPath;
     }
-
-//    /**
-//     * this method is used to update the status of the brick on the screen.
-//     */
-//    private void updateBrick(){
-//        if(!super.isBroken()){
-//            Path gp = crack.getCrackPath();
-//            gp.append(super.brickFace,false);
-//            brickFace = gp;
-//        }
-//    }
-
-//    /**
-//     *this method is used to repair the brick.
-//     */
-//    @Override
-//    public void repair(){
-//        super.repair();
-//        crack.reset();
-//        brickFace = super.getBrick();
-//    }
 }

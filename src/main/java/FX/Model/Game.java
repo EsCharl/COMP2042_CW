@@ -162,7 +162,8 @@ public class Game {
      */
     public void wallReset(){
         for(Brick b : getBricks()){
-            b.repair();
+            b.setBroken(false);
+            b.setCurrentStrength(b.getMaxStrength());
             if(b instanceof Crackable)
                 ((Crackable) b).setCrackPath(null);
         }
