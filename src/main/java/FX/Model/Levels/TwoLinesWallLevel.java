@@ -28,6 +28,7 @@ import javafx.scene.shape.Rectangle;
  * this class is used to create one of the levels.
  */
 public class TwoLinesWallLevel extends FullWallRowsLevels implements WallLevelTemplates{
+
     /**
      * this method is one of the template used for the wall (level). this creates a level that looks like an almost straight line of bricks on the left and right of the center.
      *

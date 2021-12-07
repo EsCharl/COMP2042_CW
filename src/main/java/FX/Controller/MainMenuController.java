@@ -18,14 +18,12 @@
 
 package FX.Controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -61,12 +59,7 @@ public class MainMenuController {
         Stage newStage = new Stage();
         newStage.setScene(new Scene(loader));
         newStage.setResizable(false);
-        newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                onExitButton();
-            }
-        });
+        newStage.setOnCloseRequest(windowEvent -> onExitButton());
         newStage.setTitle("Brick Destroy");
         newStage.show();
     }

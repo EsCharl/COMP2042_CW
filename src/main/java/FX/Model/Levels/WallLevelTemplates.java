@@ -21,7 +21,6 @@ package FX.Model.Levels;
 import FX.Model.Entities.Brick.Brick;
 import javafx.scene.shape.Rectangle;
 
-
 /**
  * this interface is used to create multiple wall levels.
  */

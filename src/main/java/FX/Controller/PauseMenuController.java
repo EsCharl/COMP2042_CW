@@ -35,11 +35,17 @@ public class PauseMenuController {
     private Game game;
     private GameScore gameScore;
 
+    /**
+     * this constructor is used to prepare the pause menu controller which is allows the user to resume the game, restart the game or quit the game.
+     */
     public PauseMenuController(){
         game = Game.singletonGame();
         gameScore = GameScore.singletonGameScore();
     }
 
+    /**
+     * this method is used to resume the game.
+     */
     @FXML
     public void resumeButton(){
         Parent loader = null;
@@ -53,18 +59,24 @@ public class PauseMenuController {
         stage.setScene(new Scene(loader));
     }
 
+    /**
+     * this method is used to restart the game. which will restart the status of the ball, player position, ball count and reset the game timer for the score.
+     */
     @FXML
     public void restartButton(){
         game.resetBallCount();
         game.getBall().resetPosition();
         game.getPlayer().resetPosition();
-        game.getBall().setRandomBallSpeed();
+        game.setRandomBallSpeed(game.getBall());
         gameScore.restartTimer();
         game.wallReset();
 
         resumeButton();
     }
 
+    /**
+     * this method is used to quit the game.
+     */
     @FXML
     public void exitButton(){
         System.out.println("Goodbye " + System.getProperty("user.name"));

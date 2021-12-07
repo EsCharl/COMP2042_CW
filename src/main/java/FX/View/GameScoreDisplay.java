@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 public class GameScoreDisplay {
 
+    private final Color currentUserColor = Color.DARKCYAN;
+
     /**
      * this method is used to create a window which will display the high scores and the current user score (time used) for the level in a Color.
      *
@@ -53,10 +55,10 @@ public class GameScoreDisplay {
 
             if(levelPlayTime.equals(time) && System.getProperty("user.name").equals(name)){
                 Text playerName = new Text(System.getProperty("user.name"));
-                playerName.setFill(Color.DARKCYAN);
+                playerName.setFill(getCurrentUserColor());
                 gridPane.add(playerName,0,i+1);
                 Text playerTime = new Text(time);
-                playerTime.setFill(Color.DARKCYAN);
+                playerTime.setFill(getCurrentUserColor());
                 gridPane.add(playerTime,1,1+i);
             }else{
                 gridPane.add(new Text(name), 0,i+1);
@@ -66,5 +68,14 @@ public class GameScoreDisplay {
         levelCompleteWindow.setScene(new Scene(gridPane));
         levelCompleteWindow.setTitle("Game Score");
         levelCompleteWindow.show();
+    }
+
+    /**
+     * this method is used to get the color which is going to be used for the text of the current user.
+     *
+     * @return this returns the color used for the display of the text for the current user.
+     */
+    public Color getCurrentUserColor() {
+        return currentUserColor;
     }
 }

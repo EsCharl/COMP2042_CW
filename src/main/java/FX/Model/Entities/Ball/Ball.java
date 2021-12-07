@@ -24,24 +24,16 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
-import java.util.Random;
-
 /**
  * this is an abstract class which is used for the rubber ball implementation.
  */
 abstract public class Ball extends Entities implements Movable {
 
-    private final int MAX_BALL_SPEED = 5;
+    private final int MAX_BALL_SPEED = 4;
+    private final int MIN_BALL_SPEED = 1;
 
-    private Point2D startTopLeftPosition;
-
-    private Random rnd;
-
-    private Color borderBallColor;
-    private Color innerBallColor;
-
-    private int xSpeed;
-    private int ySpeed;
+    private int sppedX;
+    private int speedY;
     private int radius;
 
     /**
@@ -54,82 +46,15 @@ abstract public class Ball extends Entities implements Movable {
      */
     public Ball(Point2D centerPosition,int radius,Color inner,Color border){
         super(centerPosition, border,inner, 2*radius, 2*radius);
-        setStartTopLeftPosition(centerPosition);
 
         setRadius(radius);
-
-        setRnd(new Random());
-        setRandomBallSpeed();
-
-        setBorderBallColor(border);
-        setInnerBallColor(inner);
     }
 
     /**
      * this method is used to move the ball (changing the variables to record where the ball is).
      */
     public void move(){
-//        setStartTopLeftPosition(getStartTopLeftPosition().add(getXSpeed(),getYSpeed()));
-//        setUp(getUp().add(getXSpeed(),getYSpeed()));
-//        setDown(getDown().add(getXSpeed(),getYSpeed()));
-//        setLeft(getLeft().add(getXSpeed(),getYSpeed()));
-//        setRight(getRight().add(getXSpeed(),getYSpeed()));
-        setBounds(new BoundingBox(getBounds().getMinX() + getXSpeed(), getBounds().getMinY() + getYSpeed(),2*getRadius(),2*getRadius()));
-    }
-
-    /**
-     * this method is used to set the speed of the ball on both axis.
-     *
-     * @param x the speed on the x-axis.
-     * @param y the speed on the y-axis.
-     */
-    public void setSpeed(int x,int y){
-        setXSpeed(x);
-        setYSpeed(y);
-    }
-
-    /**
-     * this method is used to set the random speed on both x-axis and y-axis for the ball.
-     */
-    public void setRandomBallSpeed(){
-        int speedX,speedY;
-
-        do {
-            speedX = getRnd().nextBoolean() ? getRnd().nextInt(MAX_BALL_SPEED) : -getRnd().nextInt(MAX_BALL_SPEED);
-        } while (speedX == 0);
-
-        do{
-            speedY = -getRnd().nextInt(MAX_BALL_SPEED);
-        }while(speedY == 0);
-
-        setSpeed(speedX,speedY);
-    }
-
-    /**
-     * this method is used to get a random value set for the ball.
-     *
-     * @return this returns a random object for the random value for the ball speed.
-     */
-    public Random getRnd() {
-        return rnd;
-    }
-
-    /**
-     * this method is used to set a random object used to set into a variable for future reference.
-     *
-     * @param rnd this is a random object used to set into a variable.
-     */
-    public void setRnd(Random rnd) {
-        this.rnd = rnd;
-    }
-
-    /**
-     * this method is used to get the point of drawing where it is the top left of the ball.
-     *
-     * @return this returns the drawing position of the ball which is the top left of the ball.
-     */
-    public Point2D getStartTopLeftPosition() {
-        return startTopLeftPosition;
+        setBounds(new BoundingBox(getBounds().getMinX() + getSpeedX(), getBounds().getMinY() + getSpeedY(),2*getRadius(),2*getRadius()));
     }
 
     /**
@@ -137,8 +62,8 @@ abstract public class Ball extends Entities implements Movable {
      *
      * @param s speed on the x-axis.
      */
-    public void setXSpeed(int s){
-        this.xSpeed = s;
+    public void setSpeedX(int s){
+        this.sppedX = s;
     }
 
     /**
@@ -146,26 +71,8 @@ abstract public class Ball extends Entities implements Movable {
      *
      * @param s speed on the y-axis.
      */
-    public void setYSpeed(int s){
-        this.ySpeed = s;
-    }
-
-    /**
-     * this is to get the color of the border of the ball.
-     *
-     * @return it returns a color that is the color of the border of the ball.
-     */
-    public Color getBorderBallColor(){
-        return this.borderBallColor;
-    }
-
-    /**
-     * this method is used to get the inner color of the ball.
-     *
-     * @return it returns a color that is the color of the in side of the ball.
-     */
-    public Color getInnerBallColor(){
-        return this.innerBallColor;
+    public void setSpeedY(int s){
+        this.speedY = s;
     }
 
     /**
@@ -173,8 +80,8 @@ abstract public class Ball extends Entities implements Movable {
      *
      * @return an integer of the speed of the ball on the x-axis.
      */
-    public int getXSpeed(){
-        return this.xSpeed;
+    public int getSpeedX(){
+        return this.sppedX;
     }
 
     /**
@@ -182,35 +89,8 @@ abstract public class Ball extends Entities implements Movable {
      *
      * @return an integer of the speed of the ball on the y-axis.
      */
-    public int getYSpeed(){
-        return this.ySpeed;
-    }
-
-    /**
-     * this method is used to set the border color of the ball.
-     *
-     * @param border this is the color used to set the border of the ball.
-     */
-    public void setBorderBallColor(Color border) {
-        this.borderBallColor = border;
-    }
-
-    /**
-     * this method is used to set the inner color of the ball.
-     *
-     * @param inner this is the color used to set the inside of the ball.
-     */
-    public void setInnerBallColor(Color inner) {
-        this.innerBallColor = inner;
-    }
-
-    /**
-     * thie method is used to set the center position of the ball into a variable.
-     *
-     * @param startTopLeftPosition this is the Point2D value used to set into the variable.
-     */
-    public void setStartTopLeftPosition(Point2D startTopLeftPosition) {
-        this.startTopLeftPosition = startTopLeftPosition;
+    public int getSpeedY(){
+        return this.speedY;
     }
 
     /**
@@ -229,5 +109,23 @@ abstract public class Ball extends Entities implements Movable {
      */
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    /**
+     * this method is used to get the maximum speed of the ball in either direction (x-axis and y-axis).
+     *
+     * @return this returns the maximum allowed speed of the ball in either direction.
+     */
+    public int getMAX_BALL_SPEED() {
+        return MAX_BALL_SPEED;
+    }
+
+    /**
+     * this method is used to get the minimum speed for the ball in either direction (x-axis and y-axis).
+     *
+     * @return this returns the minimum allowed speed for the ball in either direction.
+     */
+    public int getMIN_BALL_SPEED() {
+        return MIN_BALL_SPEED;
     }
 }

@@ -69,8 +69,6 @@ public class GameStateController implements Initializable {
     @FXML private AnchorPane anchorPane;
     @FXML private Text gameText;
 
-    boolean toggle = true;
-
     public GameStateController() {
         userInput = new ArrayList<>();
 
@@ -110,7 +108,7 @@ public class GameStateController implements Initializable {
                     gameScore.pauseTimer();
                     gameScore.setCanGetTime(false);
                     game.setBallLost(false);
-                    toggle = false;
+                    game.setToggle(false);
                     if(game.isGameOver()){
                         game.resetBallCount();
                         gameText.setText("Game Over. Time spent in this level: " + gameScore.getTimerString());
@@ -155,7 +153,7 @@ public class GameStateController implements Initializable {
                     }
                     game.getBall().resetPosition();
                     game.getPlayer().resetPosition();
-                    game.getBall().setRandomBallSpeed();
+                    game.setRandomBallSpeed(game.getBall());
                 }
             }
 
@@ -194,7 +192,7 @@ public class GameStateController implements Initializable {
                     gameText.setText("Focus Lost");
                     gameScore.setCanGetTime(false);
                     animationTimer.stop();
-                    toggle = false;
+                    game.setToggle(false);
                 });
             }
 
@@ -221,10 +219,10 @@ public class GameStateController implements Initializable {
              * @param ball this is the ball object used to draw on the window.
              */
             private void drawBall(Ball ball){
-                graphicsContext.setFill(ball.getInnerBallColor());
+                graphicsContext.setFill(ball.getInnerColor());
                 graphicsContext.fillOval(ball.getBounds().getMinX(), ball.getBounds().getMinY(), ball.getRadius(), ball.getRadius());
 
-                graphicsContext.setStroke(ball.getBorderBallColor());
+                graphicsContext.setStroke(ball.getBorderColor());
                 graphicsContext.strokeOval(ball.getBounds().getMinX()-1, ball.getBounds().getMinY()-1, ball.getRadius()+2, ball.getRadius()+2);
             }
 
@@ -295,7 +293,7 @@ public class GameStateController implements Initializable {
                 gameScore.setCanGetTime(false);
             }
             animationTimer.stop();
-            toggle = false;
+            game.setToggle(false);
             showDebugConsole();
         }else if(userInput.contains(KeyCode.H)){
             game.setBotMode(!game.isBotMode());
@@ -350,11 +348,11 @@ public class GameStateController implements Initializable {
         }
 
         if((game.getBall().getBounds().getMinX() < gameBoard.getBoundsInLocal().getMinX())){
-            if (game.getBall().getXSpeed() < 0){
+            if (game.getBall().getSpeedX() < 0){
                 ballLeftCollision();
             }
         }else if(game.getBall().getBounds().getMaxX() > gameBoard.getBoundsInLocal().getMaxX()){
-            if (game.getBall().getXSpeed() > 0){
+            if (game.getBall().getSpeedX() > 0){
                 ballRightCollision();
             }
         }
@@ -366,7 +364,7 @@ public class GameStateController implements Initializable {
             game.setBallCount(game.getBallCount() - 1);
             game.getBall().resetPosition();
             game.getPlayer().resetPosition();
-            game.getBall().setRandomBallSpeed();
+            game.setRandomBallSpeed(game.getBall());
             game.setBallLost(true);
         }
     }
@@ -375,11 +373,11 @@ public class GameStateController implements Initializable {
      * this method is used to change the direction of the ball to another direction on the x-axis with an increment of a decrement in speed if it is being collided on the left side of the ball.
      */
     private void ballLeftCollision() {
-        game.getBall().setXSpeed(-game.getBall().getXSpeed());
-        if(game.getRnd().nextBoolean() && game.getBall().getXSpeed() < 4){
-            game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
-        }else if(game.getRnd().nextBoolean() && game.getBall().getXSpeed() > 1){
-            game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
+        game.getBall().setSpeedX(-game.getBall().getSpeedX());
+        if(game.getRnd().nextBoolean() && game.getBall().getSpeedX() < game.getBall().getMAX_BALL_SPEED()){
+            game.getBall().setSpeedX(game.getBall().getSpeedX()+1);
+        }else if(game.getRnd().nextBoolean() && game.getBall().getSpeedX() > game.getBall().getMIN_BALL_SPEED()){
+            game.getBall().setSpeedX(game.getBall().getSpeedX()-1);
         }
     }
 
@@ -387,11 +385,11 @@ public class GameStateController implements Initializable {
      * this method is used to change the direction of the ball to another direction on the x-axis with an increment of a decrement in speed if it is being collided on the right side of the ball.
      */
     private void ballRightCollision() {
-        game.getBall().setXSpeed(-game.getBall().getXSpeed());
-        if(game.getRnd().nextBoolean() && (game.getBall().getXSpeed() > -4)){
-            game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
-        }else if(game.getRnd().nextBoolean() && game.getBall().getXSpeed() < -1){
-            game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
+        game.getBall().setSpeedX(-game.getBall().getSpeedX());
+        if(game.getRnd().nextBoolean() && (game.getBall().getSpeedX() > -game.getBall().getMAX_BALL_SPEED())){
+            game.getBall().setSpeedX(game.getBall().getSpeedX()-1);
+        }else if(game.getRnd().nextBoolean() && game.getBall().getSpeedX() < -game.getBall().getMIN_BALL_SPEED()){
+            game.getBall().setSpeedX(game.getBall().getSpeedX()+1);
         }
     }
 
@@ -399,22 +397,22 @@ public class GameStateController implements Initializable {
      * this method is used to change the direction of the ball to another direction on the y-axis with an increment of a decrement in speed if it is being collided on the top side of the ball.
      */
     private void ballTopCollision() {
-        game.getBall().setYSpeed(-game.getBall().getYSpeed());
-        if(game.getRnd().nextBoolean() && game.getBall().getYSpeed() < 4)
-            game.getBall().setYSpeed(game.getBall().getYSpeed()+1);
-        else if(game.getRnd().nextBoolean() && game.getBall().getYSpeed() > 1)
-            game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
+        game.getBall().setSpeedY(-game.getBall().getSpeedY());
+        if(game.getRnd().nextBoolean() && game.getBall().getSpeedY() < game.getBall().getMAX_BALL_SPEED())
+            game.getBall().setSpeedY(game.getBall().getSpeedY()+1);
+        else if(game.getRnd().nextBoolean() && game.getBall().getSpeedY() > game.getBall().getMIN_BALL_SPEED())
+            game.getBall().setSpeedY(game.getBall().getSpeedY()-1);
     }
 
     /**
      * this method is used to change the direction of the ball to another direction on the y-axis with an increment of a decrement in speed if it is being collided on the bottom side of the ball.
      */
     private void ballBottomCollision() {
-        game.getBall().setYSpeed(-game.getBall().getYSpeed());
-        if (game.getRnd().nextBoolean() && game.getBall().getYSpeed() > -4) {
-            game.getBall().setYSpeed(game.getBall().getYSpeed() - 1);
-        } else if (game.getRnd().nextBoolean() && game.getBall().getYSpeed() < -1) {
-            game.getBall().setYSpeed(game.getBall().getYSpeed() + 1);
+        game.getBall().setSpeedY(-game.getBall().getSpeedY());
+        if (game.getRnd().nextBoolean() && game.getBall().getSpeedY() > -game.getBall().getMAX_BALL_SPEED()) {
+            game.getBall().setSpeedY(game.getBall().getSpeedY() - 1);
+        } else if (game.getRnd().nextBoolean() && game.getBall().getSpeedY() < -game.getBall().getMIN_BALL_SPEED()) {
+            game.getBall().setSpeedY(game.getBall().getSpeedY() + 1);
         }
     }
 
@@ -487,17 +485,17 @@ public class GameStateController implements Initializable {
      * this method is used to toggle between pausing the game and proceeding th game
      */
     public void togglePauseContinueGame(){
-        if(toggle){
+        if(game.isToggle()){
             animationTimer.stop();
             gameScore.pauseTimer();
             gameScore.setCanGetTime(true);
-            toggle = false;
+            game.setToggle(false);
         }
         else{
             animationTimer.start();
             gameScore.startTimer();
             gameScore.setCanGetTime(true);
-            toggle = true;
+            game.setToggle(true);
         }
     }
 
@@ -626,6 +624,5 @@ public class GameStateController implements Initializable {
                 return new Point2D(0,0);
         }
     }
-
 
 }

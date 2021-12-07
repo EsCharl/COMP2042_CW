@@ -23,7 +23,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
 /**
  * this class is used for the user to move the player.
  */

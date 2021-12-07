@@ -28,7 +28,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class InfoMenuController {
-    private Parent loader;
     @FXML
     private Button mainmenu;
 
@@ -39,7 +38,7 @@ public class InfoMenuController {
      */
     @FXML
     public void DisplayMainMenu() throws IOException {
-        loader = FXMLLoader.load(getClass().getResource("/FX/MainMenu.fxml"));
+        Parent loader = FXMLLoader.load(getClass().getResource("/FX/MainMenu.fxml"));
         Stage stage = (Stage) mainmenu.getScene().getWindow();
         stage.setScene(new Scene(loader));
     }

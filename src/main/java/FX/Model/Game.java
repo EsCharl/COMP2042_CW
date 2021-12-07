@@ -18,6 +18,7 @@
 
 package FX.Model;
 
+import FX.Controller.GameStateController;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
@@ -34,6 +35,10 @@ import java.util.Random;
  * this class is used to generate the level and maintain some game condition.
  */
 public class Game {
+
+    private final double brickDimensionRatio = 6/2;
+    private final int makeLevelBrickCount = 30;
+    private final int makeLevelLineCount = 3;
 
     private final int MAX_BALL_COUNT = 3;
     private final int LEVELS_AMOUNT = 6;
@@ -66,6 +71,7 @@ public class Game {
 
     private boolean showPauseMenu;
     private boolean botMode;
+    private boolean toggle = true;
 
     /**
      * this method is used to create a Model.Wall object based on the Singleton design pattern.
@@ -94,12 +100,14 @@ public class Game {
         setBallCount(getMAX_BALL_COUNT());
         setBallLost(false);
 
-        setBrickLevels(makeLevels(getPlayArea(),30,3,6/2));
+        setBrickLevels(makeLevels(getPlayArea(), getMakeLevelBrickCount(),getMakeLevelLineCount(),getBrickDimensionRatio()));
 
         nextLevel();
 
-        player = Player.singletonPlayer(new Point2D(playerTopLeftXStartPoint,playerTopLeftYStartPoint), getPlayArea());
-        ball = new RubberBall(new Point2D(ballTopLeftXStartPoint,ballTopLeftYStartPoint));
+        setPlayer(Player.singletonPlayer(new Point2D(getPlayerTopLeftXStartPoint(),getPlayerTopLeftYStartPoint()), getPlayArea()));
+        setBall(new RubberBall(new Point2D(getBallTopLeftXStartPoint(),getBallTopLeftYStartPoint())));
+
+        setRandomBallSpeed(getBall());
     }
 
     /**
@@ -123,10 +131,47 @@ public class Game {
         return tmp;
     }
 
+    /**
+     * this returns the brick dimension ratio used to set the brick dimension on the wall level.
+     *
+     * @return this returns a double value of the ratio of the brick size.
+     */
+    public double getBrickDimensionRatio() {
+        return brickDimensionRatio;
+    }
+
+    /**
+     * this method is used to get the amount of bricks in for each level. (vary based on the level templates used).
+     *
+     * @return this returns the amount used to create the wall level.
+     */
+    public int getMakeLevelBrickCount() {
+        return makeLevelBrickCount;
+    }
+
+    /**
+     * this method is used to get the amount of lines for the wall level.
+     *
+     * @return this returns the line count used to create the wall level.
+     */
+    public int getMakeLevelLineCount() {
+        return makeLevelLineCount;
+    }
+
+    /**
+     * this method is used to get the player object which is used to move, set and update the player object.
+     *
+     * @return this returns a player object.
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * this method is used to get the ball object which is used to collide with different entities in the game.
+     *
+     * @return this returns a ball object.
+     */
     public Ball getBall() {
         return ball;
     }
@@ -384,10 +429,20 @@ public class Game {
         this.botMode = botMode;
     }
 
+    /**
+     * this method is used to get the play area of the game.
+     *
+     * @return this returns a rectangle which is the play area.
+     */
     public Rectangle getPlayArea() {
         return playArea;
     }
 
+    /**
+     * this method is used to set a rectangle which have the play area dimension be placed into a variable for future reference.
+     *
+     * @param playArea this is the rectangle object which is the play area of the game.
+     */
     public void setPlayArea(Rectangle playArea) {
         this.playArea = playArea;
     }
@@ -408,5 +463,91 @@ public class Game {
      */
     public void setRnd(Random rnd) {
         this.rnd = rnd;
+    }
+
+    /**
+     * this method is used to set the random speed on both x-axis and y-axis for the ball.
+     * @param ball
+     */
+    public void setRandomBallSpeed(Ball ball){
+        do {
+            ball.setSpeedX(getRnd().nextBoolean() ? getRnd().nextInt(ball.getMAX_BALL_SPEED()) : -getRnd().nextInt(ball.getMAX_BALL_SPEED()));
+        } while (ball.getSpeedX() == 0);
+
+        do{
+            ball.setSpeedY(-getRnd().nextInt(ball.getMAX_BALL_SPEED()));
+        }while(ball.getSpeedY() == 0);
+    }
+
+    /**
+     * this method is used to get the top left position of the player X-coordinate.
+     *
+     * @return this returns the top left position of the player X-coordinate.
+     */
+    public int getPlayerTopLeftXStartPoint() {
+        return playerTopLeftXStartPoint;
+    }
+
+    /**
+     * this method is used to get the top left position of the player Y-coordinate.
+     *
+     * @return this returns the top left position of the player Y-coordinate.
+     */
+    public int getPlayerTopLeftYStartPoint() {
+        return playerTopLeftYStartPoint;
+    }
+
+    /**
+     * this method is used to get the top left position of the ball X-coordinate.
+     *
+     * @return this returns the top left position of the ball X-coordinate.
+     */
+    public int getBallTopLeftXStartPoint() {
+        return ballTopLeftXStartPoint;
+    }
+
+    /**
+     * this method is used to get the top left position of the ball X-coordinate.
+     *
+     * @return this returns the top left position of the ball X-coordinate.
+     */
+    public int getBallTopLeftYStartPoint() {
+        return ballTopLeftYStartPoint;
+    }
+
+    /**
+     * this method is used to set the player object into a variable for future reference. which includes moving the player paddle.
+     *
+     * @param player this is the player object used to set to a variable.
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    /**
+     * this method is used to set a ball object into a variable for future reference. which includes moving the ball and getting the position of the ball for collision.
+     *
+     * @param ball this is the ball object that is going to be set into a variable.
+     */
+    public void setBall(Ball ball) {
+        this.ball = ball;
+    }
+
+    /**
+     * this method is used to get if the game is paused.
+     *
+     * @return this returns a boolean variable to confirm if it is paused or not paused.
+     */
+    public boolean isToggle() {
+        return toggle;
+    }
+
+    /**
+     * this method is used to check if the game is pause or no.
+     *
+     * @param toggle this is used to set the if the game paused or no.
+     */
+    public void setToggle(boolean toggle) {
+        this.toggle = toggle;
     }
 }
