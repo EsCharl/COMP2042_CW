@@ -3,6 +3,7 @@ package FX.Controller;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.Crack;
+import FX.Model.Entities.Brick.Crackable;
 import FX.Model.Entities.Entities;
 import FX.Model.Game;
 import FX.Model.GameScore;
@@ -23,6 +24,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,7 +49,7 @@ public class GameStateController implements Initializable {
     private AnimationTimer animationTimer;
     private Scene scene;
     private Random rnd;
-    private ArrayList userInput;
+    private ArrayList<KeyCode> userInput;
 
     private Image backgroundImage;
 
@@ -52,13 +57,12 @@ public class GameStateController implements Initializable {
     @FXML private AnchorPane anchorPane;
     @FXML private Text gameText;
 
-
     boolean toggle = true;
 
     public GameStateController() {
 
         setRnd(new Random());
-        userInput = new ArrayList();
+        userInput = new ArrayList<>();
 
         game = Game.singletonGame();
         gameScore = GameScore.singletonGameScore();
@@ -74,6 +78,9 @@ public class GameStateController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
 
         graphicsContext = gameBoard.getGraphicsContext2D();
+
+        gameScore.startTimer();
+        gameScore.setCanGetTime(true);
 
         animationTimer = new AnimationTimer() {
             @Override
@@ -91,6 +98,7 @@ public class GameStateController implements Initializable {
 
                 if(game.isBallLost()){
                     gameScore.pauseTimer();
+                    gameScore.setCanGetTime(false);
                     game.setBallLost(false);
                     toggle = false;
                     if(game.isGameOver()){
@@ -105,28 +113,13 @@ public class GameStateController implements Initializable {
 
                 Stage stage = (Stage) gameBoard.getScene().getWindow();
 
-                stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                        gameScore.pauseTimer();
-                        animationTimer.stop();
-                        toggle = false;
-                    }
-                });
+                windowLostFocus(stage);
 
-                scene.setOnKeyPressed(keyEvent ->{
-                    if(!userInput.contains(keyEvent.getCode()))
-                        userInput.add(keyEvent.getCode());
-                });
+                keyPressed();
 
                 movementKeyHandler(userInput);
 
-                scene.setOnKeyReleased(keyEvent -> {
-
-                    nonMovementKeyHandler(userInput);
-                    while(userInput.contains(keyEvent.getCode()))
-                        userInput.remove(0);
-                });
+                keyReleased();
 
                 automation();
 
@@ -136,20 +129,15 @@ public class GameStateController implements Initializable {
                 findImpacts();
 
                 if(game.isLevelComplete()){
-                    try {
-                        gameScore.setLastLevelCompletionRecord(gameScore.getHighScore());
-                        gameScore.updateSaveFile(gameScore.getLastLevelCompletionRecord());
-                    } catch (IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                    gameScoreDisplay.generateLevelCompleteWindow(gameScore.getLastLevelCompletionRecord(), gameScore.getTimerString());
-                }
-
-                if(game.isLevelComplete()){
+                    gameScore.pauseTimer();
+                    gameScore.setCanGetTime(false);
+                    gameScoreHandler();
                     if(game.hasLevel()){
                         gameText.setText("Go to Next Level");
                         animationTimer.stop();
                         game.nextLevel();
+                        gameScore.restartTimer();
+                        gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
                     }
                     else{
                         gameText.setText("ALL WALLS DESTROYED");
@@ -157,6 +145,45 @@ public class GameStateController implements Initializable {
                     }
                     restartGameStatus();
                 }
+            }
+
+            /**
+             * this method is used when the user pressed on a key on the keyboard.
+             */
+            private void keyPressed() {
+                scene.setOnKeyPressed(keyEvent ->{
+                    if(!userInput.contains(keyEvent.getCode()))
+                        userInput.add(keyEvent.getCode());
+                });
+            }
+
+            /**
+             * this method is used when the user released a key on the keyboard.
+             */
+            private void keyReleased() {
+                scene.setOnKeyReleased(keyEvent -> {
+                    nonMovementKeyHandler(userInput);
+                    while(userInput.contains(keyEvent.getCode()))
+                        userInput.remove(0);
+                });
+            }
+
+            /**
+             * this method is used when the user clicked out or the window lost focus
+             *
+             * @param stage this is the stage (window) that is being listened
+             */
+            private void windowLostFocus(Stage stage) {
+                stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                        if(gameScore.isCanGetTime())
+                            gameScore.pauseTimer();
+                        gameScore.setCanGetTime(false);
+                        animationTimer.stop();
+                        toggle = false;
+                    }
+                });
             }
 
             /**
@@ -170,6 +197,8 @@ public class GameStateController implements Initializable {
 
                         graphicsContext.setStroke(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBorderColor());
                         graphicsContext.strokeRect(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinX()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getBounds().getMinY()-1,game.getBrickLevels()[game.getCurrentLevel()-1][i].getWidth()+2,game.getBrickLevels()[game.getCurrentLevel()-1][i].getHeight()+2);
+
+                        showCrack();
                     }
                 }
             }
@@ -206,13 +235,26 @@ public class GameStateController implements Initializable {
         anchorPane.requestFocus();
     }
 
+    /**
+     * this method is used to display and save the game score.
+     */
+    private void gameScoreHandler() {
+        try {
+            gameScore.setLastLevelCompletionRecord(gameScore.getHighScore());
+            gameScore.updateSaveFile(gameScore.getLastLevelCompletionRecord());
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        gameScoreDisplay.generateLevelCompleteWindow(gameScore.getLastLevelCompletionRecord(), gameScore.getTimerString());
+    }
+
     private void restartGameStatus() {
         game.getBall().resetPosition();
         game.getPlayer().resetPosition();
         game.getBall().setRandomBallSpeed();
     }
 
-    private void movementKeyHandler(ArrayList userInput){
+    private void movementKeyHandler(ArrayList<KeyCode> userInput){
         if(userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D) || userInput.isEmpty()){
             game.getPlayer().setMoveAmount(0);
         }else if(userInput.contains(KeyCode.A)){
@@ -223,18 +265,26 @@ public class GameStateController implements Initializable {
         }
     }
 
+    private boolean canGetTime = true;
+
     /**
      * this method is used to deal with non movement features, like pause menu, show debug console, pause and resume of the game.
      */
-    private void nonMovementKeyHandler(ArrayList userInput){
+    private void nonMovementKeyHandler(ArrayList<KeyCode> userInput){
         if(userInput.contains(KeyCode.ESCAPE)){
-            gameScore.pauseTimer();
+            if(gameScore.isCanGetTime()){
+                gameScore.pauseTimer();
+                gameScore.setCanGetTime(false);
+            }
             animationTimer.stop();
             showPauseMenu();
         }else if(userInput.contains(KeyCode.SPACE)){
             togglePauseContinueGame();
         }else if(userInput.contains(KeyCode.F1) && userInput.contains(KeyCode.SHIFT) && userInput.contains(KeyCode.ALT)){
-            gameScore.pauseTimer();
+            if(gameScore.isCanGetTime()){
+                gameScore.pauseTimer();
+                gameScore.setCanGetTime(false);
+            }
             animationTimer.stop();
             toggle = false;
             showDebugConsole();
@@ -253,6 +303,26 @@ public class GameStateController implements Initializable {
             }
             else{
                 game.getPlayer().setMoveAmount(-game.getPlayer().getDEF_MOVE_AMOUNT());
+            }
+        }
+    }
+
+    /**
+     * this method is used to draw the cracks on the brick.
+     */
+    private void showCrack(){
+        for (int i = 0; i < game.getBrickLevels()[game.getCurrentLevel()-1].length; i++) {
+            if (game.getBrickLevels()[game.getCurrentLevel() - 1][i] instanceof Crackable) {
+                if (((Crackable) game.getBrickLevels()[game.getCurrentLevel() - 1][i]).getCrackPath() != null) {
+                    Path path = ((Crackable) game.getBrickLevels()[game.getCurrentLevel() - 1][i]).getCrackPath();
+                    graphicsContext.setFill(Color.BLACK);
+                    graphicsContext.beginPath();
+                    graphicsContext.moveTo(((MoveTo) path.getElements().get(0)).getX(), ((MoveTo) path.getElements().get(0)).getY());
+                    for (int x = 1; x < path.getElements().size(); x++) {
+                        graphicsContext.lineTo(((LineTo) path.getElements().get(x)).getX(), ((LineTo) path.getElements().get(x)).getY());
+                    }
+                    graphicsContext.closePath();
+                }
             }
         }
     }
@@ -330,7 +400,6 @@ public class GameStateController implements Initializable {
      */
     private boolean impactWall(){
         for(Brick b : game.getBricks()){
-            System.out.println(b.getCurrentStrength() + "," + b.getBounds());
             if(!b.isBroken()){
                 if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
                     game.getBall().setYSpeed(-game.getBall().getYSpeed());
@@ -338,11 +407,11 @@ public class GameStateController implements Initializable {
                 }
                 else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
                     game.getBall().setYSpeed(-game.getBall().getYSpeed());
-                    return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()),Crack.getDOWN());
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()), Crack.getDOWN());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     game.getBall().setXSpeed(-game.getBall().getXSpeed());
-                    return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()),Crack.getRIGHT());
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getRIGHT());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     game.getBall().setXSpeed(-game.getBall().getXSpeed());
@@ -360,11 +429,13 @@ public class GameStateController implements Initializable {
         if(toggle){
             animationTimer.stop();
             gameScore.pauseTimer();
+            gameScore.setCanGetTime(true);
             toggle = false;
         }
         else{
             animationTimer.start();
             gameScore.startTimer();
+            gameScore.setCanGetTime(true);
             toggle = true;
         }
     }

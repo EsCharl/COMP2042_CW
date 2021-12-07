@@ -74,29 +74,6 @@ public class Player extends Entities implements Movable {
         setBounds(new BoundingBox(getBounds().getMinX() + getMoveAmount(), getBounds().getMinY(), getBounds().getWidth(), getBounds().getHeight()));
     }
 
-    public void setLocation(int x, int y){
-        getPlayerFace().setX(x);
-        getPlayerFace().setY(y);
-    }
-
-    /**
-     * this method is used to get the supposing final position for the player in the X-axis.
-     *
-     * @return it returns the location where the paddle is supposed to go.
-     */
-    private double moveToX(){
-        return getBounds().getMinX() + getMoveAmount();
-    }
-
-    /**
-     * this method is used to get the shape of the paddle.
-     *
-     * @return it returns the shape of the paddle.
-     */
-    public Rectangle getPlayerFace(){
-        return playerFace;
-    }
-
     /**
      * this method is used to get the one and only player object.
      *
@@ -113,24 +90,6 @@ public class Player extends Entities implements Movable {
      */
     private static void setUniquePlayer(Player uniquePlayer) {
         Player.uniquePlayer = uniquePlayer;
-    }
-
-    /**
-     * this method is used to set the player face into a variable for setting the location of the player to update the view. (gameboard view).
-     *
-     * @param playerFace this is the rectangle object which is the player face to be set into a variable.
-     */
-    public void setPlayerFace(Rectangle playerFace) {
-        this.playerFace = playerFace;
-    }
-
-    /**
-     * this method is used to get the center position of the player. which is used to draw the paddle.
-     *
-     * @return this returns the position of the player in Point datatype.
-     */
-    public Point2D getPlayerCenterPosition() {
-        return playerCenterPosition;
     }
 
     /**

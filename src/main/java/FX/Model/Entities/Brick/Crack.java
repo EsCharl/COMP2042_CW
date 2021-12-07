@@ -28,45 +28,20 @@ import java.util.Random;
 /**
  * This class is used for the bricks on the level to display the crack if they are not destroyed.
  */
-public class Crack{
+public class Crack {
 
     public static final int LEFT = 10;
     public static final int RIGHT = 20;
     public static final int UP = 30;
     public static final int DOWN = 40;
 
-    private final int VERTICAL = 100;
-    private final int HORIZONTAL = 200;
+    public static final int DEF_CRACK_DEPTH = 1;
+    public static final int DEF_STEPS = 35;
 
-    private Path crackPath;
-
-    private int crackDepth;
-    private int steps;
+    final int VERTICAL = 100;
+    final int HORIZONTAL = 200;
 
     private final static Random rnd = new Random();
-
-    /**
-     * this is the constructor used to create the crack object.
-     *
-     * @param crackDepth this is the depth of crack which is going to be initialized.
-     * @param steps this is the step variable which is going to be initialized.
-     */
-    public Crack(int crackDepth, int steps){
-
-        crackPath = new Path();
-        setCrackDepth(crackDepth);
-        setSteps(steps);
-    }
-
-    /**
-     * this method is used to get the Model.Brick.Crack Path properties.
-     *
-     * @return a GeneralPath that is the path
-     */
-    public Path getCrackPath(){
-
-        return crackPath;
-    }
 
     /**
      * This method is used to calculate and determine where to draw the crack.
@@ -74,7 +49,7 @@ public class Crack{
      * @param point the point where the ball comes in contact with.
      * @param direction the direction where the ball touch the brick.
      */
-    protected void makeCrack(Point2D point, int direction, Brick brick){
+    protected void prepareCrack(Point2D point, int direction, Brick brick){
 
         Point2D oppositeSideOfCollisionCornerPoint1;
         Point2D oppositeSideOfCollisionCornerPoint2;
@@ -82,20 +57,19 @@ public class Crack{
         if(direction == getLEFT()) {
             oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBrick().getX() + brick.getBrick().getWidth(), brick.getBrick().getY());
             oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBrick().getX() + brick.getBrick().getWidth(), brick.getBrick().getY() + brick.getBrick().getHeight());
-            drawCrack(makeImpactPoint(point), getEndRandomPointVertical(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2));
+            makeCrack(makeImpactPoint(point), getEndRandomPointVertical(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2),brick);
         }else if(direction == getRIGHT()){
             oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBrick().getX(),brick.getBrick().getY());
             oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBrick().getX(), brick.getBrick().getY() + brick.getBrick().getHeight());
-            drawCrack(makeImpactPoint(point),getEndRandomPointVertical(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2));
+            makeCrack(makeImpactPoint(point),getEndRandomPointVertical(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2),brick);
         }else if(direction == getUP()){
-
             oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBrick().getX(), brick.getBrick().getY() + brick.getBrick().getHeight());
             oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBrick().getX() + brick.getBrick().getWidth(), brick.getBrick().getY() + brick.getBrick().getHeight());
-            drawCrack(makeImpactPoint(point),getEndRandomPointHorizontal(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2));
+            makeCrack(makeImpactPoint(point),getEndRandomPointHorizontal(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2),brick);
         }else if(direction == getDOWN()){
             oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBrick().getX(),brick.getBrick().getY());
             oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBrick().getX() + brick.getBrick().getWidth(), brick.getBrick().getY());
-            drawCrack(makeImpactPoint(point),getEndRandomPointHorizontal(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2));
+            makeCrack(makeImpactPoint(point),getEndRandomPointHorizontal(oppositeSideOfCollisionCornerPoint1,oppositeSideOfCollisionCornerPoint2),brick);
         }
     }
 
@@ -138,7 +112,7 @@ public class Crack{
      * @param end this is the end point where the crack is going to end.
      */
     //method name change
-    protected void drawCrack(Point2D start, Point2D end){
+    protected void makeCrack(Point2D start, Point2D end, Brick brick){
 
         Path path = new Path();
 
@@ -148,15 +122,18 @@ public class Crack{
 
         double x,y;
 
-        for(int i = 1; i < getSteps();i++){
+        for(int i = 1; i < DEF_STEPS;i++){
 
-            x = (i * getBrickWidth(start, end)) + start.getY();
-            y = (i * getPartOfTheBrickHeight(start, end)) + start.getY() + randomInBounds(getCrackDepth());
+            x = (i * getBrickWidth(start, end)) + start.getX();
+            y = (i * getPartOfTheBrickHeight(start, end)) + start.getY() + randomInBounds(DEF_CRACK_DEPTH);
 
             path.getElements().add(new LineTo(x,y));
         }
 
         path.getElements().add(new LineTo(end.getX(),end.getY()));
+
+        if (brick instanceof Crackable)
+            ((Crackable) brick).setCrackPath(path);
     }
 
     /**
@@ -167,7 +144,7 @@ public class Crack{
      * @return it returns a part of the brick based on the total crack steps.
      */
     private double getPartOfTheBrickHeight(Point2D start, Point2D end) {
-        return (end.getY() - start.getY()) / (double)getSteps();
+        return (end.getY() - start.getY()) / (double)DEF_STEPS;
     }
 
     /**
@@ -178,7 +155,7 @@ public class Crack{
      * @return it returns a part of the brick based on the total crack steps.
      */
     private double getBrickWidth(Point2D start, Point2D end) {
-        return (end.getX() - start.getX()) / (double)getSteps();
+        return (end.getX() - start.getX()) / (double)DEF_STEPS;
     }
 
     /**
@@ -211,42 +188,6 @@ public class Crack{
             return new Point2D(oppositeOfCollisionPoint2.getX(),position);
         }
         return new Point2D(0,0);
-    }
-
-    /**
-     * this method is used to get the crackDepth.
-     *
-     * @return it returns a value which is the depth of the crack.
-     */
-    public int getCrackDepth() {
-        return crackDepth;
-    }
-
-    /**
-     * this method is used to set the depth of the crack.
-     *
-     * @param crackDepth this is the value used to set the depth of the crack.
-     */
-    public void setCrackDepth(int crackDepth) {
-        this.crackDepth = crackDepth;
-    }
-
-    /**
-     * this method is used to get how many steps for the crack to complete.
-     *
-     * @return it returns the amount of steps needed to complete the crack.
-     */
-    public int getSteps() {
-        return steps;
-    }
-
-    /**
-     * this method is used to set the total amount of steps needed for the crack to complete.
-     *
-     * @param steps this is the amount of steps that is needed to complete the crack.
-     */
-    public void setSteps(int steps) {
-        this.steps = steps;
     }
 
     /**

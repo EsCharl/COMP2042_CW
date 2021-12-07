@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="450.0" maxWidth="600.0" minHeight="450.0" minWidth="600.0" prefHeight="481.0" prefWidth="600.0" stylesheets="@../CSS/GameState.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FX.Controller.GameStateController">
+<AnchorPane fx:id="anchorPane" maxHeight="450.0" maxWidth="600.0" minHeight="450.0" minWidth="600.0" prefHeight="481.0" prefWidth="600.0" stylesheets="@../CSS/GameState.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="FX.Controller.GameStateController">
    <children>
       <Canvas fx:id="gameBoard" height="450.0" layoutY="2.0" nodeOrientation="INHERIT" width="600.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
       <Text fx:id="gameText" layoutX="255.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="gametext" text="Text" />

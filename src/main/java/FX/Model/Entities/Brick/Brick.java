@@ -31,9 +31,6 @@ import java.util.Random;
  */
 abstract public class Brick extends Entities {
 
-    public static final int DEF_CRACK_DEPTH = 1;
-    public static final int DEF_STEPS = 35;
-
     private static Random rnd;
 
     Rectangle brickFace;

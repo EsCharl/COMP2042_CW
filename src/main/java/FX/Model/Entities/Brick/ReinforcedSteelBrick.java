@@ -22,20 +22,22 @@ package FX.Model.Entities.Brick;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 
 /**
  * this class is for the reinforced steel brick which is used for the level.
  */
-public class ReinforcedSteelBrick extends Brick{
+public class ReinforcedSteelBrick extends Brick {
 
     private static final Color DEF_INNER = Color.BLUE;
     private static final Color DEF_BORDER = Color.rgb(203, 203, 201,1);
     private static final int REINFORCED_STEEL_STRENGTH = 2;
     private static final double STEEL_PROBABILITY = 0.3;
 
-    private FX.Model.Entities.Brick.Crack crack;
     private Rectangle brickFace;
+    private Path crackPath;
+    private Crack crack;
 
     private boolean hit;
     /**
@@ -46,7 +48,7 @@ public class ReinforcedSteelBrick extends Brick{
      */
     public ReinforcedSteelBrick(Point2D point, Dimension2D size) {
         super(point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH);
-        crack = new FX.Model.Entities.Brick.Crack(DEF_CRACK_DEPTH,DEF_STEPS);
+        crack = new Crack();
         brickFace = super.brickFace;
     }
 
@@ -87,7 +89,7 @@ public class ReinforcedSteelBrick extends Brick{
             impacted();
         if(!super.isBroken()){
             if(hit){ // remove this if statement for more fun inducing excitement. :D
-                crack.makeCrack(point,dir, this);
+                crack.prepareCrack(point,dir, this);
 //                updateBrick();
             }
             return false;

@@ -21,18 +21,20 @@ package FX.Model.Entities.Brick;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 
 /**
  * this class is used for the cement brick used for the walls.
  */
-public class CementBrick extends Brick {
+public class CementBrick extends Brick implements Crackable{
 
     private static final Color DEF_INNER = Color.rgb(147, 147, 147,1);
     private static final Color DEF_BORDER = Color.rgb(217, 199, 175,1);
     private static final int CEMENT_STRENGTH = 2;
 
-    private FX.Model.Entities.Brick.Crack crack;
+    private Path crackPath;
+    private Crack crack;
     private Rectangle brickFace;
 
     /**
@@ -43,7 +45,7 @@ public class CementBrick extends Brick {
      */
     public CementBrick(Point2D point, Dimension2D size){
         super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
-        crack = new FX.Model.Entities.Brick.Crack(DEF_CRACK_DEPTH,DEF_STEPS);
+        crack = new Crack();
         brickFace = super.brickFace;
     }
 
@@ -60,7 +62,7 @@ public class CementBrick extends Brick {
             return false;
         super.impacted();
         if(!super.isBroken()){
-            crack.makeCrack(point,dir,this);
+            crack.prepareCrack(point,dir,this);
 //            updateBrick();
             return false;
         }
@@ -75,6 +77,16 @@ public class CementBrick extends Brick {
     @Override
     public Rectangle getBrick() {
         return brickFace;
+    }
+
+    @Override
+    public void setCrackPath(Path path) {
+        this.crackPath = path;
+    }
+
+    @Override
+    public Path getCrackPath() {
+        return crackPath;
     }
 
 //    /**

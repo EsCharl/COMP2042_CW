@@ -16,7 +16,7 @@ public class GameScoreDisplay {
         GridPane gridPane = new GridPane();
 
         gridPane.getColumnConstraints().add(new ColumnConstraints(200));
-        gridPane.getColumnConstraints().add(new ColumnConstraints(50));
+        gridPane.getColumnConstraints().add(new ColumnConstraints(100));
 
         gridPane.add(new Text("Name"),0,0);
         gridPane.add(new Text("Time"),1,0);
