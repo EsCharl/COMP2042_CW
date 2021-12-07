@@ -21,11 +21,14 @@ package FX.Model;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
+import FX.Model.Entities.Brick.Crackable;
 import FX.Model.Entities.Player;
 import FX.Model.Levels.LevelFactory;
 import FX.Model.Levels.WallLevelTemplates;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
+
+import java.util.Random;
 
 /**
  * this class is used to generate the level and maintain some game condition.
@@ -37,6 +40,8 @@ public class Game {
 
     private final int GAME_WINDOW_WIDTH = 600;
     private final int GAME_WINDOW_HEIGHT = 450;
+
+    private Random rnd;
 
     private Brick[] bricks;
 
@@ -61,7 +66,6 @@ public class Game {
 
     private boolean showPauseMenu;
     private boolean botMode;
-    private boolean gaming;
 
     /**
      * this method is used to create a Model.Wall object based on the Singleton design pattern.
@@ -78,7 +82,8 @@ public class Game {
      */
     private Game(){
 
-        setGaming(false);
+        setRnd(new Random());
+
         setBotMode(false);
         setShowPauseMenu(false);
 
@@ -156,8 +161,11 @@ public class Game {
      * this is used to reset the wall (bricks) and the ball count (tries).
      */
     public void wallReset(){
-        for(Brick b : getBricks())
+        for(Brick b : getBricks()){
             b.repair();
+            if(b instanceof Crackable)
+                ((Crackable) b).setCrackPath(null);
+        }
         setBrickCount(getBricks().length);
         setBallCount(getMAX_BALL_COUNT());
     }
@@ -358,24 +366,6 @@ public class Game {
     }
 
     /**
-     * this method is used to set if the user is gaming or not (focused on the game).
-     *
-     * @return this is the boolean value to see if the user is focused on the game or not.
-     */
-    public boolean isGaming() {
-        return gaming;
-    }
-
-    /**
-     * this method is used to set if the user is playing (focused on the game or not).
-     *
-     * @param gaming this is the boolean value used to set if the user is gaming or not.
-     */
-    public void setGaming(boolean gaming) {
-        this.gaming = gaming;
-    }
-
-    /**
      * this method is used to set the show pause menu variable, which is used to record if the game is in pause.
      *
      * @param showPauseMenu this is used to change the status of the variable.
@@ -399,5 +389,23 @@ public class Game {
 
     public void setPlayArea(Rectangle playArea) {
         this.playArea = playArea;
+    }
+
+    /**
+     * this method is used to get the random object used to have some randomness in the game.
+     *
+     * @return this returns a random object used for the randomness of the game
+     */
+    public Random getRnd() {
+        return rnd;
+    }
+
+    /**
+     * this method is used to set a random object used for randomness of the game.
+     *
+     * @param rnd this is the random object used to set into the variable.
+     */
+    public void setRnd(Random rnd) {
+        this.rnd = rnd;
     }
 }

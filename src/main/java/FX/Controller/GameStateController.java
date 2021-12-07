@@ -1,3 +1,21 @@
+/*
+ *  Brick Destroy - A simple Arcade video game
+ *   Copyright (C) 2021  Leong Chang Yung
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package FX.Controller;
 
 import FX.Model.Entities.Ball.Ball;
@@ -11,8 +29,6 @@ import FX.Model.Entities.Player;
 
 import FX.View.GameScoreDisplay;
 import javafx.animation.AnimationTimer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +40,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -37,7 +52,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class GameStateController implements Initializable {
@@ -48,7 +62,6 @@ public class GameStateController implements Initializable {
     private GameScoreDisplay gameScoreDisplay;
     private AnimationTimer animationTimer;
     private Scene scene;
-    private Random rnd;
     private ArrayList<KeyCode> userInput;
 
     private Image backgroundImage;
@@ -60,8 +73,6 @@ public class GameStateController implements Initializable {
     boolean toggle = true;
 
     public GameStateController() {
-
-        setRnd(new Random());
         userInput = new ArrayList<>();
 
         game = Game.singletonGame();
@@ -119,7 +130,7 @@ public class GameStateController implements Initializable {
 
                 movementKeyHandler(userInput);
 
-                keyReleased();
+                keyReleased(userInput);
 
                 automation();
 
@@ -143,12 +154,14 @@ public class GameStateController implements Initializable {
                         gameText.setText("ALL WALLS DESTROYED");
                         animationTimer.stop();
                     }
-                    restartGameStatus();
+                    game.getBall().resetPosition();
+                    game.getPlayer().resetPosition();
+                    game.getBall().setRandomBallSpeed();
                 }
             }
 
             /**
-             * this method is used when the user pressed on a key on the keyboard.
+             * this method is used to add user inputs into an array.
              */
             private void keyPressed() {
                 scene.setOnKeyPressed(keyEvent ->{
@@ -158,9 +171,11 @@ public class GameStateController implements Initializable {
             }
 
             /**
-             * this method is used when the user released a key on the keyboard.
+             * this method is used to remove a key from the user input array only when the user releases the key, which will check if there are any keys that are pressed which will activate the menu, atc. and finally remove the user input from an array.
+             *
+             * @param userInput this is the array of user input.
              */
-            private void keyReleased() {
+            private void keyReleased(ArrayList<KeyCode> userInput) {
                 scene.setOnKeyReleased(keyEvent -> {
                     nonMovementKeyHandler(userInput);
                     while(userInput.contains(keyEvent.getCode()))
@@ -174,15 +189,13 @@ public class GameStateController implements Initializable {
              * @param stage this is the stage (window) that is being listened
              */
             private void windowLostFocus(Stage stage) {
-                stage.focusedProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                        if(gameScore.isCanGetTime())
-                            gameScore.pauseTimer();
-                        gameScore.setCanGetTime(false);
-                        animationTimer.stop();
-                        toggle = false;
-                    }
+                stage.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+                    if (gameScore.isCanGetTime())
+                        gameScore.pauseTimer();
+                    gameText.setText("Focus Lost");
+                    gameScore.setCanGetTime(false);
+                    animationTimer.stop();
+                    toggle = false;
                 });
             }
 
@@ -248,12 +261,11 @@ public class GameStateController implements Initializable {
         gameScoreDisplay.generateLevelCompleteWindow(gameScore.getLastLevelCompletionRecord(), gameScore.getTimerString());
     }
 
-    private void restartGameStatus() {
-        game.getBall().resetPosition();
-        game.getPlayer().resetPosition();
-        game.getBall().setRandomBallSpeed();
-    }
-
+    /**
+     * this method is used to get the user input and act accordingly based on the inputs provided in the array.
+     *
+     * @param userInput this is the array of user input.
+     */
     private void movementKeyHandler(ArrayList<KeyCode> userInput){
         if(userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D) || userInput.isEmpty()){
             game.getPlayer().setMoveAmount(0);
@@ -264,8 +276,6 @@ public class GameStateController implements Initializable {
             game.getPlayer().setMoveAmount(game.getPlayer().getDEF_MOVE_AMOUNT());
         }
     }
-
-    private boolean canGetTime = true;
 
     /**
      * this method is used to deal with non movement features, like pause menu, show debug console, pause and resume of the game.
@@ -312,16 +322,17 @@ public class GameStateController implements Initializable {
      */
     private void showCrack(){
         for (int i = 0; i < game.getBrickLevels()[game.getCurrentLevel()-1].length; i++) {
-            if (game.getBrickLevels()[game.getCurrentLevel() - 1][i] instanceof Crackable) {
+            if (game.getBrickLevels()[game.getCurrentLevel() - 1][i] instanceof Crackable && !game.getBrickLevels()[game.getCurrentLevel() - 1][i].isBroken()) {
                 if (((Crackable) game.getBrickLevels()[game.getCurrentLevel() - 1][i]).getCrackPath() != null) {
                     Path path = ((Crackable) game.getBrickLevels()[game.getCurrentLevel() - 1][i]).getCrackPath();
-                    graphicsContext.setFill(Color.BLACK);
+                    graphicsContext.setStroke(game.getBrickLevels()[game.getCurrentLevel()-1][i].getBorderColor().darker());
                     graphicsContext.beginPath();
                     graphicsContext.moveTo(((MoveTo) path.getElements().get(0)).getX(), ((MoveTo) path.getElements().get(0)).getY());
                     for (int x = 1; x < path.getElements().size(); x++) {
                         graphicsContext.lineTo(((LineTo) path.getElements().get(x)).getX(), ((LineTo) path.getElements().get(x)).getY());
                     }
                     graphicsContext.closePath();
+                    graphicsContext.stroke();
                 }
             }
         }
@@ -332,13 +343,7 @@ public class GameStateController implements Initializable {
      */
     public void findImpacts(){
         if(impact(game.getBall(),game.getPlayer())){
-            game.getBall().setYSpeed(-game.getBall().getYSpeed());
-            if(getRnd().nextBoolean() && game.getBall().getYSpeed() > -4){
-                game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
-            }
-            else if(getRnd().nextBoolean() && game.getBall().getYSpeed() < -1){
-                game.getBall().setYSpeed(game.getBall().getYSpeed()+1);
-            }
+            ballBottomCollision();
         }
 
         else if(impactWall()){
@@ -347,38 +352,70 @@ public class GameStateController implements Initializable {
 
         if((game.getBall().getBounds().getMinX() < gameBoard.getBoundsInLocal().getMinX())){
             if (game.getBall().getXSpeed() < 0){
-                game.getBall().setXSpeed(-game.getBall().getXSpeed());
-                if(getRnd().nextBoolean() && game.getBall().getXSpeed() < 4){
-                    game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
-                }else if(getRnd().nextBoolean() && game.getBall().getXSpeed() > 1){
-                    game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
-                }
+                ballLeftCollision();
             }
         }else if(game.getBall().getBounds().getMaxX() > gameBoard.getBoundsInLocal().getMaxX()){
             if (game.getBall().getXSpeed() > 0){
-                game.getBall().setXSpeed(-game.getBall().getXSpeed());
-                if(getRnd().nextBoolean() && (game.getBall().getXSpeed() > -4)){
-                    game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
-                }else if(getRnd().nextBoolean() && game.getBall().getXSpeed() < -1){
-                    game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
-                }
+                ballRightCollision();
             }
         }
 
         if(game.getBall().getBounds().getMinY() < gameBoard.getBoundsInLocal().getMinY()){
-            game.getBall().setYSpeed(-game.getBall().getYSpeed());
-
-            if(getRnd().nextBoolean() && game.getBall().getYSpeed() < 4)
-                game.getBall().setYSpeed(game.getBall().getYSpeed()+1);
-            else if(getRnd().nextBoolean() && game.getBall().getYSpeed() > 1)
-                game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
+            ballTopCollision();
         }
         else if(game.getBall().getBounds().getMaxY() > gameBoard.getBoundsInLocal().getMaxY()){
             game.setBallCount(game.getBallCount() - 1);
-            game.getPlayer().resetPosition();
             game.getBall().resetPosition();
+            game.getPlayer().resetPosition();
             game.getBall().setRandomBallSpeed();
             game.setBallLost(true);
+        }
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the x-axis with an increment of a decrement in speed if it is being collided on the left side of the ball.
+     */
+    private void ballLeftCollision() {
+        game.getBall().setXSpeed(-game.getBall().getXSpeed());
+        if(game.getRnd().nextBoolean() && game.getBall().getXSpeed() < 4){
+            game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
+        }else if(game.getRnd().nextBoolean() && game.getBall().getXSpeed() > 1){
+            game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
+        }
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the x-axis with an increment of a decrement in speed if it is being collided on the right side of the ball.
+     */
+    private void ballRightCollision() {
+        game.getBall().setXSpeed(-game.getBall().getXSpeed());
+        if(game.getRnd().nextBoolean() && (game.getBall().getXSpeed() > -4)){
+            game.getBall().setXSpeed(game.getBall().getXSpeed()-1);
+        }else if(game.getRnd().nextBoolean() && game.getBall().getXSpeed() < -1){
+            game.getBall().setXSpeed(game.getBall().getXSpeed()+1);
+        }
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the y-axis with an increment of a decrement in speed if it is being collided on the top side of the ball.
+     */
+    private void ballTopCollision() {
+        game.getBall().setYSpeed(-game.getBall().getYSpeed());
+        if(game.getRnd().nextBoolean() && game.getBall().getYSpeed() < 4)
+            game.getBall().setYSpeed(game.getBall().getYSpeed()+1);
+        else if(game.getRnd().nextBoolean() && game.getBall().getYSpeed() > 1)
+            game.getBall().setYSpeed(game.getBall().getYSpeed()-1);
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the y-axis with an increment of a decrement in speed if it is being collided on the bottom side of the ball.
+     */
+    private void ballBottomCollision() {
+        game.getBall().setYSpeed(-game.getBall().getYSpeed());
+        if (game.getRnd().nextBoolean() && game.getBall().getYSpeed() > -4) {
+            game.getBall().setYSpeed(game.getBall().getYSpeed() - 1);
+        } else if (game.getRnd().nextBoolean() && game.getBall().getYSpeed() < -1) {
+            game.getBall().setYSpeed(game.getBall().getYSpeed() + 1);
         }
     }
 
@@ -394,7 +431,7 @@ public class GameStateController implements Initializable {
     }
 
     /**
-     * this is to check if the ball comes in contact with any side of the brick.
+     * this method change the ball direction and also returns true if the ball comes in contact with any side of the brick.
      *
      * @return returns a boolean value if or if it doesn't touch any entity.
      */
@@ -402,19 +439,19 @@ public class GameStateController implements Initializable {
         for(Brick b : game.getBricks()){
             if(!b.isBroken()){
                 if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
-                    game.getBall().setYSpeed(-game.getBall().getYSpeed());
+                    ballBottomCollision();
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
                 }
                 else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
-                    game.getBall().setYSpeed(-game.getBall().getYSpeed());
+                    ballTopCollision();
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()), Crack.getDOWN());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
-                    game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                    ballLeftCollision();
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getRIGHT());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
-                    game.getBall().setXSpeed(-game.getBall().getXSpeed());
+                    ballRightCollision();
                     return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
                 }
             }
@@ -438,23 +475,6 @@ public class GameStateController implements Initializable {
             gameScore.setCanGetTime(true);
             toggle = true;
         }
-    }
-
-    /**
-     * this method is used to get the random object used to have some randomness in the game.
-     * @return
-     */
-    public Random getRnd() {
-        return rnd;
-    }
-
-    /**
-     * this method is used to set a random object used for randomness of the game.
-     *
-     * @param rnd this is the random object used to set into the variable.
-     */
-    public void setRnd(Random rnd) {
-        this.rnd = rnd;
     }
 
     /**

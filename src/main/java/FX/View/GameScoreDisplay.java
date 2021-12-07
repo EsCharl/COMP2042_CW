@@ -1,3 +1,21 @@
+/*
+ *  Brick Destroy - A simple Arcade video game
+ *   Copyright (C) 2021  Leong Chang Yung
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package FX.View;
 
 import javafx.scene.Scene;
@@ -10,6 +28,13 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class GameScoreDisplay {
+
+    /**
+     * this method is used to create a window which will display the high scores and the current user score (time used) for the level in a Color.
+     *
+     * @param recordsArray this is the array of records that are processed and pass into this method for display.
+     * @param levelPlayTime this is the string of the user current time spent in the form of (XX:xx).
+     */
     public void generateLevelCompleteWindow(ArrayList<String> recordsArray, String levelPlayTime){
         Stage levelCompleteWindow = new Stage();
 
