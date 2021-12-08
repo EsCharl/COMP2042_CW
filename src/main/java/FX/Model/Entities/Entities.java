@@ -125,28 +125,44 @@ public abstract class Entities {
     /**
      * this method is used to set the inner color of the entity for future references.
      *
-     * @param innerColor
+     * @param innerColor this is the color used to set the inner color of the entity.
      */
     public void setInnerColor(Color innerColor) {
         this.innerColor = innerColor;
     }
 
     /**
-     * this method is used to get the width of the
-     * @return
+     * this method is used to get the width of the entity
+     *
+     * @return this is the width of the entity.
      */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * this method is used to set the width of the entity.
+     *
+     * @param width this is the width used to set into a variable for future reference.
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * this method is used to get the height of the entity.
+     *
+     * @return this returns the height of the entity.
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * this method is used to get set the height of the entity.
+     *
+     * @param height this is the height used to set into a variable for the entity.
+     */
     public void setHeight(int height) {
         this.height = height;
     }

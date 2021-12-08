@@ -18,7 +18,6 @@
 
 package FX.Model;
 
-import FX.Controller.GameStateController;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
@@ -26,10 +25,11 @@ import FX.Model.Entities.Brick.BrickFactory;
 import FX.Model.Entities.Brick.Crackable;
 import FX.Model.Entities.Player;
 import FX.Model.Levels.LevelFactory;
-import FX.Model.Levels.wallLevelTemplates;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -50,6 +50,8 @@ public class Game {
     private Random rnd;
 
     private Brick[] bricks;
+
+    private Image backgroundImage;
 
     private Brick[][] brickLevels;
     private int currentLevel;
@@ -88,6 +90,7 @@ public class Game {
      * this constructor is used to generate an object which is the wall used for the levels.
      */
     private Game(){
+        setBackgroundImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/GameImage.png"))));
 
         setRnd(new Random());
 
@@ -469,7 +472,8 @@ public class Game {
 
     /**
      * this method is used to set the random speed on both x-axis and y-axis for the ball.
-     * @param ball
+     *
+     * @param ball this is the ball used to set its speed random on both axis direction.
      */
     public void setRandomBallSpeed(Ball ball){
         do {
@@ -551,5 +555,23 @@ public class Game {
      */
     public void setToggle(boolean toggle) {
         this.toggle = toggle;
+    }
+
+    /**
+     * this method is used to get the gameplay background Image.
+     *
+     * @return this is the image used for the background of the game play.
+     */
+    public Image getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    /**
+     * this method is used to set the image into a variable for rendering on the gameplay window.
+     *
+     * @param backgroundImage this is the image used to be set into a variable for future reference.
+     */
+    public void setBackgroundImage(Image backgroundImage) {
+        this.backgroundImage = backgroundImage;
     }
 }

@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -67,7 +68,8 @@ public class GameScore {
 
     /**
      * this method is used to get the record on the last level that is completed to be displayed on a new window.
-     * @return
+     *
+     * @return this returns an array list which contains the score for that level, the first element being the highest (fastest) player try.
      */
     public ArrayList<String> getLastLevelCompletionRecord() {
         return lastLevelCompletionRecord;
@@ -109,11 +111,11 @@ public class GameScore {
      */
     public ArrayList<String> getHighScore() throws IOException, URISyntaxException {
 
-        Boolean placed = false;
+        boolean placed = false;
 
-        ArrayList<String> Completed = new ArrayList<String>();
+        ArrayList<String> Completed = new ArrayList<>();
 
-        Scanner scan = new Scanner(new File(GameScore.class.getResource(getLevelFilePathName()).toURI()));
+        Scanner scan = new Scanner(new File(Objects.requireNonNull(GameScore.class.getResource(getLevelFilePathName())).toURI()));
 
         while (scan.hasNextLine()){
             // to split the name and time to include inside the highscore.
@@ -207,7 +209,7 @@ public class GameScore {
      * @throws URISyntaxException this is in case if there is a problem if the resource path to the file can't be converted to String format.
      */
     public void updateSaveFile(ArrayList<String> sorted) throws IOException, URISyntaxException {
-        File file = new File(GameScore.class.getResource(getLevelFilePathName()).toURI());
+        File file = new File(Objects.requireNonNull(GameScore.class.getResource(getLevelFilePathName())).toURI());
         FileWriter overwrite = new FileWriter(file,false);
         for (int i = 0; i < sorted.size()-1; i++)
             overwrite.write(sorted.get(i)+"\n");

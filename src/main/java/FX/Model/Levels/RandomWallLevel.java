@@ -31,6 +31,7 @@ import java.util.Random;
  */
 public class RandomWallLevel extends FullWallRowsLevels implements wallLevelTemplates {
 
+    Random rnd = new Random();
 
     /**
      * this method is one of the template used for the wall (level). this creates a random brick level.

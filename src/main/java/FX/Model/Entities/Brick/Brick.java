@@ -22,9 +22,6 @@ import FX.Model.Entities.Entities;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.util.Random;
 
 /**
  * This class is an abstract class which is going to be used for implementation. (Model.Brick.CementBrick, Model.Brick.ClayBrick, Model.Brick.SteelBrick, Model.Brick.ReinforcedSteelBrick)

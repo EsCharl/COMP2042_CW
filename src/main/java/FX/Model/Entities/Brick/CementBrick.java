@@ -22,7 +22,6 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 
 /**
  * this class is used for the cement brick used for the walls.
@@ -44,7 +43,7 @@ public class CementBrick extends Brick implements Crackable{
      * @param size this is the size of the cement brick.
      */
     public CementBrick(Point2D point, Dimension2D size){
-        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH, CEMENT_PROBABILITY);
+        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH, CEMENT_PROBABILITY, NAME);
     }
 
     @Override

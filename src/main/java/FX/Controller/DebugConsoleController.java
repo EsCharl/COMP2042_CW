@@ -20,8 +20,6 @@ package FX.Controller;
 
 import FX.Model.Game;
 import FX.Model.GameScore;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -61,23 +59,17 @@ public class DebugConsoleController implements Initializable {
 
     @FXML
     public void xSpeedSliderMoved(){
-        xSpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                game.getBall().setSpeedX(t1.intValue());
-                textXSpeed.setText("new ball x-axis speed: " + t1);
-            }
+        xSpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            game.getBall().setSpeedX(t1.intValue());
+            textXSpeed.setText("new ball x-axis speed: " + t1);
         });
     }
 
     @FXML
     public void ySpeedSliderMoved(){
-        ySpeedSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                game.getBall().setSpeedY(t1.intValue());
-                textYSpeed.setText("new ball y-axis speed: " + t1);
-            }
+        ySpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            game.getBall().setSpeedY(t1.intValue());
+            textYSpeed.setText("new ball y-axis speed: " + t1);
         });
 
     }

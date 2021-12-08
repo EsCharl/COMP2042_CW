@@ -1,6 +1,5 @@
 package FX.Model.Entities.Brick;
 
-import FX.Model.Levels.wallLevelTemplates;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
@@ -21,17 +20,12 @@ public class BrickFactory {
      * @return this returns the brick that is created.
      */
     public Brick makeBrick(Point2D point, Dimension2D size, int type){
-        switch(type){
-            case(CLAY):
-                return new ClayBrick(point, size);
-            case(STEEL):
-                return new SteelBrick(point, size);
-            case(CEMENT):
-                return new CementBrick(point, size);
-            case(REINFORCED_STEEL):
-                return new ReinforcedSteelBrick(point, size);
-            default:
-                throw new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
-        }
+        return switch (type) {
+            case (CLAY) -> new ClayBrick(point, size);
+            case (STEEL) -> new SteelBrick(point, size);
+            case (CEMENT) -> new CementBrick(point, size);
+            case (REINFORCED_STEEL) -> new ReinforcedSteelBrick(point, size);
+            default -> throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
+        };
     }
 }

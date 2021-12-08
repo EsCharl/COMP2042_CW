@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class GameStart extends Application {
     public static MediaPlayer audio;
@@ -43,7 +44,7 @@ public class GameStart extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
         stage.setTitle("Brick Destroy");
         stage.setScene(new Scene(root,450,300));
         stage.setResizable(false);
@@ -70,7 +71,7 @@ public class GameStart extends Application {
      */
     public static void main(String[] args) {
 
-        Media media = new Media(GameStart.class.getResource("/Tunes/MainMenu+InfoScreen.wav").toExternalForm());
+        Media media = new Media(Objects.requireNonNull(GameStart.class.getResource("/Tunes/MainMenu+InfoScreen.wav")).toExternalForm());
         audio = new MediaPlayer(media);
         audio.play();
         audio.setCycleCount(MediaPlayer.INDEFINITE);
