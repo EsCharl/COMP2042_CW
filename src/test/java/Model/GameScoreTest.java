@@ -1,5 +1,7 @@
 package Model;
 
+import FX.Model.Game;
+import FX.Model.GameScore;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -11,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameScoreTest {
     GameScore gameScore = GameScore.singletonGameScore();
-    Game game = Game.singletonGame(30,3,6/2,new Point(300,430));
 
     @Test
     void getTimerString() {

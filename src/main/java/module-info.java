@@ -1,4 +1,4 @@
-module com.example.brickdestroyerfx {
+module com.example.COMP2042_CW_hcycl3 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;

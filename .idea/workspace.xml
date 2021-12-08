@@ -10,16 +10,100 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac8ae44a-9fcd-4e4c-93e1-0629654485bd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/RubberBall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Ball/RubberBall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/RubberBall.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Ball/RubberBall.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/Model/Brick/Brick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/brickdestroyerFX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/COMP2042_CW_hcycl3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/COMP2042_CW_jar/COMP2042_CW.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/COMP2042_CW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/COMP2042_CW.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GraphicsMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/Ball.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Ball/RubberBall.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/Brick.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/CementBrick.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/ClayBrick.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/Crack.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/ReinforcedSteelBrick.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Brick/SteelBrick.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/GameScore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/GameWindowSize.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/ChainWallLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/FullWallRowsLevels.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/LevelFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/RandomWallLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/TwoLinesWallLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/DebugConsole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameBoardView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameScoreDisplay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/HomeMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/InfoScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GameImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Info.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mainimage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/COMP2042_CW-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Controller/GameBoardController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GameImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/GraphicsMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Info.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/Ball.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Ball/RubberBall.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/Brick.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/CementBrick.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/ClayBrick.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/Crack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/ReinforcedSteelBrick.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Brick/SteelBrick.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/GameScore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/GameWindowSize.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Levels/ChainWallLevel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Levels/FullWallRowsLevels.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Levels/LevelFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Levels/RandomWallLevel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Levels/TwoLinesWallLevel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Levels/WallLevelTemplates.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/Model/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/DebugConsole.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameBoardView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/GameScoreDisplay.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/HomeMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/View/InfoScreen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/mainimage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/classes/scores/Level6.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Controller/GameBoardControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Model/GameScoreTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/Model/GameTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/target/test-classes/dummy1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/GameBoardControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Model/GameScoreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Model/GameScoreTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Model/GameTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/brickdestroyerFX-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/brickdestroyerFX-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scores/Level5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,15 +126,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/Model/Game.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/Model/Brick/CementBrick.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/Model/Levels/WallLevelTemplates.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/Controller/GameBoardController.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/Model/Brick/Brick.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/View/GameBoardView.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/View/DebugConsole.java" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="4" />
   </component>
@@ -65,8 +140,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/target/classes/FX" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -74,6 +149,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\target\classes\FX" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW\src\main\resources\scores" />
     </key>
@@ -101,10 +177,19 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GraphicsMain">
-    <configuration name="GraphicsMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GraphicsMain" />
-      <module name="COMP2042_CW" />
+  <component name="RunManager" selected="Application.GameStart">
+    <configuration name="GameStart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="FX.GameStart" />
+      <module name="COMP2042_CW_hcycl3" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\chang\Desktop\javafx-sdk-17.0.1\lib --add-modules=javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="FX.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -140,22 +225,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameBoardControllerTest.skipLevelTriggered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="View.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Controller" />
-      <option name="MAIN_CLASS_NAME" value="Controller.GameBoardControllerTest" />
-      <option name="METHOD_NAME" value="skipLevelTriggered" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GameTest.singletonGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW" />
       <extension name="coverage">
@@ -173,19 +242,17 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.GraphicsMain" />
-      <item itemvalue="JUnit.GameBoardControllerTest.skipLevelTriggered" />
+      <item itemvalue="Application.GameStart" />
       <item itemvalue="JUnit.GameBoardControllerTest.resetBallCountTriggered" />
       <item itemvalue="JUnit.GameBoardControllerTest" />
       <item itemvalue="JUnit.GameTest.singletonGame" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GraphicsMain" />
+        <item itemvalue="Application.GameStart" />
         <item itemvalue="JUnit.GameTest.singletonGame" />
         <item itemvalue="JUnit.GameBoardControllerTest" />
         <item itemvalue="JUnit.GameBoardControllerTest.resetBallCountTriggered" />
-        <item itemvalue="JUnit.GameBoardControllerTest.skipLevelTriggered" />
       </list>
     </recent_temporary>
   </component>

@@ -7,6 +7,7 @@
     <groupId>groupId</groupId>
     <artifactId>COMP2042_CW</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>COMP2042_CW_hcycl3</name>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
