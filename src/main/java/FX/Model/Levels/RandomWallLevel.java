@@ -19,6 +19,7 @@
 package FX.Model.Levels;
 
 import FX.Model.Entities.Brick.Brick;
+import FX.Model.Entities.Brick.BrickFactory;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
@@ -28,7 +29,7 @@ import java.util.Random;
 /**
  * this class is used to create one of the wall level.
  */
-public class RandomWallLevel extends FullWallRowsLevels implements WallLevelTemplates{
+public class RandomWallLevel extends FullWallRowsLevels implements wallLevelTemplates {
 
 
     /**
@@ -41,9 +42,7 @@ public class RandomWallLevel extends FullWallRowsLevels implements WallLevelTemp
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
     public Brick[] level(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
-
-        Random rnd = new Random();
-
+        BrickFactory brickFactory = new BrickFactory();
         brickCount -= brickCount % lineCount;
 
         brickCount += lineCount / 2;
@@ -60,12 +59,12 @@ public class RandomWallLevel extends FullWallRowsLevels implements WallLevelTemp
             double x = (i % getBrickOnLine(brickCount,lineCount)) * getDrawBrickLength(drawArea, lineCount, brickCount);
             x = (line % 2 == 0) ? x : (x - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2));
             double y = (line) * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);
-            brickArray[i] = makeBrick(new Point2D(x,y),brickSize, rnd.nextInt(4)+1);
+            brickArray[i] = brickFactory.makeBrick(new Point2D(x,y),brickSize, rnd.nextInt(4)+1);
         }
 
         for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio); i < brickArray.length; i++, y += 2 * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
             double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
-            brickArray[i] = makeBrick(new Point2D(x,y),brickSize, rnd.nextInt(4)+1);
+            brickArray[i] = brickFactory.makeBrick(new Point2D(x,y),brickSize, rnd.nextInt(brickFactory.brickTypes.length)+1);
         }
         return brickArray;
     }

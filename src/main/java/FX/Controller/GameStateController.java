@@ -18,6 +18,7 @@
 
 package FX.Controller;
 
+import FX.GameStart;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.Crackable;
@@ -39,6 +40,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -62,6 +64,19 @@ public class GameStateController implements Initializable {
     private AnimationTimer animationTimer;
     private Scene scene;
     private ArrayList<KeyCode> userInput;
+    private AudioClip clayBrickCollisionSound1;
+    private AudioClip clayBrickCollisionSound2;
+    private AudioClip gameWindowCollisionSound1;
+    private AudioClip gameWindowCollisionSound2;
+    private AudioClip ballPlayerCollisionSound1;
+    private AudioClip ballPlayerCollisionSound2;
+    private AudioClip steelBrickCollisionSound1;
+    private AudioClip steelBrickCollisionSound2;
+    private AudioClip cementBrickCollisionSound;
+    private AudioClip cementBrickDestroyedSound;
+
+    private AudioClip victorySound;
+    private AudioClip lostSound;
 
     private Image backgroundImage;
 
@@ -80,6 +95,19 @@ public class GameStateController implements Initializable {
 
         gameScore.setLevelFilePathName("/scores/Level"+ game.getCurrentLevel()+".txt");
         backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/GameImage.png")));
+
+        clayBrickCollisionSound1 = new AudioClip(getClass().getResource("/SoundEffects/ClayImpactSound1.mp3").toExternalForm());
+        clayBrickCollisionSound2 = new AudioClip(getClass().getResource("/SoundEffects/ClayImpactSound2.mp3").toExternalForm());
+        steelBrickCollisionSound1 = new AudioClip(getClass().getResource("/SoundEffects/SteelImpactSound1.mp3").toExternalForm());
+        steelBrickCollisionSound2 = new AudioClip(getClass().getResource("/SoundEffects/SteelImpactSound2.mp3").toExternalForm());
+        victorySound = new AudioClip(getClass().getResource("/SoundEffects/VictorySound.wav").toExternalForm());
+        lostSound = new AudioClip(getClass().getResource("/SoundEffects/DefeatSound.wav").toExternalForm());
+        gameWindowCollisionSound1 = new AudioClip(getClass().getResource("/SoundEffects/WindowImpact1.mp3").toExternalForm());
+        gameWindowCollisionSound2 = new AudioClip(getClass().getResource("/SoundEffects/WindowImpact2.mp3").toExternalForm());
+        ballPlayerCollisionSound1 = new AudioClip(getClass().getResource("/SoundEffects/BallPlayerImpactSound1.mp3").toExternalForm());
+        ballPlayerCollisionSound2 = new AudioClip(getClass().getResource("/SoundEffects/BallPlayerImpactSound2.mp3").toExternalForm());
+        cementBrickCollisionSound = new AudioClip(getClass().getResource("/SoundEffects/CementImpactSound.wav").toExternalForm());
+        cementBrickDestroyedSound = new AudioClip(getClass().getResource("/SoundEffects/CementBreak.mp3").toExternalForm());
     }
 
     @FXML
@@ -110,6 +138,8 @@ public class GameStateController implements Initializable {
                     game.setBallLost(false);
                     game.setToggle(false);
                     if(game.isGameOver()){
+                        GameStart.audio.pause();
+                        lostSound.play();
                         game.resetBallCount();
                         gameText.setText("Game Over. Time spent in this level: " + gameScore.getTimerString());
                         gameScore.restartTimer();
@@ -140,6 +170,8 @@ public class GameStateController implements Initializable {
                     gameScore.pauseTimer();
                     gameScore.setCanGetTime(false);
                     gameScoreHandler();
+                    GameStart.audio.pause();
+                    victorySound.play();
                     if(game.hasLevel()){
                         gameText.setText("Go to Next Level");
                         animationTimer.stop();
@@ -341,24 +373,26 @@ public class GameStateController implements Initializable {
     public void findImpacts(){
         if(impact(game.getBall(),game.getPlayer())){
             ballBottomCollision();
+            ballCollisionRandomSound(ballPlayerCollisionSound1, ballPlayerCollisionSound2);
         }
-
         else if(impactWall()){
             game.setBrickCount(game.getBrickCount()-1);
         }
-
         if((game.getBall().getBounds().getMinX() < gameBoard.getBoundsInLocal().getMinX())){
-            if (game.getBall().getSpeedX() < 0){
+            if (game.getBall().getXSpeed() < 0){
+                ballCollisionRandomSound(gameWindowCollisionSound1, gameWindowCollisionSound2);
                 ballLeftCollision();
             }
         }else if(game.getBall().getBounds().getMaxX() > gameBoard.getBoundsInLocal().getMaxX()){
-            if (game.getBall().getSpeedX() > 0){
+            if (game.getBall().getXSpeed() > 0){
+                ballCollisionRandomSound(gameWindowCollisionSound1, gameWindowCollisionSound2);
                 ballRightCollision();
             }
         }
 
         if(game.getBall().getBounds().getMinY() < gameBoard.getBoundsInLocal().getMinY()){
             ballTopCollision();
+            ballCollisionRandomSound(gameWindowCollisionSound1, gameWindowCollisionSound2);
         }
         else if(game.getBall().getBounds().getMaxY() > gameBoard.getBoundsInLocal().getMaxY()){
             game.setBallCount(game.getBallCount() - 1);
@@ -367,6 +401,43 @@ public class GameStateController implements Initializable {
             game.setRandomBallSpeed(game.getBall());
             game.setBallLost(true);
         }
+    }
+
+    /**
+     * this method is used to play a sound effect when the brick collides with a brick.
+     *
+     * @param b this is the brick which is being collided by the ball.
+     */
+    private void playBrickSoundEffect(Brick b){
+        switch (b.getBrickName()){
+            case "Clay Brick":
+                ballCollisionRandomSound(clayBrickCollisionSound1, clayBrickCollisionSound2);
+                break;
+            case "Reinforced Steel Brick":
+            case "Steel Brick":
+                ballCollisionRandomSound(steelBrickCollisionSound1, steelBrickCollisionSound2);
+                break;
+            case "Cement Brick":
+                if(!b.isBroken())
+                    cementBrickCollisionSound.play();
+                else
+                    cementBrickDestroyedSound.play();
+                break;
+            default:
+        }
+    }
+
+    /**
+     * this method is used to play a random sound effect when there is a collision from the ball.
+     *
+     * @param soundEffect1 this is one of the sound effect which might be selected based on a random probability
+     * @param soundEffect2 this is the other sound effect which might be selected based on a random probability
+     */
+    private void ballCollisionRandomSound(AudioClip soundEffect1, AudioClip soundEffect2) {
+        if (game.getRnd().nextBoolean())
+            soundEffect1.play();
+        else
+            soundEffect2.play();
     }
 
     /**
@@ -437,19 +508,23 @@ public class GameStateController implements Initializable {
             if(!b.isBroken()){
                 if(b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2, game.getBall().getBounds().getMaxY())){
                     ballBottomCollision();
-                    return setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crackable.UP, b);
+                    playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX()-game.getBall().getBounds().getHeight(),game.getBall().getBounds().getMaxY()), Crack.getUP());
                 }
                 else if (b.getBounds().contains(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth()/2,game.getBall().getBounds().getMinY())){
                     ballTopCollision();
-                    return setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()), Crackable.DOWN, b);
+                    playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMinX()+game.getBall().getBounds().getWidth(),game.getBall().getBounds().getMinY()), Crack.getDOWN());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     ballLeftCollision();
-                    return setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crackable.RIGHT, b);
+                    playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMaxX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getRIGHT());
                 }
                 else if(b.getBounds().contains(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMinY()+game.getBall().getBounds().getHeight()/2)){
                     ballRightCollision();
-                    return setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crackable.LEFT, b);
+                    playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(game.getBall().getBounds().getMinX(),game.getBall().getBounds().getMaxY()-game.getBall().getBounds().getHeight()), Crack.getLEFT());
                 }
             }
         }
@@ -492,6 +567,8 @@ public class GameStateController implements Initializable {
             game.setToggle(false);
         }
         else{
+            victorySound.stop();
+            GameStart.audio.play();
             animationTimer.start();
             gameScore.startTimer();
             gameScore.setCanGetTime(true);

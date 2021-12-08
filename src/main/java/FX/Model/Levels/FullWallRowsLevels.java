@@ -19,8 +19,6 @@
 package FX.Model.Levels;
 
 import FX.Model.Entities.Brick.*;
-import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
 
 
@@ -36,31 +34,8 @@ public abstract class FullWallRowsLevels {
      * @param brickCount the amount of bricks that is going to be set for the array.
      * @return it returns a new empty brick array.
      */
-    Brick[] createBrickArray(int brickCount){
+    public Brick[] createBrickArray(int brickCount){
         return new Brick[brickCount];
-    }
-
-    /**
-     * this method is used to select and create the brick object needed for the level.
-     *
-     * @param point this is used get the position where the brick is supposed to be.
-     * @param size this is for the size of the brick
-     * @param type this is the type of brick to be used.
-     * @return this returns the brick that is created.
-     */
-    Brick makeBrick(Point2D point, Dimension2D size, int type){
-        switch(type){
-            case(WallLevelTemplates.CLAY):
-                return new ClayBrick(point, size);
-            case(WallLevelTemplates.STEEL):
-                return new SteelBrick(point, size);
-            case(WallLevelTemplates.CEMENT):
-                return new CementBrick(point, size);
-            case(WallLevelTemplates.REINFORCED_STEEL):
-                return new ReinforcedSteelBrick(point, size);
-            default:
-                throw new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
-        }
     }
 
     /**

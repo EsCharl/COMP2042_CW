@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
  */
 public class ClayBrick extends Brick {
 
+    private static final String NAME = "Clay Brick";
     private static final Color DEF_INNER = Color.rgb(178, 34, 34,1).darker();
     private static final Color DEF_BORDER = Color.GRAY;
     private static final int CLAY_STRENGTH = 1;
@@ -39,6 +40,6 @@ public class ClayBrick extends Brick {
      * @param size the size of the brick.
      */
     public ClayBrick(Point2D point, Dimension2D size){
-        super(point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH,CLAY_PROBABILITY);
+        super(point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH,CLAY_PROBABILITY,NAME);
     }
 }

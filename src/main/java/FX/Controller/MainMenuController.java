@@ -33,7 +33,6 @@ public class MainMenuController {
 
     /**
      * this method is used to change the scene to the info scene which shows the user on how to play the game.
-     *
      */
     @FXML
     protected void onInfoButtonClick() {
