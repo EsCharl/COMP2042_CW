@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/COMP2042_CW.iml" filepath="$PROJECT_DIR$/COMP2042_CW.iml" />
       <module fileurl="file://$PROJECT_DIR$/COMP2042_CW_hcycl3.iml" filepath="$PROJECT_DIR$/COMP2042_CW_hcycl3.iml" />
     </modules>
   </component>

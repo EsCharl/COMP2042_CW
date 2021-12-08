@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -56,6 +57,7 @@ public class MainMenuController {
         loader = FXMLLoader.load(getClass().getResource("/FX/GameState.fxml"));
 
         Stage newStage = new Stage();
+        newStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/GameIcon.png")));
         newStage.setScene(new Scene(loader));
         newStage.setResizable(false);
         newStage.setOnCloseRequest(windowEvent -> onExitButton());

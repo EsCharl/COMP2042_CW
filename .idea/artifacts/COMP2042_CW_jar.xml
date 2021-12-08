@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="COMP2042_CW:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/COMP2042_CW_jar</output-path>
-    <root id="archive" name="COMP2042_CW.jar">
-      <element id="module-output" name="COMP2042_CW" />
-    </root>
-  </artifact>
-</component>

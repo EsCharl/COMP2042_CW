@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
@@ -45,6 +46,7 @@ public class GameStart extends Application {
     public void start(Stage stage) throws IOException {
         stage.initStyle(StageStyle.TRANSPARENT);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/GameIcon.png")));
         stage.setTitle("Brick Destroy");
         stage.setScene(new Scene(root,450,300));
         stage.setResizable(false);
