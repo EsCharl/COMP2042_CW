@@ -1,0 +1,6 @@
+.mainmenu{
+    -fx-background-color: transparent;
+    -fx-font-family: monospaced;
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
