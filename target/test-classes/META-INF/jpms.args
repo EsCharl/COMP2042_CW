@@ -1,0 +1,4 @@
+--patch-module
+com.example.COMP2042_CW_hcycl3=_
+--add-reads
+com.example.COMP2042_CW_hcycl3=ALL-UNNAMED

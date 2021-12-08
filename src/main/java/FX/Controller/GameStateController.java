@@ -48,11 +48,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class GameStateController implements Initializable {
 
@@ -110,7 +113,7 @@ public class GameStateController implements Initializable {
                     gameScore.pauseTimer();
                     gameScore.setCanGetTime(false);
                     game.setBallLost(false);
-                    game.setToggle(false);
+                    game.setPauseMode(false);
                     if(game.isGameOver()){
                         GameStart.audio.pause();
                         soundEffects.getLostSound().play();
@@ -146,7 +149,7 @@ public class GameStateController implements Initializable {
                     gameScoreHandler();
                     GameStart.audio.pause();
                     soundEffects.getVictorySound().play();
-                    if(game.hasLevel()){
+                    if(game.getCurrentLevel() < game.getBrickLevels().length){
                         gameText.setText("Go to Next Level");
                         animationTimer.stop();
                         game.nextLevel();
@@ -198,7 +201,7 @@ public class GameStateController implements Initializable {
                     gameText.setText("Focus Lost");
                     gameScore.setCanGetTime(false);
                     animationTimer.stop();
-                    game.setToggle(false);
+                    game.setPauseMode(false);
                 });
             }
 
@@ -256,7 +259,7 @@ public class GameStateController implements Initializable {
      */
     private void gameScoreHandler() {
         try {
-            gameScore.setLastLevelCompletionRecord(gameScore.getHighScore());
+            gameScore.setLastLevelCompletionRecord(getHighScore());
             gameScore.updateSaveFile(gameScore.getLastLevelCompletionRecord());
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
@@ -269,7 +272,7 @@ public class GameStateController implements Initializable {
      *
      * @param userInput this is the array of user input.
      */
-    private void movementKeyHandler(ArrayList<KeyCode> userInput){
+    public void movementKeyHandler(ArrayList<KeyCode> userInput){
         if(userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D) || userInput.isEmpty()){
             game.getPlayer().setMoveAmount(0);
         }else if(userInput.contains(KeyCode.A)){
@@ -282,8 +285,10 @@ public class GameStateController implements Initializable {
 
     /**
      * this method is used to deal with non movement features, like pause menu, show debug console, pause and resume of the game.
+     *
+     * @param userInput this is the array of user input.
      */
-    private void nonMovementKeyHandler(ArrayList<KeyCode> userInput){
+    public void nonMovementKeyHandler(ArrayList<KeyCode> userInput){
         if(userInput.contains(KeyCode.ESCAPE)){
             if(gameScore.isCanGetTime()){
                 gameScore.pauseTimer();
@@ -299,7 +304,7 @@ public class GameStateController implements Initializable {
                 gameScore.setCanGetTime(false);
             }
             animationTimer.stop();
-            game.setToggle(false);
+            game.setPauseMode(false);
             showDebugConsole();
         }else if(userInput.contains(KeyCode.H)){
             game.setBotMode(!game.isBotMode());
@@ -344,7 +349,7 @@ public class GameStateController implements Initializable {
     /**
      * this method is used to check if there is an impact for the ball with any entity or the sides of the screen. which will cause a reaction to the ball and the brick.
      */
-    public void findImpacts(){
+    private void findImpacts(){
         if(impact(game.getBall(),game.getPlayer())){
             ballBottomCollision();
             ballCollisionRandomSound(soundEffects.getBallPlayerCollisionSound1(), soundEffects.getBallPlayerCollisionSound2());
@@ -363,7 +368,6 @@ public class GameStateController implements Initializable {
                 ballRightCollision();
             }
         }
-
         if(game.getBall().getBounds().getMinY() < gameBoard.getBoundsInLocal().getMinY()){
             ballTopCollision();
             ballCollisionRandomSound(soundEffects.getGameWindowCollisionSound1(), soundEffects.getGameWindowCollisionSound2());
@@ -392,7 +396,7 @@ public class GameStateController implements Initializable {
                 ballCollisionRandomSound(soundEffects.getSteelBrickCollisionSound1(), soundEffects.getSteelBrickCollisionSound2());
                 break;
             case "Cement Brick":
-                if(!b.isBroken())
+                if(b.getCurrentStrength() == b.getMaxStrength())
                     soundEffects.getCementBrickCollisionSound().play();
                 else
                     soundEffects.getCementBrickDestroyedSound().play();
@@ -417,7 +421,7 @@ public class GameStateController implements Initializable {
     /**
      * this method is used to change the direction of the ball to another direction on the x-axis with an increment of a decrement in speed if it is being collided on the left side of the ball.
      */
-    private void ballLeftCollision() {
+    public void ballLeftCollision() {
         game.getBall().setSpeedX(-game.getBall().getSpeedX());
         if(game.getRnd().nextBoolean() && game.getBall().getSpeedX() < game.getBall().getMAX_BALL_SPEED()){
             game.getBall().setSpeedX(game.getBall().getSpeedX()+1);
@@ -429,7 +433,7 @@ public class GameStateController implements Initializable {
     /**
      * this method is used to change the direction of the ball to another direction on the x-axis with an increment of a decrement in speed if it is being collided on the right side of the ball.
      */
-    private void ballRightCollision() {
+    public void ballRightCollision() {
         game.getBall().setSpeedX(-game.getBall().getSpeedX());
         if(game.getRnd().nextBoolean() && (game.getBall().getSpeedX() > -game.getBall().getMAX_BALL_SPEED())){
             game.getBall().setSpeedX(game.getBall().getSpeedX()-1);
@@ -441,7 +445,7 @@ public class GameStateController implements Initializable {
     /**
      * this method is used to change the direction of the ball to another direction on the y-axis with an increment of a decrement in speed if it is being collided on the top side of the ball.
      */
-    private void ballTopCollision() {
+    public void ballTopCollision() {
         game.getBall().setSpeedY(-game.getBall().getSpeedY());
         if(game.getRnd().nextBoolean() && game.getBall().getSpeedY() < game.getBall().getMAX_BALL_SPEED())
             game.getBall().setSpeedY(game.getBall().getSpeedY()+1);
@@ -452,11 +456,11 @@ public class GameStateController implements Initializable {
     /**
      * this method is used to change the direction of the ball to another direction on the y-axis with an increment of a decrement in speed if it is being collided on the bottom side of the ball.
      */
-    private void ballBottomCollision() {
+    public void ballBottomCollision() {
         game.getBall().setSpeedY(-game.getBall().getSpeedY());
         if (game.getRnd().nextBoolean() && game.getBall().getSpeedY() > -game.getBall().getMAX_BALL_SPEED()) {
             game.getBall().setSpeedY(game.getBall().getSpeedY() - 1);
-        } else if (game.getRnd().nextBoolean() && game.getBall().getSpeedY() < -game.getBall().getMIN_BALL_SPEED()) {
+        }else if (game.getRnd().nextBoolean() && game.getBall().getSpeedY() < -game.getBall().getMIN_BALL_SPEED()) {
             game.getBall().setSpeedY(game.getBall().getSpeedY() + 1);
         }
     }
@@ -468,7 +472,7 @@ public class GameStateController implements Initializable {
      * @param object this is the object used to see if it is going to get collided.
      * @return this returns a boolean value if collision occur
      */
-    private boolean impact(Ball ball, Entities object){
+    public boolean impact(Ball ball, Entities object){
         return ball.getBounds().intersects(object.getBounds());
     }
 
@@ -521,9 +525,8 @@ public class GameStateController implements Initializable {
             brick.setBroken(brick.getCurrentStrength() == 0);
         }
         if(!brick.isBroken()){
-            if(hit){ // remove this if statement for more fun inducing excitement. :D
+            if(hit){
                 prepareCrack(point,dir, brick);
-//                updateBrick();
             }
             return false;
         }
@@ -531,14 +534,51 @@ public class GameStateController implements Initializable {
     }
 
     /**
+     * this method is used to get the scores from the save file and the player score (in terms of time) and rank them.
+     *
+     * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
+     * @throws IOException this is an exception used when there is a problem with the input and output file.
+     * @throws URISyntaxException this exception is used to check if there is a problem in the string could not be parsed as URI reference.
+     */
+    private ArrayList<String> getHighScore() throws IOException, URISyntaxException {
+
+        boolean placed = false;
+
+        ArrayList<String> Completed = new ArrayList<>();
+
+        Scanner scan = new Scanner(new File(Objects.requireNonNull(GameScore.class.getResource(gameScore.getLevelFilePathName())).toURI()));
+
+        while (scan.hasNextLine()){
+            String[] line = scan.nextLine().split(",",2);
+            String name = line[0];
+            String time = line[1];
+
+            String[] preTime = time.split(":",2);
+            int minute = Integer.parseInt(preTime[0]);
+            int second = Integer.parseInt(preTime[1]);
+
+            int total_millisecond = (minute * 60 + second) * 1000;
+            if ((gameScore.getTotalTime() < total_millisecond) && !placed){
+                Completed.add(System.getProperty("user.name") + ',' + gameScore.getTimerString());
+                placed = true;
+            }
+            Completed.add(name + ',' + time);
+        }
+        if(!placed){
+            Completed.add(System.getProperty("user.name") + ',' + gameScore.getTimerString());
+        }
+        return Completed;
+    }
+
+    /**
      * this method is used to toggle between pausing the game and proceeding th game
      */
-    public void togglePauseContinueGame(){
-        if(game.isToggle()){
+    private void togglePauseContinueGame(){
+        if(game.isPauseMode()){
             animationTimer.stop();
             gameScore.pauseTimer();
             gameScore.setCanGetTime(true);
-            game.setToggle(false);
+            game.setPauseMode(false);
         }
         else{
             soundEffects.getVictorySound().stop();
@@ -546,14 +586,14 @@ public class GameStateController implements Initializable {
             animationTimer.start();
             gameScore.startTimer();
             gameScore.setCanGetTime(true);
-            game.setToggle(true);
+            game.setPauseMode(true);
         }
     }
 
     /**
      * this method is used to show a debug console.
      */
-    public void showDebugConsole(){
+    private void showDebugConsole(){
         Stage debugConsole = new Stage();
         Parent root = null;
         try {
@@ -564,6 +604,7 @@ public class GameStateController implements Initializable {
 
         debugConsole.setScene(new Scene(root));
         debugConsole.setTitle("Debug Console");
+        debugConsole.setResizable(false);
         debugConsole.initOwner(anchorPane.getScene().getWindow());
         debugConsole.initModality(Modality.WINDOW_MODAL);
         debugConsole.showAndWait();
@@ -572,7 +613,7 @@ public class GameStateController implements Initializable {
     /**
      * this method is used to show the pause menu on the screen.
      */
-    public void showPauseMenu(){
+    private void showPauseMenu(){
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/FX/PauseMenu.fxml"));
@@ -675,5 +716,4 @@ public class GameStateController implements Initializable {
                 return new Point2D(0,0);
         }
     }
-
 }

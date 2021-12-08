@@ -22,6 +22,7 @@ import FX.Model.Game;
 import FX.Model.GameScore;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
@@ -32,6 +33,7 @@ public class DebugConsoleController implements Initializable {
 
     @FXML private Slider xSpeedSlider, ySpeedSlider;
     @FXML private Label textXSpeed, textYSpeed;
+    @FXML private ChoiceBox levelSelector;
 
     private Game game;
     private GameScore gameScore;
@@ -71,12 +73,32 @@ public class DebugConsoleController implements Initializable {
             game.getBall().setSpeedY(t1.intValue());
             textYSpeed.setText("new ball y-axis speed: " + t1);
         });
+    }
 
+    @FXML
+    public void setLevelSelector(){
+
+        levelSelector.setOnAction(actionEvent -> {
+            int selectedIndex = levelSelector.getSelectionModel().getSelectedIndex();
+
+            game.setCurrentLevel(selectedIndex);
+            skipLevelButtonClicked();
+        });
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         xSpeedSlider.setValue(game.getBall().getSpeedX());
         ySpeedSlider.setValue(game.getBall().getSpeedY());
+
+        levelSelector.setValue(game.getCurrentLevel());
+
+        levelSelector.getItems().add("Level 1");
+        levelSelector.getItems().add("Level 2");
+        levelSelector.getItems().add("Level 3");
+        levelSelector.getItems().add("Level 4");
+        levelSelector.getItems().add("Level 5");
+        levelSelector.getItems().add("Level 6");
+        levelSelector.getItems().add("Level 7");
     }
 }

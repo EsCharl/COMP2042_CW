@@ -74,7 +74,7 @@ public class Game {
 
     private boolean showPauseMenu;
     private boolean botMode;
-    private boolean toggle = true;
+    private boolean pauseMode = true;
 
     /**
      * this method is used to create a Model.Wall object based on the Singleton design pattern.
@@ -245,15 +245,6 @@ public class Game {
     public void nextLevel(){
         setBricks(getBrickLevels()[currentLevel++]);
         setBrickCount(getBricks().length);
-    }
-
-    /**
-     * this method is used to check if there is any more levels available for the player to play.
-     *
-     * @return returns a boolean value if there is or isn't any more levels for the player to play.
-     */
-    public boolean hasLevel(){
-        return getCurrentLevel() < getBrickLevels().length;
     }
 
     /**
@@ -479,7 +470,6 @@ public class Game {
         do {
             ball.setSpeedX(getRnd().nextBoolean() ? getRnd().nextInt(ball.getMAX_BALL_SPEED()) : -getRnd().nextInt(ball.getMAX_BALL_SPEED()));
         } while (ball.getSpeedX() == 0);
-
         do{
             ball.setSpeedY(-getRnd().nextInt(ball.getMAX_BALL_SPEED()));
         }while(ball.getSpeedY() == 0);
@@ -544,17 +534,17 @@ public class Game {
      *
      * @return this returns a boolean variable to confirm if it is paused or not paused.
      */
-    public boolean isToggle() {
-        return toggle;
+    public boolean isPauseMode() {
+        return pauseMode;
     }
 
     /**
      * this method is used to check if the game is pause or no.
      *
-     * @param toggle this is used to set the if the game paused or no.
+     * @param pauseMode this is used to set the if the game paused or no.
      */
-    public void setToggle(boolean toggle) {
-        this.toggle = toggle;
+    public void setPauseMode(boolean pauseMode) {
+        this.pauseMode = pauseMode;
     }
 
     /**

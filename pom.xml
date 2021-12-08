@@ -53,7 +53,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.example.COMP2042_CW_hcycl3/FX.GameStart</mainClass>
+                            <mainClass>FX.GameStart</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

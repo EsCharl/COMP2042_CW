@@ -5,41 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e3d663f-6ca4-4543-bcb3-690671942058" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/COMP2042_CW_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/COMP2042_CW.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Model/GameScoreTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/brickdestroyerFX-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/SoundEffects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/SoundEffects.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/FX/DebugConsole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/FX/DebugConsole.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Model/GameScoreTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/DebugConsole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/DebugConsole.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/SoundEffects.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/SoundEffects.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scores/Level5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +36,8 @@
       <list>
         <option value="FxmlFile" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -98,11 +83,11 @@
       <recent name="C:\Users\chang\Desktop\brickdestroyerFX\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\resources\FX" />
       <recent name="C:\Users\chang\Desktop\brickdestroyerFX\src\main\resources\SoundEffects" />
       <recent name="C:\Users\chang\Desktop\brickdestroyerFX\src\main\resources\images" />
       <recent name="C:\Users\chang\Desktop\brickdestroyerFX\target\classes\images" />
       <recent name="C:\Users\chang\Desktop\brickdestroyerFX\target\classes\FX" />
-      <recent name="C:\Users\chang\Desktop\brickdestroyerFX\src\main\resources\CSS" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -111,6 +96,7 @@
       <recent name="FX" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="FX.Controller" />
       <recent name="FX.Model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -119,8 +105,8 @@
       <recent name="FX.Model.Brick" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.GameScoreTest (1)">
-    <configuration name="GameStart" type="Application" factoryName="Application" temporary="true">
+  <component name="RunManager" selected="Application.GameStart">
+    <configuration name="GameStart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FX.GameStart" />
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
@@ -133,32 +119,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameScoreTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in COMP2042_CW_hcycl3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW_hcycl3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="FX.Model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="FX.Model" />
-      <option name="MAIN_CLASS_NAME" value="FX.Model.GameScoreTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameScoreTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="FX.Model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="FX.Model" />
-      <option name="MAIN_CLASS_NAME" value="FX.Model.GameScoreTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -179,18 +143,68 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GameStateControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW_hcycl3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="FX.Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="FX.Controller" />
+      <option name="MAIN_CLASS_NAME" value="FX.Controller.GameStateControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameStateControllerTest.testBallLeftCollision" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW_hcycl3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="FX.Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="FX.Controller" />
+      <option name="MAIN_CLASS_NAME" value="FX.Controller.GameStateControllerTest" />
+      <option name="METHOD_NAME" value="testBallLeftCollision" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameStateControllerTest.testSetImpact" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW_hcycl3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="FX.Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="FX.Controller" />
+      <option name="MAIN_CLASS_NAME" value="FX.Controller.GameStateControllerTest" />
+      <option name="METHOD_NAME" value="testSetImpact" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.GameStart" />
       <item itemvalue="JUnit.GameScoreTest.restartTimer" />
-      <item itemvalue="JUnit.GameScoreTest" />
-      <item itemvalue="JUnit.GameScoreTest (1)" />
+      <item itemvalue="JUnit.All in COMP2042_CW_hcycl3" />
+      <item itemvalue="JUnit.GameStateControllerTest.testBallLeftCollision" />
+      <item itemvalue="JUnit.GameStateControllerTest" />
+      <item itemvalue="JUnit.GameStateControllerTest.testSetImpact" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GameScoreTest (1)" />
         <item itemvalue="Application.GameStart" />
-        <item itemvalue="Application.GameStart" />
-        <item itemvalue="JUnit.GameScoreTest" />
+        <item itemvalue="JUnit.GameStateControllerTest.testSetImpact" />
+        <item itemvalue="JUnit.GameStateControllerTest" />
+        <item itemvalue="JUnit.GameStateControllerTest.testBallLeftCollision" />
+        <item itemvalue="JUnit.All in COMP2042_CW_hcycl3" />
       </list>
     </recent_temporary>
   </component>
@@ -235,6 +249,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/COMP2042_CW_hcycl3$All_in_COMP2042_CW_hcycl3.ic" NAME="All in COMP2042_CW_hcycl3 Coverage Results" MODIFIED="1638966535373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/COMP2042_CW$GraphicsMain.ic" NAME="GraphicsMain Coverage Results" MODIFIED="1638769353573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

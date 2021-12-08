@@ -1,9 +1,16 @@
 package FX.Model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameScoreTest {
     GameScore gameScore = GameScore.singletonGameScore();
