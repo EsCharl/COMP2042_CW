@@ -25,11 +25,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * this interface is used to create multiple wall levels.
  */
-public interface WallLevelTemplates {
-    int CLAY = 1;
-    int STEEL = 2;
-    int CEMENT = 3;
-    int REINFORCED_STEEL = 4;
+public interface wallLevelTemplates {
 
     /**
      * this abstraction method is used to be implemented in the child classes. for the wall levels.

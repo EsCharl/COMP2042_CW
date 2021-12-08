@@ -21,10 +21,11 @@ package FX.Model;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
+import FX.Model.Entities.Brick.BrickFactory;
 import FX.Model.Entities.Brick.Crackable;
 import FX.Model.Entities.Player;
 import FX.Model.Levels.LevelFactory;
-import FX.Model.Levels.WallLevelTemplates;
+import FX.Model.Levels.wallLevelTemplates;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
 
@@ -36,7 +37,7 @@ import java.util.Random;
 public class Game {
 
     private final int MAX_BALL_COUNT = 3;
-    private final int LEVELS_AMOUNT = 6;
+    private final int LEVELS_AMOUNT = 7;
 
     private final int GAME_WINDOW_WIDTH = 600;
     private final int GAME_WINDOW_HEIGHT = 450;
@@ -114,12 +115,13 @@ public class Game {
     private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio){
         Brick[][] tmp = new Brick[getLEVELS_AMOUNT()][];
         LevelFactory levelFactory = new LevelFactory();
-        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CLAY);
-        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.CEMENT);
-        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.CLAY, WallLevelTemplates.STEEL);
-        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.STEEL, WallLevelTemplates.CEMENT);
-        tmp[4] = levelFactory.getLevel("TWOLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, WallLevelTemplates.REINFORCED_STEEL, WallLevelTemplates.STEEL);
-        tmp[5] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
+        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CLAY);
+        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CEMENT);
+        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.STEEL);
+        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.STEEL, BrickFactory.CEMENT);
+        tmp[4] = levelFactory.getLevel("STRAIGHTLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.REINFORCED_STEEL, BrickFactory.STEEL);
+        tmp[5] = levelFactory.getLevel("CURLYLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.REINFORCED_STEEL, BrickFactory.STEEL);
+        tmp[6] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
         return tmp;
     }
 

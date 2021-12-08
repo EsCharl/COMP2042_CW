@@ -73,6 +73,7 @@ public class GameStart extends Application {
         Media media = new Media(GameStart.class.getResource("/Tunes/MainMenu+InfoScreen.wav").toExternalForm());
         audio = new MediaPlayer(media);
         audio.play();
+        audio.setCycleCount(MediaPlayer.INDEFINITE);
 
         launch();
     }

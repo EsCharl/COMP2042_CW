@@ -19,6 +19,7 @@
 package FX.Model.Levels;
 
 import FX.Model.Entities.Brick.Brick;
+import FX.Model.Entities.Brick.BrickFactory;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
@@ -27,7 +28,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * this class is used to create one of the levels.
  */
-public class TwoLinesWallLevel extends FullWallRowsLevels implements WallLevelTemplates{
+public class StraightLinesLevel extends FullWallRowsLevels implements wallLevelTemplates {
     /**
      * this method is one of the template used for the wall (level). this creates a level that looks like an almost straight line of bricks on the left and right of the center.
      *
@@ -40,34 +41,20 @@ public class TwoLinesWallLevel extends FullWallRowsLevels implements WallLevelTe
      * @return it returns the bricks for the wall (level) in the form of a brick array.
      */
     public Brick[] level(Rectangle drawArea, int brickCount, int lineCount, double brickSizeRatio, int typeA, int typeB){
+        BrickFactory brickFactory = new BrickFactory();
         brickCount -= brickCount % lineCount;
-
-        int centerLeft = getBrickOnLine(brickCount,lineCount) / 2 - 1;
-        int centerRight = getBrickOnLine(brickCount,lineCount) / 2 + 1;
-
-        brickCount += lineCount / 2;
 
         Brick[] brickArray  = createBrickArray(brickCount);
 
         Dimension2D brickSize = new Dimension2D((int) getDrawBrickLength(drawArea, lineCount, brickCount),(int) getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio));
 
-        int i;
-        for(i = 0; i < brickArray.length; i++){
+        for(int i = 0; i < brickArray.length; i++){
             int line = i / getBrickOnLine(brickCount,lineCount);
-            if(line == lineCount)
-                break;
             int posX = i % getBrickOnLine(brickCount,lineCount);
             double x = posX * getDrawBrickLength(drawArea, lineCount, brickCount);
-            x = (line % 2 == 0) ? x : (x - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2));
             double y = (line) * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);
 
-            boolean b = ((i % 2 == 0) || (posX > centerLeft && posX <= centerRight));
-            brickArray[i] = b ? makeBrick(new Point2D(x,y),brickSize,typeA) : makeBrick(new Point2D(x,y),brickSize,typeB);
-        }
-
-        for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio);i < brickArray.length;i++, y += 2*getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
-            double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
-            brickArray[i] = makeBrick(new Point2D(x,y),brickSize,typeA);
+            brickArray[i] = (i % 2 == 0) ? brickFactory.makeBrick(new Point2D(x,y),brickSize,typeA) : brickFactory.makeBrick(new Point2D(x,y),brickSize,typeB);
         }
 
         return brickArray;
