@@ -33,6 +33,12 @@ public interface Crackable {
     int VERTICAL = 100;
     int HORIZONTAL = 200;
 
+    Crack crack = null;
+
+    Crack getCrack();
+
+    void setCrack(Crack crack);
+
     void setCrackPath(Path path);
 
     Path getCrackPath();

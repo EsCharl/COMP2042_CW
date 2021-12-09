@@ -20,7 +20,7 @@ package FX.Model.Levels;
 
 public class LevelFactory {
 
-        public wallLevelTemplates getLevel(String levelType){
+        public WallLevelTemplates getLevel(String levelType){
             if (levelType.equalsIgnoreCase("CHAINLEVEL")) {
                 return new ChainWallLevel();
             } else if (levelType.equalsIgnoreCase("CURLYLINESLEVEL")) {

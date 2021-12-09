@@ -28,7 +28,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * this class is used to create one of the levels.
  */
-public class ChainWallLevel extends FullWallRowsLevels implements wallLevelTemplates {
+public class ChainWallLevel extends FullWallRowsLevels {
 
     /**
      * this method is one of the template used for the wall (level). this creates a level which looks like a chessboard.

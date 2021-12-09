@@ -18,7 +18,7 @@
 
 package FX.Controller;
 
-import FX.Model.Game;
+import FX.Model.GameData;
 import FX.Model.GameScore;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,14 +32,14 @@ import java.io.IOException;
 public class PauseMenuController {
     @FXML private Button resume;
 
-    private Game game;
+    private GameData gameData;
     private GameScore gameScore;
 
     /**
      * this constructor is used to prepare the pause menu controller which is allows the user to resume the game, restart the game or quit the game.
      */
     public PauseMenuController(){
-        game = Game.singletonGame();
+        gameData = GameData.singletonGame();
         gameScore = GameScore.singletonGameScore();
     }
 
@@ -64,12 +64,12 @@ public class PauseMenuController {
      */
     @FXML
     public void restartButton(){
-        game.resetBallCount();
-        game.getBall().resetPosition();
-        game.getPlayer().resetPosition();
-        game.setRandomBallSpeed(game.getBall());
+        gameData.resetBallCount();
+        gameData.getBall().resetPosition();
+        gameData.getPlayer().resetPosition();
+        gameData.setRandomBallSpeed(gameData.getBall());
         gameScore.restartTimer();
-        game.wallReset();
+        gameData.wallReset();
 
         resumeButton();
     }

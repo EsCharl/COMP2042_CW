@@ -20,9 +20,12 @@ package FX.Model.Entities.Ball;
 
 import FX.Model.Entities.Entities;
 import FX.Model.Entities.Movable;
+import FX.Model.GameData;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+
+import java.util.Random;
 
 /**
  * this is an abstract class which is used for the rubber ball implementation.
@@ -35,6 +38,8 @@ abstract public class Ball extends Entities implements Movable {
     private int sppedX;
     private int speedY;
     private int radius;
+
+    private Random rnd = new Random();
 
     /**
      * this is the constructor used to create a ball object.
@@ -127,5 +132,52 @@ abstract public class Ball extends Entities implements Movable {
      */
     public int getMIN_BALL_SPEED() {
         return MIN_BALL_SPEED;
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the x-axis with an increment, decrement or maintain of speed if it is being collided on the left side of the ball.
+     */
+    public void ballLeftCollision() {
+        setSpeedX(-getSpeedX());
+        if(rnd.nextBoolean() && getSpeedX() < getMAX_BALL_SPEED()){
+            setSpeedX(getSpeedX()+1);
+        }else if(rnd.nextBoolean() && getSpeedX() > getMIN_BALL_SPEED()){
+            setSpeedX(getSpeedX()-1);
+        }
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the x-axis with an increment, decrement or maintain of speed if it is being collided on the right side of the ball.
+     */
+    public void ballRightCollision() {
+        setSpeedX(-getSpeedX());
+        if(rnd.nextBoolean() && (getSpeedX() > -getMAX_BALL_SPEED())){
+            setSpeedX(getSpeedX()-1);
+        }else if(rnd.nextBoolean() && getSpeedX() < -getMIN_BALL_SPEED()){
+            setSpeedX(getSpeedX()+1);
+        }
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the y-axis with an increment, decrement or maintain of speed if it is being collided on the top side of the ball.
+     */
+    public void ballTopCollision() {
+        setSpeedY(-getSpeedY());
+        if(rnd.nextBoolean() && getSpeedY() < getMAX_BALL_SPEED())
+            setSpeedY(getSpeedY()+1);
+        else if(rnd.nextBoolean() && getSpeedY() > getMIN_BALL_SPEED())
+            setSpeedY(getSpeedY()-1);
+    }
+
+    /**
+     * this method is used to change the direction of the ball to another direction on the y-axis with an increment, decrement or maintain of speed if it is being collided on the bottom side of the ball.
+     */
+    public void ballBottomCollision() {
+        setSpeedY(-getSpeedY());
+        if (rnd.nextBoolean() && getSpeedY() > -getMAX_BALL_SPEED()) {
+            setSpeedY(getSpeedY() - 1);
+        }else if (rnd.nextBoolean() && getSpeedY() < -getMIN_BALL_SPEED()) {
+            setSpeedY(getSpeedY() + 1);
+        }
     }
 }

@@ -29,7 +29,7 @@ import java.util.Random;
 /**
  * this class is used to create one of the wall level.
  */
-public class RandomWallLevel extends FullWallRowsLevels implements wallLevelTemplates {
+public class RandomWallLevel extends FullWallRowsLevels {
 
     Random rnd = new Random();
 

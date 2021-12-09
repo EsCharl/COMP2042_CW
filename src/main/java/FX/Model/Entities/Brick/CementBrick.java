@@ -35,6 +35,7 @@ public class CementBrick extends Brick implements Crackable{
     private static final double CEMENT_PROBABILITY = 1;
 
     private Path crackPath;
+    private Crack crack;
 
     /**
      * this constructor is used to create a cement brick object.
@@ -44,6 +45,15 @@ public class CementBrick extends Brick implements Crackable{
      */
     public CementBrick(Point2D point, Dimension2D size){
         super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH, CEMENT_PROBABILITY, NAME);
+        setCrack(new Crack());
+    }
+
+    public Crack getCrack() {
+        return crack;
+    }
+
+    public void setCrack(Crack crack) {
+        this.crack = crack;
     }
 
     @Override

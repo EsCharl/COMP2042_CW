@@ -1,4 +1,4 @@
+FX\Model\GameDataTest.class
 FX\Model\GameScoreTest.class
-FX\Model\GameTest.class
 FX\Model\Entities\PlayerTest.class
 FX\Controller\GameStateControllerTest.class

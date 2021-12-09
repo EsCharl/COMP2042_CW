@@ -1,6 +1,10 @@
 package FX.Model;
 
+import FX.Controller.GameStateController;
+import FX.Model.Entities.Brick.Brick;
 import javafx.scene.media.AudioClip;
+
+import java.util.Random;
 
 /**
  * this class contains all the sound effects for the gameplay.
@@ -19,6 +23,8 @@ public class SoundEffects {
 
     private AudioClip victorySound;
     private AudioClip lostSound;
+
+    private Random rnd = new Random();
 
     /**
      * this constructor is used to set all the sound effects into a variable for future reference.
@@ -252,5 +258,41 @@ public class SoundEffects {
      */
     public AudioClip getLostSound() {
         return lostSound;
+    }
+
+    /**
+     * this method is used to play a random sound effect when there is a collision from the ball.
+     *  @param soundEffect1 this is one of the sound effect which might be selected based on a random probability
+     * @param soundEffect2 this is the other sound effect which might be selected based on a random probability
+     */
+    public void ballCollisionRandomSound(AudioClip soundEffect1, AudioClip soundEffect2) {
+        if (rnd.nextBoolean())
+            soundEffect1.play();
+        else
+            soundEffect2.play();
+    }
+
+    /**
+     * this method is used to play a sound effect when the brick collides with a brick.
+     *
+     * @param b this is the brick which is being collided by the ball.
+     */
+    public void playBrickSoundEffect(Brick b){
+        switch (b.getBrickName()){
+            case "Clay Brick":
+                ballCollisionRandomSound(getClayBrickCollisionSound1(), getClayBrickCollisionSound2());
+                break;
+            case "Reinforced Steel Brick":
+            case "Steel Brick":
+                ballCollisionRandomSound(getSteelBrickCollisionSound1(), getSteelBrickCollisionSound2());
+                break;
+            case "Cement Brick":
+                if(b.getCurrentStrength() == b.getMaxStrength())
+                    getCementBrickCollisionSound().play();
+                else
+                    getCementBrickDestroyedSound().play();
+                break;
+            default:
+        }
     }
 }

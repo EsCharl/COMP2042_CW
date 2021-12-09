@@ -25,7 +25,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * this abstract class is used to call methods which are used in multiple classes.
  */
-public abstract class FullWallRowsLevels {
+public abstract class FullWallRowsLevels implements WallLevelTemplates{
 
 
     /**

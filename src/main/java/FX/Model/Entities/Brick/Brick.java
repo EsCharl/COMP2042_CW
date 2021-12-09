@@ -23,6 +23,8 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
+import java.util.Random;
+
 /**
  * This class is an abstract class which is going to be used for implementation. (Model.Brick.CementBrick, Model.Brick.ClayBrick, Model.Brick.SteelBrick, Model.Brick.ReinforcedSteelBrick)
  */
@@ -51,6 +53,31 @@ abstract public class Brick extends Entities {
         setMaxStrength(strength);
         setCurrentStrength(strength);
         setBrickName(brickName);
+    }
+
+    /**
+     * this method is used to determine whether the brick should be broken or draw a crack on the brick.
+     *
+     * @param point the point where the ball comes in contact to
+     * @param dir the direction where the ball comes in contact with the object.
+     * @return returns a boolean value negative if the brick is broken, true if it is not.
+     */
+    public boolean setImpact(Point2D point, int dir) {
+        Random rnd = new Random();
+        if(isBroken())
+            return false;
+        boolean hit = rnd.nextDouble() < getHitProbability();
+        if(hit){
+            setCurrentStrength(getCurrentStrength()-1);
+            setBroken(getCurrentStrength() == 0);
+        }
+        if(!isBroken()){
+            if(hit && this instanceof Crackable){
+                ((Crackable) this).getCrack().prepareCrack(point,dir, this);
+            }
+            return false;
+        }
+        return true;
     }
 
     /**

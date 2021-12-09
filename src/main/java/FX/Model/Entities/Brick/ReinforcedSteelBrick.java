@@ -36,6 +36,7 @@ public class ReinforcedSteelBrick extends Brick implements Crackable{
     private static final double REINFORCED_STEEL_PROBABILITY = 0.3;
 
     private Path crackPath;
+    private Crack crack;
 
     /**
      * this method is used to create a reinforced steel brick object.
@@ -45,6 +46,15 @@ public class ReinforcedSteelBrick extends Brick implements Crackable{
      */
     public ReinforcedSteelBrick(Point2D point, Dimension2D size) {
         super(point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH,REINFORCED_STEEL_PROBABILITY,NAME);
+        setCrack(new Crack());
+    }
+
+    public Crack getCrack() {
+        return crack;
+    }
+
+    public void setCrack(Crack crack) {
+        this.crack = crack;
     }
 
     @Override

@@ -249,4 +249,41 @@ public class GameScore {
     public boolean isCanGetTime() {
         return canGetTime;
     }
+
+    /**
+     * this method is used to get the scores from the save file and the player score (in terms of time) and rank them.
+     *
+     * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
+     * @throws IOException this is an exception used when there is a problem with the input and output file.
+     * @throws URISyntaxException this exception is used to check if there is a problem in the string could not be parsed as URI reference.
+     */
+    public ArrayList<String> getHighScore() throws IOException, URISyntaxException {
+
+        boolean placed = false;
+
+        ArrayList<String> Completed = new ArrayList<>();
+
+        Scanner scan = new Scanner(new File(Objects.requireNonNull(GameScore.class.getResource(getLevelFilePathName())).toURI()));
+
+        while (scan.hasNextLine()){
+            String[] line = scan.nextLine().split(",",2);
+            String name = line[0];
+            String time = line[1];
+
+            String[] preTime = time.split(":",2);
+            int minute = Integer.parseInt(preTime[0]);
+            int second = Integer.parseInt(preTime[1]);
+
+            int total_millisecond = (minute * 60 + second) * 1000;
+            if ((getTotalTime() < total_millisecond) && !placed){
+                Completed.add(System.getProperty("user.name") + ',' + getTimerString());
+                placed = true;
+            }
+            Completed.add(name + ',' + time);
+        }
+        if(!placed){
+            Completed.add(System.getProperty("user.name") + ',' + getTimerString());
+        }
+        return Completed;
+    }
 }
