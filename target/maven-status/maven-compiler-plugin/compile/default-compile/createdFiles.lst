@@ -20,7 +20,6 @@ module-info.class
 FX\Model\Levels\WallLevelTemplates.class
 FX\Model\Entities\Brick\SteelBrick.class
 FX\Controller\PauseMenuController.class
-FX\GameStart.class
 FX\Controller\InfoMenuController.class
 FX\Model\Levels\FullWallRowsLevels.class
 FX\Model\GameScore.class

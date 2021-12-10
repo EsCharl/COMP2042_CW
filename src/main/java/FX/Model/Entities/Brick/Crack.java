@@ -56,7 +56,7 @@ public class Crack {
      * @param end this is the end point where the crack is going to end.
      */
     //method name change
-    protected void makeCrack(Point2D start, Point2D end, Brick brick){
+    public void makeCrack(Point2D start, Point2D end, Brick brick){
 
         Path path = new Path();
 
@@ -88,7 +88,7 @@ public class Crack {
      * @param direction the direction using an integer constant.
      * @return it returns a random point (coordinate) on the brick.
      */
-    private Point2D makeRandomPointBetween(Point2D oppositeOfCollisionCornerPoint1, Point2D oppositeOfCollisionPoint2, int direction){
+    public Point2D makeRandomPointBetween(Point2D oppositeOfCollisionCornerPoint1, Point2D oppositeOfCollisionPoint2, int direction){
 
         int position;
 

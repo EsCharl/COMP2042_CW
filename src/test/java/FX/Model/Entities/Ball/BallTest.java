@@ -44,10 +44,11 @@ class BallTest {
 
     @Test
     void testBallLeftCollision() {
-        int ballSpeed = ball.getSpeedX();
+        int ballSpeed;
         int tries = 0;
         do{
             ball.ballLeftCollision();
+            ballSpeed = ball.getSpeedX();
             tries++;
         }while (ball.getSpeedX() == -ballSpeed && tries < 200);
         assertNotEquals(ball.getSpeedX(), -ballSpeed);
@@ -55,10 +56,11 @@ class BallTest {
 
     @Test
     void testBallRightCollision() {
-        int ballSpeed = ball.getSpeedX();
+        int ballSpeed;
         int tries = 0;
         do{
             ball.ballRightCollision();
+            ballSpeed = ball.getSpeedX();
             tries++;
         }while (ball.getSpeedX() == -ballSpeed && tries < 200);
         assertNotEquals(ball.getSpeedX(), -ballSpeed);
@@ -66,10 +68,11 @@ class BallTest {
 
     @Test
     void testBallTopCollision() {
-        int ballSpeed = ball.getSpeedY();
+        int ballSpeed;
         int tries = 0;
         do{
             ball.ballTopCollision();
+            ballSpeed = ball.getSpeedY();
             tries++;
         }while (ball.getSpeedY() == -ballSpeed && tries < 200);
         assertNotEquals(ball.getSpeedY(), -ballSpeed);
@@ -77,10 +80,11 @@ class BallTest {
 
     @Test
     void testBallBottomCollision() {
-        int ballSpeed = ball.getSpeedY();
+        int ballSpeed;
         int tries = 0;
         do{
             ball.ballBottomCollision();
+            ballSpeed = ball.getSpeedY();
             tries++;
         }while (ball.getSpeedY() == -ballSpeed && tries < 200);
         assertNotEquals(ball.getSpeedY(), -ballSpeed);

@@ -6,33 +6,39 @@
   <component name="ChangeListManager">
     <list default="true" id="9e3d663f-6ca4-4543-bcb3-690671942058" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scores/Level3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scores/Level4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scores/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scores/Level6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level6.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/PauseMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/PauseMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/GameStart.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClones.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Brick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/FX/DebugConsole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/FX/DebugConsole.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Controller/GameStateControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Controller/GameStateControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Ball/BallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Ball/BallTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameDataTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/PauseMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/PauseMenuController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/DebugConsole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/DebugConsole.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/GameStart.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/BallClones.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Brick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Controller/GameStateControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Controller/GameStateControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Ball/BallTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Ball/BallTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameDataTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameDataTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +49,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -107,9 +113,10 @@
       <recent name="FX" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="FX.Model.Levels" />
       <recent name="FX.Model.Entities.Brick" />
-      <recent name="FX.Controller" />
       <recent name="FX.Model" />
+      <recent name="FX.Controller" />
       <recent name="FX.Model.Entities.Ball" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -118,9 +125,9 @@
       <recent name="FX.Model.Brick" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GameStart">
-    <configuration name="GameStart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="FX.GameStart" />
+  <component name="RunManager" selected="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar">
+    <configuration name="BrickDestroyer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FX.BrickDestroyer" />
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
         <pattern>
@@ -132,7 +139,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BrickTest.testSetImpact" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BrickFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
         <pattern>
@@ -141,40 +148,38 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="FX.Model.Entities.Brick" />
-      <option name="MAIN_CLASS_NAME" value="FX.Model.Entities.Brick.BrickTest" />
-      <option name="METHOD_NAME" value="testSetImpact" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="FX.Model.Entities.Brick.BrickFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameDataTest.testImpactWall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LevelFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="FX.Model.*" />
+          <option name="PATTERN" value="FX.Model.Levels.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="FX.Model" />
-      <option name="MAIN_CLASS_NAME" value="FX.Model.GameDataTest" />
-      <option name="METHOD_NAME" value="testImpactWall" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="FX.Model.Levels" />
+      <option name="MAIN_CLASS_NAME" value="FX.Model.Levels.LevelFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameStateControllerTest.testNonMovementHandlerBot" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LevelFactoryTest.testMakeLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="FX.Controller.*" />
+          <option name="PATTERN" value="FX.Model.Levels.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="FX.Controller" />
-      <option name="MAIN_CLASS_NAME" value="FX.Controller.GameStateControllerTest" />
-      <option name="METHOD_NAME" value="testNonMovementHandlerBot" />
+      <option name="PACKAGE_NAME" value="FX.Model.Levels" />
+      <option name="MAIN_CLASS_NAME" value="FX.Model.Levels.LevelFactoryTest" />
+      <option name="METHOD_NAME" value="testMakeLevel" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -182,24 +187,24 @@
     </configuration>
     <configuration name="COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\chang\Desktop\javafx-sdk-17.0.1\lib --add-modules=javafx.controls,javafx.fxml,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\chang\Desktop\javafx-sdk-17.0.1\lib --add-modules=javafx.controls,javafx.media,javafx.fxml" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.GameStart" />
+      <item itemvalue="Application.BrickDestroyer" />
       <item itemvalue="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
-      <item itemvalue="JUnit.GameStateControllerTest.testNonMovementHandlerBot" />
-      <item itemvalue="JUnit.BrickTest.testSetImpact" />
-      <item itemvalue="JUnit.GameDataTest.testImpactWall" />
+      <item itemvalue="JUnit.BrickFactoryTest" />
+      <item itemvalue="JUnit.LevelFactoryTest" />
+      <item itemvalue="JUnit.LevelFactoryTest.testMakeLevel" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GameStart" />
         <item itemvalue="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
-        <item itemvalue="JUnit.GameDataTest.testImpactWall" />
-        <item itemvalue="JUnit.BrickTest.testSetImpact" />
-        <item itemvalue="JUnit.GameStateControllerTest.testNonMovementHandlerBot" />
+        <item itemvalue="Application.BrickDestroyer" />
+        <item itemvalue="JUnit.BrickFactoryTest" />
+        <item itemvalue="JUnit.LevelFactoryTest" />
+        <item itemvalue="JUnit.LevelFactoryTest.testMakeLevel" />
       </list>
     </recent_temporary>
   </component>

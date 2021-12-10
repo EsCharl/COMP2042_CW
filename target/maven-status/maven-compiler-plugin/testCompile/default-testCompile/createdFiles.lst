@@ -1,6 +1,7 @@
 FX\Model\Entities\Ball\BallTest.class
 FX\Model\GameDataTest.class
 FX\Model\Entities\PlayerTest.class
+FX\Model\Entities\Brick\BrickFactoryTest.class
 FX\Model\Entities\Brick\BrickTest.class
 FX\Controller\GameStateControllerTest.class
 FX\Model\GameScoreTest.class

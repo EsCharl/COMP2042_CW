@@ -18,9 +18,9 @@
 
 package FX.Controller;
 
-import FX.GameStart;
+import FX.BrickDestroyer;
 import FX.Model.Entities.Ball.Ball;
-import FX.Model.Entities.Ball.BallClones;
+import FX.Model.Entities.Ball.BallClone;
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.Crackable;
 import FX.Model.GameData;
@@ -105,16 +105,16 @@ public class GameStateController {
 
                 drawBricks();
 
-                drawBall(getGameData().getBall());
+                drawBall(getGameData().getMainBall());
                 drawPlayer(getGameData().getPlayer());
-                drawCloneBall();
+                drawCloneBall(getGameData().getCloneBall());
 
                 if(getGameData().isBallLost()){
                     recordGameTimer();
                     getGameData().setBallLost(false);
                     getGameData().setPauseMode(false);
-                    if(getGameData().isGameOver()){
-                        GameStart.audio.pause();
+                    if(getGameData().getBallCount() == 0){
+                        BrickDestroyer.audio.pause();
                         getGameData().getSoundEffects().getLostSound().play();
                         getGameData().resetBallCount();
                         gameText.setText("Game Over. Time spent in this level: " + getGameScore().getTimerString());
@@ -138,22 +138,22 @@ public class GameStateController {
 
                 getGameData().automation();
 
-                getGameData().getBall().move();
+                getGameData().getMainBall().move();
                 getGameData().getPlayer().move();
 
-                if(!gameData.getCloneBall().isEmpty()) {
+                if(!getGameData().getCloneBall().isEmpty()) {
                     for (int i = 0; i < getGameData().getCloneBall().size(); i++) {
                         getGameData().getCloneBall().get(i).move();
                         findImpacts(getGameData().getCloneBall().get(i));
                     }
                 }
 
-                findImpacts(getGameData().getBall());
+                findImpacts(getGameData().getMainBall());
 
-                if(getGameData().isLevelComplete()){
+                if(getGameData().getBrickCount() == 0){
                     recordGameTimer();
                     gameScoreHandler();
-                    GameStart.audio.pause();
+                    BrickDestroyer.audio.pause();
                     getGameData().getSoundEffects().getVictorySound().play();
                     if(getGameData().getCurrentLevel() < getGameData().getBrickLevels().length){
                         gameText.setText("Go to Next Level");
@@ -166,9 +166,9 @@ public class GameStateController {
                         gameText.setText("ALL WALLS DESTROYED");
                         animationTimer.stop();
                     }
-                    getGameData().getBall().resetPosition();
+                    getGameData().getMainBall().resetPosition();
                     getGameData().getPlayer().resetPosition();
-                    getGameData().getBall().setRandomBallSpeed();
+                    getGameData().getMainBall().setRandomBallSpeed();
                     getGameData().resetBallCount();
                     getGameData().getCloneBall().clear();
                 }
@@ -223,19 +223,19 @@ public class GameStateController {
                         graphicsContext.setStroke(getCurrentLevelBrick(i).getBorderColor());
                         graphicsContext.strokeRect(getMinX(getCurrentLevelBrick(i).getBounds()) -1, getMinY(getCurrentLevelBrick(i).getBounds()) -1, getCurrentLevelBrick(i).getWidth()+2, getCurrentLevelBrick(i).getHeight()+2);
 
-                        showCrack();
+                        showCrack(i);
                     }
                 }
             }
 
-            private void drawCloneBall(){
-                if(!gameData.getCloneBall().isEmpty()){
+            private void drawCloneBall(ArrayList<BallClone> clones){
+                if(!clones.isEmpty()){
                     for (int i = 0; i <getGameData().getCloneBall().size(); i++){
-                        graphicsContext.setFill(gameData.getCloneBall().get(i).getInnerColor());
-                        graphicsContext.fillOval(getMinX(gameData.getCloneBall().get(i).getBounds()), getMinY(gameData.getCloneBall().get(i).getBounds()), gameData.getCloneBall().get(i).getRadius(),gameData.getCloneBall().get(i).getRadius());
+                        graphicsContext.setFill(clones.get(i).getInnerColor());
+                        graphicsContext.fillOval(getMinX(clones.get(i).getBounds()), getMinY(clones.get(i).getBounds()), clones.get(i).getRadius(),clones.get(i).getRadius());
 
-                        graphicsContext.setStroke(gameData.getCloneBall().get(i).getBorderColor());
-                        graphicsContext.strokeOval(getMinX(gameData.getCloneBall().get(i).getBounds()) -1, getMinY(gameData.getCloneBall().get(i).getBounds()) -1, gameData.getCloneBall().get(i).getRadius()+2, gameData.getCloneBall().get(i).getRadius()+2);
+                        graphicsContext.setStroke(clones.get(i).getBorderColor());
+                        graphicsContext.strokeOval(getMinX(clones.get(i).getBounds()) -1, getMinY(clones.get(i).getBounds()) -1, clones.get(i).getRadius()+2, clones.get(i).getRadius()+2);
                     }
                 }
             }
@@ -269,8 +269,7 @@ public class GameStateController {
             /**
              * this method is used to draw the cracks on the brick.
              */
-            private void showCrack(){
-                for (int i = 0; i < getGameData().getBrickLevels()[getGameData().getCurrentLevel()-1].length; i++) {
+            private void showCrack(int i){
                     if (getCurrentLevelBrick(i) instanceof Crackable && !getCurrentLevelBrick(i).isBroken()) {
                         if (((Crackable) getCurrentLevelBrick(i)).getCrackPath() != null) {
                             Path path = ((Crackable) getCurrentLevelBrick(i)).getCrackPath();
@@ -284,7 +283,6 @@ public class GameStateController {
                             graphicsContext.stroke();
                         }
                     }
-                }
             }
         };
 
@@ -389,7 +387,7 @@ public class GameStateController {
      */
     private void findImpacts(Ball ball){
         if(ball.getBounds().intersects(getGameData().getPlayer().getBounds())){
-            if(ball.equals(getGameData().getBall()))
+            if(ball.equals(getGameData().getMainBall()))
                 getGameData().cloneBallRandomGenerator();
             ball.ballBottomCollision();
             getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getBallPlayerCollisionSound1(), getGameData().getSoundEffects().getBallPlayerCollisionSound2());
@@ -413,12 +411,8 @@ public class GameStateController {
             getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getGameWindowCollisionSound1(), getGameData().getSoundEffects().getGameWindowCollisionSound2());
         }
         else if(ball.getBounds().getMaxY() > gameBoard.getBoundsInLocal().getMaxY()){
-            if(ball.getClass() == BallClones.class){
-                for(int i = 0; i < gameData.getCloneBall().size(); i++){
-                    if(gameData.getCloneBall().get(i).equals(ball)){
-                        gameData.getCloneBall().remove(i);
-                    }
-                }
+            if(ball.getClass() == BallClone.class){
+                getGameData().getCloneBall().remove(ball);
             }else{
                 getGameData().setBallCount(getGameData().getBallCount() - 1);
                 ball.resetPosition();
@@ -440,7 +434,7 @@ public class GameStateController {
         }
         else{
             getGameData().getSoundEffects().getVictorySound().stop();
-            GameStart.audio.play();
+            BrickDestroyer.audio.play();
             animationTimer.start();
             getGameScore().startTimer();
             getGameScore().setCanGetTime(true);

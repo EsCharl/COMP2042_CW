@@ -39,6 +39,7 @@ class GameScoreTest {
     void testGetHighScore() throws IOException, URISyntaxException {
         gameScore.setTotalTime(60000);
         ArrayList<String> array = new ArrayList<String>();
+        gameScore.setLevelFileName("test.txt");
         array.add(System.getProperty("user.name")+",1:00");
         assertTrue(array.equals(gameScore.getHighScore()));
     }

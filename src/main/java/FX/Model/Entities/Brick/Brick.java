@@ -98,10 +98,20 @@ abstract public class Brick extends Entities {
         this.brickName = brickName;
     }
 
+    /**
+     * this method is used to get the brick hit probability which is the probability where the brick will be damaged.
+     *
+     * @return this returns a double value which is the probability of the brick getting damage.
+     */
     public double getHitProbability() {
         return hitProbability;
     }
 
+    /**
+     * this method is used to set the brick probability of getting damaged.
+     *
+     * @param hitProbability this is the double value used to set the probability of the brick getting damaged.
+     */
     public void setHitProbability(double hitProbability) {
         this.hitProbability = hitProbability;
     }

@@ -55,8 +55,8 @@ public class DebugConsoleController implements Initializable {
     @FXML
     private void skipLevelButtonClicked(){
         gameData.getPlayer().resetPosition();
-        gameData.getBall().resetPosition();
-        gameData.getBall().setRandomBallSpeed();
+        gameData.getMainBall().resetPosition();
+        gameData.getMainBall().setRandomBallSpeed();
         gameData.resetBallCount();
         gameData.wallReset();
         gameData.nextLevel();
@@ -65,27 +65,39 @@ public class DebugConsoleController implements Initializable {
         gameScore.restartTimer();
     }
 
+    /**
+     * this method is called to reset the ball count to the max ball count.
+     */
     @FXML
     private void resetBallButtonClicked(){
         gameData.setBallCount(gameData.getMAX_BALL_COUNT());
     }
 
+    /**
+     * this method is used to change the speed value on the x-axis of the ball and to set the text on the debug console
+     */
     @FXML
     private void xSpeedSliderMoved(){
         xSpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            gameData.getBall().setSpeedX(t1.intValue());
+            gameData.getMainBall().setSpeedX(t1.intValue());
             textXSpeed.setText("new ball x-axis speed: " + t1);
         });
     }
 
+    /**
+     * this method is used to change the speed value on the y-axis of the ball and to set the text on the debug console
+     */
     @FXML
     private void ySpeedSliderMoved(){
         ySpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            gameData.getBall().setSpeedY(t1.intValue());
+            gameData.getMainBall().setSpeedY(t1.intValue());
             textYSpeed.setText("new ball y-axis speed: " + t1);
         });
     }
 
+    /**
+     * this method is called to set the level.
+     */
     @FXML
     private void setLevelSelector(){
 
@@ -102,8 +114,8 @@ public class DebugConsoleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        xSpeedSlider.setValue(gameData.getBall().getSpeedX());
-        ySpeedSlider.setValue(gameData.getBall().getSpeedY());
+        xSpeedSlider.setValue(gameData.getMainBall().getSpeedX());
+        ySpeedSlider.setValue(gameData.getMainBall().getSpeedY());
 
         levelSelector.setValue(gameData.getCurrentLevel());
 

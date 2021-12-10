@@ -68,9 +68,9 @@ public class PauseMenuController {
     @FXML
     private void restartButton(){
         gameData.resetBallCount();
-        gameData.getBall().resetPosition();
+        gameData.getMainBall().resetPosition();
         gameData.getPlayer().resetPosition();
-        gameData.getBall().setRandomBallSpeed();
+        gameData.getMainBall().setRandomBallSpeed();
         gameScore.restartTimer();
         gameData.wallReset();
         gameData.getCloneBall().clear();

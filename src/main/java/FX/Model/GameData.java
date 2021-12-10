@@ -19,7 +19,7 @@
 package FX.Model;
 
 import FX.Model.Entities.Ball.Ball;
-import FX.Model.Entities.Ball.BallClones;
+import FX.Model.Entities.Ball.BallClone;
 import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.BrickFactory;
@@ -59,7 +59,7 @@ public class GameData {
 
     private Brick[][] brickLevels;
     private int currentLevel;
-    private ArrayList<BallClones> cloneBall;
+    private ArrayList<BallClone> cloneBall;
     private final int maxCloneBall = 3;
 
     private int brickCount;
@@ -68,7 +68,7 @@ public class GameData {
 
     private static GameData uniqueGameData;
     private Player player;
-    private Ball ball;
+    private Ball mainBall;
 
     private Random rnd;
     private final double cloneBallGenerationProbability = 0.3;
@@ -114,7 +114,7 @@ public class GameData {
         nextLevel();
 
         setPlayer(Player.singletonPlayer(new Point2D(getPlayerTopLeftXStartPoint(),getPlayerTopLeftYStartPoint()), getPlayArea()));
-        setBall(new RubberBall(new Point2D(getBallTopLeftXStartPoint(),getBallTopLeftYStartPoint())));
+        setMainBall(new RubberBall(new Point2D(getBallTopLeftXStartPoint(),getBallTopLeftYStartPoint())));
     }
 
     /**
@@ -172,24 +172,6 @@ public class GameData {
     }
 
     /**
-     * this method checks if there is or isn't any more tries for the player.
-     *
-     * @return returns a boolean value if there is or isn't any more tries allowed for the player.
-     */
-    public boolean isGameOver(){
-        return getBallCount() == 0;
-    }
-
-    /**
-     * this method checks if the level is completed.
-     *
-     * @return returns a boolean value if the level is completed or isn't completed.
-     */
-    public boolean isLevelComplete(){
-        return getBrickCount() == 0;
-    }
-
-    /**
      * this method is used to progress to the next level.
      */
     public void nextLevel(){
@@ -236,7 +218,7 @@ public class GameData {
      */
     public void automation(){
         if(isBotMode()){
-            if(getBall().getBounds().getMinX() > getPlayer().getBounds().getMinX() + getPlayer().getBounds().getWidth()/2){
+            if(getMainBall().getBounds().getMinX() > getPlayer().getBounds().getMinX() + getPlayer().getBounds().getWidth()/2){
                 getPlayer().setMoveAmount(getPlayer().getDEF_MOVE_AMOUNT());
             }else{
                 getPlayer().setMoveAmount(-getPlayer().getDEF_MOVE_AMOUNT());
@@ -293,8 +275,8 @@ public class GameData {
      * @return this returns a ball object.
      */
 
-    public Ball getBall() {
-        return ball;
+    public Ball getMainBall() {
+        return mainBall;
     }
 
     /**
@@ -561,10 +543,10 @@ public class GameData {
     /**
      * this method is used to set a ball object into a variable for future reference. which includes moving the ball and getting the position of the ball for collision.
      *
-     * @param ball this is the ball object that is going to be set into a variable.
+     * @param mainBall this is the ball object that is going to be set into a variable.
      */
-    public void setBall(Ball ball) {
-        this.ball = ball;
+    public void setMainBall(Ball mainBall) {
+        this.mainBall = mainBall;
     }
 
     /**
@@ -590,7 +572,7 @@ public class GameData {
      *
      * @param ball this is the ballClone object used to be added into an array list.
      */
-    public void addCloneBall(BallClones ball){
+    public void addCloneBall(BallClone ball){
         cloneBall.add(ball);
     }
 
@@ -599,7 +581,7 @@ public class GameData {
      *
      * @return this is the arraylist of ball clones.
      */
-    public ArrayList<BallClones> getCloneBall(){
+    public ArrayList<BallClone> getCloneBall(){
         return cloneBall;
     }
 
@@ -608,7 +590,7 @@ public class GameData {
      */
     public void cloneBallRandomGenerator() {
         if(rnd.nextDouble() < cloneBallGenerationProbability && getCloneBall().size() < maxCloneBall){
-            addCloneBall(new BallClones(new Point2D(getBall().getBounds().getMinX(), getBall().getBounds().getMinY())));
+            addCloneBall(new BallClone(new Point2D(getMainBall().getBounds().getMinX(), getMainBall().getBounds().getMinY())));
         }
     }
 }

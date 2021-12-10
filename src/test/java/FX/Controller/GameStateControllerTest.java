@@ -55,7 +55,7 @@ class GameStateControllerTest {
     @Test
     void testImpact() {
         Brick brick = new ClayBrick(new Point2D(0,0), new Dimension2D(50,20));
-        gameData.getBall().setBounds(new BoundingBox(0,0,20,20));
-        assertTrue(gameData.getBall().getBounds().intersects(brick.getBounds()));
+        gameData.getMainBall().setBounds(new BoundingBox(0,0,20,20));
+        assertTrue(gameData.getMainBall().getBounds().intersects(brick.getBounds()));
     }
 }
