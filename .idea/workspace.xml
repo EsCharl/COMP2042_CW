@@ -7,72 +7,32 @@
     <list default="true" id="9e3d663f-6ca4-4543-bcb3-690671942058" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level6.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/InfoMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/InfoMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/MainMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/PauseMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/PauseMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/GameStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/GameStart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/BrickFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/BrickFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/CementBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/CementBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/ReinforcedSteelBrick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/ChainWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/ChainWallLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/FullWallRowsLevels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/FullWallRowsLevels.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/LevelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/LevelFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/StraightLinesLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/StraightLinesLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/SoundEffects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/SoundEffects.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/CSS/GameState.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CSS/GameState.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/FX/Info.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/FX/Info.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Tunes/MainMenu+InfoScreen.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Tunes/GameMusic.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Controller/GameStateControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Controller/GameStateControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/FX/DebugConsole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/FX/DebugConsole.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameDataTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/CSS/GameState.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CSS/GameState.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/InfoMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/InfoMenuController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/MainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/MainMenuController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/PauseMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/PauseMenuController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/GameStart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/GameStart.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Info.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Info.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/DebugConsole.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/DebugConsole.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/BrickFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/BrickFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/CementBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/CementBrick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crackable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crackable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/ReinforcedSteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/ReinforcedSteelBrick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameData.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Levels/ChainWallLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Levels/ChainWallLevel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Levels/FullWallRowsLevels.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Levels/FullWallRowsLevels.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Levels/LevelFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Levels/LevelFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Levels/StraightLinesLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Levels/StraightLinesLevel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/SoundEffects.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/SoundEffects.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Tunes/MainMenu+InfoScreen.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scores/Level6.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Controller/GameStateControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Controller/GameStateControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/PlayerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/PlayerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameDataTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameDataTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,9 +43,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -134,11 +94,11 @@
       <recent name="C:\Users\chang\Desktop\brickdestroyerFX\target\classes\SoundEffects" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\resources" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\resources\FX" />
       <recent name="C:\Users\chang\Desktop\brickdestroyerFX\src\main\resources\SoundEffects" />
-      <recent name="C:\Users\chang\Desktop\brickdestroyerFX\src\main\resources\images" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -188,6 +148,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GameDataTest.testImpactWall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW_hcycl3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="FX.Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="FX.Model" />
+      <option name="MAIN_CLASS_NAME" value="FX.Model.GameDataTest" />
+      <option name="METHOD_NAME" value="testImpactWall" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameStateControllerTest.testNonMovementHandlerBot" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
@@ -204,22 +180,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameStateControllerTest.testTogglePauseContinueGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW_hcycl3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="FX.Controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="FX.Controller" />
-      <option name="MAIN_CLASS_NAME" value="FX.Controller.GameStateControllerTest" />
-      <option name="METHOD_NAME" value="testTogglePauseContinueGame" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
       <option name="VM_PARAMETERS" value="--module-path C:\Users\chang\Desktop\javafx-sdk-17.0.1\lib --add-modules=javafx.controls,javafx.fxml,javafx.media" />
@@ -229,17 +189,17 @@
     <list>
       <item itemvalue="Application.GameStart" />
       <item itemvalue="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
-      <item itemvalue="JUnit.GameStateControllerTest.testTogglePauseContinueGame" />
       <item itemvalue="JUnit.GameStateControllerTest.testNonMovementHandlerBot" />
       <item itemvalue="JUnit.BrickTest.testSetImpact" />
+      <item itemvalue="JUnit.GameDataTest.testImpactWall" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.GameStart" />
         <item itemvalue="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
+        <item itemvalue="JUnit.GameDataTest.testImpactWall" />
         <item itemvalue="JUnit.BrickTest.testSetImpact" />
         <item itemvalue="JUnit.GameStateControllerTest.testNonMovementHandlerBot" />
-        <item itemvalue="JUnit.GameStateControllerTest.testTogglePauseContinueGame" />
       </list>
     </recent_temporary>
   </component>

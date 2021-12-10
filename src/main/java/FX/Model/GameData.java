@@ -19,6 +19,7 @@
 package FX.Model;
 
 import FX.Model.Entities.Ball.Ball;
+import FX.Model.Entities.Ball.BallClones;
 import FX.Model.Entities.Ball.RubberBall;
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.BrickFactory;
@@ -28,6 +29,9 @@ import FX.Model.Levels.LevelFactory;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * this class is used to generate the level and maintain some game condition.
@@ -55,6 +59,8 @@ public class GameData {
 
     private Brick[][] brickLevels;
     private int currentLevel;
+    private ArrayList<BallClones> cloneBall;
+    private final int maxCloneBall = 3;
 
     private int brickCount;
     private int ballCount;
@@ -63,6 +69,9 @@ public class GameData {
     private static GameData uniqueGameData;
     private Player player;
     private Ball ball;
+
+    private Random rnd;
+    private final double cloneBallGenerationProbability = 0.3;
 
     private Rectangle playArea;
 
@@ -84,6 +93,8 @@ public class GameData {
      * this constructor is used to generate an object which is the wall used for the levels.
      */
     private GameData(){
+        rnd = new Random();
+        cloneBall = new ArrayList<>();
         setSoundEffects(new SoundEffects());
 
         setPauseMode(true);
@@ -104,8 +115,6 @@ public class GameData {
 
         setPlayer(Player.singletonPlayer(new Point2D(getPlayerTopLeftXStartPoint(),getPlayerTopLeftYStartPoint()), getPlayArea()));
         setBall(new RubberBall(new Point2D(getBallTopLeftXStartPoint(),getBallTopLeftYStartPoint())));
-
-        getBall().setRandomBallSpeed();
     }
 
     /**
@@ -193,27 +202,27 @@ public class GameData {
      *
      * @return returns a boolean value if or if it doesn't touch any entity.
      */
-    public boolean impactWall(){
-        BoundingBox ballBound = getBall().getBounds();
+    public boolean impactWall(Ball ball){
+        BoundingBox ballBound = ball.getBounds();
         for(Brick b : getBricks()){
             if(!b.isBroken()){
-                if(b.getBounds().contains(ballBound.getMinX()+ ballBound.getWidth()/2, getBall().getBounds().getMaxY())){
-                    getBall().ballBottomCollision();
+                if(b.getBounds().contains(ballBound.getMinX()+ ballBound.getWidth()/2, ballBound.getMaxY())){
+                    ball.ballBottomCollision();
                     getSoundEffects().playBrickSoundEffect(b);
                     return b.setImpact(new Point2D(ballBound.getMaxX()- ballBound.getHeight(), ballBound.getMaxY()), Crackable.UP);
                 }
                 else if (b.getBounds().contains(ballBound.getMinX()+ ballBound.getWidth()/2, ballBound.getMinY())){
-                    getBall().ballTopCollision();
+                    ball.ballTopCollision();
                     getSoundEffects().playBrickSoundEffect(b);
                     return b.setImpact(new Point2D(ballBound.getMinX()+ ballBound.getWidth(), ballBound.getMinY()), Crackable.DOWN);
                 }
                 else if(b.getBounds().contains(ballBound.getMaxX(), ballBound.getMinY()+ ballBound.getHeight()/2)){
-                    getBall().ballLeftCollision();
+                    ball.ballLeftCollision();
                     getSoundEffects().playBrickSoundEffect(b);
                     return b.setImpact(new Point2D(ballBound.getMaxX(), ballBound.getMaxY()- ballBound.getHeight()), Crackable.RIGHT);
                 }
                 else if(b.getBounds().contains(ballBound.getMinX(), ballBound.getMinY()+ ballBound.getHeight()/2)){
-                    getBall().ballRightCollision();
+                    ball.ballRightCollision();
                     getSoundEffects().playBrickSoundEffect(b);
                     return b.setImpact(new Point2D(ballBound.getMinX(), ballBound.getMaxY()- ballBound.getHeight()), Crackable.LEFT);
                 }
@@ -574,5 +583,32 @@ public class GameData {
      */
     public void setPauseMode(boolean pauseMode) {
         this.pauseMode = pauseMode;
+    }
+
+    /**
+     * this method is used to add a ball clone into an arraylist.
+     *
+     * @param ball this is the ballClone object used to be added into an array list.
+     */
+    public void addCloneBall(BallClones ball){
+        cloneBall.add(ball);
+    }
+
+    /**
+     * this method is used to get the array list which contains the ball clones.
+     *
+     * @return this is the arraylist of ball clones.
+     */
+    public ArrayList<BallClones> getCloneBall(){
+        return cloneBall;
+    }
+
+    /**
+     * this method is used to randomly generate a clone ball and add it into an array once it is being created.
+     */
+    public void cloneBallRandomGenerator() {
+        if(rnd.nextDouble() < cloneBallGenerationProbability && getCloneBall().size() < maxCloneBall){
+            addCloneBall(new BallClones(new Point2D(getBall().getBounds().getMinX(), getBall().getBounds().getMinY())));
+        }
     }
 }

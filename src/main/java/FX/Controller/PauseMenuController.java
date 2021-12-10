@@ -73,6 +73,7 @@ public class PauseMenuController {
         gameData.getBall().setRandomBallSpeed();
         gameScore.restartTimer();
         gameData.wallReset();
+        gameData.getCloneBall().clear();
 
         resumeButton();
     }

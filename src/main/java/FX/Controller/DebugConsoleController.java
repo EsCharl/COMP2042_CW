@@ -49,13 +49,18 @@ public class DebugConsoleController implements Initializable {
         gameScore = GameScore.singletonGameScore();
     }
 
+    /**
+     * this method is used to skip the current level and reset the game status.
+     */
     @FXML
     private void skipLevelButtonClicked(){
         gameData.getPlayer().resetPosition();
         gameData.getBall().resetPosition();
         gameData.getBall().setRandomBallSpeed();
+        gameData.resetBallCount();
         gameData.wallReset();
         gameData.nextLevel();
+        gameData.getCloneBall().clear();
         gameScore.setLevelFileName("/scores/Level" + gameData.getCurrentLevel()+".txt");
         gameScore.restartTimer();
     }

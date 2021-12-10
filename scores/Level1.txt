@@ -1,6 +1,12 @@
 chang,0:40
 chang,0:44
+chang,0:48
+chang,0:50
 chang,0:52
+chang,0:54
 chang,0:58
+chang,1:00
+chang,1:07
+chang,1:08
 chang,1:08
 chang,1:23

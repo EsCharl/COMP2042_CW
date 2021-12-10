@@ -20,7 +20,6 @@ This readme is used for Software Maintenance Coursework which is tasked to refac
 - self encapsulation for all variables. (for future expandability).
 - ensured all classes adhered to Single Responsibility Principle.
 - split the methods in classes for smaller class size.
-- changed the issue where the ball move fast during the start of game.
 
 ###_Additions_
 
@@ -32,8 +31,9 @@ This readme is used for Software Maintenance Coursework which is tasked to refac
 + aesthetic changes on the debug console and allow the user to change level.
 + added images for the background (main menu, gameplay) and game icon.
 + addition of three new level called RandomWallLevel, CurlyLinesWallLevel, StraightLinesLevel.
-+ added a feature where everytime the ball collides with an entity or the side of the game window it will increase or decrease the ball speed by 1 or even maintain the speed in an opposite direction.
++ added a feature where everytime the ball collides with an entity or the side of the game window it will have a chance of changing the ball speed by 1.
 + added a feature where a bot will play the game for the user.
++ included multi-ball feature, have a chance to occur once the main ball collided with the player.
 
 ###_JavaFX_
 

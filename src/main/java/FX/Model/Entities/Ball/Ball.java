@@ -32,7 +32,7 @@ import java.util.Random;
 abstract public class Ball extends Entities implements Movable {
 
     private final int MAX_BALL_SPEED = 4;
-    private final int MIN_BALL_SPEED = 1;
+    private final int MIN_BALL_SPEED = 2;
 
     private int sppedX;
     private int speedY;
@@ -52,6 +52,7 @@ abstract public class Ball extends Entities implements Movable {
         super(centerPosition, border,inner, 2*radius, 2*radius);
 
         setRadius(radius);
+        setRandomBallSpeed();
     }
 
     /**

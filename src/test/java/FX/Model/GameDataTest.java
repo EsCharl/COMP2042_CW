@@ -33,7 +33,7 @@ class GameDataTest {
     @Test
     void testImpactWall() {
         gameData.getBall().setBounds(new BoundingBox(0,0,10,10));
-        gameData.impactWall();
+        gameData.impactWall(gameData.getBall());
         assertTrue(gameData.getBrickLevels()[0][0].isBroken());
     }
 }

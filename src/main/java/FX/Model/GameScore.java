@@ -265,16 +265,12 @@ public class GameScore {
 
         String path = "scores/";
 
-        System.out.println(path);
-
         File savedFile = new File(path);
         if(!savedFile.exists()){
-            System.out.println("triggered");
             savedFile.mkdir();
         }
 
         savedFile = new File(path,getLevelFileName());
-        System.out.println(savedFile.getPath());
 
         savedFile.createNewFile();
         Scanner scan = new Scanner(savedFile);

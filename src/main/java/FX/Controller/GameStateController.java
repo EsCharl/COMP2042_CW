@@ -20,6 +20,7 @@ package FX.Controller;
 
 import FX.GameStart;
 import FX.Model.Entities.Ball.Ball;
+import FX.Model.Entities.Ball.BallClones;
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.Crackable;
 import FX.Model.GameData;
@@ -106,6 +107,7 @@ public class GameStateController {
 
                 drawBall(getGameData().getBall());
                 drawPlayer(getGameData().getPlayer());
+                drawCloneBall();
 
                 if(getGameData().isBallLost()){
                     recordGameTimer();
@@ -118,6 +120,7 @@ public class GameStateController {
                         gameText.setText("Game Over. Time spent in this level: " + getGameScore().getTimerString());
                         getGameScore().restartTimer();
                     }
+                    getGameData().getCloneBall().clear();
                     stop();
                 }
 
@@ -138,7 +141,14 @@ public class GameStateController {
                 getGameData().getBall().move();
                 getGameData().getPlayer().move();
 
-                findImpacts();
+                if(!gameData.getCloneBall().isEmpty()) {
+                    for (int i = 0; i < getGameData().getCloneBall().size(); i++) {
+                        getGameData().getCloneBall().get(i).move();
+                        findImpacts(getGameData().getCloneBall().get(i));
+                    }
+                }
+
+                findImpacts(getGameData().getBall());
 
                 if(getGameData().isLevelComplete()){
                     recordGameTimer();
@@ -159,6 +169,8 @@ public class GameStateController {
                     getGameData().getBall().resetPosition();
                     getGameData().getPlayer().resetPosition();
                     getGameData().getBall().setRandomBallSpeed();
+                    getGameData().resetBallCount();
+                    getGameData().getCloneBall().clear();
                 }
             }
 
@@ -212,6 +224,18 @@ public class GameStateController {
                         graphicsContext.strokeRect(getMinX(getCurrentLevelBrick(i).getBounds()) -1, getMinY(getCurrentLevelBrick(i).getBounds()) -1, getCurrentLevelBrick(i).getWidth()+2, getCurrentLevelBrick(i).getHeight()+2);
 
                         showCrack();
+                    }
+                }
+            }
+
+            private void drawCloneBall(){
+                if(!gameData.getCloneBall().isEmpty()){
+                    for (int i = 0; i <getGameData().getCloneBall().size(); i++){
+                        graphicsContext.setFill(gameData.getCloneBall().get(i).getInnerColor());
+                        graphicsContext.fillOval(getMinX(gameData.getCloneBall().get(i).getBounds()), getMinY(gameData.getCloneBall().get(i).getBounds()), gameData.getCloneBall().get(i).getRadius(),gameData.getCloneBall().get(i).getRadius());
+
+                        graphicsContext.setStroke(gameData.getCloneBall().get(i).getBorderColor());
+                        graphicsContext.strokeOval(getMinX(gameData.getCloneBall().get(i).getBounds()) -1, getMinY(gameData.getCloneBall().get(i).getBounds()) -1, gameData.getCloneBall().get(i).getRadius()+2, gameData.getCloneBall().get(i).getRadius()+2);
                     }
                 }
             }
@@ -347,8 +371,6 @@ public class GameStateController {
             showDebugConsole();
         }else if(userInput.contains(KeyCode.H)){
             getGameData().setBotMode(!getGameData().isBotMode());
-        }else if(userInput.contains(KeyCode.B)){
-            gameScoreHandler();
         }
     }
 
@@ -365,13 +387,14 @@ public class GameStateController {
     /**
      * this method is used to check if there is an impact for the ball with any entity or the sides of the screen. which will cause a reaction to the ball and the brick.
      */
-    private void findImpacts(){
-        Ball ball = getGameData().getBall();
+    private void findImpacts(Ball ball){
         if(ball.getBounds().intersects(getGameData().getPlayer().getBounds())){
+            if(ball.equals(getGameData().getBall()))
+                getGameData().cloneBallRandomGenerator();
             ball.ballBottomCollision();
             getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getBallPlayerCollisionSound1(), getGameData().getSoundEffects().getBallPlayerCollisionSound2());
         }
-        else if(getGameData().impactWall()){
+        else if(getGameData().impactWall(ball)){
             getGameData().setBrickCount(getGameData().getBrickCount()-1);
         }
         if((getMinX(ball.getBounds()) < getMinX((BoundingBox) gameBoard.getBoundsInLocal()))){
@@ -390,11 +413,19 @@ public class GameStateController {
             getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getGameWindowCollisionSound1(), getGameData().getSoundEffects().getGameWindowCollisionSound2());
         }
         else if(ball.getBounds().getMaxY() > gameBoard.getBoundsInLocal().getMaxY()){
-            getGameData().setBallCount(getGameData().getBallCount() - 1);
-            getGameData().getBall().resetPosition();
-            getGameData().getPlayer().resetPosition();
-            ball.setRandomBallSpeed();
-            getGameData().setBallLost(true);
+            if(ball.getClass() == BallClones.class){
+                for(int i = 0; i < gameData.getCloneBall().size(); i++){
+                    if(gameData.getCloneBall().get(i).equals(ball)){
+                        gameData.getCloneBall().remove(i);
+                    }
+                }
+            }else{
+                getGameData().setBallCount(getGameData().getBallCount() - 1);
+                ball.resetPosition();
+                getGameData().getPlayer().resetPosition();
+                ball.setRandomBallSpeed();
+                getGameData().setBallLost(true);
+            }
         }
     }
 
