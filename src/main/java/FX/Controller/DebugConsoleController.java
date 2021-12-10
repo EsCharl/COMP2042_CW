@@ -29,6 +29,9 @@ import javafx.scene.control.Slider;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * this controller is used to deal with the user input on the debug console.
+ */
 public class DebugConsoleController implements Initializable {
 
     @FXML private Slider xSpeedSlider, ySpeedSlider;
@@ -38,29 +41,32 @@ public class DebugConsoleController implements Initializable {
     private GameData gameData;
     private GameScore gameScore;
 
+    /**
+     * this is the constructor used to prepare the debug console by preparing the objects used into variables.
+     */
     public DebugConsoleController(){
         gameData = GameData.singletonGame();
         gameScore = GameScore.singletonGameScore();
     }
 
     @FXML
-    public void skipLevelButtonClicked(){
+    private void skipLevelButtonClicked(){
         gameData.getPlayer().resetPosition();
         gameData.getBall().resetPosition();
-        gameData.setRandomBallSpeed(gameData.getBall());
+        gameData.getBall().setRandomBallSpeed();
         gameData.wallReset();
         gameData.nextLevel();
-        gameScore.setLevelFilePathName("/scores/Level"+ gameData.getCurrentLevel()+".txt");
+        gameScore.setLevelFileName("/scores/Level" + gameData.getCurrentLevel()+".txt");
         gameScore.restartTimer();
     }
 
     @FXML
-    public void resetBallButtonClicked(){
+    private void resetBallButtonClicked(){
         gameData.setBallCount(gameData.getMAX_BALL_COUNT());
     }
 
     @FXML
-    public void xSpeedSliderMoved(){
+    private void xSpeedSliderMoved(){
         xSpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
             gameData.getBall().setSpeedX(t1.intValue());
             textXSpeed.setText("new ball x-axis speed: " + t1);
@@ -68,7 +74,7 @@ public class DebugConsoleController implements Initializable {
     }
 
     @FXML
-    public void ySpeedSliderMoved(){
+    private void ySpeedSliderMoved(){
         ySpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
             gameData.getBall().setSpeedY(t1.intValue());
             textYSpeed.setText("new ball y-axis speed: " + t1);
@@ -76,7 +82,7 @@ public class DebugConsoleController implements Initializable {
     }
 
     @FXML
-    public void setLevelSelector(){
+    private void setLevelSelector(){
 
         levelSelector.setOnAction(actionEvent -> {
             int selectedIndex = levelSelector.getSelectionModel().getSelectedIndex();
@@ -86,6 +92,9 @@ public class DebugConsoleController implements Initializable {
         });
     }
 
+    /**
+     * this method is used to initialize the values for the slider and choice box.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         xSpeedSlider.setValue(gameData.getBall().getSpeedX());

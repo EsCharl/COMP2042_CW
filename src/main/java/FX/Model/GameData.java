@@ -25,17 +25,15 @@ import FX.Model.Entities.Brick.BrickFactory;
 import FX.Model.Entities.Brick.Crackable;
 import FX.Model.Entities.Player;
 import FX.Model.Levels.LevelFactory;
+import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
-
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * this class is used to generate the level and maintain some game condition.
  */
 public class GameData {
+    private SoundEffects soundEffects;
 
     private final double brickDimensionRatio = 6/2;
     private final int makeLevelBrickCount = 30;
@@ -47,20 +45,16 @@ public class GameData {
     private final int GAME_WINDOW_WIDTH = 600;
     private final int GAME_WINDOW_HEIGHT = 450;
 
-    private Random rnd;
-
-    private Brick[] bricks;
-
-    private Image backgroundImage;
-
-    private Brick[][] brickLevels;
-    private int currentLevel;
-
     private final int playerTopLeftXStartPoint = 225;
     private final int playerTopLeftYStartPoint = 430;
 
     private final int ballTopLeftXStartPoint = 300;
     private final int ballTopLeftYStartPoint = 410;
+
+    private Brick[] bricks;
+
+    private Brick[][] brickLevels;
+    private int currentLevel;
 
     private int brickCount;
     private int ballCount;
@@ -90,9 +84,7 @@ public class GameData {
      * this constructor is used to generate an object which is the wall used for the levels.
      */
     private GameData(){
-        setBackgroundImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/GameImage.png"))));
-
-        setRnd(new Random());
+        setSoundEffects(new SoundEffects());
 
         setPauseMode(true);
 
@@ -113,7 +105,7 @@ public class GameData {
         setPlayer(Player.singletonPlayer(new Point2D(getPlayerTopLeftXStartPoint(),getPlayerTopLeftYStartPoint()), getPlayArea()));
         setBall(new RubberBall(new Point2D(getBallTopLeftXStartPoint(),getBallTopLeftYStartPoint())));
 
-        setRandomBallSpeed(getBall());
+        getBall().setRandomBallSpeed();
     }
 
     /**
@@ -128,14 +120,126 @@ public class GameData {
     private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio){
         Brick[][] tmp = new Brick[getLEVELS_AMOUNT()][];
         LevelFactory levelFactory = new LevelFactory();
-        tmp[0] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CLAY);
-        tmp[1] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CEMENT);
-        tmp[2] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.STEEL);
-        tmp[3] = levelFactory.getLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.STEEL, BrickFactory.CEMENT);
-        tmp[4] = levelFactory.getLevel("STRAIGHTLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.REINFORCED_STEEL, BrickFactory.STEEL);
-        tmp[5] = levelFactory.getLevel("CURLYLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.REINFORCED_STEEL, BrickFactory.STEEL);
-        tmp[6] = levelFactory.getLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
+        tmp[0] = levelFactory.makeLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CLAY);
+        tmp[1] = levelFactory.makeLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CEMENT);
+        tmp[2] = levelFactory.makeLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.STEEL);
+        tmp[3] = levelFactory.makeLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.STEEL, BrickFactory.CEMENT);
+        tmp[4] = levelFactory.makeLevel("STRAIGHTLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.REINFORCED_STEEL, BrickFactory.STEEL);
+        tmp[5] = levelFactory.makeLevel("CURLYLINESLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.REINFORCED_STEEL, BrickFactory.STEEL);
+        tmp[6] = levelFactory.makeLevel("RANDOMLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, 0, 0);
         return tmp;
+    }
+
+    /**
+     * this is used to reset the wall (bricks) and the ball count (tries).
+     */
+    public void wallReset(){
+        for(Brick b : getBricks()){
+            b.setBroken(false);
+            b.setCurrentStrength(b.getMaxStrength());
+            if(b instanceof Crackable)
+                ((Crackable) b).setCrackPath(null);
+        }
+        setBrickCount(getBricks().length);
+        setBallCount(getMAX_BALL_COUNT());
+    }
+
+    /**
+     * this method is used to get the sound effects object class which deals with all the sound effects for the game.
+     *
+     * @return this returns the sound effects object which contains all the sound effects.
+     */
+    public SoundEffects getSoundEffects() {
+        return soundEffects;
+    }
+
+    /**
+     * this method is used to set the sound effects object into a variable for future reference.
+     *
+     * @param soundEffects this is the sound effects object which is to be set into a variable.
+     */
+    public void setSoundEffects(SoundEffects soundEffects) {
+        this.soundEffects = soundEffects;
+    }
+
+    /**
+     * this method checks if there is or isn't any more tries for the player.
+     *
+     * @return returns a boolean value if there is or isn't any more tries allowed for the player.
+     */
+    public boolean isGameOver(){
+        return getBallCount() == 0;
+    }
+
+    /**
+     * this method checks if the level is completed.
+     *
+     * @return returns a boolean value if the level is completed or isn't completed.
+     */
+    public boolean isLevelComplete(){
+        return getBrickCount() == 0;
+    }
+
+    /**
+     * this method is used to progress to the next level.
+     */
+    public void nextLevel(){
+        setBricks(getBrickLevels()[currentLevel++]);
+        setBrickCount(getBricks().length);
+    }
+
+    /**
+     * this method change the ball direction and also returns true if the ball comes in contact with any side of the brick.
+     *
+     * @return returns a boolean value if or if it doesn't touch any entity.
+     */
+    public boolean impactWall(){
+        BoundingBox ballBound = getBall().getBounds();
+        for(Brick b : getBricks()){
+            if(!b.isBroken()){
+                if(b.getBounds().contains(ballBound.getMinX()+ ballBound.getWidth()/2, getBall().getBounds().getMaxY())){
+                    getBall().ballBottomCollision();
+                    getSoundEffects().playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(ballBound.getMaxX()- ballBound.getHeight(), ballBound.getMaxY()), Crackable.UP);
+                }
+                else if (b.getBounds().contains(ballBound.getMinX()+ ballBound.getWidth()/2, ballBound.getMinY())){
+                    getBall().ballTopCollision();
+                    getSoundEffects().playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(ballBound.getMinX()+ ballBound.getWidth(), ballBound.getMinY()), Crackable.DOWN);
+                }
+                else if(b.getBounds().contains(ballBound.getMaxX(), ballBound.getMinY()+ ballBound.getHeight()/2)){
+                    getBall().ballLeftCollision();
+                    getSoundEffects().playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(ballBound.getMaxX(), ballBound.getMaxY()- ballBound.getHeight()), Crackable.RIGHT);
+                }
+                else if(b.getBounds().contains(ballBound.getMinX(), ballBound.getMinY()+ ballBound.getHeight()/2)){
+                    getBall().ballRightCollision();
+                    getSoundEffects().playBrickSoundEffect(b);
+                    return b.setImpact(new Point2D(ballBound.getMinX(), ballBound.getMaxY()- ballBound.getHeight()), Crackable.LEFT);
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * this method is used to let the bot control the paddle instead of the player playing it.
+     */
+    public void automation(){
+        if(isBotMode()){
+            if(getBall().getBounds().getMinX() > getPlayer().getBounds().getMinX() + getPlayer().getBounds().getWidth()/2){
+                getPlayer().setMoveAmount(getPlayer().getDEF_MOVE_AMOUNT());
+            }else{
+                getPlayer().setMoveAmount(-getPlayer().getDEF_MOVE_AMOUNT());
+            }
+        }
+    }
+
+    /**
+     * this method is used to reset the ball count (tries count) to 3.
+     */
+    public void resetBallCount(){
+        setBallCount(getMAX_BALL_COUNT());
     }
 
     /**
@@ -179,9 +283,11 @@ public class GameData {
      *
      * @return this returns a ball object.
      */
+
     public Ball getBall() {
         return ball;
     }
+
     /**
      * this is used to get the total amount of bricks still in the level
      *
@@ -207,53 +313,6 @@ public class GameData {
      */
     public boolean isBallLost(){
         return ballLost;
-    }
-
-    /**
-     * this is used to reset the wall (bricks) and the ball count (tries).
-     */
-    public void wallReset(){
-        for(Brick b : getBricks()){
-            b.setBroken(false);
-            b.setCurrentStrength(b.getMaxStrength());
-            if(b instanceof Crackable)
-                ((Crackable) b).setCrackPath(null);
-        }
-        setBrickCount(getBricks().length);
-        setBallCount(getMAX_BALL_COUNT());
-    }
-
-    /**
-     * this method checks if there is or isn't any more tries for the player.
-     *
-     * @return returns a boolean value if there is or isn't any more tries allowed for the player.
-     */
-    public boolean isGameOver(){
-        return getBallCount() == 0;
-    }
-
-    /**
-     * this method checks if the level is completed.
-     *
-     * @return returns a boolean value if the level is completed or isn't completed.
-     */
-    public boolean isLevelComplete(){
-        return getBrickCount() == 0;
-    }
-
-    /**
-     * this method is used to progress to the next level.
-     */
-    public void nextLevel(){
-        setBricks(getBrickLevels()[currentLevel++]);
-        setBrickCount(getBricks().length);
-    }
-
-    /**
-     * this method is used to reset the ball count (tries count) to 3.
-     */
-    public void resetBallCount(){
-        setBallCount(getMAX_BALL_COUNT());
     }
 
     /**
@@ -446,38 +505,6 @@ public class GameData {
     }
 
     /**
-     * this method is used to get the random object used to have some randomness in the game.
-     *
-     * @return this returns a random object used for the randomness of the game
-     */
-    public Random getRnd() {
-        return rnd;
-    }
-
-    /**
-     * this method is used to set a random object used for randomness of the game.
-     *
-     * @param rnd this is the random object used to set into the variable.
-     */
-    public void setRnd(Random rnd) {
-        this.rnd = rnd;
-    }
-
-    /**
-     * this method is used to set the random speed on both x-axis and y-axis for the ball.
-     *
-     * @param ball this is the ball used to set its speed random on both axis direction.
-     */
-    public void setRandomBallSpeed(Ball ball){
-        do {
-            ball.setSpeedX(getRnd().nextBoolean() ? getRnd().nextInt(ball.getMAX_BALL_SPEED()) : -getRnd().nextInt(ball.getMAX_BALL_SPEED()));
-        } while (ball.getSpeedX() == 0);
-        do{
-            ball.setSpeedY(-getRnd().nextInt(ball.getMAX_BALL_SPEED()));
-        }while(ball.getSpeedY() == 0);
-    }
-
-    /**
      * this method is used to get the top left position of the player X-coordinate.
      *
      * @return this returns the top left position of the player X-coordinate.
@@ -548,23 +575,4 @@ public class GameData {
     public void setPauseMode(boolean pauseMode) {
         this.pauseMode = pauseMode;
     }
-
-    /**
-     * this method is used to get the gameplay background Image.
-     *
-     * @return this is the image used for the background of the game play.
-     */
-    public Image getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    /**
-     * this method is used to set the image into a variable for rendering on the gameplay window.
-     *
-     * @param backgroundImage this is the image used to be set into a variable for future reference.
-     */
-    public void setBackgroundImage(Image backgroundImage) {
-        this.backgroundImage = backgroundImage;
-    }
-
 }

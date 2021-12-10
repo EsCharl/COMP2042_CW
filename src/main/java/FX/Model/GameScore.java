@@ -23,7 +23,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -39,6 +38,7 @@ public class GameScore {
     private boolean canGetTime;
 
     //for the level saving
+    private String levelFileName;
     private String levelFilePathName;
     private ArrayList<String> lastLevelCompletionRecord;
 
@@ -89,8 +89,8 @@ public class GameScore {
      *
      * @param levelPathName this is the file path which will be set into the variable.
      */
-    public void setLevelFilePathName(String levelPathName){
-        levelFilePathName = levelPathName;
+    public void setLevelFileName(String levelPathName){
+        levelFileName = levelPathName;
     }
 
     /**
@@ -98,8 +98,8 @@ public class GameScore {
      *
      * @return returns the LevelPath file in String.
      */
-    public String getLevelFilePathName(){
-        return levelFilePathName;
+    public String getLevelFileName(){
+        return levelFileName;
     }
 
     /**
@@ -170,7 +170,7 @@ public class GameScore {
      * @throws URISyntaxException this is in case if there is a problem if the resource path to the file can't be converted to String format.
      */
     public void updateSaveFile(ArrayList<String> sorted) throws IOException, URISyntaxException {
-        File file = new File(Objects.requireNonNull(GameScore.class.getResource(getLevelFilePathName())).toURI());
+        File file = new File(levelFilePathName);
         FileWriter overwrite = new FileWriter(file,false);
         for (int i = 0; i < sorted.size()-1; i++)
             overwrite.write(sorted.get(i)+"\n");
@@ -263,7 +263,23 @@ public class GameScore {
 
         ArrayList<String> Completed = new ArrayList<>();
 
-        Scanner scan = new Scanner(new File(Objects.requireNonNull(GameScore.class.getResource(getLevelFilePathName())).toURI()));
+        String path = "scores/";
+
+        System.out.println(path);
+
+        File savedFile = new File(path);
+        if(!savedFile.exists()){
+            System.out.println("triggered");
+            savedFile.mkdir();
+        }
+
+        savedFile = new File(path,getLevelFileName());
+        System.out.println(savedFile.getPath());
+
+        savedFile.createNewFile();
+        Scanner scan = new Scanner(savedFile);
+
+        levelFilePathName = savedFile.getPath();
 
         while (scan.hasNextLine()){
             String[] line = scan.nextLine().split(",",2);

@@ -71,24 +71,6 @@ public class Player extends Entities implements Movable {
     }
 
     /**
-     * this method is used to get the one and only player object.
-     *
-     * @return it returns a player object after the method singletonPlayer is called.
-     */
-    private static Player getUniquePlayer() {
-        return uniquePlayer;
-    }
-
-    /**
-     * this method is used to set the player object into a variable for future reference.
-     *
-     * @param uniquePlayer this is the Model.Player object used to store into a variable.
-     */
-    private static void setUniquePlayer(Player uniquePlayer) {
-        Player.uniquePlayer = uniquePlayer;
-    }
-
-    /**
      * this method is used to the move amount which the player could move based on a tick from the gameTimer (thread).
      *
      * @return this is the move amount allowed by the player per tick.
@@ -149,5 +131,23 @@ public class Player extends Entities implements Movable {
      */
     public int getDEF_MOVE_AMOUNT() {
         return DEF_MOVE_AMOUNT;
+    }
+
+    /**
+     * this method is used to get the one and only player object.
+     *
+     * @return it returns a player object after the method singletonPlayer is called.
+     */
+    private static Player getUniquePlayer() {
+        return uniquePlayer;
+    }
+
+    /**
+     * this method is used to set the player object into a variable for future reference.
+     *
+     * @param uniquePlayer this is the Model.Player object used to store into a variable.
+     */
+    private static void setUniquePlayer(Player uniquePlayer) {
+        Player.uniquePlayer = uniquePlayer;
     }
 }

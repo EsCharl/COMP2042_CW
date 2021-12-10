@@ -18,20 +18,27 @@
 
 package FX.Model.Levels;
 
+/**
+ * this class is used to get the level template for wall level generation.
+ */
 public class LevelFactory {
 
-        public WallLevelTemplates getLevel(String levelType){
-            if (levelType.equalsIgnoreCase("CHAINLEVEL")) {
-                return new ChainWallLevel();
-            } else if (levelType.equalsIgnoreCase("CURLYLINESLEVEL")) {
-                return new CurlyLinesWallLevel();
-            } else if (levelType.equalsIgnoreCase("RANDOMLEVEL")) {
-                return new RandomWallLevel();
-            } else if (levelType.equalsIgnoreCase("STRAIGHTLINESLEVEL")){
-                return new StraightLinesLevel();
-            }
-            return null;
+    /**
+     * this method is used to return a level template object for level creation.
+     *
+     * @param levelType this is the string used to determine which level template to return.
+     * @return this is the level template used to be returned.
+     */
+    public WallLevelTemplates makeLevel(String levelType){
+        if (levelType.equalsIgnoreCase("CHAINLEVEL")) {
+            return new ChainWallLevel();
+        } else if (levelType.equalsIgnoreCase("CURLYLINESLEVEL")) {
+            return new CurlyLinesWallLevel();
+        } else if (levelType.equalsIgnoreCase("RANDOMLEVEL")) {
+            return new RandomWallLevel();
+        } else if (levelType.equalsIgnoreCase("STRAIGHTLINESLEVEL")){
+            return new StraightLinesLevel();
         }
-
-
+        return null;
+    }
 }

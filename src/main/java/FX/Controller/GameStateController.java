@@ -22,18 +22,15 @@ import FX.GameStart;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.Crackable;
-import FX.Model.Entities.Entities;
 import FX.Model.GameData;
 import FX.Model.GameScore;
 import FX.Model.Entities.Player;
 
-import FX.Model.SoundEffects;
 import FX.View.GameScoreDisplay;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
+import javafx.geometry.BoundingBox;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -49,16 +46,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-public class GameStateController implements Initializable {
+/**
+ * this class is used as the controller for the game state controller where it is in control of the game play.
+ */
+public class GameStateController {
 
-    GameData gameData;
+    private GameData gameData;
     private GameScore gameScore;
     private GameScoreDisplay gameScoreDisplay;
-    private SoundEffects soundEffects;
 
     private GraphicsContext graphicsContext;
     private AnimationTimer animationTimer;
@@ -70,52 +67,56 @@ public class GameStateController implements Initializable {
     @FXML private AnchorPane anchorPane;
     @FXML private Text gameText;
 
+    /**
+     * this is the constructor for the class which is used to set the variables and objects which is going to be used in this class.
+     */
     public GameStateController() {
-        soundEffects = new SoundEffects();
         userInput = new ArrayList<>();
 
-        gameData = GameData.singletonGame();
-        gameScore = GameScore.singletonGameScore();
-        gameScoreDisplay = new GameScoreDisplay();
+        setGameData(GameData.singletonGame());
+        setGameScore(GameScore.singletonGameScore());
+        setGameScoreDisplay(new GameScoreDisplay());
 
-        gameData.setShowPauseMenu(false);
+        getGameData().setShowPauseMenu(false);
 
-        gameScore.setLevelFilePathName("/scores/Level"+ gameData.getCurrentLevel()+".txt");
+        getGameScore().setLevelFileName("Level"+getGameData().getCurrentLevel()+".txt");
     }
 
+    /**
+     * this method is used to initialize and have the info on how the game should work. (game logic).
+     */
     @FXML
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    private void initialize(){
 
         graphicsContext = gameBoard.getGraphicsContext2D();
 
-        gameScore.startTimer();
-        gameScore.setCanGetTime(true);
+        getGameScore().startTimer();
+        getGameScore().setCanGetTime(true);
 
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                graphicsContext.drawImage(gameData.getBackgroundImage(),0,0);
+                graphicsContext.clearRect(0,0,gameBoard.getWidth(),gameBoard.getHeight());
 
                 graphicsContext.setLineWidth(2);
 
-                gameText.setText(String.format("Bricks: %d Balls %d", gameData.getBrickCount(), gameData.getBallCount()));
+                gameText.setText(String.format("Bricks: %d Balls %d", getGameData().getBrickCount(), getGameData().getBallCount()));
 
                 drawBricks();
 
-                drawBall(gameData.getBall());
-                drawPlayer(gameData.getPlayer());
+                drawBall(getGameData().getBall());
+                drawPlayer(getGameData().getPlayer());
 
-                if(gameData.isBallLost()){
-                    gameScore.pauseTimer();
-                    gameScore.setCanGetTime(false);
-                    gameData.setBallLost(false);
-                    gameData.setPauseMode(false);
-                    if(gameData.isGameOver()){
+                if(getGameData().isBallLost()){
+                    recordGameTimer();
+                    getGameData().setBallLost(false);
+                    getGameData().setPauseMode(false);
+                    if(getGameData().isGameOver()){
                         GameStart.audio.pause();
-                        soundEffects.getLostSound().play();
-                        gameData.resetBallCount();
-                        gameText.setText("Game Over. Time spent in this level: " + gameScore.getTimerString());
-                        gameScore.restartTimer();
+                        getGameData().getSoundEffects().getLostSound().play();
+                        getGameData().resetBallCount();
+                        gameText.setText("Game Over. Time spent in this level: " + getGameScore().getTimerString());
+                        getGameScore().restartTimer();
                     }
                     stop();
                 }
@@ -132,33 +133,32 @@ public class GameStateController implements Initializable {
 
                 keyReleased(userInput);
 
-                automation();
+                getGameData().automation();
 
-                gameData.getBall().move();
-                gameData.getPlayer().move();
+                getGameData().getBall().move();
+                getGameData().getPlayer().move();
 
                 findImpacts();
 
-                if(gameData.isLevelComplete()){
-                    gameScore.pauseTimer();
-                    gameScore.setCanGetTime(false);
+                if(getGameData().isLevelComplete()){
+                    recordGameTimer();
                     gameScoreHandler();
                     GameStart.audio.pause();
-                    soundEffects.getVictorySound().play();
-                    if(gameData.getCurrentLevel() < gameData.getBrickLevels().length){
+                    getGameData().getSoundEffects().getVictorySound().play();
+                    if(getGameData().getCurrentLevel() < getGameData().getBrickLevels().length){
                         gameText.setText("Go to Next Level");
                         animationTimer.stop();
-                        gameData.nextLevel();
-                        gameScore.restartTimer();
-                        gameScore.setLevelFilePathName("/scores/Level"+ gameData.getCurrentLevel()+".txt");
+                        getGameData().nextLevel();
+                        getGameScore().restartTimer();
+                        getGameScore().setLevelFileName("Level"+getGameData().getCurrentLevel()+".txt");
                     }
                     else{
                         gameText.setText("ALL WALLS DESTROYED");
                         animationTimer.stop();
                     }
-                    gameData.getBall().resetPosition();
-                    gameData.getPlayer().resetPosition();
-                    gameData.setRandomBallSpeed(gameData.getBall());
+                    getGameData().getBall().resetPosition();
+                    getGameData().getPlayer().resetPosition();
+                    getGameData().getBall().setRandomBallSpeed();
                 }
             }
 
@@ -192,12 +192,10 @@ public class GameStateController implements Initializable {
              */
             private void windowLostFocus(Stage stage) {
                 stage.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-                    if (gameScore.isCanGetTime())
-                        gameScore.pauseTimer();
+                    recordGameTimer();
                     gameText.setText("Focus Lost");
-                    gameScore.setCanGetTime(false);
                     animationTimer.stop();
-                    gameData.setPauseMode(false);
+                    getGameData().setPauseMode(false);
                 });
             }
 
@@ -205,13 +203,13 @@ public class GameStateController implements Initializable {
              * this method is used to draw the Bricks.
              */
             private void drawBricks() {
-                for (int i = 0; i < gameData.getBrickLevels()[gameData.getCurrentLevel()-1].length; i++){
-                    if(!gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].isBroken()){
-                        graphicsContext.setFill(gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getInnerColor());
-                        graphicsContext.fillRect(gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getBounds().getMinX(), gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getBounds().getMinY(), gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getWidth(), gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getHeight());
+                for (int i = 0; i < getGameData().getBrickLevels()[getGameData().getCurrentLevel()-1].length; i++){
+                    if(!getCurrentLevelBrick(i).isBroken()){
+                        graphicsContext.setFill(getCurrentLevelBrick(i).getInnerColor());
+                        graphicsContext.fillRect(getMinX(getCurrentLevelBrick(i).getBounds()), getMinY(getCurrentLevelBrick(i).getBounds()), getCurrentLevelBrick(i).getWidth(), getCurrentLevelBrick(i).getHeight());
 
-                        graphicsContext.setStroke(gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getBorderColor());
-                        graphicsContext.strokeRect(gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getBounds().getMinX()-1, gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getBounds().getMinY()-1, gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getWidth()+2, gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getHeight()+2);
+                        graphicsContext.setStroke(getCurrentLevelBrick(i).getBorderColor());
+                        graphicsContext.strokeRect(getMinX(getCurrentLevelBrick(i).getBounds()) -1, getMinY(getCurrentLevelBrick(i).getBounds()) -1, getCurrentLevelBrick(i).getWidth()+2, getCurrentLevelBrick(i).getHeight()+2);
 
                         showCrack();
                     }
@@ -225,10 +223,10 @@ public class GameStateController implements Initializable {
              */
             private void drawBall(Ball ball){
                 graphicsContext.setFill(ball.getInnerColor());
-                graphicsContext.fillOval(ball.getBounds().getMinX(), ball.getBounds().getMinY(), ball.getRadius(), ball.getRadius());
+                graphicsContext.fillOval(getMinX(ball.getBounds()), getMinY(ball.getBounds()), ball.getRadius(), ball.getRadius());
 
                 graphicsContext.setStroke(ball.getBorderColor());
-                graphicsContext.strokeOval(ball.getBounds().getMinX()-1, ball.getBounds().getMinY()-1, ball.getRadius()+2, ball.getRadius()+2);
+                graphicsContext.strokeOval(getMinX(ball.getBounds()) -1, getMinY(ball.getBounds()) -1, ball.getRadius()+2, ball.getRadius()+2);
             }
 
             /**
@@ -238,21 +236,21 @@ public class GameStateController implements Initializable {
              */
             private void drawPlayer(Player player) {
                 graphicsContext.setFill(player.getInnerColor());
-                graphicsContext.fillRect(player.getBounds().getMinX(),player.getBounds().getMinY(),player.getWidth(),player.getHeight());
+                graphicsContext.fillRect(getMinX(player.getBounds()), getMinY(player.getBounds()),player.getWidth(),player.getHeight());
 
                 graphicsContext.setStroke(player.getBorderColor());
-                graphicsContext.strokeRect(player.getBounds().getMinX()-1,player.getBounds().getMinY()-1,player.getWidth()+2,player.getHeight()+2);
+                graphicsContext.strokeRect(getMinX(player.getBounds()) -1, getMinY(player.getBounds()) -1,player.getWidth()+2,player.getHeight()+2);
             }
 
             /**
              * this method is used to draw the cracks on the brick.
              */
             private void showCrack(){
-                for (int i = 0; i < gameData.getBrickLevels()[gameData.getCurrentLevel()-1].length; i++) {
-                    if (gameData.getBrickLevels()[gameData.getCurrentLevel() - 1][i] instanceof Crackable && !gameData.getBrickLevels()[gameData.getCurrentLevel() - 1][i].isBroken()) {
-                        if (((Crackable) gameData.getBrickLevels()[gameData.getCurrentLevel() - 1][i]).getCrackPath() != null) {
-                            Path path = ((Crackable) gameData.getBrickLevels()[gameData.getCurrentLevel() - 1][i]).getCrackPath();
-                            graphicsContext.setStroke(gameData.getBrickLevels()[gameData.getCurrentLevel()-1][i].getBorderColor().darker());
+                for (int i = 0; i < getGameData().getBrickLevels()[getGameData().getCurrentLevel()-1].length; i++) {
+                    if (getCurrentLevelBrick(i) instanceof Crackable && !getCurrentLevelBrick(i).isBroken()) {
+                        if (((Crackable) getCurrentLevelBrick(i)).getCrackPath() != null) {
+                            Path path = ((Crackable) getCurrentLevelBrick(i)).getCrackPath();
+                            graphicsContext.setStroke(getCurrentLevelBrick(i).getBorderColor().darker());
                             graphicsContext.beginPath();
                             graphicsContext.moveTo(((MoveTo) path.getElements().get(0)).getX(), ((MoveTo) path.getElements().get(0)).getY());
                             for (int x = 1; x < path.getElements().size(); x++) {
@@ -272,16 +270,46 @@ public class GameStateController implements Initializable {
     }
 
     /**
+     * this method is used to get the minimum y coordinate for the bounding box object.
+     *
+     * @param bounds this is the bounding box object.
+     * @return this returns the minimum y coordinate of the bounding box object.
+     */
+    public double getMinY(BoundingBox bounds) {
+        return bounds.getMinY();
+    }
+
+    /**
+     * this method is used to get the objects minimum x coordinate of the bounding box.
+     *
+     * @param bounds this is the bounding box object
+     * @return this returns the minimum x coordinate of the bounding box object
+     */
+    public double getMinX(BoundingBox bounds) {
+        return bounds.getMinX();
+    }
+
+    /**
+     * this method is used to get the brick from the brick array on the current level.
+     *
+     * @param i this is the index for the brick array.
+     * @return this returns the brick object based on the index provided.
+     */
+    public Brick getCurrentLevelBrick(int i) {
+        return getGameData().getBrickLevels()[getGameData().getCurrentLevel() - 1][i];
+    }
+
+    /**
      * this method is used to display and save the game score.
      */
     private void gameScoreHandler() {
         try {
-            gameScore.setLastLevelCompletionRecord(gameScore.getHighScore());
-            gameScore.updateSaveFile(gameScore.getLastLevelCompletionRecord());
+            getGameScore().setLastLevelCompletionRecord(getGameScore().getHighScore());
+            getGameScore().updateSaveFile(getGameScore().getLastLevelCompletionRecord());
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-        gameScoreDisplay.generateLevelCompleteWindow(gameScore.getLastLevelCompletionRecord(), gameScore.getTimerString());
+        getGameScoreDisplay().generateLevelCompleteWindow(getGameScore().getLastLevelCompletionRecord(), getGameScore().getTimerString());
     }
 
     /**
@@ -291,12 +319,12 @@ public class GameStateController implements Initializable {
      */
     public void movementKeyHandler(ArrayList<KeyCode> userInput){
         if(userInput.contains(KeyCode.A) && userInput.contains(KeyCode.D) || userInput.isEmpty()){
-            gameData.getPlayer().setMoveAmount(0);
+            getGameData().getPlayer().setMoveAmount(0);
         }else if(userInput.contains(KeyCode.A)){
-            gameData.getPlayer().setMoveAmount(-gameData.getPlayer().getDEF_MOVE_AMOUNT());
+            getGameData().getPlayer().setMoveAmount(-getGameData().getPlayer().getDEF_MOVE_AMOUNT());
         }
         else if(userInput.contains(KeyCode.D)){
-            gameData.getPlayer().setMoveAmount(gameData.getPlayer().getDEF_MOVE_AMOUNT());
+            getGameData().getPlayer().setMoveAmount(getGameData().getPlayer().getDEF_MOVE_AMOUNT());
         }
     }
 
@@ -307,37 +335,30 @@ public class GameStateController implements Initializable {
      */
     public void nonMovementKeyHandler(ArrayList<KeyCode> userInput){
         if(userInput.contains(KeyCode.ESCAPE)){
-            if(gameScore.isCanGetTime()){
-                gameScore.pauseTimer();
-                gameScore.setCanGetTime(false);
-            }
+            recordGameTimer();
             animationTimer.stop();
             showPauseMenu();
         }else if(userInput.contains(KeyCode.SPACE)){
             togglePauseContinueGame();
         }else if(userInput.contains(KeyCode.F1) && userInput.contains(KeyCode.SHIFT) && userInput.contains(KeyCode.ALT)){
-            if(gameScore.isCanGetTime()){
-                gameScore.pauseTimer();
-                gameScore.setCanGetTime(false);
-            }
+            recordGameTimer();
             animationTimer.stop();
-            gameData.setPauseMode(false);
+            getGameData().setPauseMode(false);
             showDebugConsole();
         }else if(userInput.contains(KeyCode.H)){
-            gameData.setBotMode(!gameData.isBotMode());
+            getGameData().setBotMode(!getGameData().isBotMode());
+        }else if(userInput.contains(KeyCode.B)){
+            gameScoreHandler();
         }
     }
 
     /**
-     * this method is used to let the bot control the paddle instead of the player playing it.
+     * this method is used to record the time passed between the starting of the timer and the pausing of the game.
      */
-    public void automation(){
-        if(gameData.isBotMode()){
-            if(gameData.getBall().getBounds().getMinX() > gameData.getPlayer().getBounds().getMinX() + gameData.getPlayer().getBounds().getWidth()/2){
-                gameData.getPlayer().setMoveAmount(gameData.getPlayer().getDEF_MOVE_AMOUNT());
-            }else{
-                gameData.getPlayer().setMoveAmount(-gameData.getPlayer().getDEF_MOVE_AMOUNT());
-            }
+    private void recordGameTimer() {
+        if (getGameScore().isCanGetTime()) {
+            getGameScore().pauseTimer();
+            getGameScore().setCanGetTime(false);
         }
     }
 
@@ -345,98 +366,54 @@ public class GameStateController implements Initializable {
      * this method is used to check if there is an impact for the ball with any entity or the sides of the screen. which will cause a reaction to the ball and the brick.
      */
     private void findImpacts(){
-        if(impact(gameData.getBall(), gameData.getPlayer())){
-            gameData.getBall().ballBottomCollision();
-            soundEffects.ballCollisionRandomSound(soundEffects.getBallPlayerCollisionSound1(), soundEffects.getBallPlayerCollisionSound2());
+        Ball ball = getGameData().getBall();
+        if(ball.getBounds().intersects(getGameData().getPlayer().getBounds())){
+            ball.ballBottomCollision();
+            getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getBallPlayerCollisionSound1(), getGameData().getSoundEffects().getBallPlayerCollisionSound2());
         }
-        else if(impactWall()){
-            gameData.setBrickCount(gameData.getBrickCount()-1);
+        else if(getGameData().impactWall()){
+            getGameData().setBrickCount(getGameData().getBrickCount()-1);
         }
-        if((gameData.getBall().getBounds().getMinX() < gameBoard.getBoundsInLocal().getMinX())){
-            if (gameData.getBall().getSpeedX() < 0){
-                soundEffects.ballCollisionRandomSound(soundEffects.getGameWindowCollisionSound1(), soundEffects.getGameWindowCollisionSound2());
-                gameData.getBall().ballLeftCollision();
+        if((getMinX(ball.getBounds()) < getMinX((BoundingBox) gameBoard.getBoundsInLocal()))){
+            if (ball.getSpeedX() < 0){
+                getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getGameWindowCollisionSound1(), getGameData().getSoundEffects().getGameWindowCollisionSound2());
+                ball.ballLeftCollision();
             }
-        }else if(gameData.getBall().getBounds().getMaxX() > gameBoard.getBoundsInLocal().getMaxX()){
-            if (gameData.getBall().getSpeedX() > 0){
-                soundEffects.ballCollisionRandomSound(soundEffects.getGameWindowCollisionSound1(), soundEffects.getGameWindowCollisionSound2());
-                gameData.getBall().ballRightCollision();
-            }
-        }
-        if(gameData.getBall().getBounds().getMinY() < gameBoard.getBoundsInLocal().getMinY()){
-            gameData.getBall().ballTopCollision();
-            soundEffects.ballCollisionRandomSound(soundEffects.getGameWindowCollisionSound1(), soundEffects.getGameWindowCollisionSound2());
-        }
-        else if(gameData.getBall().getBounds().getMaxY() > gameBoard.getBoundsInLocal().getMaxY()){
-            gameData.setBallCount(gameData.getBallCount() - 1);
-            gameData.getBall().resetPosition();
-            gameData.getPlayer().resetPosition();
-            gameData.setRandomBallSpeed(gameData.getBall());
-            gameData.setBallLost(true);
-        }
-    }
-
-    /**
-     * this method is used to check if there is a collision occurring between the ball and another object entity.
-     *
-     * @param ball this is the ball used to check if there is a collision.
-     * @param object this is the object used to see if it is going to get collided.
-     * @return this returns a boolean value if collision occur
-     */
-    public boolean impact(Ball ball, Entities object){
-        return ball.getBounds().intersects(object.getBounds());
-    }
-
-    /**
-     * this method change the ball direction and also returns true if the ball comes in contact with any side of the brick.
-     *
-     * @return returns a boolean value if or if it doesn't touch any entity.
-     */
-    private boolean impactWall(){
-        for(Brick b : gameData.getBricks()){
-            if(!b.isBroken()){
-                if(b.getBounds().contains(gameData.getBall().getBounds().getMinX()+ gameData.getBall().getBounds().getWidth()/2, gameData.getBall().getBounds().getMaxY())){
-                    gameData.getBall().ballBottomCollision();
-                    soundEffects.playBrickSoundEffect(b);
-                    return b.setImpact(new Point2D(gameData.getBall().getBounds().getMaxX()- gameData.getBall().getBounds().getHeight(), gameData.getBall().getBounds().getMaxY()), Crackable.UP);
-                }
-                else if (b.getBounds().contains(gameData.getBall().getBounds().getMinX()+ gameData.getBall().getBounds().getWidth()/2, gameData.getBall().getBounds().getMinY())){
-                    gameData.getBall().ballTopCollision();
-                    soundEffects.playBrickSoundEffect(b);
-                    return b.setImpact(new Point2D(gameData.getBall().getBounds().getMinX()+ gameData.getBall().getBounds().getWidth(), gameData.getBall().getBounds().getMinY()), Crackable.DOWN);
-                }
-                else if(b.getBounds().contains(gameData.getBall().getBounds().getMaxX(), gameData.getBall().getBounds().getMinY()+ gameData.getBall().getBounds().getHeight()/2)){
-                    gameData.getBall().ballLeftCollision();
-                    soundEffects.playBrickSoundEffect(b);
-                    return b.setImpact(new Point2D(gameData.getBall().getBounds().getMaxX(), gameData.getBall().getBounds().getMaxY()- gameData.getBall().getBounds().getHeight()), Crackable.RIGHT);
-                }
-                else if(b.getBounds().contains(gameData.getBall().getBounds().getMinX(), gameData.getBall().getBounds().getMinY()+ gameData.getBall().getBounds().getHeight()/2)){
-                    gameData.getBall().ballRightCollision();
-                    soundEffects.playBrickSoundEffect(b);
-                    return b.setImpact(new Point2D(gameData.getBall().getBounds().getMinX(), gameData.getBall().getBounds().getMaxY()- gameData.getBall().getBounds().getHeight()), Crackable.LEFT);
-                }
+        }else if(ball.getBounds().getMaxX() > gameBoard.getBoundsInLocal().getMaxX()){
+            if (ball.getSpeedX() > 0){
+                getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getGameWindowCollisionSound1(), getGameData().getSoundEffects().getGameWindowCollisionSound2());
+                ball.ballRightCollision();
             }
         }
-        return false;
+        if(getMinY(ball.getBounds()) < getMinY((BoundingBox) gameBoard.getBoundsInLocal())){
+            ball.ballTopCollision();
+            getGameData().getSoundEffects().ballCollisionRandomSound(getGameData().getSoundEffects().getGameWindowCollisionSound1(), getGameData().getSoundEffects().getGameWindowCollisionSound2());
+        }
+        else if(ball.getBounds().getMaxY() > gameBoard.getBoundsInLocal().getMaxY()){
+            getGameData().setBallCount(getGameData().getBallCount() - 1);
+            getGameData().getBall().resetPosition();
+            getGameData().getPlayer().resetPosition();
+            ball.setRandomBallSpeed();
+            getGameData().setBallLost(true);
+        }
     }
 
     /**
      * this method is used to toggle between pausing the game and proceeding th game
      */
     private void togglePauseContinueGame(){
-        if(gameData.isPauseMode()){
+        if(getGameData().isPauseMode()){
             animationTimer.stop();
-            gameScore.pauseTimer();
-            gameScore.setCanGetTime(true);
-            gameData.setPauseMode(false);
+            recordGameTimer();
+            getGameData().setPauseMode(false);
         }
         else{
-            soundEffects.getVictorySound().stop();
+            getGameData().getSoundEffects().getVictorySound().stop();
             GameStart.audio.play();
             animationTimer.start();
-            gameScore.startTimer();
-            gameScore.setCanGetTime(true);
-            gameData.setPauseMode(true);
+            getGameScore().startTimer();
+            getGameScore().setCanGetTime(true);
+            getGameData().setPauseMode(true);
         }
     }
 
@@ -470,10 +447,63 @@ public class GameStateController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        if(!gameData.isShowPauseMenu()){
+        if(!getGameData().isShowPauseMenu()){
             anchorPane.getChildren().add(root);
-            gameData.setShowPauseMenu(true);
+            getGameData().setShowPauseMenu(true);
         }
+    }
+
+    /**
+     * this method is used to get the game score object which is used to record the game score (time used in the level)
+     *
+     * @param gameScore this is the game score object going to be set into a variable for future reference.
+     */
+    public void setGameScore(GameScore gameScore) {
+        this.gameScore = gameScore;
+    }
+
+    /**
+     * this method is used to get the game score display object which is used to display all the game score on a pop-up window.
+     *
+     * @return this returns a game score display object.
+     */
+    public GameScoreDisplay getGameScoreDisplay() {
+        return gameScoreDisplay;
+    }
+
+    /**
+     * this method is used to set the game score display object into a variable for future reference.
+     *
+     * @param gameScoreDisplay this is the game score display object used to be set into a variable.
+     */
+    public void setGameScoreDisplay(GameScoreDisplay gameScoreDisplay) {
+        this.gameScoreDisplay = gameScoreDisplay;
+    }
+
+    /**
+     * this method is used to get the game score object which is used to manage the scoring system.
+     *
+     * @return this returns a game score object used to be record the score (time used) for the level.
+     */
+    public GameScore getGameScore() {
+        return gameScore;
+    }
+
+    /**
+     * this method is used to get the game data information which is used to access the information for the game.
+     *
+     * @param gameData this is the game data object used to set into a variable for future reference.
+     */
+    public void setGameData(GameData gameData) {
+        this.gameData = gameData;
+    }
+
+    /**
+     * this returns a game data object which is used to get the information of the game.
+     *
+     * @return this returns the game data object.
+     */
+    public GameData getGameData() {
+        return gameData;
     }
 }

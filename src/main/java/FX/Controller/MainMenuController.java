@@ -28,6 +28,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * this class is used to display and allow the user to select an option on the main menu.
+ */
 public class MainMenuController {
     private Parent loader;
     @FXML private Button start, info;
@@ -36,7 +39,7 @@ public class MainMenuController {
      * this method is used to change the scene to the info scene which shows the user on how to play the game.
      */
     @FXML
-    protected void onInfoButtonClick() {
+    private void onInfoButtonClick() {
         try {
             loader = FXMLLoader.load(getClass().getResource("/FX/Info.fxml"));
         } catch (IOException e) {
@@ -50,7 +53,7 @@ public class MainMenuController {
      * this method is used when the user choose to start the game on the main menu.
      */
     @FXML
-    protected void onPlayButtonClick() throws IOException {
+    private void onPlayButtonClick() throws IOException {
         Stage stage = (Stage) start.getScene().getWindow();
         stage.hide();
 
@@ -69,7 +72,7 @@ public class MainMenuController {
      * this method is used when the user choose to quit/exit the game in the main menu.
      */
     @FXML
-    protected void onExitButton() {
+    private void onExitButton() {
         System.out.println("Goodbye " + System.getProperty("user.name"));
         System.exit(0);
     }

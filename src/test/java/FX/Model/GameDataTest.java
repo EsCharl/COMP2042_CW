@@ -1,5 +1,6 @@
 package FX.Model;
 
+import javafx.geometry.BoundingBox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,21 +15,25 @@ class GameDataTest {
     }
 
     @Test
-    void testSetRandomBallSpeed() {
-        gameData.getBall();
-        gameData.getBall().setSpeedX(0);
-        gameData.getBall().setSpeedY(0);
-        gameData.setRandomBallSpeed(gameData.getBall());
-        assertAll(  () -> assertNotEquals(gameData.getBall().getSpeedX(), 0),
-                    () -> assertNotEquals(gameData.getBall().getSpeedY(), 0)
-        );
-    }
-
-    @Test
     void testWallReset(){
         gameData.getBrickLevels()[0][1].setCurrentStrength(0);
         boolean isBroken = gameData.getBrickLevels()[0][1].isBroken();
         gameData.wallReset();
         assertEquals(isBroken, gameData.getBrickLevels()[0][1].isBroken());
+    }
+
+    @Test
+    void testAutomation() {
+        gameData.setBotMode(true);
+        gameData.getBall().setBounds(new BoundingBox(1,1,20,20));
+        gameData.automation();
+        assertTrue(gameData.getPlayer().getMoveAmount() == -5);
+    }
+
+    @Test
+    void testImpactWall() {
+        gameData.getBall().setBounds(new BoundingBox(0,0,10,10));
+        gameData.impactWall();
+        assertTrue(gameData.getBrickLevels()[0][0].isBroken());
     }
 }

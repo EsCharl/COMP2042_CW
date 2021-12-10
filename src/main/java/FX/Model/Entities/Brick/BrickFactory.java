@@ -3,6 +3,9 @@ package FX.Model.Entities.Brick;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 
+/**
+ * this class is used to return the brick object used on the wall levels.
+ */
 public class BrickFactory {
 
     public static final int CLAY = 1;

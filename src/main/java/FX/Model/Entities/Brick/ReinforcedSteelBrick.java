@@ -18,7 +18,6 @@
 
 package FX.Model.Entities.Brick;
 
-
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -49,19 +48,41 @@ public class ReinforcedSteelBrick extends Brick implements Crackable{
         setCrack(new Crack());
     }
 
+    /**
+     * this method is used to get the crack object which is used to create the crack path.
+     *
+     * @return this returns the crack object which contains the object logic to create the crack Path.
+     */
+    @Override
     public Crack getCrack() {
         return crack;
     }
 
+    /**
+     * this method is used to set the crack object into a variable for future reference.
+     *
+     * @param crack this is the crack object used to set into a variable.
+     */
+    @Override
     public void setCrack(Crack crack) {
         this.crack = crack;
     }
 
+    /**
+     * this method is used to set the crack path used to draw on the game.
+     *
+     * @param path this is the Path object used to set into a variable for future reference
+     */
     @Override
     public void setCrackPath(Path path) {
         this.crackPath = path;
     }
 
+    /**
+     * this method is used to get the crack path used to draw on the game.
+     *
+     * @return this is the Path object which contains the information on how to draw the crack.
+     */
     @Override
     public Path getCrackPath() {
         return crackPath;

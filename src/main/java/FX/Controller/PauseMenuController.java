@@ -29,6 +29,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * this class is used to deal with the user input when it is in the pause menu.
+ */
 public class PauseMenuController {
     @FXML private Button resume;
 
@@ -47,7 +50,7 @@ public class PauseMenuController {
      * this method is used to resume the game.
      */
     @FXML
-    public void resumeButton(){
+    private void resumeButton(){
         Parent loader = null;
         try {
             loader = FXMLLoader.load(getClass().getResource("/FX/GameState.fxml"));
@@ -63,11 +66,11 @@ public class PauseMenuController {
      * this method is used to restart the game. which will restart the status of the ball, player position, ball count and reset the game timer for the score.
      */
     @FXML
-    public void restartButton(){
+    private void restartButton(){
         gameData.resetBallCount();
         gameData.getBall().resetPosition();
         gameData.getPlayer().resetPosition();
-        gameData.setRandomBallSpeed(gameData.getBall());
+        gameData.getBall().setRandomBallSpeed();
         gameScore.restartTimer();
         gameData.wallReset();
 
@@ -78,7 +81,7 @@ public class PauseMenuController {
      * this method is used to quit the game.
      */
     @FXML
-    public void exitButton(){
+    private void exitButton(){
         System.out.println("Goodbye " + System.getProperty("user.name"));
         System.exit(0);
     }

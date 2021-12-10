@@ -22,6 +22,13 @@ class PlayerTest {
     }
 
     @Test
+    void testNotMove(){
+        player.setMoveAmount(-300);
+        player.move();
+        assertEquals(player.getBounds().getMinX() , gameData.getPlayerTopLeftXStartPoint());
+    }
+
+    @Test
     void testResetPosition(){
         player.setMoveAmount(5);
         player.move();

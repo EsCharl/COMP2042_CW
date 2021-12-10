@@ -13,7 +13,7 @@
             <Image url="@../images/Info.png" />
          </image>
       </ImageView>
-      <Button fx:id="mainmenu" layoutX="352.0" layoutY="138.0" mnemonicParsing="false" onAction="#DisplayMainMenu" styleClass="mainmenu" text="BACK">
+      <Button fx:id="mainmenu" layoutX="352.0" layoutY="138.0" mnemonicParsing="false" onAction="#displayMainMenu" styleClass="mainmenu" text="BACK">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

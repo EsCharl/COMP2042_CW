@@ -24,7 +24,6 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
 
-
 /**
  * this class is used to create one of the levels.
  */

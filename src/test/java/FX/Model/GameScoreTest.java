@@ -1,14 +1,10 @@
 package FX.Model;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,5 +33,13 @@ class GameScoreTest {
     void singletonGameScore() {
         GameScore gameScore2 = GameScore.singletonGameScore();
         assertTrue(gameScore2 == gameScore);
+    }
+
+    @Test
+    void testGetHighScore() throws IOException, URISyntaxException {
+        gameScore.setTotalTime(60000);
+        ArrayList<String> array = new ArrayList<String>();
+        array.add(System.getProperty("user.name")+",1:00");
+        assertTrue(array.equals(gameScore.getHighScore()));
     }
 }

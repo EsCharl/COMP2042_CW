@@ -27,6 +27,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * this class is used to display the info to the player on how to play the game.
+ */
 public class InfoMenuController {
     @FXML
     private Button mainmenu;
@@ -37,7 +40,7 @@ public class InfoMenuController {
      * @throws IOException this is used just in case if there is a problem in reading the fxml file.
      */
     @FXML
-    public void DisplayMainMenu() throws IOException {
+    public void displayMainMenu() throws IOException {
         Parent loader = FXMLLoader.load(getClass().getResource("/FX/MainMenu.fxml"));
         Stage stage = (Stage) mainmenu.getScene().getWindow();
         stage.setScene(new Scene(loader));

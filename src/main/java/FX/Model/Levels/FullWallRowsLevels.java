@@ -21,12 +21,10 @@ package FX.Model.Levels;
 import FX.Model.Entities.Brick.*;
 import javafx.scene.shape.Rectangle;
 
-
 /**
  * this abstract class is used to call methods which are used in multiple classes.
  */
 public abstract class FullWallRowsLevels implements WallLevelTemplates{
-
 
     /**
      * this method is used to create a brick array which is used to store the bricks for the level templates

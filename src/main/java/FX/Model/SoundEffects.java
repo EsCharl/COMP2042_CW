@@ -1,6 +1,5 @@
 package FX.Model;
 
-import FX.Controller.GameStateController;
 import FX.Model.Entities.Brick.Brick;
 import javafx.scene.media.AudioClip;
 

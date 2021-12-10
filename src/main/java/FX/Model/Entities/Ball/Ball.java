@@ -20,7 +20,6 @@ package FX.Model.Entities.Ball;
 
 import FX.Model.Entities.Entities;
 import FX.Model.Entities.Movable;
-import FX.Model.GameData;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -53,6 +52,18 @@ abstract public class Ball extends Entities implements Movable {
         super(centerPosition, border,inner, 2*radius, 2*radius);
 
         setRadius(radius);
+    }
+
+    /**
+     * this method is used to set the random speed on both x-axis and y-axis for the ball.
+     */
+    public void setRandomBallSpeed(){
+        do {
+            setSpeedX(rnd.nextBoolean() ? rnd.nextInt(getMAX_BALL_SPEED()) : -rnd.nextInt(getMAX_BALL_SPEED()));
+        } while (getSpeedX() == 0);
+        do{
+            setSpeedY(-rnd.nextInt(getMAX_BALL_SPEED()));
+        }while(getSpeedY() == 0);
     }
 
     /**
