@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BallTest {
 
-    RubberBall ball = new RubberBall(new Point2D(0,0));
+    RubberBall ball = new RubberBall();
 
     @Test
     void testSetRandomBallSpeed() {
@@ -22,7 +22,7 @@ class BallTest {
 
     @Test
     void testResetPosition(){
-        BoundingBox box = new BoundingBox(0,0, ball.getWidth(), ball.getHeight());
+        BoundingBox box = new BoundingBox(ball.getFixedInitialPosition().getX(),ball.getFixedInitialPosition().getY(), ball.getWidth(), ball.getHeight());
         ball.setSpeedX(5);
         ball.move();
         ball.resetPosition();

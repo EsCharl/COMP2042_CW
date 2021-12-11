@@ -7,36 +7,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameDataTest {
 
-    GameData gameData = GameData.singletonGame();
+    Game game = Game.singletonGame(500,600);
 
     @Test
     void testWallReset(){
-        gameData.getBrickLevels()[0][1].setCurrentStrength(0);
-        boolean isBroken = gameData.getBrickLevels()[0][1].isBroken();
-        gameData.wallReset();
-        assertEquals(isBroken, gameData.getBrickLevels()[0][1].isBroken());
+        game.getBrickLevels()[0][1].setCurrentStrength(0);
+        boolean isBroken = game.getBrickLevels()[0][1].isBroken();
+        game.wallReset();
+        assertEquals(isBroken, game.getBrickLevels()[0][1].isBroken());
     }
 
     @Test
     void testAutomation() {
-        gameData.setBotMode(true);
-        gameData.getMainBall().setBounds(new BoundingBox(1,1,20,20));
-        gameData.automation();
-        assertTrue(gameData.getPlayer().getMoveAmount() == -5);
-    }
-
-    @Test
-    void testImpactWall() {
-        gameData.getMainBall().setBounds(new BoundingBox(0,0,10,10));
-        gameData.impactWall(gameData.getMainBall());
-        assertTrue(gameData.getBrickLevels()[0][0].isBroken());
+        game.setBotMode(true);
+        game.getMainBall().setBounds(new BoundingBox(1,1,20,20));
+        game.automation();
+        assertTrue(game.getPaddle().getMoveAmount() == -5);
     }
 
     @Test
     void testCloneBallRandomGenerator() {
-        int initialSize = gameData.getCloneBall().size();
+        int initialSize = game.getCloneBall().size();
         for (int i =0; i < 10; i++)
-            gameData.cloneBallRandomGenerator();
-        assertNotEquals(initialSize, gameData.getCloneBall().size());
+            game.cloneBallRandomGenerator();
+        assertNotEquals(initialSize, game.getCloneBall().size());
     }
 }

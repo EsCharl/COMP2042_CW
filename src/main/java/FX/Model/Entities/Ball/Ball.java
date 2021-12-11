@@ -18,9 +18,11 @@
 
 package FX.Model.Entities.Ball;
 
+import FX.Model.Entities.Brick.Crackable;
 import FX.Model.Entities.Entities;
 import FX.Model.Entities.Movable;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -34,11 +36,11 @@ abstract public class Ball extends Entities implements Movable {
     private final int MAX_BALL_SPEED = 4;
     private final int MIN_BALL_SPEED = 2;
 
-    private int sppedX;
+    private int speedX;
     private int speedY;
     private int radius;
 
-    private Random rnd = new Random();
+    private Random rnd;
 
     /**
      * this is the constructor used to create a ball object.
@@ -51,6 +53,7 @@ abstract public class Ball extends Entities implements Movable {
     public Ball(Point2D centerPosition,int radius,Color inner,Color border){
         super(centerPosition, border,inner, 2*radius, 2*radius);
 
+        setRnd(new Random());
         setRadius(radius);
         setRandomBallSpeed();
     }
@@ -60,10 +63,10 @@ abstract public class Ball extends Entities implements Movable {
      */
     public void setRandomBallSpeed(){
         do {
-            setSpeedX(rnd.nextBoolean() ? rnd.nextInt(getMAX_BALL_SPEED()) : -rnd.nextInt(getMAX_BALL_SPEED()));
+            setSpeedX(getRnd().nextBoolean() ? getRnd().nextInt(getMAX_BALL_SPEED()) : -getRnd().nextInt(getMAX_BALL_SPEED()));
         } while (getSpeedX() == 0);
         do{
-            setSpeedY(-rnd.nextInt(getMAX_BALL_SPEED()));
+            setSpeedY(-getRnd().nextInt(getMAX_BALL_SPEED()));
         }while(getSpeedY() == 0);
     }
 
@@ -74,13 +77,32 @@ abstract public class Ball extends Entities implements Movable {
         setBounds(new BoundingBox(getBounds().getMinX() + getSpeedX(), getBounds().getMinY() + getSpeedY(),2*getRadius(),2*getRadius()));
     }
 
+
+    /**
+     * this method is used to get the random object which is used to randomly generate the speed for the ball.
+     *
+     * @return this returns a random object.
+     */
+    public Random getRnd() {
+        return rnd;
+    }
+
+    /**
+     * this method is used to set the random object into a variable for future reference.
+     *
+     * @param rnd this is the random object used to set into a variable.
+     */
+    public void setRnd(Random rnd) {
+        this.rnd = rnd;
+    }
+
     /**
      * this is used to set the speed of the ball on the x-axis.
      *
      * @param s speed on the x-axis.
      */
     public void setSpeedX(int s){
-        this.sppedX = s;
+        this.speedX = s;
     }
 
     /**
@@ -98,7 +120,7 @@ abstract public class Ball extends Entities implements Movable {
      * @return an integer of the speed of the ball on the x-axis.
      */
     public int getSpeedX(){
-        return this.sppedX;
+        return this.speedX;
     }
 
     /**
@@ -151,11 +173,10 @@ abstract public class Ball extends Entities implements Movable {
      */
     public void ballLeftCollision() {
         setSpeedX(-getSpeedX());
-        if(rnd.nextBoolean() && getSpeedX() < getMAX_BALL_SPEED()){
-            setSpeedX(getSpeedX()+1);
-        }else if(rnd.nextBoolean() && getSpeedX() > getMIN_BALL_SPEED()){
+        if(getRnd().nextBoolean() && getSpeedX() > getMIN_BALL_SPEED())
             setSpeedX(getSpeedX()-1);
-        }
+        else if(getRnd().nextBoolean() && getSpeedX() < getMAX_BALL_SPEED())
+            setSpeedX(getSpeedX()+1);
     }
 
     /**
@@ -163,11 +184,10 @@ abstract public class Ball extends Entities implements Movable {
      */
     public void ballRightCollision() {
         setSpeedX(-getSpeedX());
-        if(rnd.nextBoolean() && (getSpeedX() > -getMAX_BALL_SPEED())){
-            setSpeedX(getSpeedX()-1);
-        }else if(rnd.nextBoolean() && getSpeedX() < -getMIN_BALL_SPEED()){
+        if(getRnd().nextBoolean() && getSpeedX() < -getMIN_BALL_SPEED())
             setSpeedX(getSpeedX()+1);
-        }
+        else if(getRnd().nextBoolean() && (getSpeedX() > -getMAX_BALL_SPEED()))
+                setSpeedX(getSpeedX()-1);
     }
 
     /**
@@ -175,10 +195,10 @@ abstract public class Ball extends Entities implements Movable {
      */
     public void ballTopCollision() {
         setSpeedY(-getSpeedY());
-        if(rnd.nextBoolean() && getSpeedY() < getMAX_BALL_SPEED())
-            setSpeedY(getSpeedY()+1);
-        else if(rnd.nextBoolean() && getSpeedY() > getMIN_BALL_SPEED())
+        if(getRnd().nextBoolean() && getSpeedY() > getMIN_BALL_SPEED())
             setSpeedY(getSpeedY()-1);
+        else if(getRnd().nextBoolean() && getSpeedY() < getMAX_BALL_SPEED())
+            setSpeedY(getSpeedY()+1);
     }
 
     /**
@@ -186,10 +206,64 @@ abstract public class Ball extends Entities implements Movable {
      */
     public void ballBottomCollision() {
         setSpeedY(-getSpeedY());
-        if (rnd.nextBoolean() && getSpeedY() > -getMAX_BALL_SPEED()) {
-            setSpeedY(getSpeedY() - 1);
-        }else if (rnd.nextBoolean() && getSpeedY() < -getMIN_BALL_SPEED()) {
+        if (getRnd().nextBoolean() && getSpeedY() < -getMIN_BALL_SPEED())
             setSpeedY(getSpeedY() + 1);
+        else if (getRnd().nextBoolean() && getSpeedY() > -getMAX_BALL_SPEED())
+            setSpeedY(getSpeedY() - 1);
+    }
+
+    /**
+     * this method is used to check if there is a collision between the game Bounds (top, left, and right side) and the ball.
+     *
+     * @param gameWindow this is the Bounds of the game.
+     * @return this returns a true if it collides with one of the 3 directions stated, false if not.
+     */
+    public boolean gameWindowCollision(Bounds gameWindow) {
+        boolean top = getBounds().getMinY() <= gameWindow.getMinY();
+        boolean right = getBounds().getMaxX() >= gameWindow.getMaxX();
+        boolean left = getBounds().getMinX() <= gameWindow.getMinX();
+        boolean bottom = getBounds().getMaxY() >= gameWindow.getMaxY();
+        boolean collide = top || right || left || bottom;
+
+        if(top){
+            if(getBounds().getMinY() < gameWindow.getMinY()) {
+                ballTopCollision();
+            }
         }
+        if(right){
+            if (getSpeedX() > 0) {
+                ballRightCollision();
+            }
+        }else if(left){
+            if (getSpeedX() < 0) {
+                ballLeftCollision();
+            }
+        }
+        return collide;
+    }
+
+    /**
+     * this method change the ball direction and also returns true if the ball comes in contact with any side of the brick.
+     *
+     * @return returns a boolean value if or if it doesn't touch any entity.
+     */
+    public boolean impactEntity(Entities entity){
+            if(entity.getBounds().contains(getBounds().getMinX()+ getBounds().getWidth()/2, getBounds().getMaxY())){
+                ballBottomCollision();
+                return entity.setImpact(new Point2D(getBounds().getMinX() + getBounds().getWidth()/2, getBounds().getMaxY()), Crackable.UP);
+            }
+            else if (entity.getBounds().contains(getBounds().getMinX()+ getBounds().getWidth()/2, getBounds().getMinY())){
+                ballTopCollision();
+                return entity.setImpact(new Point2D(getBounds().getMinX() + getBounds().getWidth() / 2, getBounds().getMinY()), Crackable.DOWN);
+            }
+            else if(entity.getBounds().contains(getBounds().getMaxX(), getBounds().getMinY()+ getBounds().getHeight()/2)){
+                ballLeftCollision();
+                return entity.setImpact(new Point2D(getBounds().getMaxX(), getBounds().getMinY() + getBounds().getHeight() / 2), Crackable.RIGHT);
+            }
+            else if(entity.getBounds().contains(getBounds().getMinX(), getBounds().getMinY()+ getBounds().getHeight()/2)){
+                ballRightCollision();
+                return entity.setImpact(new Point2D(getBounds().getMinX(), getBounds().getMinY() + getBounds().getHeight() / 2), Crackable.LEFT);
+            }
+        return false;
     }
 }

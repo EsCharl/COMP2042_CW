@@ -52,6 +52,10 @@ public abstract class Entities {
         setBounds(new BoundingBox(getFixedInitialPosition().getX(), getFixedInitialPosition().getY(), getWidth(),getHeight()));
     }
 
+    public boolean setImpact(Point2D point, int dir){
+        return true;
+    }
+
     /**
      * this method is used to reset the position of the entity.
      */

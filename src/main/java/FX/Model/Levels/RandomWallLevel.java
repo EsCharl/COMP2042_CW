@@ -65,7 +65,7 @@ public class RandomWallLevel extends FullWallRowsLevels {
 
         for(double y = getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio); i < brickArray.length; i++, y += 2 * getDrawBrickHeight(drawArea, brickCount, lineCount, brickSizeRatio)){
             double x = (getBrickOnLine(brickCount,lineCount) * getDrawBrickLength(drawArea, lineCount, brickCount)) - (getDrawBrickLength(drawArea, lineCount, brickCount) / 2);
-            brickArray[i] = brickFactory.makeBrick(new Point2D(x,y),brickSize, rnd.nextInt(brickFactory.brickTypes.length)+1);
+            brickArray[i] = brickFactory.makeBrick(new Point2D(x,y),brickSize, rnd.nextInt(BrickFactory.brickTypes.length)+1);
         }
         return brickArray;
     }

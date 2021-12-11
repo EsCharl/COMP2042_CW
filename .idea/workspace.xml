@@ -5,19 +5,130 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e3d663f-6ca4-4543-bcb3-690671942058" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-console-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-console-l1-2-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-datetime-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-debug-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-errorhandling-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-file-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-file-l1-2-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-file-l2-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-handle-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-heap-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-interlocked-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-libraryloader-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-localization-l1-2-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-memory-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-namedpipe-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-processenvironment-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-processthreads-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-processthreads-l1-1-1.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-profile-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-rtlsupport-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-string-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-synch-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-synch-l1-2-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-sysinfo-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-timezone-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-core-util-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-conio-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-convert-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-environment-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-filesystem-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-heap-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-locale-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-math-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-multibyte-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-private-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-process-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-runtime-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-stdio-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-string-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-time-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/api-ms-win-crt-utility-l1-1-0.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/decora_sse.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/fxplugins.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/glass.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/glib-lite.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/gstreamer-lite.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/javafx_font.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/javafx_iio.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/jfxmedia.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/jfxwebkit.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/msvcp140.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/prism_common.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/prism_d3d.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/prism_sw.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/ucrtbase.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/vcruntime140.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/bin/vcruntime140_1.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.base/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.base/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.base/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.controls/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.controls/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.controls/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.fxml/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.fxml/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.fxml/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.graphics/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.graphics/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.graphics/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.graphics/jpeg_fx.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.graphics/mesa3d.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.media/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.media/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.media/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.media/directshow.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.media/glib.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.media/gstreamer.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.media/libffi.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.swing/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.swing/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.swing/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.web/ADDITIONAL_LICENSE_INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.web/ASSEMBLY_EXCEPTION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.web/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.web/icu_web.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.web/libxml2.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.web/libxslt.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/legal/javafx.web/webkit.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx-swt.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.base.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.controls.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.fxml.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.graphics.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.media.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.swing.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/lib/javafx.web.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javafx-sdk-17.0.1/src.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Paddle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Game.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/PaddleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Paddle.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/FX/Model/Game.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/PaddleTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/PauseMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/PauseMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/GameStart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClones.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/RubberBall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/RubberBall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Brick.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Controller/GameStateControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Controller/GameStateControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Entities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Entities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/RandomWallLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Levels/RandomWallLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Controller/GameStateControllerTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Ball/BallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Ball/BallTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/PlayerTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameDataTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameScoreTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
@@ -26,19 +137,37 @@
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/PauseMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/PauseMenuController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/GameStart.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/BallClones.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/RubberBall.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/RubberBall.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Brick.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Entities.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Entities.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Levels/RandomWallLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Levels/RandomWallLevel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Controller.GameStateControllerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Controller.GameStateControllerTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Ball.BallTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Ball.BallTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.CrackTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.CrackTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.PlayerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.PlayerTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameDataTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameDataTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Controller.GameStateControllerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Controller.GameStateControllerTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Ball.BallTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Ball.BallTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.CrackTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.CrackTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.PlayerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.PlayerTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameDataTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameDataTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameScoreTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameScoreTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Controller/GameStateControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Controller/GameStateControllerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Ball/BallTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Ball/BallTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/PlayerTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameDataTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameDataTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameScoreTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +178,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -69,9 +198,6 @@
   <component name="HierarchyBrowserManager">
     <option name="SCOPE" value="All" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
-  </component>
   <component name="ProjectId" id="21m6OHIB4NlQF6giaurgh5TJ6vW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -84,20 +210,20 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/target/classes/FX/Model" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test/resources" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\test\resources" />
+      <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\target\classes\FX\Model" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\target\classes\FX\Model\scores" />
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model" />
-      <recent name="C:\Users\chang\Desktop\brickdestroyerFX\src\main\resources\SoundEffects" />
-      <recent name="C:\Users\chang\Desktop\brickdestroyerFX\target\classes\SoundEffects" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3" />
@@ -114,9 +240,9 @@
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="FX.Model.Levels" />
+      <recent name="FX.Controller" />
       <recent name="FX.Model.Entities.Brick" />
       <recent name="FX.Model" />
-      <recent name="FX.Controller" />
       <recent name="FX.Model.Entities.Ball" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -139,72 +265,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BrickFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameDataTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="FX.Model.Entities.Brick.*" />
+          <option name="PATTERN" value="FX.Model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="FX.Model.Entities.Brick" />
-      <option name="MAIN_CLASS_NAME" value="FX.Model.Entities.Brick.BrickFactoryTest" />
+      <option name="PACKAGE_NAME" value="FX.Model" />
+      <option name="MAIN_CLASS_NAME" value="FX.Model.GameDataTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LevelFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW_hcycl3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="FX.Model.Levels.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="FX.Model.Levels" />
-      <option name="MAIN_CLASS_NAME" value="FX.Model.Levels.LevelFactoryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LevelFactoryTest.testMakeLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="COMP2042_CW_hcycl3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="FX.Model.Levels.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="FX.Model.Levels" />
-      <option name="MAIN_CLASS_NAME" value="FX.Model.Levels.LevelFactoryTest" />
-      <option name="METHOD_NAME" value="testMakeLevel" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\chang\Desktop\javafx-sdk-17.0.1\lib --add-modules=javafx.controls,javafx.media,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path javafx-sdk-17.0.1/lib --add-modules=javafx.controls,javafx.media,javafx.fxml" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Application.BrickDestroyer" />
       <item itemvalue="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
-      <item itemvalue="JUnit.BrickFactoryTest" />
-      <item itemvalue="JUnit.LevelFactoryTest" />
-      <item itemvalue="JUnit.LevelFactoryTest.testMakeLevel" />
+      <item itemvalue="JUnit.GameDataTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" />
         <item itemvalue="Application.BrickDestroyer" />
-        <item itemvalue="JUnit.BrickFactoryTest" />
-        <item itemvalue="JUnit.LevelFactoryTest" />
-        <item itemvalue="JUnit.LevelFactoryTest.testMakeLevel" />
+        <item itemvalue="JUnit.GameDataTest" />
       </list>
     </recent_temporary>
   </component>

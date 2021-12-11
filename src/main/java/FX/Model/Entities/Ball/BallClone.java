@@ -15,7 +15,7 @@ public class BallClone extends Ball {
     /**
      * this constructor is used to create a ball clone which is going to be used in the game.
      *
-     * @param center this is the starting position where the ball clone will start.
+     * @param center this is the starting position where the ball clone will have.
      */
     public BallClone(Point2D center){
         super(center,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);

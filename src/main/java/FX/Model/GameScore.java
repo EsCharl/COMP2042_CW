@@ -21,7 +21,6 @@ package FX.Model;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -167,9 +166,8 @@ public class GameScore {
      *
      * @param sorted this is the arraylist of string to store inside the save file.
      * @throws IOException This is in case if there is a problem writing the file.
-     * @throws URISyntaxException this is in case if there is a problem if the resource path to the file can't be converted to String format.
      */
-    public void updateSaveFile(ArrayList<String> sorted) throws IOException, URISyntaxException {
+    public void updateSaveFile(ArrayList<String> sorted) throws IOException {
         File file = new File(levelFilePathName);
         FileWriter overwrite = new FileWriter(file,false);
         for (int i = 0; i < sorted.size()-1; i++)
@@ -255,9 +253,8 @@ public class GameScore {
      *
      * @return it returns an arraylist of string that contains the sorted name and time for the player and the records in the save file.
      * @throws IOException this is an exception used when there is a problem with the input and output file.
-     * @throws URISyntaxException this exception is used to check if there is a problem in the string could not be parsed as URI reference.
      */
-    public ArrayList<String> getHighScore() throws IOException, URISyntaxException {
+    public ArrayList<String> getHighScore() throws IOException {
 
         boolean placed = false;
 

@@ -15,7 +15,7 @@ public class Crack {
     private Random rnd = new Random();
 
     /**
-     * This method is used to calculate and determine where to draw the crack to.
+     * This method is used to calculate and determine where to draw the crack to based on the direction provided.
      *
      * @param point the point where the ball comes in contact with.
      * @param direction the direction where the ball touch the brick.
@@ -29,22 +29,22 @@ public class Crack {
             case Crackable.LEFT -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
-                makeCrack(new Point2D((int) point.getX(), (int) point.getY()), makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.VERTICAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.VERTICAL), brick);
             }
             case Crackable.RIGHT -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
-                makeCrack(new Point2D((int) point.getX(), (int) point.getY()), makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.VERTICAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.VERTICAL), brick);
             }
             case Crackable.UP -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
-                makeCrack(new Point2D((int) point.getX(), (int) point.getY()), makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.HORIZONTAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.HORIZONTAL), brick);
             }
             case Crackable.DOWN -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY());
-                makeCrack(new Point2D((int) point.getX(), (int) point.getY()), makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.HORIZONTAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.HORIZONTAL), brick);
             }
         }
     }

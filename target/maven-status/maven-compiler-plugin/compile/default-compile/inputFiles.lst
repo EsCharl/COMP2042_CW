@@ -1,5 +1,6 @@
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\BrickDestroyer.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\View\GameScoreDisplay.java
+C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Paddle.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Ball\RubberBall.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Controller\PauseMenuController.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Levels\ChainWallLevel.java
@@ -22,11 +23,10 @@ C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entiti
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Brick\SteelBrick.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Brick\CementBrick.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Brick\ReinforcedSteelBrick.java
-C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\GameData.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Controller\InfoMenuController.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Brick\ClayBrick.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Levels\CurlyLinesWallLevel.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Brick\Crack.java
+C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Game.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Levels\LevelFactory.java
-C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Player.java
 C:\Users\chang\Documents\GitHub\COMP2042_CW_hcycl3\src\main\java\FX\Model\Entities\Movable.java

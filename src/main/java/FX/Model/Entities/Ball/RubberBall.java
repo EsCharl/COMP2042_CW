@@ -32,12 +32,13 @@ public class RubberBall extends Ball {
     private static final Color DEF_INNER_COLOR = Color.rgb(255, 219, 88,1);
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
+    private static final int ballTopLeftXStartPoint = 300;
+    private static final int ballTopLeftYStartPoint = 410;
+
     /**
      * this constructor is used to create a rubber ball.
-     *
-     * @param center this is the position where the ball is created.
      */
-    public RubberBall(Point2D center){
-        super(center,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
+    public RubberBall(){
+        super(new Point2D(ballTopLeftXStartPoint,ballTopLeftYStartPoint),DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
     }
 }

@@ -62,6 +62,7 @@ abstract public class Brick extends Entities {
      * @param dir the direction where the ball comes in contact with the object.
      * @return returns a boolean value negative if the brick is broken, true if it is not.
      */
+    @Override
     public boolean setImpact(Point2D point, int dir) {
         Random rnd = new Random();
         if(isBroken())

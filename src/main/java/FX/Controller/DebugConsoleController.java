@@ -18,7 +18,7 @@
 
 package FX.Controller;
 
-import FX.Model.GameData;
+import FX.Model.Game;
 import FX.Model.GameScore;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,16 +36,16 @@ public class DebugConsoleController implements Initializable {
 
     @FXML private Slider xSpeedSlider, ySpeedSlider;
     @FXML private Label textXSpeed, textYSpeed;
-    @FXML private ChoiceBox levelSelector;
+    @FXML private ChoiceBox<java.io.Serializable> levelSelector;
 
-    private GameData gameData;
+    private Game game;
     private GameScore gameScore;
 
     /**
      * this is the constructor used to prepare the debug console by preparing the objects used into variables.
      */
     public DebugConsoleController(){
-        gameData = GameData.singletonGame();
+        game = Game.singletonGame(0,0);
         gameScore = GameScore.singletonGameScore();
     }
 
@@ -54,15 +54,12 @@ public class DebugConsoleController implements Initializable {
      */
     @FXML
     private void skipLevelButtonClicked(){
-        gameData.getPlayer().resetPosition();
-        gameData.getMainBall().resetPosition();
-        gameData.getMainBall().setRandomBallSpeed();
-        gameData.resetBallCount();
-        gameData.wallReset();
-        gameData.nextLevel();
-        gameData.getCloneBall().clear();
-        gameScore.setLevelFileName("/scores/Level" + gameData.getCurrentLevel()+".txt");
+        game.restartStatus();
+        game.wallReset();
+        game.nextLevel();
+        gameScore.setLevelFileName("Level" + game.getCurrentLevel()+".txt");
         gameScore.restartTimer();
+        levelSelector.setValue(game.getCurrentLevel());
     }
 
     /**
@@ -70,7 +67,7 @@ public class DebugConsoleController implements Initializable {
      */
     @FXML
     private void resetBallButtonClicked(){
-        gameData.setBallCount(gameData.getMAX_BALL_COUNT());
+        game.setBallCount(game.getMAX_BALL_COUNT());
     }
 
     /**
@@ -79,7 +76,7 @@ public class DebugConsoleController implements Initializable {
     @FXML
     private void xSpeedSliderMoved(){
         xSpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            gameData.getMainBall().setSpeedX(t1.intValue());
+            game.getMainBall().setSpeedX(t1.intValue());
             textXSpeed.setText("new ball x-axis speed: " + t1);
         });
     }
@@ -90,7 +87,7 @@ public class DebugConsoleController implements Initializable {
     @FXML
     private void ySpeedSliderMoved(){
         ySpeedSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            gameData.getMainBall().setSpeedY(t1.intValue());
+            game.getMainBall().setSpeedY(t1.intValue());
             textYSpeed.setText("new ball y-axis speed: " + t1);
         });
     }
@@ -104,7 +101,7 @@ public class DebugConsoleController implements Initializable {
         levelSelector.setOnAction(actionEvent -> {
             int selectedIndex = levelSelector.getSelectionModel().getSelectedIndex();
 
-            gameData.setCurrentLevel(selectedIndex);
+            game.setCurrentLevel(selectedIndex);
             skipLevelButtonClicked();
         });
     }
@@ -114,10 +111,10 @@ public class DebugConsoleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        xSpeedSlider.setValue(gameData.getMainBall().getSpeedX());
-        ySpeedSlider.setValue(gameData.getMainBall().getSpeedY());
+        xSpeedSlider.setValue(game.getMainBall().getSpeedX());
+        ySpeedSlider.setValue(game.getMainBall().getSpeedY());
 
-        levelSelector.setValue(gameData.getCurrentLevel());
+        levelSelector.setValue(game.getCurrentLevel());
 
         levelSelector.getItems().add("Level 1");
         levelSelector.getItems().add("Level 2");
