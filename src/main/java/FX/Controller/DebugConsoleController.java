@@ -57,9 +57,9 @@ public class DebugConsoleController implements Initializable {
         game.restartStatus();
         game.wallReset();
         game.nextLevel();
-        gameScore.setLevelFileName("Level" + game.getCurrentLevel()+".txt");
+        gameScore.setLevelFileName("Level" + game.getPlayer().getCurrentLevel()+".txt");
         gameScore.restartTimer();
-        levelSelector.setValue(game.getCurrentLevel());
+        levelSelector.setValue(game.getPlayer().getCurrentLevel());
     }
 
     /**
@@ -67,7 +67,7 @@ public class DebugConsoleController implements Initializable {
      */
     @FXML
     private void resetBallButtonClicked(){
-        game.resetBallCount();
+        game.getPlayer().resetBallCount();
     }
 
     /**
@@ -101,7 +101,7 @@ public class DebugConsoleController implements Initializable {
         levelSelector.setOnAction(actionEvent -> {
             int selectedIndex = levelSelector.getSelectionModel().getSelectedIndex();
 
-            game.setCurrentLevel(selectedIndex);
+            game.getPlayer().setCurrentLevel(selectedIndex);
             skipLevelButtonClicked();
         });
     }
@@ -114,7 +114,7 @@ public class DebugConsoleController implements Initializable {
         xSpeedSlider.setValue(game.getMainBall().getSpeedX());
         ySpeedSlider.setValue(game.getMainBall().getSpeedY());
 
-        levelSelector.setValue(game.getCurrentLevel());
+        levelSelector.setValue(game.getPlayer().getCurrentLevel());
 
         levelSelector.getItems().add("Level 1");
         levelSelector.getItems().add("Level 2");

@@ -19,17 +19,9 @@ class GameTest {
 
     @Test
     void testAutomation() {
-        game.setBotMode(true);
+        game.getPlayer().setBotMode(true);
         game.getMainBall().setBounds(new BoundingBox(1,1,20,20));
         game.automation();
         assertTrue(game.getPaddle().getMoveAmount() == -5);
-    }
-
-    @Test
-    void testCloneBallRandomGenerator() {
-        int initialSize = game.getCloneBall().size();
-        for (int i =0; i < 10; i++)
-            game.cloneBallRandomGenerator();
-        assertNotEquals(initialSize, game.getCloneBall().size());
     }
 }

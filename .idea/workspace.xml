@@ -5,53 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e3d663f-6ca4-4543-bcb3-690671942058" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_13_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_testfx_testfx_core_4_0_16_alpha.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_testfx_testfx_junit5_4_0_16_alpha.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/COMP2042_CW_hcycl3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/COMP2042_CW_hcycl3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scores/Level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/BrickDestroyer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/BrickDestroyer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/Level7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/Level7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/test.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/DebugConsoleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/GameStateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/CementBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/CementBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/ReinforcedSteelBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/ReinforcedSteelBrick.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/GameScore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/FX/GameState.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/FX/GameState.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Ball/BallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Ball/BallTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Brick/CrackTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Brick/CrackTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/PaddleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/PaddleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/GameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/GameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/DebugConsoleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameStateController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/GameState.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/GameState.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/BallClone.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/BallClone.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/CementBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/CementBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/ReinforcedSteelBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/ReinforcedSteelBrick.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/GameScore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Ball.BallTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Ball.BallTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickFactoryTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickFactoryTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.CrackTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.CrackTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameDataTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameDataTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameScoreTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameScoreTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.PaddleTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.PaddleTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Ball.BallTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Ball.BallTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickFactoryTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickFactoryTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.CrackTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.CrackTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.PaddleTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.PaddleTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameDataTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameDataTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameScoreTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameScoreTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Levels.LevelFactoryTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Levels.LevelFactoryTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Ball/BallTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Ball/BallTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Brick/CrackTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Brick/CrackTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/PaddleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/PaddleTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameDataTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/GameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/GameTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,6 +151,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in COMP2042_CW_hcycl3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="COMP2042_CW_hcycl3" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BallTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="COMP2042_CW_hcycl3" />
       <extension name="coverage">
@@ -224,9 +234,11 @@
       <item itemvalue="JUnit.BallTest" />
       <item itemvalue="JUnit.PaddleTest.testNotMove" />
       <item itemvalue="JUnit.PaddleTest.testMove" />
+      <item itemvalue="JUnit.All in COMP2042_CW_hcycl3" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in COMP2042_CW_hcycl3" />
         <item itemvalue="JUnit.InfoMenuControllerTest" />
         <item itemvalue="JUnit.PaddleTest.testMove" />
         <item itemvalue="JUnit.PaddleTest.testNotMove" />
@@ -275,7 +287,10 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/COMP2042_CW_hcycl3$All_in_COMP2042_CW_hcycl3.ic" NAME="All in COMP2042_CW_hcycl3 Coverage Results" MODIFIED="1638966535373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/COMP2042_CW_hcycl3$All_in_COMP2042_CW_hcycl3.ic" NAME="All in COMP2042_CW_hcycl3 Coverage Results" MODIFIED="1639293024716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/COMP2042_CW$GraphicsMain.ic" NAME="GraphicsMain Coverage Results" MODIFIED="1638769353573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/COMP2042_CW_hcycl3$BrickDestroyer.ic" NAME="BrickDestroyer Coverage Results" MODIFIED="1639293035313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>FX.*</FILTER>
+    </SUITE>
   </component>
 </project>

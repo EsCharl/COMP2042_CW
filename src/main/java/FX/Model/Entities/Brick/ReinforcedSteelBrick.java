@@ -45,7 +45,7 @@ public class ReinforcedSteelBrick extends Brick implements Crackable{
      */
     public ReinforcedSteelBrick(Point2D point, Dimension2D size) {
         super(point,size,DEF_BORDER,DEF_INNER,REINFORCED_STEEL_STRENGTH,REINFORCED_STEEL_PROBABILITY,NAME);
-        setCrack(new Crack());
+        setCrack(Crack.singletonCrack());
     }
 
     /**

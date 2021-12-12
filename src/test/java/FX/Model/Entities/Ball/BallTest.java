@@ -2,12 +2,10 @@ package FX.Model.Entities.Ball;
 
 import FX.Model.Entities.Brick.Brick;
 import FX.Model.Entities.Brick.ClayBrick;
-import FX.Model.Entities.Paddle;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

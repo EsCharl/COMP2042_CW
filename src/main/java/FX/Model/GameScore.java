@@ -217,7 +217,7 @@ public class GameScore {
      *
      * @return returns a game score object if it is present.
      */
-    public static GameScore getUniqueGameScore() {
+    private static GameScore getUniqueGameScore() {
         return uniqueGameScore;
     }
 
@@ -226,7 +226,7 @@ public class GameScore {
      *
      * @param uniqueGameScore this is the game score used to set into a variable.
      */
-    public static void setUniqueGameScore(GameScore uniqueGameScore) {
+    private static void setUniqueGameScore(GameScore uniqueGameScore) {
         GameScore.uniqueGameScore = uniqueGameScore;
     }
 

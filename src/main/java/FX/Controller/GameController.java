@@ -33,6 +33,7 @@ import FX.View.GameScoreDisplay;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -48,6 +49,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * this class is used as the controller for the game state controller where it is in control of the game play.
@@ -64,6 +66,7 @@ public class GameController {
     private Scene scene;
 
     private ArrayList<KeyCode> userInput;
+    private Random rnd;
 
     @FXML public Canvas gameBoard;
     @FXML private AnchorPane anchorPane;
@@ -78,10 +81,11 @@ public class GameController {
 
         setGameScore(GameScore.singletonGameScore());
         setGameScoreDisplay(new GameScoreDisplay());
+        rnd = new Random();
     }
 
     /**
-     * this method is used to initialize and have the info on how the game should work. (game logic).
+     * this method is used to initialize and have the logic on how the game should work. (game logic).
      */
     @FXML
     private void initialize(){
@@ -89,7 +93,7 @@ public class GameController {
 
         getGame().setShowPauseMenu(false);
 
-        getGameScore().setLevelFileName("Level"+ getGame().getCurrentLevel()+".txt");
+        getGameScore().setLevelFileName("Level"+ getGame().getPlayer().getCurrentLevel()+".txt");
 
         graphicsContext = gameBoard.getGraphicsContext2D();
 
@@ -103,7 +107,7 @@ public class GameController {
 
                 graphicsContext.setLineWidth(2);
 
-                gameText.setText(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getBallCount()));
+                gameText.setText(String.format("Bricks: %d Balls %d", getGame().getBrickCount(), getGame().getPlayer().getBallCount()));
 
                 drawBricks();
 
@@ -114,11 +118,11 @@ public class GameController {
                 if(getGame().isBallLost()){
                     gameScore.recordGameTimer();
                     getGame().setBallLost(false);
-                    getGame().setPauseMode(false);
-                    if(getGame().getBallCount() == 0){
+                    getGame().getPlayer().setPauseMode(false);
+                    if(getGame().getPlayer().getBallCount() == 0){
                         BrickDestroyer.audio.pause();
                         getSoundEffects().getLostSound().play();
-                        getGame().resetBallCount();
+                        getGame().getPlayer().resetBallCount();
                         gameText.setText("Game Over. Time spent in this level: " + getGameScore().getTimerString());
                         getGameScore().restartTimer();
                     }
@@ -159,7 +163,7 @@ public class GameController {
                     if(!(getEntityMaxY(getGame().getMainBall()) >= gameBoard.getBoundsInLocal().getMaxY())){
                         getSoundEffects().ballCollisionRandomSound(getSoundEffects().getGameWindowCollisionSound1(), getSoundEffects().getGameWindowCollisionSound2());
                     }else{
-                        getGame().setBallCount(getGame().getBallCount() - 1);
+                        getGame().getPlayer().setBallCount(getGame().getPlayer().getBallCount() - 1);
                         getGame().getMainBall().resetPosition();
                         getGame().getPaddle().resetPosition();
                         getGame().getMainBall().setRandomBallSpeed();
@@ -171,18 +175,18 @@ public class GameController {
                     gameScoreHandler();
                     BrickDestroyer.audio.pause();
                     getSoundEffects().getVictorySound().play();
-                    if(getGame().getCurrentLevel() < getGame().getBrickLevels().length){
+                    if(getGame().getPlayer().getCurrentLevel() < getGame().getBrickLevels().length){
                         gameText.setText("Go to Next Level");
                         animationTimer.stop();
                     }
                     else{
                         gameText.setText("ALL WALLS DESTROYED! Restart?");
                         animationTimer.stop();
-                        getGame().setCurrentLevel(0);
+                        getGame().getPlayer().setCurrentLevel(0);
                     }
                     getGame().nextLevel();
                     getGame().restartStatus();
-                    getGameScore().setLevelFileName("Level"+ getGame().getCurrentLevel()+".txt");
+                    getGameScore().setLevelFileName("Level"+ getGame().getPlayer().getCurrentLevel()+".txt");
                     getGameScore().restartTimer();
                 }
             }
@@ -196,8 +200,11 @@ public class GameController {
             private boolean ballActions(Ball ball) {
                 ball.move();
                 if (ball.impactEntity(getGame().getPaddle())) {
-                    if (ball.equals(getGame().getMainBall()))
-                        getGame().cloneBallRandomGenerator();
+                    if (ball.equals(getGame().getMainBall())){
+                        if(rnd.nextDouble() < BallClone.CLONE_BALL_GENERATION_PROBABILITY && getGame().getCloneBall().size() < BallClone.MAX_CLONE_BALL){
+                            getGame().addCloneBall(new BallClone(new Point2D(getGame().getMainBall().getBounds().getMinX(), getGame().getMainBall().getBounds().getMinY())));
+                        }
+                    }
                     getSoundEffects().ballCollisionRandomSound(getSoundEffects().getBallPlayerCollisionSound1(), getSoundEffects().getBallPlayerCollisionSound2());
                 }
                 ballBrickCollision(ball);
@@ -239,7 +246,7 @@ public class GameController {
                     gameScore.recordGameTimer();
                     gameText.setText("Focus Lost");
                     animationTimer.stop();
-                    getGame().setPauseMode(false);
+                    getGame().getPlayer().setPauseMode(false);
                 });
             }
 
@@ -247,7 +254,7 @@ public class GameController {
              * this method is used to draw the Bricks.
              */
             private void drawBricks() {
-                for (int i = 0; i < getGame().getBrickLevels()[getGame().getCurrentLevel()-1].length; i++){
+                for (int i = 0; i < getGame().getBrickLevels()[getGame().getPlayer().getCurrentLevel()-1].length; i++){
                     if(!getCurrentLevelBrick(i).isBroken()){
                         graphicsContext.setFill(getCurrentLevelBrick(i).getInnerColor());
                         graphicsContext.fillRect(getEntityMinX(getCurrentLevelBrick(i)), getEntityMinY(getCurrentLevelBrick(i)), getCurrentLevelBrick(i).getWidth(), getCurrentLevelBrick(i).getHeight());
@@ -334,11 +341,11 @@ public class GameController {
      * @param ball this is the ball object used for the collision with the brick.
      */
     private void ballBrickCollision(Ball ball) {
-        for (int x = 0; x < getGame().getBrickLevels()[getGame().getCurrentLevel()-1].length; x++) {
-            if (!getGame().getBrickLevels()[getGame().getCurrentLevel() - 1][x].isBroken()) {
-                if (getGame().getBrickLevels()[getGame().getCurrentLevel() - 1][x].getBounds().intersects(ball.getBounds())) {
-                    getSoundEffects().playBrickSoundEffect(getGame().getBrickLevels()[getGame().getCurrentLevel() - 1][x]);
-                    if (ball.impactEntity(getGame().getBrickLevels()[getGame().getCurrentLevel() - 1][x]))
+        for (int x = 0; x < getGame().getBrickLevels()[getGame().getPlayer().getCurrentLevel()-1].length; x++) {
+            if (!getGame().getBrickLevels()[getGame().getPlayer().getCurrentLevel() - 1][x].isBroken()) {
+                if (getGame().getBrickLevels()[getGame().getPlayer().getCurrentLevel() - 1][x].getBounds().intersects(ball.getBounds())) {
+                    getSoundEffects().playBrickSoundEffect(getGame().getBrickLevels()[getGame().getPlayer().getCurrentLevel() - 1][x]);
+                    if (ball.impactEntity(getGame().getBrickLevels()[getGame().getPlayer().getCurrentLevel() - 1][x]))
                         getGame().setBrickCount(getGame().getBrickCount() - 1);
                 }
             }
@@ -382,7 +389,7 @@ public class GameController {
      * @return this returns the brick object based on the index provided.
      */
     private Brick getCurrentLevelBrick(int i) {
-        return getGame().getBrickLevels()[getGame().getCurrentLevel() - 1][i];
+        return getGame().getBrickLevels()[getGame().getPlayer().getCurrentLevel() - 1][i];
     }
 
     /**
@@ -429,10 +436,10 @@ public class GameController {
         }else if(userInput.contains(KeyCode.F1) && userInput.contains(KeyCode.SHIFT) && userInput.contains(KeyCode.ALT)){
             gameScore.recordGameTimer();
             animationTimer.stop();
-            getGame().setPauseMode(false);
+            getGame().getPlayer().setPauseMode(false);
             showDebugConsole();
         }else if(userInput.contains(KeyCode.H)){
-            getGame().setBotMode(!getGame().isBotMode());
+            getGame().getPlayer().setBotMode(!getGame().getPlayer().isBotMode());
         }
     }
 
@@ -440,10 +447,10 @@ public class GameController {
      * this method is used to toggle between pausing the game and proceeding th game
      */
     private void togglePauseContinueGame(){
-        if(getGame().isPauseMode()){
+        if(getGame().getPlayer().isPauseMode()){
             animationTimer.stop();
             gameScore.recordGameTimer();
-            getGame().setPauseMode(false);
+            getGame().getPlayer().setPauseMode(false);
         }
         else{
             getSoundEffects().getVictorySound().stop();
@@ -451,7 +458,7 @@ public class GameController {
             animationTimer.start();
             getGameScore().startTimer();
             getGameScore().setCanGetTime(true);
-            getGame().setPauseMode(true);
+            getGame().getPlayer().setPauseMode(true);
         }
     }
 

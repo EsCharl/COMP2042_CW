@@ -12,7 +12,24 @@ import java.util.Random;
  */
 public class Crack {
 
-    private Random rnd = new Random();
+    private Random rnd;
+    private static Crack uniqueCrack;
+
+    /**
+     * this method is used to create a one and only crack object and return it. based on singleton design pattern
+     *
+     * @return this returns a one and only crack class object.
+     */
+    public static Crack singletonCrack(){
+        if(getUniqueCrack() == null){
+            setUniqueCrack(new Crack());
+        }
+        return getUniqueCrack();
+    }
+
+    private Crack(){
+        setRnd(new Random());
+    }
 
     /**
      * This method is used to calculate and determine where to draw the crack to based on the direction provided.
@@ -69,7 +86,7 @@ public class Crack {
         for(int i = 1; i < Crackable.DEF_STEPS;i++){
 
             x = (i * ((end.getX() - start.getX()) / (double) Crackable.DEF_STEPS)) + start.getX();
-            y = (i * ((end.getY() - start.getY()) / (double) Crackable.DEF_STEPS)) + start.getY() + rnd.nextInt((Crackable.DEF_CRACK_DEPTH * 2) + 1) - Crackable.DEF_CRACK_DEPTH;
+            y = (i * ((end.getY() - start.getY()) / (double) Crackable.DEF_STEPS)) + start.getY() + getRnd().nextInt((Crackable.DEF_CRACK_DEPTH * 2) + 1) - Crackable.DEF_CRACK_DEPTH;
 
             path.getElements().add(new LineTo(x,y));
         }
@@ -94,14 +111,49 @@ public class Crack {
 
         switch (direction){
             case Crackable.HORIZONTAL:
-                position = rnd.nextInt((int)(oppositeOfCollisionPoint2.getX() - oppositeOfCollisionCornerPoint1.getX())) + (int)oppositeOfCollisionCornerPoint1.getX();
+                position = getRnd().nextInt((int)(oppositeOfCollisionPoint2.getX() - oppositeOfCollisionCornerPoint1.getX())) + (int)oppositeOfCollisionCornerPoint1.getX();
                 return new Point2D(position, oppositeOfCollisionPoint2.getY());
             case Crackable.VERTICAL:
-                position = rnd.nextInt((int)(oppositeOfCollisionPoint2.getY() - oppositeOfCollisionCornerPoint1.getY())) + (int)oppositeOfCollisionCornerPoint1.getY();
+                position = getRnd().nextInt((int)(oppositeOfCollisionPoint2.getY() - oppositeOfCollisionCornerPoint1.getY())) + (int)oppositeOfCollisionCornerPoint1.getY();
                 return new Point2D(oppositeOfCollisionPoint2.getX(),position);
             default:
                 return new Point2D(0,0);
         }
     }
 
+    /**
+     * this method is used to get the crack object used for singleton design.
+     *
+     * @return this returns a crack object.
+     */
+    private static Crack getUniqueCrack() {
+        return uniqueCrack;
+    }
+
+    /**
+     * this method is used to set a one and only crack object into a variable for future reference.
+     *
+     * @param uniqueCrack this is the one and only crack object set into a variable for future reference.
+     */
+    private static void setUniqueCrack(Crack uniqueCrack) {
+        Crack.uniqueCrack = uniqueCrack;
+    }
+
+    /**
+     * this method is used to get the crack object used to have a randomness on the crack path.
+     *
+     * @return this returns a random object.
+     */
+    public Random getRnd() {
+        return rnd;
+    }
+
+    /**
+     * this method is used to set a random object into a variable for future reference.
+     *
+     * @param rnd this is the random object used to set into a variable.
+     */
+    public void setRnd(Random rnd) {
+        this.rnd = rnd;
+    }
 }

@@ -15,8 +15,6 @@ class PaddleTest {
         int moveAmount = -20;
         paddle.setMoveAmount(moveAmount);
         paddle.move();
-        System.out.println(paddle.getBounds().getMinX());
-        System.out.println(paddle.getFixedInitialPosition().getX()+ moveAmount);
         assertEquals(paddle.getBounds().getMinX() , paddle.getFixedInitialPosition().getX()+ moveAmount);
     }
 

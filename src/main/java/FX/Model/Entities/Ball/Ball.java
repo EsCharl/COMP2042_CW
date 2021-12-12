@@ -213,10 +213,10 @@ abstract public class Ball extends Entities implements Movable {
     }
 
     /**
-     * this method is used to check if there is a collision between the game Bounds (top, left, and right side) and the ball.
+     * this method is used to check if there is a collision between the game Bounds and the ball.
      *
      * @param gameWindow this is the Bounds of the game.
-     * @return this returns a true if it collides with one of the 3 directions stated, false if not.
+     * @return this returns a true if it collides with any of the side of the game bounds
      */
     public boolean gameWindowCollision(Bounds gameWindow) {
         boolean top = getBounds().getMinY() <= gameWindow.getMinY();

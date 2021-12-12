@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CrackTest {
 
-    Crack crack = new Crack();
+    Crack crack = Crack.singletonCrack();
     Point2D point2D = new Point2D(0,0);
     Dimension2D dimension2D = new Dimension2D(50,20);
     CementBrick cementbrick1 = new CementBrick(point2D,dimension2D);
