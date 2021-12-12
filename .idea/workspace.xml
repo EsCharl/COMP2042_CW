@@ -10,55 +10,36 @@
     <list default="true" id="9e3d663f-6ca4-4543-bcb3-690671942058" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/BrickDestroyer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/BrickDestroyer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Ball/BallClone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Brick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/BrickFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/BrickFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Brick/Crackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Entities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Entities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Paddle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Entities/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/Model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FX/View/GameScoreDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FX/View/GameScoreDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Brick/CrackTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FX/Model/Entities/Brick/CrackTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allclasses-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/allpackages-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/constant-values.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deprecated-list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/element-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/help-doc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jquery-ui.overrides.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/overview-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/overview-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tag-search-index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/COMP2042_CW_hcycl3-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/BrickDestroyer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/BrickDestroyer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Controller/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Controller/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/BallClone.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Ball/BallClone.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Brick.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/BrickFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/BrickFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crack.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crackable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Brick/Crackable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Entities.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Entities.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Paddle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Paddle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Entities/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/Model/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/FX/View/GameScoreDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/FX/View/GameScoreDisplay.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Ball.BallTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Ball.BallTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickFactoryTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickFactoryTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.BrickTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.CrackTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.Brick.CrackTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.PaddleTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.Entities.PaddleTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameDataTest.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameScoreTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameScoreTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/FX.Model.GameTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Ball.BallTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Ball.BallTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickFactoryTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickFactoryTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.BrickTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.CrackTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.Brick.CrackTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.PaddleTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Entities.PaddleTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameDataTest.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameScoreTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameScoreTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.GameTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Levels.LevelFactoryTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-FX.Model.Levels.LevelFactoryTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Brick/CrackTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/FX/Model/Entities/Brick/CrackTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/type-search-index.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +123,7 @@
       <recent name="FX.Model.Brick" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BallTest">
+  <component name="RunManager" selected="JAR Application.COMP2042_CW_hcycl3-1.0-SNAPSHOT-jar-with-dependencies.jar">
     <configuration name="BrickDestroyer" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FX.BrickDestroyer" />
       <module name="COMP2042_CW_hcycl3" />

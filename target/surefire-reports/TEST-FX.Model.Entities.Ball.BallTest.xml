@@ -62,7 +62,7 @@
   <testcase name="testBallLeftCollision" classname="FX.Model.Entities.Ball.BallTest" time="0"/>
   <testcase name="testBallRightCollision" classname="FX.Model.Entities.Ball.BallTest" time="0"/>
   <testcase name="testGameWindowCollision" classname="FX.Model.Entities.Ball.BallTest" time="0"/>
-  <testcase name="testBallTopCollision" classname="FX.Model.Entities.Ball.BallTest" time="0.001"/>
+  <testcase name="testBallTopCollision" classname="FX.Model.Entities.Ball.BallTest" time="0"/>
   <testcase name="testSetRandomBallSpeed" classname="FX.Model.Entities.Ball.BallTest" time="0.001"/>
   <testcase name="testBallBottomCollision" classname="FX.Model.Entities.Ball.BallTest" time="0"/>
   <testcase name="testResetPosition" classname="FX.Model.Entities.Ball.BallTest" time="0.001"/>

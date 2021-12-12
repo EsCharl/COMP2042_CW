@@ -13,11 +13,11 @@ This readme is used for Software Maintenance Coursework which is tasked to refac
 - extract the crack class out from the brick class and removal of some redundant methods from the base version of the crack class. (inMiddle, jumps)
 - creation of multiple interface (crackable, Movable) to adhere to interface segregation principle, and abstractions (FullWallRowsLevel) for Open-Closed Principle.
 - implementation of factory pattern (BrickFactory, LevelFactory) and split into multiple classes for different level templates to allow Single Responsibility Principle.
-- included singleton design pattern on the GameData (Wall in the base ver.), Player and GameScore as they only used for logging activities.
+- included singleton design pattern on the Game (Wall in the base ver.), Player, GameScore as they only used for logging activities, Paddle and Crack class.
 - renaming the methods to more suit on what they do.
-- inclusive of javadocs for all class and methods for more detail explanation on what it does.
+- inclusive of javadocs for all class and methods and some global constants for more detail explanation on what it does.
 - organized the code to adhere to MVC structure.
-- self encapsulation for all variables. (for future expandability).
+- self encapsulation for on the variables. (for future expandability).
 - moved the collision logic to the ball class as ball is the class that is doing the collision.
 
 ###_Additions_
@@ -39,4 +39,4 @@ This readme is used for Software Maintenance Coursework which is tasked to refac
 * revamped the software to fully using JavaFX 
 * removal of libraries that uses AWT and Swing in favour for JavaFX counterpart.
 * added CSS to style on the text and buttons to mimic the base version of the game.
-* produced multiple fxml files for the View and Controllers for those fxml.
+* produced multiple fxml files for the Views and Controllers for those fxml.
