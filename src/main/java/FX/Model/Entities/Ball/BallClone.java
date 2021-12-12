@@ -27,7 +27,14 @@ import javafx.scene.paint.Color;
 public class BallClone extends Ball {
     private static final int DEF_RADIUS = 5;
 
+    /**
+     * this is the maximum ball allowed to be cloned.
+     */
     public final static int MAX_CLONE_BALL = 3;
+
+    /**
+     * this is the probability where a clone ball is spawned.
+     */
     public static final double CLONE_BALL_GENERATION_PROBABILITY = 0.3;
 
     private static final Color DEF_INNER_COLOR = Color.rgb(10, 100, 150, 1);

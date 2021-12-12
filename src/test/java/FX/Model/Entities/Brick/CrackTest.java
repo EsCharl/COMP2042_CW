@@ -29,8 +29,8 @@ class CrackTest {
         Point2D point2;
         int tries = 0;
         do{
-            point1 = crack.makeRandomPointBetween(new Point2D(0,0), new Point2D(50,20), Crackable.VERTICAL);
-            point2 = crack.makeRandomPointBetween(new Point2D(0,0), new Point2D(50,20), Crackable.VERTICAL);
+            point1 = crack.makeRandomPointBetween(new Point2D(0,0), new Point2D(50,20), crack.getVERTICAL());
+            point2 = crack.makeRandomPointBetween(new Point2D(0,0), new Point2D(50,20), crack.getVERTICAL());
         }while (tries < 10 && point1.getX() == point2.getX() && point2.getY() == point1.getY());
         assertFalse(point1.equals(point2));
     }

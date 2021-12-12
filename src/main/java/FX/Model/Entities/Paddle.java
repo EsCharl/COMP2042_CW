@@ -44,6 +44,12 @@ public class Paddle extends Entities implements Movable {
 
     private static Paddle uniquePaddle;
 
+    /**
+     * this method is used to create and return the one and only paddle object.
+     *
+     * @param container this is the rectangle which is the play area of the game.
+     * @return this returns the one and only paddle object
+     */
     public static Paddle singletonPaddle(Rectangle container){
         if(getUniquePlayer() == null){
             setUniquePlayer(new Paddle(container));

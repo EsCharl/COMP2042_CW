@@ -59,6 +59,10 @@ public class Game {
 
     /**
      * this method is used to create a game object based on the Singleton design pattern.
+     *
+     * @param gameAreaWidth this is the game are width which is the game window boundary.
+     * @param gameAreaHeight this is the game are height which is the game window boundary.
+     * @return this returns the one and only game object
      */
     public static Game singletonGame(double gameAreaWidth, double gameAreaHeight){
         if(getUniqueGame() == null){

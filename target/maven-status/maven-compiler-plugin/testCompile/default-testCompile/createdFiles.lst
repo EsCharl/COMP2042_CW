@@ -4,4 +4,5 @@ FX\Model\Entities\Brick\BrickFactoryTest.class
 FX\Model\Entities\Brick\BrickTest.class
 FX\Model\Entities\Brick\CrackTest.class
 FX\Model\GameScoreTest.class
+FX\Model\GameTest.class
 FX\Model\Entities\PaddleTest.class

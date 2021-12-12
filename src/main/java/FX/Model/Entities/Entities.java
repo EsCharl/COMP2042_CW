@@ -52,6 +52,13 @@ public abstract class Entities {
         setBounds(new BoundingBox(getFixedInitialPosition().getX(), getFixedInitialPosition().getY(), getWidth(),getHeight()));
     }
 
+    /**
+     * this method returns true as it is used when there is a collision occurred. (set this false to disable multi-ball)
+     *
+     * @param point this is the point fo impact between the entities.
+     * @param dir this is the direction of impact.
+     * @return this returns true.
+     */
     public boolean setImpact(Point2D point, int dir){
         return true;
     }

@@ -22,7 +22,7 @@ package FX.Model.Entities;
  * this class is used to store the information about the user current level, tries left and current mode.
  */
 public class Player {
-    public static final int MAX_BALL_COUNT = 3;
+    private final int MAX_BALL_COUNT = 3;
 
     private int currentLevel;
     private boolean botMode;

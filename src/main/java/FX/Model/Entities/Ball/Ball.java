@@ -245,6 +245,7 @@ abstract public class Ball extends Entities implements Movable {
     /**
      * this method change the ball direction and also returns true if the ball comes in contact with any side of the entity.
      *
+     * @param entity this is the entity used  to check for collision between the ball and the said entity.
      * @return returns a boolean value if it collides with a brick which is not broken after the collision.
      */
     public boolean impactEntity(Entities entity){

@@ -33,7 +33,13 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * this class is used to start the game with the main menu.
+ */
 public class BrickDestroyer extends Application {
+    /**
+     * this MediaPlayer is used to play and control the music in the game.
+     */
     public static MediaPlayer audio;
 
     /**

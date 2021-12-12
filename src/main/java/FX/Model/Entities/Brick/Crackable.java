@@ -25,16 +25,29 @@ import javafx.scene.shape.Path;
  */
 public interface Crackable {
 
+    /**
+     * this is used to determine which direction does the collision occur to the brick. (left)
+     */
     int LEFT = 10;
+
+    /**
+     * this is used to determine which direction does the collision occur to the brick. (right)
+     */
     int RIGHT = 20;
+
+    /**
+     * this is used to determine which direction does the collision occur to the brick. (up)
+     */
     int UP = 30;
+
+    /**
+     * this is used to determine which direction does the collision occur to the brick. (down)
+     */
     int DOWN = 40;
 
-    int DEF_CRACK_DEPTH = 1;
-    int DEF_STEPS = 35;
-
-    int VERTICAL = 100;
-    int HORIZONTAL = 200;
+    /**
+     *
+     */
 
     /**
      * this abstract method is used to get the crack object which contains the logic used to create the crack path.

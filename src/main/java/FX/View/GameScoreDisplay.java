@@ -27,6 +27,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * this class is used to display the score on a pop-up screen
+ */
 public class GameScoreDisplay {
 
     private final Color currentUserColor = Color.DARKCYAN;

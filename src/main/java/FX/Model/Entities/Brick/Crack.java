@@ -15,6 +15,12 @@ public class Crack {
     private Random rnd;
     private static Crack uniqueCrack;
 
+    private int DEF_CRACK_DEPTH = 1;
+    private int DEF_STEPS = 35;
+
+    private final int VERTICAL = 100;
+    private final int HORIZONTAL = 200;
+
     /**
      * this method is used to create a one and only crack object and return it. based on singleton design pattern
      *
@@ -36,6 +42,7 @@ public class Crack {
      *
      * @param point the point where the ball comes in contact with.
      * @param direction the direction where the ball touch the brick.
+     * @param brick this is the brick where it will get the boundary of the brick to set the position of the opposite edge of collision
      */
     public void prepareCrack(Point2D point, int direction, Brick brick){
 
@@ -46,22 +53,22 @@ public class Crack {
             case Crackable.LEFT -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
-                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.VERTICAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, getVERTICAL()), brick);
             }
             case Crackable.RIGHT -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
-                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.VERTICAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, getVERTICAL()), brick);
             }
             case Crackable.UP -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY() + brick.getBounds().getHeight());
-                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.HORIZONTAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, getHORIZONTAL()), brick);
             }
             case Crackable.DOWN -> {
                 oppositeSideOfCollisionCornerPoint1 = new Point2D(brick.getBounds().getMinX(), brick.getBounds().getMinY());
                 oppositeSideOfCollisionCornerPoint2 = new Point2D(brick.getBounds().getMinX() + brick.getBounds().getWidth(), brick.getBounds().getMinY());
-                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, Crackable.HORIZONTAL), brick);
+                makeCrack(point, makeRandomPointBetween(oppositeSideOfCollisionCornerPoint1, oppositeSideOfCollisionCornerPoint2, getHORIZONTAL()), brick);
             }
         }
     }
@@ -71,6 +78,7 @@ public class Crack {
      *
      * @param start this is the start point where the crack is going to start.
      * @param end this is the end point where the crack is going to end.
+     * @param brick this is the brick where the crack path will be saved to.
      */
     //method name change
     public void makeCrack(Point2D start, Point2D end, Brick brick){
@@ -83,10 +91,10 @@ public class Crack {
 
         double x,y;
 
-        for(int i = 1; i < Crackable.DEF_STEPS;i++){
+        for(int i = 1; i < DEF_STEPS;i++){
 
-            x = (i * ((end.getX() - start.getX()) / (double) Crackable.DEF_STEPS)) + start.getX();
-            y = (i * ((end.getY() - start.getY()) / (double) Crackable.DEF_STEPS)) + start.getY() + getRnd().nextInt((Crackable.DEF_CRACK_DEPTH * 2) + 1) - Crackable.DEF_CRACK_DEPTH;
+            x = (i * ((end.getX() - start.getX()) / (double) DEF_STEPS)) + start.getX();
+            y = (i * ((end.getY() - start.getY()) / (double) DEF_STEPS)) + start.getY() + getRnd().nextInt((DEF_CRACK_DEPTH * 2) + 1) - DEF_CRACK_DEPTH;
 
             path.getElements().add(new LineTo(x,y));
         }
@@ -110,10 +118,10 @@ public class Crack {
         int position;
 
         switch (direction){
-            case Crackable.HORIZONTAL:
+            case HORIZONTAL:
                 position = getRnd().nextInt((int)(oppositeOfCollisionPoint2.getX() - oppositeOfCollisionCornerPoint1.getX())) + (int)oppositeOfCollisionCornerPoint1.getX();
                 return new Point2D(position, oppositeOfCollisionPoint2.getY());
-            case Crackable.VERTICAL:
+            case VERTICAL:
                 position = getRnd().nextInt((int)(oppositeOfCollisionPoint2.getY() - oppositeOfCollisionCornerPoint1.getY())) + (int)oppositeOfCollisionCornerPoint1.getY();
                 return new Point2D(oppositeOfCollisionPoint2.getX(),position);
             default:
@@ -155,5 +163,23 @@ public class Crack {
      */
     public void setRnd(Random rnd) {
         this.rnd = rnd;
+    }
+
+    /**
+     * this method is used to get a constant which is an integer constant for the vertical direction.
+     *
+     * @return this returns a constant to indicate the direction axis.
+     */
+    public int getVERTICAL() {
+        return VERTICAL;
+    }
+
+    /**
+     * this method is used to get a constant which is an integer constant for the horizontal direction.
+     *
+     * @return this returns a constant to indicate the direction axis.
+     */
+    public int getHORIZONTAL() {
+        return HORIZONTAL;
     }
 }

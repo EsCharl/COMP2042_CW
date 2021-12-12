@@ -68,7 +68,7 @@ public class GameController {
     private ArrayList<KeyCode> userInput;
     private Random rnd;
 
-    @FXML public Canvas gameBoard;
+    @FXML private Canvas gameBoard;
     @FXML private AnchorPane anchorPane;
     @FXML private Text gameText;
 

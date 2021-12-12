@@ -45,6 +45,8 @@ abstract public class Brick extends Entities {
      * @param border the color of the brick border
      * @param inner the inside color of brick
      * @param strength the strength of the brick. (how many hits can it take before it break)
+     * @param hitProbability this is the probability where the brick is going to get damaged.
+     * @param brickName this is the name of the brick, which is used to determine which audio to play when collision occurs.
      */
     public Brick(Point2D pos, Dimension2D size, Color border, Color inner, int strength, double hitProbability,String brickName){
         super(pos,border,inner,(int)size.getWidth(),(int)size.getHeight());
