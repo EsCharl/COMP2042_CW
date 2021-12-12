@@ -44,7 +44,7 @@ public class BrickDestroyer extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT); 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.fxml")));
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/GameIcon.png")));
         stage.setTitle("Brick Destroy");

@@ -243,25 +243,33 @@ abstract public class Ball extends Entities implements Movable {
     }
 
     /**
-     * this method change the ball direction and also returns true if the ball comes in contact with any side of the brick.
+     * this method change the ball direction and also returns true if the ball comes in contact with any side of the entity.
      *
-     * @return returns a boolean value if or if it doesn't touch any entity.
+     * @return returns a boolean value if it collides with a brick which is not broken after the collision.
      */
     public boolean impactEntity(Entities entity){
             if(entity.getBounds().contains(getBounds().getMinX()+ getBounds().getWidth()/2, getBounds().getMaxY())){
                 ballBottomCollision();
+                if(entity.getClass() == BallClone.class)
+                    ((BallClone) entity).ballTopCollision();
                 return entity.setImpact(new Point2D(getBounds().getMinX() + getBounds().getWidth()/2, getBounds().getMaxY()), Crackable.UP);
             }
             else if (entity.getBounds().contains(getBounds().getMinX()+ getBounds().getWidth()/2, getBounds().getMinY())){
                 ballTopCollision();
+                if(entity.getClass() == BallClone.class)
+                    ((BallClone) entity).ballBottomCollision();
                 return entity.setImpact(new Point2D(getBounds().getMinX() + getBounds().getWidth() / 2, getBounds().getMinY()), Crackable.DOWN);
             }
             else if(entity.getBounds().contains(getBounds().getMaxX(), getBounds().getMinY()+ getBounds().getHeight()/2)){
                 ballLeftCollision();
+                if(entity.getClass() == BallClone.class)
+                    ((BallClone) entity).ballRightCollision();
                 return entity.setImpact(new Point2D(getBounds().getMaxX(), getBounds().getMinY() + getBounds().getHeight() / 2), Crackable.RIGHT);
             }
             else if(entity.getBounds().contains(getBounds().getMinX(), getBounds().getMinY()+ getBounds().getHeight()/2)){
                 ballRightCollision();
+                if(entity.getClass() == BallClone.class)
+                    ((BallClone) entity).ballLeftCollision();
                 return entity.setImpact(new Point2D(getBounds().getMinX(), getBounds().getMinY() + getBounds().getHeight() / 2), Crackable.LEFT);
             }
         return false;

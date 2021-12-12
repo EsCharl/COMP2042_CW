@@ -295,4 +295,14 @@ public class GameScore {
         }
         return Completed;
     }
+
+    /**
+     * this method is used to record the time passed between the starting of the timer and the pausing of the game.
+     */
+    public void recordGameTimer() {
+        if (isCanGetTime()) {
+            pauseTimer();
+            setCanGetTime(false);
+        }
+    }
 }

@@ -1,5 +1,4 @@
 FX\Model\Entities\Ball\BallTest.class
-FX\Model\GameDataTest.class
 FX\Model\Levels\LevelFactoryTest.class
 FX\Model\Entities\Brick\BrickFactoryTest.class
 FX\Model\Entities\Brick\BrickTest.class

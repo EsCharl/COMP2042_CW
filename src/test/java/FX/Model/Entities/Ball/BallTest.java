@@ -1,7 +1,13 @@
 package FX.Model.Entities.Ball;
 
+import FX.Model.Entities.Brick.Brick;
+import FX.Model.Entities.Brick.ClayBrick;
+import FX.Model.Entities.Paddle;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,5 +94,42 @@ class BallTest {
             tries++;
         }while (ball.getSpeedY() == -ballSpeed && tries < 200);
         assertNotEquals(ball.getSpeedY(), -ballSpeed);
+    }
+
+    @Test
+    void testGameWindowCollision() {
+        Bounds bounds = new BoundingBox(0,0,50,50);
+        ball.setBounds(new BoundingBox(-1,-1,10,10));
+        int initialXspeed = -5;
+        int initialYspeed = -4;
+        ball.setSpeedX(initialXspeed);
+        ball.setSpeedY(initialYspeed);
+        ball.gameWindowCollision(bounds);
+        assertTrue(ball.gameWindowCollision(bounds));
+        assertTrue(ball.getSpeedX() >= initialXspeed);
+        assertTrue(ball.getSpeedY() >= initialYspeed);
+    }
+
+    @Test
+    void testImpactEntity() {
+        Brick brick = new ClayBrick(new Point2D(300,200), new Dimension2D(120,200));
+        brick.setBounds(new BoundingBox(300,200,120,200));
+        ball.setBounds(new BoundingBox(296,200,5,5));
+        ball.setSpeedX(5);
+        ball.impactEntity(brick);
+        assertTrue(ball.getSpeedX() < 5);
+    }
+
+    @Test
+    void testTwoBallsCollide(){
+        BallClone ballClone = new BallClone(new Point2D(295,200));
+        int ballCloneInitialspeed = 6;
+        int ballClone1Initialspeed = -6;
+        ballClone.setSpeedY(ballCloneInitialspeed);
+        BallClone ballClone1 = new BallClone(new Point2D(299,200));
+        ballClone1.setSpeedY(ballClone1Initialspeed);
+        ballClone.impactEntity(ballClone1);
+        assertNotEquals(ballClone.getSpeedY(), ballCloneInitialspeed);
+        assertNotEquals(ballClone1.getSpeedY(), ballClone1Initialspeed);
     }
 }

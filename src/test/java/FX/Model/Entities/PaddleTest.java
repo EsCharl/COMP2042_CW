@@ -7,15 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PaddleTest {
 
-    Rectangle filler1 = new Rectangle(0,0,500,500);
+    Rectangle filler1 = new Rectangle(0,0,1000,1000);
     Paddle paddle = Paddle.singletonPaddle(filler1);
 
     @Test
     void testMove() {
-        paddle.setMoveAmount(-20);
+        int moveAmount = -20;
+        paddle.setMoveAmount(moveAmount);
         paddle.move();
-        System.out.println();
-        assertEquals(paddle.getBounds().getMinX() , paddle.getFixedInitialPosition().getX()-20);
+        System.out.println(paddle.getBounds().getMinX());
+        System.out.println(paddle.getFixedInitialPosition().getX()+ moveAmount);
+        assertEquals(paddle.getBounds().getMinX() , paddle.getFixedInitialPosition().getX()+ moveAmount);
     }
 
     @Test

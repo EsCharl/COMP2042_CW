@@ -11,12 +11,16 @@ class CrackTest {
     Crack crack = new Crack();
     Point2D point2D = new Point2D(0,0);
     Dimension2D dimension2D = new Dimension2D(50,20);
-    CementBrick cementbrick = new CementBrick(point2D,dimension2D);
+    CementBrick cementbrick1 = new CementBrick(point2D,dimension2D);
+    CementBrick cementbrick2 = new CementBrick(point2D,dimension2D);
 
     @Test
     void testMakeCrack() {
-        crack.makeCrack(new Point2D(0,0), new Point2D(50,20), cementbrick);
-        assertTrue(cementbrick.getCrackPath() != null);
+        crack.makeCrack(new Point2D(0,0), new Point2D(50,20), cementbrick1);
+        crack.makeCrack(new Point2D(0,0), new Point2D(50,20), cementbrick2);
+        assertTrue(cementbrick1.getCrackPath() != null);
+        assertTrue(cementbrick2.getCrackPath() != null);
+        assertFalse(cementbrick1.equals(cementbrick2));
     }
 
     @Test
@@ -27,9 +31,9 @@ class CrackTest {
         do{
             point1 = crack.makeRandomPointBetween(new Point2D(0,0), new Point2D(50,20), Crackable.VERTICAL);
             point2 = crack.makeRandomPointBetween(new Point2D(0,0), new Point2D(50,20), Crackable.VERTICAL);
-            System.out.println(point1);
-            System.out.println(point2);
         }while (tries < 10 && point1.getX() == point2.getX() && point2.getY() == point1.getY());
-        assertNotEquals(point1,point2);
+        assertFalse(point1.equals(point2));
     }
+
+
 }

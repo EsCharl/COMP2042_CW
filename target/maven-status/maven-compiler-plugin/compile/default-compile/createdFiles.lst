@@ -3,8 +3,6 @@ FX\Model\Levels\RandomWallLevel.class
 FX\Model\Entities\Ball\BallClone.class
 FX\BrickDestroyer.class
 FX\Model\Entities\Brick\Crack.class
-FX\Controller\GameStateController$1.class
-FX\Controller\GameStateController.class
 FX\Model\Entities\Brick\ReinforcedSteelBrick.class
 FX\Model\Levels\CurlyLinesWallLevel.class
 FX\Model\Levels\StraightLinesLevel.class

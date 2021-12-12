@@ -67,7 +67,7 @@ public class DebugConsoleController implements Initializable {
      */
     @FXML
     private void resetBallButtonClicked(){
-        game.setBallCount(game.getMAX_BALL_COUNT());
+        game.resetBallCount();
     }
 
     /**

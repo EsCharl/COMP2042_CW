@@ -18,8 +18,7 @@ This readme is used for Software Maintenance Coursework which is tasked to refac
 - inclusive of javadocs for all class and methods for more detail explanation on what it does.
 - organized the code to adhere to MVC structure.
 - self encapsulation for all variables. (for future expandability).
-- ensured all classes adhered to Single Responsibility Principle.
-- split the methods in classes for smaller class size.
+- moved the collision logic to the ball class as ball is the class that is doing the collision.
 
 ###_Additions_
 

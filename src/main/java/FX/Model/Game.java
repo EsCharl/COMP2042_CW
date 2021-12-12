@@ -18,7 +18,6 @@
 
 package FX.Model;
 
-import FX.Controller.GameStateController;
 import FX.Model.Entities.Ball.Ball;
 import FX.Model.Entities.Ball.BallClone;
 import FX.Model.Entities.Ball.RubberBall;
@@ -37,13 +36,12 @@ import java.util.Random;
  * this class is used to generate the level and maintain some game condition.
  */
 public class Game {
-    private SoundEffects soundEffects;
-
-    private final double brickDimensionRatio = 6/2;
-    private final int makeLevelBrickCount = 30;
-    private final int makeLevelLineCount = 3;
+    private final double BRICK_DIMENSION_RATIO = 6/2;
+    private final int MAKE_LEVEL_BRICK_COUNT = 30;
+    private final int MAKE_LEVEL_LINE_COUNT = 3;
 
     private final int MAX_BALL_COUNT = 3;
+    private final int MAX_CLONE_BALL = 3;
     private final int LEVELS_AMOUNT = 7;
 
     private Brick[] bricks;
@@ -51,7 +49,6 @@ public class Game {
     private Brick[][] brickLevels;
     private int currentLevel;
     private ArrayList<BallClone> cloneBall;
-    private final int MAX_CLONE_BALL = 3;
 
     private int brickCount;
     private int ballCount;
@@ -62,7 +59,7 @@ public class Game {
     private Ball mainBall;
 
     private Random rnd;
-    private final double cloneBallGenerationProbability = 0.3;
+    private final double CLONE_BALL_GENERATION_PROBABILITY = 0.3;
 
     private Rectangle playArea;
 
@@ -86,7 +83,6 @@ public class Game {
     private Game(double gameAreaWidth, double gameAreaHeight){
         rnd = new Random();
         cloneBall = new ArrayList<>();
-        setSoundEffects(new SoundEffects());
 
         setPauseMode(true);
 
@@ -97,7 +93,7 @@ public class Game {
 
         setCurrentLevel(0);
 
-        setBallCount(getMAX_BALL_COUNT());
+        setBallCount(MAX_BALL_COUNT);
         setBallLost(false);
 
         setBrickLevels(makeLevels(getPlayArea(), getMakeLevelBrickCount(),getMakeLevelLineCount(),getBrickDimensionRatio()));
@@ -118,7 +114,7 @@ public class Game {
      * @return the levels that are generated in the form of 2 dimension brick array.
      */
     private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio){
-        Brick[][] tmp = new Brick[getLEVELS_AMOUNT()][];
+        Brick[][] tmp = new Brick[LEVELS_AMOUNT][];
         LevelFactory levelFactory = new LevelFactory();
         tmp[0] = levelFactory.makeLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CLAY);
         tmp[1] = levelFactory.makeLevel("CHAINLEVEL").level(drawArea,brickCount,lineCount,brickDimensionRatio, BrickFactory.CLAY, BrickFactory.CEMENT);
@@ -141,25 +137,7 @@ public class Game {
                 ((Crackable) b).setCrackPath(null);
         }
         setBrickCount(getBricks().length);
-        setBallCount(getMAX_BALL_COUNT());
-    }
-
-    /**
-     * this method is used to get the sound effects object class which deals with all the sound effects for the game.
-     *
-     * @return this returns the sound effects object which contains all the sound effects.
-     */
-    public SoundEffects getSoundEffects() {
-        return soundEffects;
-    }
-
-    /**
-     * this method is used to set the sound effects object into a variable for future reference.
-     *
-     * @param soundEffects this is the sound effects object which is to be set into a variable.
-     */
-    public void setSoundEffects(SoundEffects soundEffects) {
-        this.soundEffects = soundEffects;
+        setBallCount(MAX_BALL_COUNT);
     }
 
     /**
@@ -187,14 +165,14 @@ public class Game {
      * this method is used to reset the ball count (tries count) to 3.
      */
     public void resetBallCount(){
-        setBallCount(getMAX_BALL_COUNT());
+        setBallCount(MAX_BALL_COUNT);
     }
 
     /**
      * this method is used to randomly generate a clone ball and add it into an array once it is being created.
      */
     public void cloneBallRandomGenerator() {
-        if(rnd.nextDouble() < cloneBallGenerationProbability && getCloneBall().size() < MAX_CLONE_BALL){
+        if(rnd.nextDouble() < CLONE_BALL_GENERATION_PROBABILITY && getCloneBall().size() < MAX_CLONE_BALL){
             addCloneBall(new BallClone(new Point2D(getMainBall().getBounds().getMinX(), getMainBall().getBounds().getMinY())));
         }
     }
@@ -205,7 +183,7 @@ public class Game {
      * @return this returns a double value of the ratio of the brick size.
      */
     public double getBrickDimensionRatio() {
-        return brickDimensionRatio;
+        return BRICK_DIMENSION_RATIO;
     }
 
     /**
@@ -214,7 +192,7 @@ public class Game {
      * @return this returns the amount used to create the wall level.
      */
     public int getMakeLevelBrickCount() {
-        return makeLevelBrickCount;
+        return MAKE_LEVEL_BRICK_COUNT;
     }
 
     /**
@@ -223,7 +201,7 @@ public class Game {
      * @return this returns the line count used to create the wall level.
      */
     public int getMakeLevelLineCount() {
-        return makeLevelLineCount;
+        return MAKE_LEVEL_LINE_COUNT;
     }
 
     /**
@@ -369,24 +347,6 @@ public class Game {
      */
     public void setBricks(Brick[] bricks) {
         this.bricks = bricks;
-    }
-
-    /**
-     * this method is used to get the levels that are going to be created.
-     *
-     * @return this is the value of the level amount
-     */
-    public int getLEVELS_AMOUNT() {
-        return LEVELS_AMOUNT;
-    }
-
-    /**
-     * this method is used to get the maximum ball count (bries) for each level.
-     *
-     * @return this returns the maximum tries that is allowed for each level.
-     */
-    public int getMAX_BALL_COUNT() {
-        return MAX_BALL_COUNT;
     }
 
     /**

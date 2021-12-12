@@ -58,7 +58,7 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testMove" classname="FX.Model.Entities.PaddleTest" time="0"/>
+  <testcase name="testMove" classname="FX.Model.Entities.PaddleTest" time="0.002"/>
   <testcase name="testResetPosition" classname="FX.Model.Entities.PaddleTest" time="0"/>
-  <testcase name="testNotMove" classname="FX.Model.Entities.PaddleTest" time="0.001"/>
+  <testcase name="testNotMove" classname="FX.Model.Entities.PaddleTest" time="0"/>
 </testsuite>
